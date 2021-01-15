@@ -1,0 +1,48 @@
+name: Публикация пакета
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12
+
+    - name: Установка yarn
+      id: yarn-setup
+      run: |
+        yarn policies set-version 1.19.1
+        echo "::set-output name=cache_dir::$(yarn cache dir)"
+    - name: Настройка кэширования зависимостей
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.yarn-setup.outputs.cache_dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+    - name: Установка зависимостей
+      run: yarn --frozen-lockfile
+    - name: Сборка пакета
+      run: yarn build
+    - name: Установка npm токена
+      uses: filipstefansson/set-npm-token-action@v1
+      with:
+        token: ${{ secrets.NPM_REGISTRY_TOKEN }}
+    - name: Публикация пакета
+      run: npm publish lib
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Генерация описания для релиза
+      run: |
+        npx github-release-notes@0.17.1 changelog --generate --override --token=${{ secrets.GITHUB_TOKEN }} --changelog-filename=TEMP_CHANGELOG.md -B
+      env:
+        CI: true
+    - name: Оформление релиза
+      uses: ncipollo/release-action@v1
+      with:
+        bodyFile: 'TEMP_CHANGELOG.md'
+        token: ${{ secrets.GITHUB_TOKEN }}

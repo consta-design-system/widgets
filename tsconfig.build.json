@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "plugins": [{ "transform": "typescript-transform-paths", "afterDeclarations": true }],
+  "exclude": [
+    "**/__tests__/*",
+    "**/*.stories.tsx"
+  ]
+}
