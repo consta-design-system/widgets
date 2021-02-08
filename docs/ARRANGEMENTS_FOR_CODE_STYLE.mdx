@@ -20,21 +20,21 @@ classname.ts -> classname.test.ts
 
 ```
 SomeComponent/
-    __stories__/
-      SomeComponent.stories.tsx
-      SomeComponent.mdx
-    __tests__/
-      SomeComponent.test.tsx
-    SomeComponent.tsx
-    SomeComponent.css
-    index.tsx
+  __stories__/
+    SomeComponent.stories.tsx
+    SomeComponent.mdx
+  __tests__/
+    SomeComponent.test.tsx
+  SomeComponent.tsx
+  SomeComponent.css
+  index.tsx
 ```
 
 Кроме того мы используем function component, соответсвенно для его реализации нужно использовать `arrow function`, и тип `React.FunctionComponent<T>`:
 
 ```typescript
 const SomeComp: React.FC<SomeCompProps> = ({ prop1, prop2 }) => {
-
+  return ...
 }
 ```
 
@@ -87,7 +87,7 @@ type Status = typeof statuses[number];
 ## Наименование boolean-методов и констант для сохранения значения
 Наименование boolean-методов для проверки на существование чего-либо нужно начинать с приставки `is` (`isDays()`, `isZooming()`, `isSomthing()`). Если вы хотите сохранить возвращаемое значение в переменную, то нужно переменную называть так же, как название метода, а импортируемому методу добавить приставку `get`:
 
-```
+```typescript
 import { isDays as getIsDays } from 'utils/time'
 
 const isDays = getIsDays(data)
@@ -101,7 +101,7 @@ const isDays = getIsDays(data)
 
 ```typescript
 const SomeComp: React.FC<SomeCompProps> = ({ someValue = 'defaultValue' }) => {
-
+  return ...
 }
 ```
 
@@ -119,7 +119,7 @@ type DateProps = {
 
 ## Стилизация switch конструкций
 Поскольку в eslint нет такого правила, то договорились, что в switch все конструкции case нужно обрамлять фигурными скобками:
-```js
+```typescript
 // Хорошо
 switch (value) {
   case 'top': {
@@ -147,35 +147,35 @@ switch (value) {
 
 ## Порядок сущностей внутри *.ts(x) файлов
 ```typescript
-    // 1. Импорты
-    import React from 'React'
+  // 1. Импорты
+  import React from 'React'
 
-    // 2. Типы
-    type Data = [...]
+  // 2. Типы
+  type Data = [...]
 
-    type Props = {
-        data: Data
-    }
+  type Props = {
+    data: Data
+  }
 
-    // 3. Типы + константы, из которых они выводятся
-    export const sizes = ['s', 'm'] as const
-    type Size = typeof sizes[number]
+  // 3. Типы + константы, из которых они выводятся
+  export const sizes = ['s', 'm'] as const
+  type Size = typeof sizes[number]
 
-    // 4. Константы
-    const MAX_WIDTH = 100
+  // 4. Константы
+  const MAX_WIDTH = 100
 
-    // 5. Функции
-    const getTransformData = (data: Data): [] => ...
+  // 5. Функции
+  const getTransformData = (data: Data): [] => ...
 
-    // 6. Дочерние компоненты
-    const ListItem: React.FC<{}> = (props) => ...
+  // 6. Дочерние компоненты
+  const ListItem: React.FC<{}> = (props) => ...
 
-    // 7. Компонент
-    export const Component: React.FC<Props> = ({ data }) => {
-        const items = getTransformData(data)
+  // 7. Компонент
+  export const Component: React.FC<Props> = ({ data }) => {
+    const items = getTransformData(data)
 
-        return <ul>{items.map(item => <ListItem {...item} />)}</ul>
-    }
+    return <ul>{items.map(item => <ListItem {...item} />)}</ul>
+  }
 ```
 
 ## Оформление render props

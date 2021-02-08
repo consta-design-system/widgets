@@ -4,8 +4,7 @@ import { addDecorator, addParameters } from '@storybook/react'
 import { themes } from '@storybook/theming'
 import { withPropsTable } from 'storybook-addon-react-docgen'
 
-import { environmentDecorator, listOfThemes, ThemeDecorator } from '@/__private__/storybook'
-import { DocsDecorator } from '@/__private__/storybook/decorators/DocsDecorator/DocsDecorator'
+import { DocsDecorator, environmentDecorator, listOfThemes, ThemeDecorator } from '@/__private__/storybook'
 
 import stub from './stub.mdx'
 

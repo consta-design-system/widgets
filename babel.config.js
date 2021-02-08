@@ -1,7 +1,5 @@
-const { extname } = require('path')
-
 module.exports = {
-  ignore: ['**/*.css.d.ts', '**/*.stories.tsx', '**/__tests__/*', '**/__stories__/*'],
+  ignore: ['**/*.css.d.ts', '**/__tests__/*', '**/__stories__/*.stories.tsx'],
   comments: false,
   presets: [
     require('@consta/widgets-configs/config/webpack/babel'),

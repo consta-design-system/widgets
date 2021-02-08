@@ -23,10 +23,10 @@ export const optionalSelect = <T extends string>(
 ) => {
   const optionsObject = {
     '--': undefined,
-    ...options.reduce((acc, item) => {
+    ...options.reduce<Record<string, T>>((acc, item) => {
       acc[item] = item
       return acc
-    }, {} as Record<T, T>),
+    }, {}),
   }
 
   return select(name, optionsObject, value, groupId) || undefined

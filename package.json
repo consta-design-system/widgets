@@ -8,7 +8,7 @@
     "build:package.json": "node scripts/prepare-package-json.js",
     "build:docs": "cp README.md lib/README.md",
     "build": "rm -rf lib && yarn build:css && yarn build:js && yarn build:types && yarn build:package.json && yarn build:docs",
-    "start": "NODE_ENV=development ROOT_PATH=./ NODE_PATH=./node_modules start-storybook -p 6006 --ci",
+    "storybook": "NODE_ENV=development ROOT_PATH=./ NODE_PATH=./node_modules start-storybook -p 6006 --ci",
     "storybook:build": "NODE_ENV=production ROOT_PATH=./ NODE_PATH=./node_modules build-storybook -o build/storybook",
     "lint": "npm-run-all --parallel lint:*",
     "format": "prettier --write '{src,types,scripts}/**/*.{json,{j,t}s{,x},css,}'",
@@ -22,9 +22,21 @@
     "unit:watch": "yarn unit --watchAll",
     "test": "npm-run-all --parallel lint checktypes unit",
     "prepare": "yarn install-peers",
-    "danger-ci": "danger ci",
-    "storybook": "start-storybook -p 6006"
+    "danger-ci": "danger ci"
   },
+  "files": [
+    "*",
+    "!*.css.d.ts",
+    "!**/__private__/storybook",
+    "!**/storybook",
+    "!**/__mocks__",
+    "!**/__stories__",
+    "!**/__tests__",
+    "!**/*.test.d.ts",
+    "!**/*.spec.d.ts",
+    "!**/*.mock.d.ts",
+    "!**/*.stories.d.ts"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -62,6 +74,7 @@
   },
   "dependencies": {
     "@amcharts/amcharts4-geodata": "4.1.9",
+    "@bem-react/classname": "1.5.8",
     "@consta/widgets-utils": "0.2.14",
     "@evless/react-textfit": "1.1.1",
     "@types/d3": "5.7.2",
@@ -69,6 +82,7 @@
     "classnames": "2.2.6",
     "d3": "5.12.0",
     "date-fns": "2.9.0",
+    "lodash": "4.17.19",
     "react-dnd": "9.3.2",
     "react-dnd-html5-backend": "9.3.2",
     "react-uid": "2.2.0"
@@ -107,7 +121,6 @@
     "fast-glob": "3.2.2",
     "husky": "3.0.0",
     "install-peers-cli": "https://github.com/evless/install-peers-cli#fix-yarn-policies",
-    "lodash": "4.17.19",
     "mockdate": "2.0.5",
     "npm-run-all": "4.1.5",
     "postcss": "7.0.32",
