@@ -21,8 +21,7 @@
     "unit": "NODE_PATH=./node_modules TZ=Europe/Moscow jest",
     "unit:watch": "yarn unit --watchAll",
     "test": "npm-run-all --parallel lint checktypes unit",
-    "prepare": "yarn install-peers",
-    "danger-ci": "danger ci"
+    "prepare": "yarn install-peers"
   },
   "files": [
     "*",
@@ -127,7 +126,6 @@
     "commitizen": "^4.2.3",
     "cssnano": "4.1.10",
     "cz-customizable": "^6.3.0",
-    "danger": "10.2.0",
     "eslint-plugin-todo-plz": "1.1.0",
     "fast-glob": "3.2.2",
     "husky": "3.0.0",
