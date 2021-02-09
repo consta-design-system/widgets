@@ -1,4 +1,5 @@
 # GPN Components
+
 Репозиторий компонентов и графиков
 
 NPM: https://www.npmjs.com/package/@consta/widgets
@@ -21,7 +22,6 @@ $ yarn add @consta/widgets
 
 Для работы пакета необходимо установить библиотеку [`@consta/uikit`](https://www.npmjs.com/package/@consta/uikit) и [настроить тему](https://consta-uikit.vercel.app/?path=/docs/components-theme--playground).
 
-
 ### Использование компонентов
 
 Пример импорта компонента:
@@ -41,10 +41,6 @@ import { BarChart } from '@consta/widgets/Barchart'
 ```sh
 $ yarn install
 ```
-
-### Публикация
-
-Способы публикации новой версии пакета в npm описаны в разделе документации [Обновление версии и публикация пакета](https://consta-widgets-old.vercel.app/?path=/docs/документация-обновление-версии-и-публикация-пакета--page).
 
 ### Основные команды
 
@@ -70,4 +66,4 @@ $ yarn test
 
 ## Документация
 
-См. [раздел «Документация»](https://consta-widgets-old.vercel.app/?path=/docs/документация-договоренности-по-оформлению-кода--page) в Storybook.
+См. [раздел «Документация»](https://consta-widgets.consta.vercel.app/?path=/docs/common-develop-contributors--page) в Storybook.
