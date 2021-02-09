@@ -32,4 +32,3 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Тесты
         run: yarn test
-
