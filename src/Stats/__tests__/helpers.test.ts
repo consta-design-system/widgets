@@ -9,4 +9,11 @@ describe('defaultValueFormatter', () => {
 
     expect(received).toBe(expected)
   })
+
+  it('заменяет дробный разделитель по умолчанию на запятую', () => {
+    const received = defaultValueFormatter(100.99)
+    const expected = '100,99'
+
+    expect(received).toBe(expected)
+  })
 })
