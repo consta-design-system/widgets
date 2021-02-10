@@ -39,4 +39,44 @@ module.exports = {
 
     return config
   },
+  disableCSSModules(config) {
+    return {
+      ...config,
+      module: {
+        ...config.module,
+        rules: config.module.rules.map(rule => {
+          if (String(rule.test) === String(/\.css$/)) {
+            return {
+              ...rule,
+              use: rule.use
+                .map(item => {
+                  if (typeof item === 'string' && item.includes('css-modules-typescript-loader')) {
+                    return
+                  }
+
+                  if (
+                    typeof item.loader === 'string' &&
+                    !item.loader.includes('postcss') &&
+                    item.loader.includes('css-loader')
+                  ) {
+                    return {
+                      ...item,
+                      options: {
+                        ...item.options,
+                        modules: false,
+                      },
+                    }
+                  }
+
+                  return item
+                })
+                .filter(Boolean),
+            }
+          }
+
+          return rule
+        }),
+      },
+    }
+  },
 }
