@@ -7,7 +7,7 @@ module.exports = {
     `${SLASH}node_modules${SLASH}(?!(react-dnd|dnd-core|react-dnd-html5-backend|@amcharts/amcharts4-geodata)${SLASH}).+\\.(js|jsx|ts|tsx)`,
   ],
   coverageThreshold: {
-    "./src/_private/utils/": {
+    "./src/__private__/utils/": {
       branches: 100,
       functions: 100,
       lines: 100,

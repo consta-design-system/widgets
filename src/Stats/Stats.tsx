@@ -3,8 +3,10 @@ import React from 'react'
 import { Text, TextPropLineHeight, TextPropSize } from '@consta/uikit/Text'
 import { isDefined } from '@consta/widgets-utils/lib/type-guards'
 
+import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 
+import { defaultValueFormatter } from './helpers'
 import './Stats.css'
 
 const cnStats = cn('Stats')
@@ -27,6 +29,7 @@ type Props = {
   layout?: Layout
   status?: Status
   withSign?: boolean
+  formatValue?: FormatValue
   children?: never
 }
 
@@ -50,10 +53,6 @@ const getNumberSign = (value: number, isShow?: boolean) => {
   return value > 0 && isShow ? '+' : ''
 }
 
-const formatValue = (value: number) => {
-  return String(value).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ')
-}
-
 export const Stats: React.FC<Props> = ({
   title,
   value,
@@ -63,6 +62,7 @@ export const Stats: React.FC<Props> = ({
   status,
   layout = 'default',
   withSign,
+  formatValue = defaultValueFormatter,
 }) => {
   const valueModificators = {
     status: isDefined(numberBadge) ? undefined : status,
