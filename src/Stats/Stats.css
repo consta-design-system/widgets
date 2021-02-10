@@ -1,0 +1,90 @@
+.cw--Stats {
+  display: grid;
+
+  grid-template-columns: min-content 1fr;
+  grid-column-gap: var(--column-gap);
+
+  align-items: baseline;
+  justify-items: start;
+
+  &_layout_default {
+    grid-template-areas:
+      'title title'
+      'number badge'
+      'unit unit';
+  }
+
+  &_layout_reversed {
+    grid-template-areas:
+      'title title'
+      'number unit'
+      'badge badge';
+  }
+
+  &_size_2xs {
+    --column-gap: var(--space-2xs);
+
+    font-size: var(--size-text-xl);
+  }
+
+  &_size_xs {
+    --column-gap: var(--space-xs);
+
+    font-size: var(--size-text-2xl);
+  }
+
+  &_size_s {
+    --column-gap: var(--space-s);
+
+    font-size: var(--size-text-4xl);
+  }
+
+  &_size_m {
+    --column-gap: var(--space-m);
+
+    font-size: var(--size-text-5xl);
+  }
+
+  &_size_l {
+    --column-gap: var(--space-l);
+
+    font-size: var(--size-text-6xl);
+  }
+
+  &-Title {
+    grid-area: title;
+  }
+
+  &-Value {
+    grid-area: number;
+
+    font-size: inherit;
+  }
+
+  &-Badge {
+    font-size: 0.7em;
+  }
+
+  &-Value,
+  &-Badge {
+    &_status_success {
+      color: var(--color-typo-success);
+    }
+
+    &_status_warning {
+      color: var(--color-typo-warning);
+    }
+
+    &_status_error {
+      color: var(--color-typo-alert);
+    }
+
+    &_status_system {
+      color: var(--color-typo-system);
+    }
+  }
+
+  &-Unit {
+    grid-area: unit;
+  }
+}

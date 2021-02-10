@@ -12,8 +12,8 @@ const renderComponent = (props: ComponentProps) => {
   return render(<Component data-testid={testId} {...props} />)
 }
 
-describe('Компонент Attach', () => {
-  it('должен рендериться без ошибок', () => {
+describe('Компонент Component', () => {
+  it('render без ошибок', () => {
     expect(() => renderComponent({})).not.toThrow()
   })
 })
