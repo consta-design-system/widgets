@@ -8,7 +8,7 @@ import { createMetadata, createStory } from '@/__private__/storybook'
 import { LegendItem } from './LegendItem'
 
 export const Interactive = createStory(() => (
-  <LegendItem position="left" fontSize="s" type="dot" color="red">
+  <LegendItem position="left" size="s" type="dot" color="red">
     {text('children', 'Тестовый текст')}
   </LegendItem>
 ))

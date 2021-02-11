@@ -9,7 +9,7 @@ import './LegendItem.css'
 
 const cnLegendItem = cn('LegendItem')
 
-export const labelTypes = ['dot', 'line', 'warning'] as const
+export const labelTypes = ['dot', 'line', 'lineBold', 'warning'] as const
 export type LabelType = typeof labelTypes[number]
 
 export const sizes = ['xs', 's', 'm'] as const
@@ -22,9 +22,8 @@ type Props = {
   children: React.ReactNode
   color?: string
   type?: LabelType
-  fontSize?: Size
+  size?: Size
   position?: LabelPosition
-  lineBold?: boolean
   className?: string
   /** Обрезать текст, если он больше 2 строк */
   shouldCropText?: boolean
@@ -34,30 +33,25 @@ type Props = {
 
 const DOT_SIZE = 12
 
-// const sizeClass = {
-//   xs: css.sizeXS,
-//   s: css.sizeS,
-//   m: undefined,
-// }
-
-export const LegendItem: React.FC<Props> = ({
-  children,
-  color,
-  type = 'dot',
-  fontSize = 's',
-  position = 'left',
-  lineBold,
-  className,
-  shouldCropText,
-  onMouseEnter,
-  onMouseLeave,
-}) => {
+export const LegendItem = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
+  const {
+    children,
+    color,
+    type = 'dot',
+    size = 's',
+    position = 'left',
+    className,
+    shouldCropText,
+    onMouseEnter,
+    onMouseLeave,
+  } = props
   const positionClass = ['dot', 'warning'].includes(type) ? 'left' : position
   const dotStyle = type === 'dot' ? { width: DOT_SIZE, height: DOT_SIZE } : {}
 
   return (
     <div
-      className={cnLegendItem('Main', { fontSize, position: positionClass }, [className])}
+      ref={ref}
+      className={cnLegendItem('Main', { size, position: positionClass }, [className])}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -76,14 +70,13 @@ export const LegendItem: React.FC<Props> = ({
         */}
           {type === 'warning' ? (
             <IconWarning
-              // eslint-disable-next-line camelcase
-              className={cnLegendItem('Sign', { type_icon: true })}
-              size={fontSize}
+              className={cnLegendItem('Sign', { type: 'icon' })}
+              size="s"
               style={{ color }}
             />
           ) : (
             <div
-              className={cnLegendItem('Sign', { type, isBold: lineBold })}
+              className={cnLegendItem('Sign', { type })}
               style={{ background: color, ...dotStyle }}
             />
           )}
@@ -91,12 +84,13 @@ export const LegendItem: React.FC<Props> = ({
       )}
       <Text
         as="span"
-        size={fontSize}
+        size={size}
         view="primary"
+        display="inlineBlock"
         className={cnLegendItem('Text', { isSeparating: shouldCropText })}
       >
         {children}
       </Text>
     </div>
   )
-}
+})

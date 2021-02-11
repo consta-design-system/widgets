@@ -1,0 +1,17 @@
+.cw--HoverLines {
+  &-Item {
+    stroke: transparent;
+    stroke-width: 2;
+    stroke-linecap: butt;
+
+    cursor: pointer;
+
+    &_isActive {
+      stroke: var(--color-bg-soft);
+    }
+
+    &_isHoverable {
+      stroke-width: 10;
+    }
+  }
+}
