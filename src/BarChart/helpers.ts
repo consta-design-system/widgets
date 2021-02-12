@@ -1,7 +1,7 @@
 import { isNotNil } from '@consta/widgets-utils/lib/type-guards'
 
-import { TypeColumn } from '@/__private__/components/BarChart'
 import { GroupItem } from '@/__private__/components/BarChart/components/Group'
+import { TypeColumn } from '@/__private__/components/BarChart/helpers'
 
 import { Column, Group } from './'
 

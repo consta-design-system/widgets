@@ -39,8 +39,6 @@ export type UnitPosition = typeof unitPositions[number]
 
 export type OnMouseHoverColumn = (groupName: string) => void
 
-export type TypeColumn = 'columns' | 'reversedColumns'
-
 export type Threshold = {
   value: number
 }
