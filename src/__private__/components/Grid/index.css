@@ -1,0 +1,12 @@
+.main {
+  color: var(--color-bg-border);
+}
+
+.line {
+  stroke: currentColor;
+  stroke-width: 1px;
+
+  &:not(.guide) {
+    stroke-dasharray: 1, 3;
+  }
+}

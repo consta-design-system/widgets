@@ -1,0 +1,93 @@
+@custom-selector :--horizontal-section .section.isHorizontal;
+@custom-selector :--vertical-section .section:not(.isHorizontal);
+@custom-selector :--reversed .isReversed;
+@custom-selector :--straight :not(.isReversed);
+
+.section {
+  --round-radius: 2px;
+
+  position: relative;
+
+  flex-shrink: 1;
+
+  width: 100%;
+  height: 100%;
+
+  opacity: 0.3;
+
+  &.isActive {
+    opacity: 1;
+  }
+
+  &.isHorizontal {
+    min-width: 5px;
+  }
+
+  &:not(.isHorizontal) {
+    min-height: 5px;
+  }
+}
+
+.label {
+  position: absolute;
+  z-index: 1;
+
+  :--horizontal-section:--straight & {
+    top: 50%;
+    right: 0;
+
+    padding-left: var(--space-2xs);
+
+    transform: translate(100%, -50%);
+  }
+
+  :--horizontal-section:--reversed & {
+    top: 50%;
+    left: 0;
+
+    padding-right: var(--space-2xs);
+
+    transform: translate(-100%, -50%);
+  }
+
+  :--vertical-section:--straight & {
+    top: 0;
+    left: 50%;
+
+    padding-bottom: var(--space-3xs);
+
+    transform: translate(-50%, -100%);
+  }
+
+  :--vertical-section:--reversed & {
+    bottom: 0;
+    left: 50%;
+
+    padding-top: var(--space-2xs);
+
+    transform: translate(-50%, 100%);
+  }
+}
+
+.overflow {
+  position: absolute;
+  z-index: 999999;
+
+  :--horizontal-section:--straight & {
+    right: 0%;
+  }
+
+  :--horizontal-section:--reversed & {
+    left: 0%;
+  }
+
+  :--vertical-section:--straight & {
+    top: 0;
+    left: 50%;
+  }
+
+  :--vertical-section:--reversed & {
+    bottom: 0;
+    left: 50%;
+  }
+}

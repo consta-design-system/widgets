@@ -1,0 +1,62 @@
+@custom-selector :--horizontal-group .group.isHorizontal;
+@custom-selector :--vertical-group .group:not(.isHorizontal);
+
+.group {
+  display: flex;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+
+  &:not(.isHorizontal) {
+    flex-direction: column;
+
+    text-align: center;
+  }
+
+  &.isHorizontal {
+    align-items: center;
+    flex-direction: row-reverse;
+  }
+}
+
+.columns {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  :--horizontal-group & {
+    flex-direction: row-reverse;
+  }
+
+  :--vertical-group & {
+    flex-direction: column;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  :--horizontal-group & {
+    align-items: flex-start;
+    flex-direction: column;
+
+    &.isReversed {
+      align-items: flex-end;
+    }
+  }
+
+  :--vertical-group & {
+    align-items: flex-end;
+
+    &.isReversed {
+      align-items: flex-start;
+    }
+  }
+}

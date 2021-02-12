@@ -29,7 +29,8 @@ module.exports = {
     // Exclude default module rules to fix svg import issue: https://github.com/storybooks/storybook/issues/5926
     const baseSBConfig = omit(config, ['module'])
 
-    const projectConfig = flowRight([withMdxRules, disableCSSModules])(
+    // const projectConfig = flowRight([withMdxRules, disableCSSModules])(
+    const projectConfig = flowRight([withMdxRules])(
       getCommonConfig({ withDocgen: true })
     )
 

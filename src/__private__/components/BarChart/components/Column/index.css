@@ -1,0 +1,34 @@
+.column {
+  position: relative;
+
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+
+  &.isHorizontal {
+    width: 100%;
+    height: 100%;
+
+    & + & {
+      margin-top: var(--column-padding);
+    }
+
+    &.isReversed {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &:not(.isHorizontal) {
+    &:not(.isReversed) {
+      flex-direction: column-reverse;
+    }
+
+    width: 100%;
+    height: 100%;
+
+    & + & {
+      margin-left: var(--column-padding);
+    }
+  }
+}

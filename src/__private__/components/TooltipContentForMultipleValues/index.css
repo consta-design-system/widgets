@@ -1,0 +1,33 @@
+.container {
+  max-width: 400px;
+}
+
+.title {
+  overflow: hidden;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.divider {
+  height: 1px;
+  margin: var(--space-xs) calc(-1 * var(--space-xs));
+
+  background-color: var(--color-bg-border);
+}
+
+.content {
+  display: grid;
+
+  grid-row-gap: var(--space-s);
+  grid-column-gap: var(--space-s);
+
+  width: 100%;
+  grid-template-columns: 1fr auto;
+}
+
+.legendItem {
+  &.isSingleColumn {
+    grid-column: 2 span;
+  }
+}

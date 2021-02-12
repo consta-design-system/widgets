@@ -1,0 +1,79 @@
+@custom-selector :--extra-small .sizeXS;
+@custom-selector :--small .sizeS;
+@custom-selector :--top .top;
+@custom-selector :--left .left;
+
+.main {
+  display: inline-flex;
+
+  &:--top {
+    flex-direction: column;
+  }
+
+  &:--left {
+    align-items: baseline;
+  }
+}
+
+.signWrapper {
+  line-height: 0;
+}
+
+.sign {
+  display: inline-block;
+
+  :--left & {
+    margin-right: var(--space-xs);
+  }
+
+  :--top & {
+    margin-bottom: var(--space-2xs);
+  }
+}
+
+.icon {
+  margin-bottom: -3px;
+
+  vertical-align: baseline;
+
+  :--extra-small &,
+  :--small & {
+    margin-bottom: -1px;
+  }
+}
+
+.dot {
+  vertical-align: baseline;
+
+  border-radius: 100%;
+
+  :--extra-small &,
+  :--small & {
+    margin-bottom: -1px;
+  }
+}
+
+.line {
+  width: 20px;
+  height: 2px;
+
+  :--left & {
+    vertical-align: middle;
+  }
+
+  &.isBold {
+    height: 4px;
+  }
+}
+
+.text {
+  display: inline-block;
+
+  &.isSeparating {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+  }
+}
