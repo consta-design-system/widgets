@@ -17,7 +17,6 @@ import {
   getValuesDomain,
   isMultiColumn,
   isShowReversed,
-  toAxisSize,
 } from '../helpers'
 
 describe('getEveryNTick', () => {
@@ -125,19 +124,6 @@ describe('getColumnSize', () => {
   })
 })
 
-describe('toAxisSize', () => {
-  it('возвращает Axis размер', () => {
-    expect(toAxisSize('l')).toEqual('m')
-    expect(toAxisSize('xl')).toEqual('m')
-    expect(toAxisSize('2xl')).toEqual('m')
-  })
-
-  it('возвращает заданный размер', () => {
-    expect(toAxisSize('s')).toEqual('s')
-    expect(toAxisSize('m')).toEqual('m')
-  })
-})
-
 describe('defaultGetAxisShowPositions', () => {
   it('получение настроек расположения осей для вертикального графика без отрицательных значений', () => {
     const result = defaultGetAxisShowPositions({ isHorizontal: false, showReversed: false })
@@ -193,31 +179,28 @@ describe('getValuesDomain', () => {
     },
   ]
 
-  const threshold: Threshold = {
-    value: 120,
-    color: 'var(--color-bg-normal)',
-  }
+  const threshold: Threshold = { value: 120 }
 
   it('возвращает значение для домена', () => {
-    const result = getValuesDomain({ groups, showReversed: false })
+    const result = getValuesDomain({ groups })
 
     expect(result).toEqual([0, 100])
   })
 
   it('возвращает значения для домена с перевернутыми колонками', () => {
-    const result = getValuesDomain({ groups, showReversed: true })
+    const result = getValuesDomain({ groups })
 
     expect(result).toEqual([-100, 100])
   })
 
   it('возвращает значения для домена с предельным значением', () => {
-    const result = getValuesDomain({ groups, showReversed: false, threshold })
+    const result = getValuesDomain({ groups, threshold })
 
     expect(result).toEqual([0, 120])
   })
 
   it('возвращает значения для домена с предельным значением с перевернутыми колонками', () => {
-    const result = getValuesDomain({ groups, showReversed: true, threshold })
+    const result = getValuesDomain({ groups, threshold })
 
     expect(result).toEqual([-120, 120])
   })
@@ -238,9 +221,6 @@ describe('getGridSettings', () => {
       const result = getGridSettings({
         isHorizontal: true,
         countGroups: 3,
-        showUnitBottom: false,
-        showUnitLeft: false,
-        maxColumn: 3,
         axisShowPositions: {
           top: false,
           bottom: false,
@@ -260,9 +240,6 @@ describe('getGridSettings', () => {
       const result = getGridSettings({
         isHorizontal: true,
         countGroups: 3,
-        showUnitBottom: false,
-        showUnitLeft: false,
-        maxColumn: 3,
         axisShowPositions: {
           top: false,
           bottom: true,
@@ -286,9 +263,6 @@ describe('getGridSettings', () => {
       const result = getGridSettings({
         isHorizontal: true,
         countGroups: 3,
-        showUnitBottom: false,
-        showUnitLeft: false,
-        maxColumn: 3,
         axisShowPositions: {
           top: true,
           bottom: true,
@@ -313,9 +287,6 @@ describe('getGridSettings', () => {
       const result = getGridSettings({
         isHorizontal: true,
         countGroups: 3,
-        showUnitBottom: true,
-        showUnitLeft: true,
-        maxColumn: 3,
         axisShowPositions: {
           top: false,
           bottom: true,
@@ -341,9 +312,6 @@ describe('getGridSettings', () => {
       const result = getGridSettings({
         isHorizontal: true,
         countGroups: 3,
-        showUnitBottom: true,
-        showUnitLeft: true,
-        maxColumn: 3,
         axisShowPositions: {
           top: false,
           bottom: false,
@@ -368,9 +336,6 @@ describe('getGridSettings', () => {
       const result = getGridSettings({
         isHorizontal: true,
         countGroups: 3,
-        showUnitBottom: true,
-        showUnitLeft: false,
-        maxColumn: 3,
         axisShowPositions: {
           top: true,
           bottom: true,
@@ -398,9 +363,6 @@ describe('getGridSettings', () => {
       const result = getGridSettings({
         isHorizontal: false,
         countGroups: 3,
-        showUnitBottom: false,
-        showUnitLeft: false,
-        maxColumn: 3,
       })
 
       expect(result).toEqual({
@@ -419,9 +381,6 @@ describe('getGridSettings', () => {
       const result = getGridSettings({
         isHorizontal: false,
         countGroups: 3,
-        showUnitBottom: true,
-        showUnitLeft: true,
-        maxColumn: 3,
       })
 
       expect(result).toEqual({
@@ -467,10 +426,7 @@ describe('isShowReversed', () => {
   it('определяет необходимость отображения перевернутых групп, если список колонок пустой и порог положительный', () => {
     const result = isShowReversed({
       groups: [{ name: 'Группа 1', columns: [], reversedColumns: [] }],
-      threshold: {
-        color: 'red',
-        value: 100,
-      },
+      threshold: { value: 100 },
     })
 
     expect(result).toBeFalse()
@@ -498,10 +454,7 @@ describe('isShowReversed', () => {
   it('определяет необходимость отображения перевернутых групп, если список колонок пустой и порог отрицательный', () => {
     const result = isShowReversed({
       groups: [{ name: 'Группа 1', columns: [], reversedColumns: [] }],
-      threshold: {
-        color: 'red',
-        value: -100,
-      },
+      threshold: { value: -100 },
     })
 
     expect(result).toBeTrue()

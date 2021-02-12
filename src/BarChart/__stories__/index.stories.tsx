@@ -56,7 +56,6 @@ export const WithShowValuesOnTopBar = createStory(
     <BarChart
       {...getCommonProps(minimalData.unit)}
       colors={object('colors', minimalData.colors)}
-      size="auto"
       groups={minimalData.groups}
       isHorizontal={false}
       showValues={true}
@@ -70,8 +69,6 @@ export const Minimalistic = createStory(
     <BarChart
       {...getCommonProps(minimalData.unit)}
       colors={object('colors', minimalData.colors)}
-      gridTicks={0}
-      valuesTicks={0}
       groups={minimalData.groups}
       isHorizontal={true}
       showValues={false}
@@ -87,7 +84,6 @@ export const WithThreshold = createStory(
       colors={object('colors', minimalData.colors)}
       groups={minimalData.groups}
       threshold={object('threshold', minimalData.threshold)}
-      gridTicks={4}
       isXAxisLabelsSlanted
     />
   ),

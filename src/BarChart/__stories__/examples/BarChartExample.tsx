@@ -8,9 +8,6 @@ import { groupExampleData, minimalData, withNegativeValueData } from '../../data
 export const BarChartExampleGeneral = () => (
   <Example>
     <BarChart
-      gridTicks={10}
-      valuesTicks={1}
-      size="s"
       formatValueForTooltip={v => `${v} км`}
       colors={withNegativeValueData.colors}
       groups={withNegativeValueData.groups}
@@ -23,9 +20,6 @@ export const BarChartExampleGeneral = () => (
 export const BarChartExampleSizeS = () => (
   <Example width="300px">
     <BarChart
-      gridTicks={5}
-      valuesTicks={1}
-      size="s"
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
       groups={minimalData.groups}
@@ -39,9 +33,6 @@ export const BarChartExampleSizeS = () => (
 export const BarChartExampleSizeM = () => (
   <Example width="300px">
     <BarChart
-      gridTicks={5}
-      valuesTicks={1}
-      size="m"
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
       groups={minimalData.groups}
@@ -55,9 +46,6 @@ export const BarChartExampleSizeM = () => (
 export const BarChartExampleSizeAuto = () => (
   <Example>
     <BarChart
-      gridTicks={5}
-      valuesTicks={1}
-      size="auto"
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
       groups={minimalData.groups}
@@ -71,9 +59,6 @@ export const BarChartExampleSizeAuto = () => (
 export const BarChartExampleNotHorizontal = () => (
   <Example width="300px">
     <BarChart
-      gridTicks={5}
-      valuesTicks={1}
-      size="auto"
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
       groups={minimalData.groups}
@@ -87,9 +72,6 @@ export const BarChartExampleNotHorizontal = () => (
 export const BarChartExampleUnitLeft = () => (
   <Example>
     <BarChart
-      gridTicks={5}
-      valuesTicks={1}
-      size="auto"
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
       groups={minimalData.groups}
@@ -105,9 +87,6 @@ export const BarChartExampleUnitLeft = () => (
 export const BarChartExampleUnitBottom = () => (
   <Example>
     <BarChart
-      gridTicks={5}
-      valuesTicks={1}
-      size="auto"
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
       groups={minimalData.groups}
@@ -123,9 +102,6 @@ export const BarChartExampleUnitBottom = () => (
 export const BarChartExampleUnitLeftBottom = () => (
   <Example>
     <BarChart
-      gridTicks={5}
-      valuesTicks={1}
-      size="auto"
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
       groups={minimalData.groups}
@@ -141,9 +117,6 @@ export const BarChartExampleUnitLeftBottom = () => (
 export const BarChartExampleUnitNone = () => (
   <Example>
     <BarChart
-      gridTicks={5}
-      valuesTicks={1}
-      size="auto"
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
       groups={minimalData.groups}
@@ -159,9 +132,6 @@ export const BarChartExampleUnitNone = () => (
 export const BarChartExampleThreshold = () => (
   <Example>
     <BarChart
-      gridTicks={5}
-      valuesTicks={1}
-      size="s"
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
       groups={minimalData.groups}
@@ -175,9 +145,6 @@ export const BarChartExampleThreshold = () => (
 export const BarChartExampleGroup = () => (
   <Example>
     <BarChart
-      gridTicks={5}
-      valuesTicks={1}
-      size="auto"
       formatValueForTooltip={v => `${v} км`}
       colors={groupExampleData.colors}
       groups={groupExampleData.groups}
@@ -191,9 +158,6 @@ export const BarChartExampleGroup = () => (
 export const BarChartExampleGroupSlanted = () => (
   <Example>
     <BarChart
-      gridTicks={5}
-      valuesTicks={1}
-      size="auto"
       formatValueForTooltip={v => `${v} км`}
       colors={groupExampleData.colors}
       groups={groupExampleData.groups}
@@ -208,9 +172,6 @@ export const BarChartExampleGroupSlanted = () => (
 export const BarChartExampleShowValues = () => (
   <Example>
     <BarChart
-      gridTicks={5}
-      valuesTicks={1}
-      size="auto"
       formatValueForTooltip={v => `${v} км`}
       colors={groupExampleData.colors}
       groups={groupExampleData.groups}
@@ -225,9 +186,6 @@ export const BarChartExampleShowValues = () => (
 export const BarChartExampleLableProcent = () => (
   <Example>
     <BarChart
-      gridTicks={5}
-      valuesTicks={2}
-      size="auto"
       formatValueForLabel={v => `${v}%`}
       formatValueForTooltip={v => `${v}%`}
       colors={groupExampleData.colors}
@@ -243,9 +201,6 @@ export const BarChartExampleLableProcent = () => (
 export const BarChartExampleGrid = () => (
   <Example>
     <BarChart
-      gridTicks={10}
-      valuesTicks={2}
-      size="auto"
       colors={groupExampleData.colors}
       groups={groupExampleData.groups}
       formatValueForTooltip={v => `${v}%`}

@@ -24,8 +24,8 @@ export type Group = {
 
 type Props = {
   groups: readonly Group[]
-  minValueY: number
-  maxValueY: number
+  minValueY?: number
+  maxValueY?: number
   colors: readonly string[]
   unit?: string
   unitPosition?: UnitPosition
