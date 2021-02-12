@@ -1,8 +1,3 @@
-@custom-selector :--horizontal-section .section.isHorizontal;
-@custom-selector :--vertical-section .section:not(.isHorizontal);
-@custom-selector :--reversed .isReversed;
-@custom-selector :--straight :not(.isReversed);
-
 .section {
   --round-radius: 2px;
 
@@ -32,7 +27,7 @@
   position: absolute;
   z-index: 1;
 
-  :--horizontal-section:--straight & {
+  .section.isHorizontal:not(.isReversed) & {
     top: 50%;
     right: 0;
 
@@ -41,7 +36,7 @@
     transform: translate(100%, -50%);
   }
 
-  :--horizontal-section:--reversed & {
+  .section.isHorizontal.isReversed & {
     top: 50%;
     left: 0;
 
@@ -50,7 +45,7 @@
     transform: translate(-100%, -50%);
   }
 
-  :--vertical-section:--straight & {
+  .section:not(.isHorizontal):not(.isReversed) & {
     top: 0;
     left: 50%;
 
@@ -59,7 +54,7 @@
     transform: translate(-50%, -100%);
   }
 
-  :--vertical-section:--reversed & {
+  .section:not(.isHorizontal).isReversed & {
     bottom: 0;
     left: 50%;
 
@@ -73,20 +68,20 @@
   position: absolute;
   z-index: 999999;
 
-  :--horizontal-section:--straight & {
-    right: 0%;
+  .section.isHorizontal:not(.isReversed) & {
+    right: 0;
   }
 
-  :--horizontal-section:--reversed & {
-    left: 0%;
+  .section.isHorizontal.isReversed & {
+    left: 0;
   }
 
-  :--vertical-section:--straight & {
+  .section:not(.isHorizontal):not(.isReversed) & {
     top: 0;
     left: 50%;
   }
 
-  :--vertical-section:--reversed & {
+  .section:not(.isHorizontal).isReversed & {
     bottom: 0;
     left: 50%;
   }

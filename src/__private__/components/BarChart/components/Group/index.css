@@ -1,6 +1,3 @@
-@custom-selector :--horizontal-group .group.isHorizontal;
-@custom-selector :--vertical-group .group:not(.isHorizontal);
-
 .group {
   display: flex;
 
@@ -27,11 +24,11 @@
   width: 100%;
   height: 100%;
 
-  :--horizontal-group & {
+  .group.isHorizontal & {
     flex-direction: row-reverse;
   }
 
-  :--vertical-group & {
+  .group:not(.isHorizontal) & {
     flex-direction: column;
   }
 }
@@ -43,7 +40,7 @@
   width: 100%;
   height: 100%;
 
-  :--horizontal-group & {
+  .group.isHorizontal & {
     align-items: flex-start;
     flex-direction: column;
 
@@ -52,7 +49,7 @@
     }
   }
 
-  :--vertical-group & {
+  .group:not(.isHorizontal) & {
     align-items: flex-end;
 
     &.isReversed {

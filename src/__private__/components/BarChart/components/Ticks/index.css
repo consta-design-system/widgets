@@ -1,6 +1,3 @@
-@custom-selector :--isHorizontal .isTop, .isBottom;
-@custom-selector :--isVertical .isRight, .isLeft;
-
 .group {
   --tick-line-color: var(--color-bg-border);
   --tick-line-size: 4px;
@@ -10,11 +7,13 @@
 
   box-sizing: border-box;
 
-  &:--isHorizontal {
+  &.isTop,
+  &.isBottom {
     width: 100%;
   }
 
-  &:--isVertical {
+  &.isRight,
+  &.isLeft {
     flex-direction: column;
 
     height: 100%;
@@ -27,13 +26,15 @@
   display: flex;
   justify-content: center;
 
-  &:--isHorizontal {
+  &.isTop,
+  &.isBottom {
     flex-direction: column;
 
     width: 0;
   }
 
-  &:--isVertical {
+  &.isRight,
+  &.isLeft {
     height: 0;
   }
 
@@ -53,12 +54,14 @@
 .line {
   background-color: var(--color-bg-border);
 
-  :--isHorizontal & {
+  .isTop &,
+  .isBottom & {
     width: 1px;
     height: var(--tick-line-size);
   }
 
-  :--isVertical & {
+  .isRight &,
+  .isLeft & {
     width: var(--tick-line-size);
     height: 1px;
   }
@@ -93,7 +96,8 @@
 .label {
   display: flex;
 
-  &:--isHorizontal {
+  &.isTop,
+  &.isBottom {
     overflow: hidden;
     justify-content: center;
 
@@ -126,9 +130,9 @@
     text-overflow: ellipsis;
   }
 
-  :--isVertical.label & {
+  .isRight.label,
+  .isLeft.label & {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 
     overflow: hidden;
