@@ -1,26 +1,4 @@
 .cw--Stats {
-  display: grid;
-
-  grid-template-columns: min-content 1fr;
-  grid-column-gap: var(--column-gap);
-
-  align-items: baseline;
-  justify-items: start;
-
-  &_layout_default {
-    grid-template-areas:
-      'title title'
-      'number badge'
-      'unit unit';
-  }
-
-  &_layout_reversed {
-    grid-template-areas:
-      'title title'
-      'number unit'
-      'badge badge';
-  }
-
   &_size_2xs {
     --column-gap: var(--space-2xs);
 
@@ -30,7 +8,7 @@
   &_size_xs {
     --column-gap: var(--space-xs);
 
-    font-size: var(--size-text-2xl);
+    font-size: var(--size-text-3xl);
   }
 
   &_size_s {
@@ -51,22 +29,21 @@
     font-size: var(--size-text-6xl);
   }
 
-  &-Title {
-    grid-area: title;
+  &-Main {
+    display: flex;
+    align-items: baseline;
+
+    white-space: nowrap;
   }
 
   &-Value {
-    grid-area: number;
-
     font-size: inherit;
-  }
 
-  &-Badge {
-    font-size: 0.7em;
+    white-space: nowrap;
   }
 
   &-Value,
-  &-Badge {
+  &-Rate {
     &_status_success {
       color: var(--color-typo-success);
     }
@@ -82,9 +59,5 @@
     &_status_system {
       color: var(--color-typo-system);
     }
-  }
-
-  &-Unit {
-    grid-area: unit;
   }
 }
