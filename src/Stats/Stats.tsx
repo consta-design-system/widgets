@@ -1,107 +1,93 @@
-import React from 'react'
+import React, { forwardRef, HTMLAttributes } from 'react'
 
-import { Text, TextPropLineHeight, TextPropSize } from '@consta/uikit/Text'
-import { isDefined } from '@consta/widgets-utils/lib/type-guards'
+import { Text } from '@consta/uikit/Text'
+import { isNotNil } from '@consta/widgets-utils/lib/type-guards'
 
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 
-import { defaultValueFormatter } from './helpers'
+import {
+  defaultValueFormatter,
+  IconArrowRate,
+  IconTitle,
+  iconTitleSizes,
+  Layout,
+  Size,
+  Status,
+  titleSizes,
+} from './helpers'
 import './Stats.css'
+import { StatsRate } from './StatsRate/StatsRate'
+import { StatsTitle } from './StatsTitle/StatsTitle'
 
 const cnStats = cn('Stats')
 
-const sizes = ['2xs', 'xs', 's', 'm', 'l'] as const
-type Size = typeof sizes[number]
-
-const layouts = ['default', 'reversed'] as const
-type Layout = typeof layouts[number]
-
-const statuses = ['success', 'warning', 'error', 'system'] as const
-type Status = typeof statuses[number]
-
-type Props = {
-  value: number
-  size: Size
+type Props = HTMLAttributes<HTMLDivElement> & {
+  value: number | null
+  placeholder?: string
   title?: string
-  numberBadge?: number
+  iconTitle?: IconTitle
   unit?: string
-  layout?: Layout
+  rate?: string
+  iconArrowRate?: IconArrowRate
   status?: Status
-  withSign?: boolean
+  layout?: Layout
+  size?: Size
   formatValue?: FormatValue
   children?: never
 }
 
-const titleSizes: Record<Size, TextPropSize> = {
-  '2xs': 'xs',
-  xs: 'm',
-  s: 'l',
-  m: 'xl',
-  l: '2xl',
-}
-
-const numberBadgeLineHeight: Record<Size, TextPropLineHeight> = {
-  '2xs': 'xs',
-  xs: 'xs',
-  s: 'xs',
-  m: 's',
-  l: 's',
-}
-
-const getNumberSign = (value: number, isShow?: boolean) => {
-  return value > 0 && isShow ? '+' : ''
-}
-
-export const Stats: React.FC<Props> = ({
-  title,
-  value,
-  numberBadge,
-  unit,
-  size,
-  status,
-  layout = 'default',
-  withSign,
-  formatValue = defaultValueFormatter,
-}) => {
+export const Stats = forwardRef<HTMLDivElement, Props>((props, ref) => {
+  const {
+    value,
+    placeholder = '—',
+    title,
+    iconTitle,
+    rate,
+    iconArrowRate,
+    unit,
+    layout = 'default',
+    size = 'm',
+    status = 'system',
+    formatValue = defaultValueFormatter,
+    ...mainElementProps
+  } = props
+  const isDefaultLayout = layout === 'default'
   const valueModificators = {
-    status: isDefined(numberBadge) ? undefined : status,
+    status: !!rate ? undefined : status,
   }
 
+  const renderedIconTitle = iconTitle ? iconTitle({ size: iconTitleSizes[size] }) : null
+  const titleElement =
+    title || renderedIconTitle ? (
+      <StatsTitle size={size} icon={renderedIconTitle} title={title} />
+    ) : null
+
+  const rateElement = rate ? (
+    <StatsRate className={cnStats('Rate', { status })} rate={rate} icon={iconArrowRate} />
+  ) : null
+
+  const unitElement = unit ? (
+    <Text as="div" size={titleSizes[size]} lineHeight="s" view="secondary">
+      {unit}
+    </Text>
+  ) : null
+
   return (
-    <div className={cnStats({ layout, size })}>
-      <Text
-        className={cnStats('Title')}
-        as="div"
-        size={titleSizes[size]}
-        lineHeight="s"
-        view="primary"
-      >
-        {title}
-      </Text>
-
-      <Text className={cnStats('Value', valueModificators)} as="div" lineHeight="2xs" weight="bold">
-        {getNumberSign(value, withSign)}
-        {formatValue(value)}
-      </Text>
-
-      <Text
-        className={cnStats('Badge', { status })}
-        as="div"
-        lineHeight={numberBadgeLineHeight[size]}
-      >
-        {numberBadge}
-      </Text>
-
-      <Text
-        className={cnStats('Unit')}
-        as="div"
-        size={titleSizes[size]}
-        lineHeight="s"
-        view="secondary"
-      >
-        {unit}
-      </Text>
+    <div {...mainElementProps} ref={ref} className={cnStats({ layout, size })}>
+      {titleElement}
+      <div className={cnStats('Main')}>
+        <Text
+          className={cnStats('Value', valueModificators)}
+          as="div"
+          lineHeight="2xs"
+          weight="bold"
+        >
+          {isNotNil(value) ? formatValue(value) : placeholder}
+        </Text>
+        {isDefaultLayout ? rateElement : unitElement}
+      </div>
+      {isDefaultLayout ? unitElement : rateElement}
     </div>
   )
-}
+})

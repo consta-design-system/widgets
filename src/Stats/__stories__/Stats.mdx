@@ -1,7 +1,6 @@
 import {
   StatsExampleContent,
   StatsExampleContentOther,
-  StatsExampleContentWithSign,
   StatsExampleContentLong,
 } from './examples/StatsExampleContent'
 import {
@@ -15,6 +14,18 @@ import {
   StatsExampleLayoutDefault,
   StatsExampleLayoutReversed,
 } from './examples/StatsExampleLayout'
+import {
+  StatsExampleRateUp,
+  StatsExampleRateDown,
+  StatsExampleRateAutoPositive,
+  StatsExampleRateAutoNegative,
+} from './examples/StatsExampleRate'
+import {
+  StatsExampleSuccess,
+  StatsExampleWarning,
+  StatsExampleError,
+  StatsExampleSystem,
+} from './examples/StatsExampleStatus'
 
 # Stats
 
@@ -27,6 +38,9 @@ import {
   - [Плюс в начале](#плюс-в-начале)
   - [Длинные строчки](#длинные-строчки)
 - [Варианты отображения](#варианты-отображения)
+  - [layout](#layout)
+  - [status](#status)
+  - [size](#size)
 - [Размер](#размер)
 - [Список свойств](#свойства)
 - [Пример использования](#пример)
@@ -40,29 +54,21 @@ import {
 **Единицы** — подпись под числом, обычно тут указывают единицы измерения — км/ч, сутки, баррели или ведерки.
 Задается в свойстве `units`.
 
-**Показатель изменений** появляется справа или снизу, задается через `numberBadge`.
+**Показатель изменений** — появляется справа или снизу, задается через `rate`, отображает как изменился показатель в течении определенного времени.
 
 <StatsExampleContent />
 
 ```tsx
-<Stats title="Заголовок" value={146} numberBadge={100} unit="единиц" layout="full" size="s" />
-```
-
-### Плюс в начале
-
-Можно поставить перед числом плюс — чтобы показать, что что-то увеличилось. Для этого добавьте свойство `withSign`.
-
-<StatsExampleContentWithSign />
-
-```tsx
 <Stats
-  title="Выработка"
-  value={250}
-  numberBadge={20}
-  unit="тысяч тонн в час"
-  layout="full"
+  value={2170}
+  title="Молний за год"
+  iconTitle={<svg />}
+  unit="разрядов"
+  rate="20%"
+  iconArrowRate
+  status="success"
+  layout="default"
   size="s"
-  withSign
 />
 ```
 
@@ -72,47 +78,94 @@ import {
 
 <StatsExampleContentLong />
 
+### Парсинг показателя изменений
+
 ## Варианты отображения
 
-Вы можете выбрать, как показывать компонент: полностью, только с заголовком, только с единицами или как-то еще.
-Варианты: `'default'`, `'reversed'`.
+### iconArrowRate
+
+Если указать любое значение для иконки, то у самого первого числа в строке `rate` будет удален знак (`+` или `-`), если он был.
+
+**up**
+
+<StatsExampleRateUp />
+
+**down**
+
+<StatsExampleRateDown />
+
+**auto**
+
+При автоматическом определении варианта иконки парсится только самое первое число в строке `rate`, и на основе его знака определяется положительная или отрицательная иконка.
+
+| с позитивным числом              | с негативным числом              |
+| -------------------------------- | -------------------------------- |
+| <StatsExampleRateAutoPositive /> | <StatsExampleRateAutoNegative /> |
+
+### status
+
+| success                 | warning                 | error                 | system                 |
+| ----------------------- | ----------------------- | --------------------- | ---------------------- |
+| <StatsExampleSuccess /> | <StatsExampleWarning /> | <StatsExampleError /> | <StatsExampleSystem /> |
+
+### layout
 
 | default                       | reversed                       |
 | ----------------------------- | ------------------------------ |
 | <StatsExampleLayoutDefault /> | <StatsExampleLayoutReversed /> |
 
-## Размер
+### size
 
-За размер отвечает свойство `size`. Варианты: `'2xs'`, `'xs'`, `'s'`, `'m'`, `'l'`.
+**2xs**
 
-| 2xs                     | xs                     | s                     | m                     | l                     |
-| ----------------------- | ---------------------- | --------------------- | --------------------- | --------------------- |
-| <StatsExampleSize2XS /> | <StatsExampleSizeXS /> | <StatsExampleSizeS /> | <StatsExampleSizeM /> | <StatsExampleSizeL /> |
+<StatsExampleSize2XS />
+
+**xs**
+
+<StatsExampleSizeXS />
+
+**s**
+
+<StatsExampleSizeS />
+
+**m**
+
+<StatsExampleSizeM />
+
+**l**
+
+<StatsExampleSizeL />
 
 ## Свойства
 
-<!-- props:start -->
-
-| Свойство                            | Тип                                       | По умолчанию                | Описание                                                                                             |
-| ----------------------------------- | ----------------------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------- |
-| [`value`](#как-использовать)        | `number`                                  | -                           | Число, которое нужно показать                                                                        |
-| [`withSign?`](#плюс-в-начале)       | `boolean`                                 | -                           | Добавляет плюс перед числом                                                                          |
-| [`title?`](#как-использовать)       | `string`                                  | -                           | Надпись над числом, заголовок — поясняет, что это                                                    |
-| [`numberBadge?`](#как-использовать) | `number`                                  | -                           | Число для отображения показателя изменений                                                           |
-| [`unit?`](#как-использовать)        | `string`                                  | -                           | Надпись под числом, единицы — поясняет, в каких единицах измеряется число                            |
-| [`layout?`](#варианты-отображения)  | `'default', 'reversed'`                   | `'default'`                 | Вариант отображения                                                                                  |
-| `status?`                           | `'success', 'warning', 'errro', 'system'` | -                           | Статус влияет на цвет показателя изменений или на основное число если показатель изменений не указан |
-| `formatValue?`                      | `(value: number) => string`               | `(value: number) => string` | Метод форматирования value, по умолчанию добавляет отбивки в число                                   |
-| [`size?`](#размер)                  | `'2xs', 'xs', 's', 'm', 'l'`              | `'xs'`                      | Размер компонента                                                                                    |
+| Свойство                           | Тип                                       | По умолчанию                | Описание                                                                                             |
+| ---------------------------------- | ----------------------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------- |
+| [`value`](#как-использовать)       | `number | null`                           | -                           | Число, которое нужно показать                                                                        |
+| `placeholder`                      | `string`                                  | `'—'`                       | Значение которое отображается если в `value` был передан `null`                                      |
+| [`title?`](#как-использовать)      | `string`                                  | -                           | Надпись над числом, заголовок — поясняет, что это                                                    |
+| `iconTitle?`                       | `ReactNode`                               | -                           | Иконка рядом с заголовком, отображается всегда у первой строки                                       |
+| [`unit?`](#как-использовать)       | `string`                                  | -                           | Поясняет, в каких единицах измеряется число, меняет положение в зависимости от `layout`              |
+| [`rate?`](#как-использовать)       | `string`                                  | -                           | Строка содержащая показатель изменений, меняет положение в зависимости от `layout`                   |
+| [`iconArrowRate?`](#iconArrowRate) | `'up', 'down', 'auto'`                    | -                           | Иконка которая будет отображаться рядом с показателем изменений                                      |
+| [`status?`](#status)               | `'success', 'warning', 'error', 'system'` | `'system'`                  | Статус влияет на цвет показателя изменений или на основное число если показатель изменений не указан |
+| [`layout?`](#layout)               | `'default', 'reversed'`                   | `'default'`                 | Вариант отображения                                                                                  |
+| [`size?`](#size)                   | `'2xs', 'xs', 's', 'm', 'l'`              | `'m'`                       | Размер компонента                                                                                    |
+| `formatValue?`                     | `(value: number) => string`               | `(value: number) => string` | Метод форматирования основного числа, по умолчанию добавляет отбивки в число                         |
 
 ## Пример
 
 ```tsx
-// src/App.ts
 import React from 'react'
 import { Stats } from '@consta/widgets/Stats'
 
-const App = () => (
-  <Stats title="Заголовок" value={146} numberBadge={20} unit="единицы" layout="full" size="s" />
+const SomeComponent = () => (
+  <Stats
+    value={2170}
+    title="Молний за год"
+    unit="разрядов"
+    rate="20%"
+    iconArrowRate
+    status="success"
+  />
 )
 ```

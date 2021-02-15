@@ -5,10 +5,11 @@ import { Stats } from '../Stats'
 type Props = ComponentProps<typeof Stats>
 
 export const exampleData: Props = {
-  title: '',
-  value: 146,
-  numberBadge: 20,
-  unit: 'единицы',
+  value: 2170,
+  title: 'Молний за год',
+  unit: 'разрядов',
+  rate: '20%',
+  status: 'success',
   layout: 'default',
   size: 'xs',
 }
