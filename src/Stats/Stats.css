@@ -1,37 +1,44 @@
 .cw--Stats {
   &_size_2xs {
-    --column-gap: var(--space-2xs);
+    --gap: var(--space-2xs);
 
     font-size: var(--size-text-xl);
   }
 
   &_size_xs {
-    --column-gap: var(--space-xs);
+    --gap: var(--space-xs);
 
     font-size: var(--size-text-3xl);
   }
 
   &_size_s {
-    --column-gap: var(--space-s);
+    --gap: var(--space-s);
 
     font-size: var(--size-text-4xl);
   }
 
   &_size_m {
-    --column-gap: var(--space-m);
+    --gap: var(--space-m);
 
     font-size: var(--size-text-5xl);
   }
 
   &_size_l {
-    --column-gap: var(--space-l);
+    --gap: var(--space-l);
 
     font-size: var(--size-text-6xl);
+  }
+
+  &_layout_default &-Rate,
+  &_layout_reversed &-Unit {
+    margin-left: var(--gap);
   }
 
   &-Main {
     display: flex;
     align-items: baseline;
+
+    margin: var(--gap) 0;
 
     white-space: nowrap;
   }

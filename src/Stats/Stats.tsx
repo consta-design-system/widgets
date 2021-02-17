@@ -68,7 +68,13 @@ export const Stats = forwardRef<HTMLDivElement, Props>((props, ref) => {
   ) : null
 
   const unitElement = unit ? (
-    <Text as="div" size={titleSizes[size]} lineHeight="s" view="secondary">
+    <Text
+      className={cnStats('Unit')}
+      as="div"
+      size={titleSizes[size]}
+      lineHeight="s"
+      view="secondary"
+    >
       {unit}
     </Text>
   ) : null
