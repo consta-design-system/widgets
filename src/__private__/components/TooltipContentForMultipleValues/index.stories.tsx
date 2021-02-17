@@ -3,9 +3,8 @@ import React from 'react'
 import { Tooltip } from '@consta/uikit/Tooltip'
 import { object, text } from '@storybook/addon-knobs'
 
+import { TooltipContentForMultipleValues } from '@/__private__/components/TooltipContentForMultipleValues/TooltipContentForMultipleValues'
 import { createMetadata, createStory } from '@/__private__/storybook'
-
-import { TooltipContentForMultipleValues } from '.'
 
 export const Interactive = createStory(() => (
   <Tooltip size="l" position={{ x: 30, y: 10 }} direction="downRight">

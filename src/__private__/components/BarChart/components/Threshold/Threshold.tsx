@@ -1,10 +1,12 @@
 import React from 'react'
 
-import classnames from 'classnames'
-
 import { Scaler } from '@/__private__/utils/scale'
 
-import css from './index.css'
+import { cn } from '@/__private__/utils/bem'
+
+import './Threshold.css'
+
+const cnThreshold = cn('Threshold')
 
 type Props = {
   valuesScale: Scaler<number>
@@ -46,13 +48,14 @@ const getPositionText = (value: number, isHorizontal: boolean) => {
 
 export const Threshold: React.FC<Props> = ({ valuesScale, isHorizontal, value }) => {
   const scaledValue = valuesScale.scale(value)
-  const linePos = getLinePosition(scaledValue, isHorizontal)
-  const textPos = getPositionText(scaledValue, isHorizontal)
+  const linePos = scaledValue && getLinePosition(scaledValue, isHorizontal)
+  const textPos = scaledValue && getPositionText(scaledValue, isHorizontal)
+  const horizontal = isHorizontal ? 'isHorizontal' : 'notHorizontal'
 
   return (
     <>
-      <line stroke={'var(--color-bg-warning)'} className={css.main} {...linePos} />
-      <text {...textPos} className={classnames(css.text, isHorizontal && css.isHorizontal)}>
+      <line stroke={'var(--color-bg-warning)'} className={cnThreshold('Main')} {...linePos} />
+      <text {...textPos} className={cnThreshold('Text', {horizontal})}>
         {value}
       </text>
     </>

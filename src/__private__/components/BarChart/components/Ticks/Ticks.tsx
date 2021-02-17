@@ -1,13 +1,16 @@
 import React, { RefObject, useLayoutEffect, useState } from 'react'
 
 import { Text } from '@consta/uikit/Text'
-import classnames from 'classnames'
 import { times } from 'lodash'
 
 import { Scaler } from '@/__private__/utils/scale'
 
 import { cropText, getTextAlign, getTransformTranslate, SLANTED_TEXT_MAX_LENGTH } from './helpers'
-import css from './index.css'
+import { cn } from '@/__private__/utils/bem'
+
+import './Ticks.css'
+
+const cnTicks = cn('Ticks')
 
 export const positions = ['top', 'right', 'bottom', 'left'] as const
 export type Position = typeof positions[number]
@@ -19,7 +22,6 @@ type Props<T> = {
   position: Position
   showLine?: boolean
   isTicksSnuggleOnEdge?: boolean
-  className?: string
   isXAxisLabelsSlanted?: boolean
   style?: React.CSSProperties
   formatValueForLabel?: (value: T) => string
@@ -33,17 +35,16 @@ type Props<T> = {
     }
 )
 
-const positionClasses: Record<Position, string> = {
-  top: css.isTop,
-  right: css.isRight,
-  bottom: css.isBottom,
-  left: css.isLeft,
-}
+// const positionClasses: Record<Position, string> = {
+//   top: 'isTop',
+//   right: 'isRight',
+//   bottom: 'isBottom',
+//   left: 'isLeft',
+// }
 
 export function Ticks<T>(props: Props<T>) {
   const {
     isXAxisLabelsSlanted,
-    className,
     values,
     disabledValues = [],
     scaler,
@@ -84,7 +85,7 @@ export function Ticks<T>(props: Props<T>) {
     ? (v: T) => getTransformTranslate((scaler?.scale(v) || 0) + getTickOffset(v), 0)
     : (v: T) => getTransformTranslate(0, (scaler?.scale(v) || 0) + getTickOffset(v))
 
-  const positionClassName = positionClasses[position]
+  // const positionClassName = positionClasses[position]
 
   const getAlignItems = (index: number, length: number) => {
     const isFirst = index === 0
@@ -115,6 +116,7 @@ export function Ticks<T>(props: Props<T>) {
   }
 
   const isDisabled = (value: T) => disabledValues.includes(value)
+  const typeTicks = props.isLabel ? 'Label' : 'Tick'
 
   const children = values.map((value, idx) => {
     const transform = scaler && tickTransform(value)
@@ -124,11 +126,11 @@ export function Ticks<T>(props: Props<T>) {
     return (
       <div
         key={idx}
-        className={classnames(
-          className,
-          positionClasses[position],
-          props.isLabel ? css.label : css.tick,
-          isXAxisLabelsSlanted && css.isXAxisLabelsSlanted
+        className={cnTicks(typeTicks,
+          {
+            position,
+            isXAxisLabelsSlanted
+          }
         )}
         style={{
           transform,
@@ -143,10 +145,12 @@ export function Ticks<T>(props: Props<T>) {
           size={'xs'}
           align={textAlign}
           title={textValue}
-          className={classnames(
-            css.text,
-            isDisabled(value) && css.isDisabled,
-            isHorizontal && css.isHorizontal
+          className={cnTicks(
+            'Text',
+            {
+              isDisabled: isDisabled(value),
+              isHorizontal
+            }
           )}
           lineHeight="s"
         >
@@ -155,7 +159,7 @@ export function Ticks<T>(props: Props<T>) {
           )) ||
             textValue}
         </Text>
-        {showLine && <span className={css.line} />}
+        {showLine && <span className={cnTicks('Line')} />}
       </div>
     )
   })
@@ -163,7 +167,7 @@ export function Ticks<T>(props: Props<T>) {
   return props.isLabel ? (
     <>{children}</>
   ) : (
-    <div className={classnames(css.group, positionClassName, className)} style={style}>
+    <div className={cnTicks('Group', {position})} style={style}>
       {children}
     </div>
   )

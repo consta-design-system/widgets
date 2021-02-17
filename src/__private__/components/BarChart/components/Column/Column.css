@@ -1,0 +1,38 @@
+.cw--Column {
+  &-Columns {
+    position: relative;
+
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+
+    &_horizontal_isHorizontal {
+      width: 100%;
+      height: 100%;
+    }
+
+    &_horizontal_notHorizontal {
+      width: 100%;
+      height: 100%;
+    }
+
+    &_reversed {
+      &_isReversedIsHorizontal {
+        flex-direction: row-reverse;
+      }
+
+      &_notReversedIsHorizontal {
+        flex-direction: row;
+      }
+
+      &_isReversedNotHorizontal {
+        flex-direction: column;
+      }
+
+      &_notReversedNotHorizontal {
+        flex-direction: column-reverse;
+      }
+    }
+  }
+}

@@ -1,15 +1,17 @@
 import React from 'react'
 
 import { Text } from '@consta/uikit/Text'
-import classnames from 'classnames'
 
-import { ColumnProperty } from '@/__private__/components/BarChart/components/Column'
+import { ColumnProperty } from '@/__private__/components/BarChart/components/Column/Column'
 import { NumberRange } from '@/__private__/utils/scale'
-
-import { LabelSize } from '../..'
+import { LabelSize } from '../../BarChart'
 
 import { getBackground, getColor, getRoundedBorder, getSize, getTriangle } from './helpers'
-import css from './index.css'
+import { cn } from '@/__private__/utils/bem'
+
+import './Section.css'
+
+const cnSection = cn('Section')
 
 type Props = {
   color: string
@@ -18,7 +20,6 @@ type Props = {
   isReversed: boolean
   isActive: boolean
   label?: string
-  className?: string
   onMouseEnter?: React.MouseEventHandler
   onMouseLeave?: React.MouseEventHandler
   onChangeLabelSize?: (size: LabelSize) => void
@@ -36,7 +37,6 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
       isReversed,
       isActive,
       label,
-      className,
       onMouseEnter,
       onMouseLeave,
       onChangeLabelSize,
@@ -62,19 +62,29 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
         onChangeLabelSize({ width: Math.round(width), height: Math.round(height) })
     }, [label, labelRef, onChangeLabelSize])
 
+    const reversed = isHorizontal && isReversed
+      ? 'isReversedIsHorizontal'
+      : !isHorizontal && isReversed
+        ? 'isReversedNotHorizontal'
+        : isHorizontal && !isReversed
+          ? 'notReversedIsHorizontal'
+          : 'notReversedNotHorizontal'
+    const horizontal = isHorizontal ? 'isHorizontal' : 'notHorizontal'
+
     return (
       <div
         ref={ref}
-        className={classnames(
-          css.section,
-          isHorizontal && css.isHorizontal,
-          isReversed && css.isReversed,
-          isActive && css.isActive,
-          className
+        className={cnSection(
+          'Sections',
+          {
+            horizontal,
+            reversed,
+            isActive,
+          }
         )}
         style={{
           ...getSize(length, isHorizontal),
-          ...getRoundedBorder(columnProperty, isHorizontal),
+          ...getRoundedBorder(columnProperty, reversed),
           ...getBackground(color, length, isOverflow, isHorizontal, isReversed),
         }}
         onMouseEnter={onMouseEnter}
@@ -82,10 +92,12 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
       >
         {isOverflow && (
           <div
-            className={classnames(
-              css.overflow,
-              css.isHorizontal && isHorizontal,
-              css.isReversed && isReversed
+            className={cnSection(
+              'Overflow',
+              {
+                horizontal,
+                reversed,
+              }
             )}
             style={getTriangle(color, isOverflow, isHorizontal, isReversed, maxLabelSize)}
           />
@@ -95,7 +107,7 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
             ref={labelRef}
             as="div"
             view="primary"
-            className={css.label}
+            className={cnSection('Label')}
             size="xs"
             style={getColor(color, isOverflow)}
           >

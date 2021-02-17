@@ -2,18 +2,17 @@ import React, { useLayoutEffect, useRef, useState } from 'react'
 
 import { useComponentSize } from '@consta/uikit/useComponentSize'
 import { Text } from '@consta/uikit/Text'
-import classnames from 'classnames'
 
-import { ZeroLine } from '@/__private__/components/BarChart/components/ZeroLine'
-import { Grid } from '@/__private__/components/Grid'
+import { ZeroLine } from '@/__private__/components/BarChart/components/ZeroLine/ZeroLine'
+import { Grid } from '@/__private__/components/Grid/Grid'
 import { FormatValue } from '@/__private__/types'
 import { NumberRange, scaleLinear } from '@/__private__/utils/scale'
 import { getTicks } from '@/__private__/utils/ticks'
 
-import { Title } from '../Title'
+import { Title } from '../Title/Title'
 
-import { Threshold } from './components/Threshold'
-import { Position } from './components/Ticks'
+import { Threshold } from './components/Threshold/Threshold'
+import { Position } from './components/Ticks/Ticks'
 import { Tooltip, TooltipData } from './components/Tooltip'
 import {
   CHART_MIN_HEIGHT,
@@ -22,10 +21,10 @@ import {
   getColumnLength,
   getGridSettings,
   getLabelGridAreaName,
+  getPaddingThreshold,
   getRange,
   getScaler,
 } from './helpers'
-import css from './index.css'
 import {
   defaultRenderAxisValues,
   defaultRenderGroupsLabels,
@@ -33,6 +32,11 @@ import {
   RenderGroup,
   RenderGroupsLabels,
 } from './renders'
+import { cn } from '@/__private__/utils/bem'
+
+import './BarChart.css'
+
+const cnBarChart = cn('CoreBarChart')
 
 export const unitPositions = ['left', 'bottom', 'left-and-bottom', 'none'] as const
 export type UnitPosition = typeof unitPositions[number]
@@ -81,10 +85,10 @@ export type Props<T> = {
 }
 
 const axisTicksPositionsClasses = {
-  left: css.leftTicks,
-  bottom: css.bottomTicks,
-  right: css.rightTicks,
-  top: css.topTicks,
+  left: cnBarChart('leftTicks'),
+  bottom: cnBarChart('bottomTicks'),
+  right: cnBarChart('rightTicks'),
+  top: cnBarChart('topTicks'),
 }
 
 const renderUnit = (className: string, unit: string) => (
@@ -296,23 +300,24 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
    * Для !isHorizontal рендерится внутри обертки, для того, чтобы лейблы строились по grid сетке.
    */
   return (
-    <div className={css.scroll}>
-      <div className={css.wrapper}>
+    <div className={cnBarChart('Scroll')}>
+      <div className={cnBarChart('Wrapper')}>
         <Title style={{ paddingLeft: gridStyle.left }}>{title}</Title>
-        <div className={classnames(css.main, withScroll && isHorizontal && css.withVerticalScroll)}>
+        <div className={cnBarChart('Main', {withVerticalScroll: withScroll && isHorizontal})}>
           {isHorizontal && axisShowPositions.top && renderHorizontal('top')}
           <div
             ref={ref}
-            className={classnames(css.chart, isHorizontal && css.isHorizontal)}
+            className={cnBarChart('Chart', {isHorizontal})}
             style={{
               ...getGridSettings({
                 isHorizontal,
                 countGroups: groups.length,
                 axisShowPositions,
               }),
+              ...getPaddingThreshold(isHorizontal, threshold)
             }}
           >
-            <svg className={css.svg} ref={svgRef} style={gridStyle}>
+            <svg className={cnBarChart('Svg')} ref={svgRef} style={gridStyle}>
               {showGrid && showLineAtZero && (
                 <Grid
                   scalerX={valuesScale}
@@ -332,7 +337,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
                 />
               )}
             </svg>
-            {unit && !isHorizontal && renderUnit(css.topLeftUnit, unit)}
+            {unit && !isHorizontal && renderUnit(cnBarChart('TopLeftUnit'), unit)}
             {!isHorizontal && axisShowPositions.top && showGroupsLabels && renderHorizontal('top')}
             {axisShowPositions.right && showGroupsLabels && renderVertical('right')}
             {groups.map((group, groupIdx) => {
@@ -352,7 +357,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
                     ...horizontalStyles,
                     ...verticalStyles,
                   }}
-                  className={css.groupWrapper}
+                  className={cnBarChart('GroupWrapper')}
                 >
                   {renderGroup({
                     item: group,
@@ -391,7 +396,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
             axisShowPositions.bottom &&
             showGroupsLabels &&
             renderHorizontal('bottom')}
-          {unit && isHorizontal && renderUnit(css.bottomUnit, unit)}
+          {unit && isHorizontal && renderUnit(cnBarChart('BottomUnit'), unit)}
           {tooltipData && (
             <Tooltip
               data={tooltipData}

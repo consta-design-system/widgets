@@ -1,14 +1,17 @@
 import React from 'react'
 
 import { Text } from '@consta/uikit/Text'
-import classnames from 'classnames'
 import _ from 'lodash'
 
 import { FormatValue } from '@/__private__/types'
 import { getFormattedValue } from '@/__private__/utils/chart'
 import { LegendItem } from '@/LegendItem'
 
-import css from './index.css'
+import { cn } from '@/__private__/utils/bem'
+
+import './TooltipContentForMultipleValues.css'
+
+const cnTooltipContent = cn('TooltipContentForMultipleValues')
 
 export type Item = {
   name?: string
@@ -28,17 +31,17 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
   formatValueForTooltip,
 }) => {
   return (
-    <div className={css.container}>
+    <div className={cnTooltipContent('Container')}>
       {title && (
         <>
-          <Text as="div" size="xs" weight="bold" view="primary" className={css.title}>
+          <Text as="div" size="xs" weight="bold" view="primary" className={cnTooltipContent('Title')}>
             {title}
           </Text>
-          <div className={css.divider} />
+          <div className={cnTooltipContent('Divider')} />
         </>
       )}
 
-      <div className={css.content}>
+      <div className={cnTooltipContent('Content')}>
         {items.map(({ name, color, value }, idx) => {
           const formattedValue = getFormattedValue(value ?? null, formatValueForTooltip)
 
@@ -48,7 +51,7 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
                 type={_.isNumber(value) ? 'dot' : 'warning'}
                 color={color}
                 fontSize="xs"
-                className={classnames(css.legendItem, !name && css.isSingleColumn)}
+                className={cnTooltipContent('LegendItem', {isSingleColumn: !name})}
               >
                 {name ?? formattedValue}
               </LegendItem>

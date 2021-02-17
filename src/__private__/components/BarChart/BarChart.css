@@ -1,0 +1,109 @@
+.cw--CoreBarChart {
+  &-Scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  &-Wrapper {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+    margin-bottom: 15px;
+  }
+
+  &-Main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    width: 100%;
+
+    &_withVerticalScroll {
+      & .chart {
+        overflow-y: auto;
+      }
+
+      & .bottomTicks {
+        padding-top: var(--space-m);
+      }
+    }
+  }
+
+  &-Chart {
+    position: relative;
+
+    display: grid;
+    flex-grow: 1;
+
+    box-sizing: border-box;
+
+    &_isHorizontal {
+      padding-right: var(--space-m);
+    }
+  }
+
+  &-Svg {
+    position: absolute;
+
+    overflow: visible;
+  }
+
+  &-topTicks,
+  &-rightTicks,
+  &-bottomTicks,
+  &-leftTicks {
+    position: relative;
+  }
+
+  &-leftTicks,
+  &-rightTicks {
+    max-width: 160px;
+  }
+
+  &-topTicks {
+    grid-area: topTicks;
+  }
+
+  &-rightTicks {
+    grid-area: rightTicks;
+  }
+
+  &-bottomTicks {
+    grid-area: bottomTicks;
+  }
+
+  &-leftTicks {
+    grid-area: leftTicks;
+
+    justify-self: end;
+  }
+
+  &-TopLeftUnit {
+    grid-area: topLeft;
+
+    margin-bottom: var(--space-xs);
+
+    text-align: right;
+  }
+
+  &-BottomUnit {
+    grid-area: bottomUnit;
+
+    margin-top: var(--space-2xs);
+
+    text-align: center;
+  }
+
+  &-GroupWrapper {
+    position: relative;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -6,7 +6,7 @@ import { isNotNil } from '@consta/widgets-utils/lib/type-guards'
 import {
   Item,
   TooltipContentForMultipleValues,
-} from '@/__private__/components/TooltipContentForMultipleValues'
+} from '@/__private__/components/TooltipContentForMultipleValues/TooltipContentForMultipleValues'
 import { FormatValue } from '@/__private__/types'
 
 export type TooltipData = {

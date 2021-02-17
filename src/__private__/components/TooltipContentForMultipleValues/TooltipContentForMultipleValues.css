@@ -1,0 +1,35 @@
+.cw--TooltipContentForMultipleValues {
+  &-Container {
+    max-width: 400px;
+  }
+
+  &-Title {
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &-Divider {
+    height: 1px;
+    margin: var(--space-xs) calc(-1 * var(--space-xs));
+
+    background-color: var(--color-bg-border);
+  }
+
+  &-Content {
+    display: grid;
+
+    grid-row-gap: var(--space-s);
+    grid-column-gap: var(--space-s);
+
+    width: 100%;
+    grid-template-columns: 1fr auto;
+  }
+
+  &-LegendItem {
+    &_isSingleColumn {
+      grid-column: 2 span;
+    }
+  }
+}

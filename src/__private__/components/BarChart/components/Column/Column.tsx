@@ -2,19 +2,22 @@ import React from 'react'
 
 import { useComponentSize } from '@consta/uikit/useComponentSize'
 import { isDefined, isNotNil } from '@consta/widgets-utils/lib/type-guards'
-import classnames from 'classnames'
 import { isNumber } from 'lodash'
 
 import { styleOrientation } from '@/__private__/components/BarChart/components/Column/helpers'
 import { FormatValue } from '@/__private__/types'
 import { NumberRange } from '@/__private__/utils/scale'
 
-import { LabelSize } from '../..'
 import { Size } from '../../helpers'
-import { Section } from '../Section'
+import { Section } from '../Section/Section'
 import { TooltipData } from '../Tooltip'
+import { LabelSize } from '../../BarChart'
 
-import css from './index.css'
+import { cn } from '@/__private__/utils/bem'
+
+import './Column.css'
+
+const cnColumn = cn('Column')
 
 export type ColumnSize = Exclude<Size, 'auto'>
 
@@ -158,13 +161,23 @@ export const Column: React.FC<Props> = ({
       />
     )
   }
+  const reversed = isHorizontal && isReversed
+    ? 'isReversedIsHorizontal'
+    : !isHorizontal && isReversed
+      ? 'isReversedNotHorizontal'
+      : isHorizontal && !isReversed
+        ? 'notReversedIsHorizontal'
+        : 'notReversedNotHorizontal'
+  const horizontal = isHorizontal ? 'isHorizontal' : 'notHorizontal'
 
   return (
     <div
-      className={classnames(
-        css.column,
-        isHorizontal && css.isHorizontal,
-        isReversed && css.isReversed
+      className={cnColumn(
+        'Columns',
+        {
+          horizontal,
+          reversed
+        }
       )}
       style={styleOrientation(lengthColumn, maxNumberGroups, padding, isHorizontal)}
       ref={ref}

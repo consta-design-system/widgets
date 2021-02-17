@@ -1,0 +1,5 @@
+.cw--Title {
+  &-Main {
+    padding-bottom: var(--space-s);
+  }
+}

@@ -1,7 +1,7 @@
 import { getScaler } from '@/__private__/components/BarChart/helpers'
 import { NumberRange } from '@/__private__/utils/scale'
 
-import { SectionItem } from '../Column'
+import { SectionItem } from '../Column/Column'
 
 export const getSections = ({
   sections,

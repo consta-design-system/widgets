@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { CoreBarChart, Threshold, UnitPosition } from '@/__private__/components/BarChart'
 import {
   getGroupsDomain,
   getValuesDomain,
   isShowReversed,
 } from '@/__private__/components/BarChart/helpers'
 import { defaultRenderGroup } from '@/__private__/components/BarChart/renders'
+import { CoreBarChart, Threshold, UnitPosition } from '@/__private__/components/BarChart/BarChart'
 import { FormatValue } from '@/__private__/types'
 
 import {

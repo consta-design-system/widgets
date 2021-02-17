@@ -1,11 +1,11 @@
 import React from 'react'
 
+import { LabelSize } from '@/__private__/components/BarChart/BarChart'
 import { FormatValue } from '@/__private__/types'
 import { NumberRange, Scaler } from '@/__private__/utils/scale'
 
-import { LabelSize } from '.'
-import { Group, GroupItem } from './components/Group'
-import { Position, Ticks } from './components/Ticks'
+import { Group, GroupItem } from './components/Group/Group'
+import { Position, Ticks } from './components/Ticks/Ticks'
 import { TooltipData } from './components/Tooltip'
 
 export type RenderGroupsLabels = (props: {

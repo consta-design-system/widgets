@@ -1,0 +1,23 @@
+.cw--Threshold {
+  &-Main {
+    stroke-width: 1;
+    stroke-dasharray: 5 3;
+  }
+
+  &-Text {
+    font-size: 12px;
+    font-weight: 100;
+    stroke-width: 1;
+    stroke: rgba(246, 251, 253, 0.6);
+
+    &_horizontal_isHorizontal {
+      text-anchor: middle;
+      dominant-baseline: auto;
+    }
+
+    &_horizontal_notHorizontal {
+      text-anchor: start;
+      dominant-baseline: central;
+    }
+  }
+}

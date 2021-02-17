@@ -1,10 +1,12 @@
 import React from 'react'
 
-import classnames from 'classnames'
-
 import { Scaler } from '@/__private__/utils/scale'
 
-import css from './index.css'
+import { cn } from '@/__private__/utils/bem'
+
+import './Grid.css'
+
+const cnGrid = cn('Grid')
 
 type Props = {
   scalerX: Scaler<number>
@@ -27,7 +29,7 @@ export const Grid: React.FC<Props> = ({
   xGridGuide,
   yGridGuide,
 }) => (
-  <g className={css.main}>
+  <g className={cnGrid('Main')}>
     {xTickValues.map(tick => {
       const x = scalerX.scale(tick)
       const isGuide = xGridGuide && tick === xGridGuide
@@ -35,7 +37,7 @@ export const Grid: React.FC<Props> = ({
       return (
         <line
           key={tick}
-          className={classnames(css.line, isGuide && css.guide)}
+          className={cnGrid('Line', {guide: isGuide})}
           x1={x}
           x2={x}
           y1={0}
@@ -50,7 +52,7 @@ export const Grid: React.FC<Props> = ({
       return (
         <line
           key={tick}
-          className={classnames(css.line, isGuide && css.guide)}
+          className={cnGrid('Line', {guide: isGuide})}
           x1={0}
           x2={width}
           y1={y}

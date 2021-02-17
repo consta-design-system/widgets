@@ -4,7 +4,7 @@ import { Text } from '@consta/uikit/Text'
 import { object, select, text } from '@storybook/addon-knobs'
 import { withSmartKnobs } from 'storybook-addon-smart-knobs'
 
-import { unitPositions } from '@/__private__/components/BarChart'
+import { unitPositions } from '@/__private__/components/BarChart/BarChart'
 import { createMetadata, createStory } from '@/__private__/storybook'
 
 import { BarChart } from '..'

@@ -1,12 +1,12 @@
 import { isTruthy } from '@consta/widgets-utils/lib/type-guards'
 import { startCase, sum } from 'lodash'
 
+import { Threshold } from '@/__private__/components/BarChart/BarChart'
 import { getEveryN } from '@/__private__/utils/array'
 import { NumberRange } from '@/__private__/utils/scale'
 
-import { Threshold } from './'
-import { ColumnItem, GroupItem } from './components/Group'
-import { Position } from './components/Ticks'
+import { ColumnItem, GroupItem } from './components/Group/Group'
+import { Position } from './components/Ticks/Ticks'
 
 export const barCharSizes = ['s', 'm', 'l', 'xl', '2xl', '3xl', 'auto'] as const
 export type Size = typeof barCharSizes[number]
@@ -311,5 +311,15 @@ export const getColumnLength = (columnLength: number, gridItem: number, typeColu
       return columnLength >= gridItem ? columnLength : gridItem
     default:
       throw new Error(`Неизвестный тип typeColumn: ${typeColumn}`)
+  }
+}
+
+export const getPaddingThreshold = (isHorizontal: boolean, threshold?: Threshold) => {
+  if (threshold?.value && !isHorizontal) {
+    return { padding: '0 50px 0 0' }
+  } else if (threshold?.value && isHorizontal) {
+    return { padding: '50px 0 0 0' }
+  } else {
+    return { padding: '0' }
   }
 }

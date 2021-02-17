@@ -1,17 +1,20 @@
 import React, { useEffect, useRef } from 'react'
 
 import { useComponentSize } from '@consta/uikit/useComponentSize'
-import classnames from 'classnames'
 
 import { FormatValue } from '@/__private__/types'
 import { NumberRange } from '@/__private__/utils/scale'
 
-import { LabelSize } from '../..'
-import { Column, SectionItem } from '../Column'
+import { Column, SectionItem } from '../Column/Column'
 import { TooltipData } from '../Tooltip'
+import {LabelSize} from "@/__private__/components/BarChart/BarChart";
 
 import { getSections, scalerCommonColumnsGroups, styleGroups, styleOrientation } from './helpers'
-import css from './index.css'
+import { cn } from '@/__private__/utils/bem'
+
+import './Group.css'
+
+const cnGroup = cn('Group')
 
 export type ColumnItem = {
   total: number
@@ -44,7 +47,6 @@ type Props = {
   onMouseEnterColumn: (groupName: string, params: TooltipData) => void
   onMouseLeaveColumn: (groupName: string) => void
   onChangeLabelSize?: (size: LabelSize) => void
-  className?: string
   style?: React.CSSProperties
   getNumberGridTicks: (length: number) => void
   gridDomain: NumberRange
@@ -68,7 +70,6 @@ export const Group: React.FC<Props> = props => {
     onMouseEnterColumn,
     onMouseLeaveColumn,
     onChangeLabelSize,
-    className,
     getNumberGridTicks,
     gridDomain,
     limitMinimumCategorySize = false,
@@ -127,19 +128,19 @@ export const Group: React.FC<Props> = props => {
   }
   return (
     <div
-      className={classnames(css.group, isHorizontal && css.isHorizontal, className)}
+      className={cnGroup('Groups', {isHorizontal})}
       style={styleGroups(isHorizontal, limitMinimumCategorySize)}
       ref={ref}
     >
-      <div className={css.columns}>
+      <div className={cnGroup('Columns')}>
         <div
-          className={css.wrapper}
+          className={cnGroup('Wrapper')}
           style={styleOrientation(columnLength, isHorizontal, scalerColumnsGroups, gridDomain)}
         >
           {columns.map((column, index) => renderColumn(column, index))}
         </div>
         <div
-          className={classnames(css.wrapper, css.isReversed)}
+          className={cnGroup('Wrapper')}
           style={styleOrientation(
             reversedColumnLength,
             isHorizontal,

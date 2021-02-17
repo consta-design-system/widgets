@@ -2,7 +2,11 @@ import React from 'react'
 
 import { Scaler } from '@/__private__/utils/scale'
 
-import css from './index.css'
+import { cn } from '@/__private__/utils/bem'
+
+import './ZeroLine.css'
+
+const cnZeroLine = cn('ZeroLine')
 
 type Props = {
   valuesScale: Scaler<number>
@@ -36,8 +40,8 @@ export const ZeroLine: React.FC<Props> = ({ valuesScale, isHorizontal }) => {
   }
 
   return (
-    <svg className={css.main}>
-      <line className={css.line} {...linePos} />
+    <svg className={cnZeroLine('Main')}>
+      <line className={cnZeroLine('Line')} {...linePos} />
     </svg>
   )
 }

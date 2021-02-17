@@ -1,5 +1,5 @@
-import { LabelSize } from '@/__private__/components/BarChart'
-import { ColumnProperty } from '@/__private__/components/BarChart/components/Column'
+import { ColumnProperty } from '@/__private__/components/BarChart/components/Column/Column'
+import { LabelSize } from '@/__private__/components/BarChart/BarChart'
 
 export const getSize = (length: number, isHorizontal: boolean) => {
   const size = `${Math.abs(length)}%`
@@ -10,9 +10,9 @@ export const getSize = (length: number, isHorizontal: boolean) => {
   }
 }
 
-export const getRoundedBorder = (columnProperty: ColumnProperty, isHorizontal: boolean) => {
-  switch (isHorizontal) {
-    case false:
+export const getRoundedBorder = (columnProperty: ColumnProperty, reversed: string) => {
+  switch (reversed) {
+    case 'notReversedNotHorizontal':
       if (columnProperty.width < 8) {
         return { borderRadius: '0' }
       } else if (columnProperty.width >= 8 && columnProperty.width < 16) {
@@ -20,7 +20,23 @@ export const getRoundedBorder = (columnProperty: ColumnProperty, isHorizontal: b
       } else {
         return { borderRadius: '2px 2px 0 0' }
       }
-    case true:
+    case 'isReversedNotHorizontal':
+      if (columnProperty.width < 8) {
+        return { borderRadius: '0' }
+      } else if (columnProperty.width >= 8 && columnProperty.width < 16) {
+        return { borderRadius: '0 0 1px 1px' }
+      } else {
+        return { borderRadius: '0 0 2px 2px' }
+      }
+    case 'isReversedIsHorizontal':
+      if (columnProperty.height < 8) {
+        return { borderRadius: '0' }
+      } else if (columnProperty.height >= 8 && columnProperty.height < 16) {
+        return { borderRadius: '1px 0 0 1px' }
+      } else {
+        return { borderRadius: '2px 0 0 2px' }
+      }
+    case 'notReversedIsHorizontal':
       if (columnProperty.height < 8) {
         return { borderRadius: '0' }
       } else if (columnProperty.height >= 8 && columnProperty.height < 16) {

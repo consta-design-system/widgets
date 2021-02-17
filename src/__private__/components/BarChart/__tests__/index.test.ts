@@ -1,5 +1,5 @@
 import { Threshold } from '../'
-import { GroupItem } from '../components/Group'
+import { GroupItem } from '../components/Group/Group'
 import {
   defaultGetAxisShowPositions,
   getColumnSize,
