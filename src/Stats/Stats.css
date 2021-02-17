@@ -39,8 +39,6 @@
     align-items: baseline;
 
     margin: var(--gap) 0;
-
-    white-space: nowrap;
   }
 
   &-Value {
