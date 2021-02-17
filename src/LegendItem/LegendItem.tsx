@@ -41,17 +41,17 @@ const DOT_SIZE = 12
 // }
 
 export const LegendItem: React.FC<Props> = ({
-                                              children,
-                                              color,
-                                              type = 'dot',
-                                              fontSize = 's',
-                                              position = 'left',
-                                              lineBold,
-                                              className,
-                                              shouldCropText,
-                                              onMouseEnter,
-                                              onMouseLeave,
-                                            }) => {
+  children,
+  color,
+  type = 'dot',
+  fontSize = 's',
+  position = 'left',
+  lineBold,
+  className,
+  shouldCropText,
+  onMouseEnter,
+  onMouseLeave,
+}) => {
   const positionClass = ['dot', 'warning'].includes(type) ? 'left' : position
   const dotStyle = type === 'dot' ? { width: DOT_SIZE, height: DOT_SIZE } : {}
 

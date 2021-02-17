@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { Scaler } from '@/__private__/utils/scale'
-
 import { cn } from '@/__private__/utils/bem'
+import { Scaler } from '@/__private__/utils/scale'
 
 import './ZeroLine.css'
 

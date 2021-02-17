@@ -5,15 +5,15 @@ import { isDefined, isNotNil } from '@consta/widgets-utils/lib/type-guards'
 import { isNumber } from 'lodash'
 
 import { styleOrientation } from '@/__private__/components/BarChart/components/Column/helpers'
+import { getReversed } from '@/__private__/components/BarChart/components/Section/helpers'
 import { FormatValue } from '@/__private__/types'
+import { cn } from '@/__private__/utils/bem'
 import { NumberRange } from '@/__private__/utils/scale'
 
 import { Size } from '../../helpers'
+import { LabelSize } from '../../BarChart'
 import { Section } from '../Section/Section'
 import { TooltipData } from '../Tooltip'
-import { LabelSize } from '../../BarChart'
-
-import { cn } from '@/__private__/utils/bem'
 
 import './Column.css'
 
@@ -161,24 +161,16 @@ export const Column: React.FC<Props> = ({
       />
     )
   }
-  const reversed = isHorizontal && isReversed
-    ? 'isReversedIsHorizontal'
-    : !isHorizontal && isReversed
-      ? 'isReversedNotHorizontal'
-      : isHorizontal && !isReversed
-        ? 'notReversedIsHorizontal'
-        : 'notReversedNotHorizontal'
+
+  const reversed = getReversed(isHorizontal, isReversed)
   const horizontal = isHorizontal ? 'isHorizontal' : 'notHorizontal'
 
   return (
     <div
-      className={cnColumn(
-        'Columns',
-        {
-          horizontal,
-          reversed
-        }
-      )}
+      className={cnColumn('Columns', {
+        horizontal,
+        reversed,
+      })}
       style={styleOrientation(lengthColumn, maxNumberGroups, padding, isHorizontal)}
       ref={ref}
     >

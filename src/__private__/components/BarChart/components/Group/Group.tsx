@@ -2,16 +2,15 @@ import React, { useEffect, useRef } from 'react'
 
 import { useComponentSize } from '@consta/uikit/useComponentSize'
 
+import { LabelSize } from '@/__private__/components/BarChart/BarChart'
 import { FormatValue } from '@/__private__/types'
+import { cn } from '@/__private__/utils/bem'
 import { NumberRange } from '@/__private__/utils/scale'
 
 import { Column, SectionItem } from '../Column/Column'
 import { TooltipData } from '../Tooltip'
-import {LabelSize} from "@/__private__/components/BarChart/BarChart";
 
 import { getSections, scalerCommonColumnsGroups, styleGroups, styleOrientation } from './helpers'
-import { cn } from '@/__private__/utils/bem'
-
 import './Group.css'
 
 const cnGroup = cn('Group')
@@ -128,7 +127,7 @@ export const Group: React.FC<Props> = props => {
   }
   return (
     <div
-      className={cnGroup('Groups', {isHorizontal})}
+      className={cnGroup('Groups', { isHorizontal })}
       style={styleGroups(isHorizontal, limitMinimumCategorySize)}
       ref={ref}
     >

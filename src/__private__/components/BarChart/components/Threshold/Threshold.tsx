@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { Scaler } from '@/__private__/utils/scale'
-
 import { cn } from '@/__private__/utils/bem'
+import { Scaler } from '@/__private__/utils/scale'
 
 import './Threshold.css'
 
@@ -55,7 +54,7 @@ export const Threshold: React.FC<Props> = ({ valuesScale, isHorizontal, value })
   return (
     <>
       <line stroke={'var(--color-bg-warning)'} className={cnThreshold('Main')} {...linePos} />
-      <text {...textPos} className={cnThreshold('Text', {horizontal})}>
+      <text {...textPos} className={cnThreshold('Text', { horizontal })}>
         {value}
       </text>
     </>

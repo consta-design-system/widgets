@@ -76,7 +76,7 @@ describe('getTotalByColumn', () => {
   })
 
   it('возвращает сумму значений секций с отрицательными значениями', () => {
-    expect(getTotalByColumn({ total: -40 })).toEqual(40)
+    expect(getTotalByColumn({ total: -40 })).toEqual(-40)
   })
 })
 
@@ -191,19 +191,19 @@ describe('getValuesDomain', () => {
   it('возвращает значения для домена с перевернутыми колонками', () => {
     const result = getValuesDomain({ groups })
 
-    expect(result).toEqual([-100, 100])
+    expect(result).toEqual([0, 100])
   })
 
   it('возвращает значения для домена с предельным значением', () => {
     const result = getValuesDomain({ groups, threshold })
 
-    expect(result).toEqual([0, 120])
+    expect(result).toEqual([45, 120])
   })
 
   it('возвращает значения для домена с предельным значением с перевернутыми колонками', () => {
     const result = getValuesDomain({ groups, threshold })
 
-    expect(result).toEqual([-120, 120])
+    expect(result).toEqual([45, 120])
   })
 })
 
@@ -231,9 +231,9 @@ describe('getGridSettings', () => {
       })
 
       expect(result).toEqual({
-        gridTemplateRows: '1fr 1fr 1fr',
+        gridTemplateRows: '1fr 1fr 1fr auto',
         gridTemplateColumns: '1fr',
-        gridTemplateAreas: '"group0" "group1" "group2"',
+        gridTemplateAreas: '"group0" "group1" "group2" "bottomUnit"',
       })
     })
 
@@ -250,13 +250,14 @@ describe('getGridSettings', () => {
       })
 
       expect(result).toEqual({
-        gridTemplateRows: '1fr 1fr 1fr auto',
-        gridTemplateColumns: 'auto 1fr',
+        gridTemplateRows: '1fr 1fr 1fr auto auto',
+        gridTemplateColumns: 'fit-content(25%) 1fr',
         gridTemplateAreas:
           '"labelLeft0 group0" ' +
           '"labelLeft1 group1" ' +
           '"labelLeft2 group2" ' +
-          '"bottomLeft bottomTicks"',
+          '"bottomLeft bottomTicks" ' +
+          '"bottomLeft bottomUnit"',
       })
     })
 
@@ -273,14 +274,15 @@ describe('getGridSettings', () => {
       })
 
       expect(result).toEqual({
-        gridTemplateRows: 'auto 1fr 1fr 1fr auto',
-        gridTemplateColumns: 'auto 1fr auto',
+        gridTemplateRows: 'auto 1fr 1fr 1fr auto auto',
+        gridTemplateColumns: 'fit-content(25%) 1fr fit-content(25%)',
         gridTemplateAreas:
           '"topLeft topTicks topRight" ' +
           '"labelLeft0 group0 labelRight0" ' +
           '"labelLeft1 group1 labelRight1" ' +
           '"labelLeft2 group2 labelRight2" ' +
-          '"bottomLeft bottomTicks bottomRight"',
+          '"bottomLeft bottomTicks bottomRight" ' +
+          '"bottomLeft bottomUnit bottomUnit"',
       })
     })
 
@@ -297,10 +299,9 @@ describe('getGridSettings', () => {
       })
 
       expect(result).toEqual({
-        gridTemplateRows: 'auto 1fr 1fr 1fr auto auto',
-        gridTemplateColumns: 'auto 1fr',
+        gridTemplateRows: '1fr 1fr 1fr auto auto',
+        gridTemplateColumns: 'fit-content(25%) 1fr',
         gridTemplateAreas:
-          '"topLeft topTicks" ' +
           '"labelLeft0 group0" ' +
           '"labelLeft1 group1" ' +
           '"labelLeft2 group2" ' +
@@ -322,10 +323,9 @@ describe('getGridSettings', () => {
       })
 
       expect(result).toEqual({
-        gridTemplateRows: 'auto 1fr 1fr 1fr auto',
-        gridTemplateColumns: 'auto 1fr auto',
+        gridTemplateRows: '1fr 1fr 1fr auto',
+        gridTemplateColumns: 'fit-content(25%) 1fr fit-content(25%)',
         gridTemplateAreas:
-          '"topLeft topTicks topRight" ' +
           '"labelLeft0 group0 labelRight0" ' +
           '"labelLeft1 group1 labelRight1" ' +
           '"labelLeft2 group2 labelRight2" ' +
@@ -367,14 +367,13 @@ describe('getGridSettings', () => {
       })
 
       expect(result).toEqual({
-        gridTemplateRows: 'auto 1fr auto',
-        gridTemplateColumns:
-          'auto' +
-          ' minmax(calc((var(--column-size) * 3) + (var(--column-padding) * 2)), 1fr)'.repeat(3),
+        gridTemplateRows: 'fit-content(20%) 1fr auto auto',
+        gridTemplateColumns: 'fit-content(20%) 1fr 1fr 1fr',
         gridTemplateAreas:
           '"topLeft labelTop0 labelTop1 labelTop2" ' +
           '"leftTicks group0 group1 group2" ' +
-          '"bottomLeft labelBottom0 labelBottom1 labelBottom2"',
+          '"bottomLeft labelBottom0 labelBottom1 labelBottom2" ' +
+          '"bottomLeft bottomUnit bottomUnit bottomUnit"',
       })
     })
 
@@ -385,10 +384,8 @@ describe('getGridSettings', () => {
       })
 
       expect(result).toEqual({
-        gridTemplateRows: 'auto 1fr auto auto',
-        gridTemplateColumns:
-          'auto' +
-          ' minmax(calc((var(--column-size) * 3) + (var(--column-padding) * 2)), 1fr)'.repeat(3),
+        gridTemplateRows: 'fit-content(20%) 1fr auto auto',
+        gridTemplateColumns: 'fit-content(20%) 1fr 1fr 1fr',
         gridTemplateAreas:
           '"topLeft labelTop0 labelTop1 labelTop2" ' +
           '"leftTicks group0 group1 group2" ' +

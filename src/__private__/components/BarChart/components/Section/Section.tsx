@@ -3,12 +3,19 @@ import React from 'react'
 import { Text } from '@consta/uikit/Text'
 
 import { ColumnProperty } from '@/__private__/components/BarChart/components/Column/Column'
+import { cn } from '@/__private__/utils/bem'
 import { NumberRange } from '@/__private__/utils/scale'
+
 import { LabelSize } from '../../BarChart'
 
-import { getBackground, getColor, getRoundedBorder, getSize, getTriangle } from './helpers'
-import { cn } from '@/__private__/utils/bem'
-
+import {
+  getBackground,
+  getColor,
+  getReversed,
+  getRoundedBorder,
+  getSize,
+  getTriangle,
+} from './helpers'
 import './Section.css'
 
 const cnSection = cn('Section')
@@ -62,26 +69,17 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
         onChangeLabelSize({ width: Math.round(width), height: Math.round(height) })
     }, [label, labelRef, onChangeLabelSize])
 
-    const reversed = isHorizontal && isReversed
-      ? 'isReversedIsHorizontal'
-      : !isHorizontal && isReversed
-        ? 'isReversedNotHorizontal'
-        : isHorizontal && !isReversed
-          ? 'notReversedIsHorizontal'
-          : 'notReversedNotHorizontal'
+    const reversed = getReversed(isHorizontal, isReversed)
     const horizontal = isHorizontal ? 'isHorizontal' : 'notHorizontal'
 
     return (
       <div
         ref={ref}
-        className={cnSection(
-          'Sections',
-          {
-            horizontal,
-            reversed,
-            isActive,
-          }
-        )}
+        className={cnSection('Sections', {
+          horizontal,
+          reversed,
+          isActive,
+        })}
         style={{
           ...getSize(length, isHorizontal),
           ...getRoundedBorder(columnProperty, reversed),
@@ -92,13 +90,10 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
       >
         {isOverflow && (
           <div
-            className={cnSection(
-              'Overflow',
-              {
-                horizontal,
-                reversed,
-              }
-            )}
+            className={cnSection('Overflow', {
+              horizontal,
+              reversed,
+            })}
             style={getTriangle(color, isOverflow, isHorizontal, isReversed, maxLabelSize)}
           />
         )}

@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { Scaler } from '@/__private__/utils/scale'
-
 import { cn } from '@/__private__/utils/bem'
+import { Scaler } from '@/__private__/utils/scale'
 
 import './Grid.css'
 
@@ -37,7 +36,7 @@ export const Grid: React.FC<Props> = ({
       return (
         <line
           key={tick}
-          className={cnGrid('Line', {guide: isGuide})}
+          className={cnGrid('Line', { guide: isGuide })}
           x1={x}
           x2={x}
           y1={0}
@@ -52,7 +51,7 @@ export const Grid: React.FC<Props> = ({
       return (
         <line
           key={tick}
-          className={cnGrid('Line', {guide: isGuide})}
+          className={cnGrid('Line', { guide: isGuide })}
           x1={0}
           x2={width}
           y1={y}
