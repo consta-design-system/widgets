@@ -1,5 +1,6 @@
-import { Threshold } from '../'
-import { GroupItem } from '../components/Group/Group'
+import { GroupItem } from '@/__private__/components/BarChart/components/Group/Group'
+import { Threshold } from '@/__private__/components/BarChart/BarChart'
+
 import {
   defaultGetAxisShowPositions,
   getColumnSize,
