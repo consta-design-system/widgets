@@ -1,10 +1,9 @@
-import { ReactNode } from 'react'
+import { ReactElement } from 'react'
 
 import { TextPropSize } from '@consta/uikit/Text'
 
-import { FormatValue } from '@/__private__/types'
 import { IconSize } from '@/__private__/utils/consta'
-import { NARROW_NO_BREAK_SPACE } from '@/__private__/utils/symbols'
+import { DECIMAL_SEPARATOR, NARROW_NO_BREAK_SPACE } from '@/__private__/utils/symbols'
 
 export const sizes = ['2xs', 'xs', 's', 'm', 'l'] as const
 export type Size = typeof sizes[number]
@@ -18,7 +17,9 @@ export type Status = typeof statuses[number]
 export const iconsArrowRate = ['up', 'down', 'auto'] as const
 export type IconArrowRate = typeof iconsArrowRate[number]
 
-export type IconTitle = (props: { size: IconSize }) => ReactNode
+export type IconTitle = (props: { size: IconSize }) => ReactElement | null
+
+export type FormatRate = (value: string) => string
 
 export const titleSizes: Record<Size, TextPropSize> = {
   '2xs': 'xs',
@@ -36,10 +37,10 @@ export const iconTitleSizes: Record<Size, IconSize> = {
   l: 'm',
 }
 
-export const defaultValueFormatter: FormatValue = value => {
+export const defaultFormatter = (value: string | number) => {
   return String(value)
-    .replace(/(\d)(?=(\d{3})+(?!\d))/g, `$1${NARROW_NO_BREAK_SPACE}`)
-    .replace('.', ',')
+    .replace(/(\d)(?=(\d{3})+\b)(?<!\.\d+)/g, `$1${NARROW_NO_BREAK_SPACE}`)
+    .replace(/(?<=\d+)\.(?=\d+)/g, DECIMAL_SEPARATOR)
 }
 
 export const isNegativeRate = (rate: string) => {

@@ -7,7 +7,8 @@ import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 
 import {
-  defaultValueFormatter,
+  defaultFormatter,
+  FormatRate,
   IconArrowRate,
   IconTitle,
   iconTitleSizes,
@@ -34,6 +35,7 @@ type Props = HTMLAttributes<HTMLDivElement> & {
   layout?: Layout
   size?: Size
   formatValue?: FormatValue
+  formatRate?: FormatRate
   children?: never
 }
 
@@ -49,7 +51,8 @@ export const Stats = forwardRef<HTMLDivElement, Props>((props, ref) => {
     layout = 'default',
     size = 'm',
     status = 'system',
-    formatValue = defaultValueFormatter,
+    formatValue = defaultFormatter,
+    formatRate = defaultFormatter,
     ...mainElementProps
   } = props
   const isDefaultLayout = layout === 'default'
@@ -57,14 +60,20 @@ export const Stats = forwardRef<HTMLDivElement, Props>((props, ref) => {
     status: !!rate ? undefined : status,
   }
 
-  const renderedIconTitle = iconTitle ? iconTitle({ size: iconTitleSizes[size] }) : null
+  const renderedIconTitle = iconTitle
+    ? React.createElement(iconTitle, { size: iconTitleSizes[size] })
+    : null
   const titleElement =
     title || renderedIconTitle ? (
       <StatsTitle size={size} icon={renderedIconTitle} title={title} />
     ) : null
 
   const rateElement = rate ? (
-    <StatsRate className={cnStats('Rate', { status })} rate={rate} icon={iconArrowRate} />
+    <StatsRate
+      className={cnStats('Rate', { status })}
+      rate={formatRate(rate)}
+      icon={iconArrowRate}
+    />
   ) : null
 
   const unitElement = unit ? (

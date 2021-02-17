@@ -8,7 +8,8 @@ import { FormatValue } from '@/__private__/types'
 
 import { Stats } from '..'
 import {
-  defaultValueFormatter,
+  defaultFormatter,
+  FormatRate,
   iconsArrowRate,
   IconTitle,
   layouts,
@@ -18,15 +19,19 @@ import {
 
 import mdx from './Stats.mdx'
 
-const iconsKeysTitle = ['Без иконки', 'IconLightningBolt'] as const
-const iconsTitle: Record<typeof iconsKeysTitle[number], IconTitle | undefined> = {
+const iconsTitleKeys = ['Без иконки', 'IconLightningBolt'] as const
+const iconsTitle: Record<typeof iconsTitleKeys[number], IconTitle | undefined> = {
   'Без иконки': undefined,
   IconLightningBolt,
 }
 
-const formatsValueKeys = ['По умолчанию', 'Без форматирования'] as const
-const formatsValue: Record<typeof formatsValueKeys[number], FormatValue> = {
-  'По умолчанию': defaultValueFormatter,
+const formattersKeys = ['По умолчанию', 'Без форматирования'] as const
+const formatsValue: Record<typeof formattersKeys[number], FormatValue> = {
+  'По умолчанию': defaultFormatter,
+  'Без форматирования': String,
+}
+const formatsRate: Record<typeof formattersKeys[number], FormatRate> = {
+  'По умолчанию': defaultFormatter,
   'Без форматирования': String,
 }
 
@@ -35,14 +40,15 @@ const getKnobs = () => {
     value: number('value', 2170),
     placeholder: text('placeholder', '—'),
     title: text('title', 'Молний за год'),
-    iconTitle: iconsTitle[select('iconTitle', iconsKeysTitle, iconsKeysTitle[0])],
+    iconTitle: iconsTitle[select('iconTitle', iconsTitleKeys, iconsTitleKeys[0])],
     unit: text('unit', 'разрядов'),
     rate: text('rate', '20%'),
     iconArrowRate: optionalSelect('iconArrowRate', iconsArrowRate),
     status: select('status', statuses, statuses[0]),
     layout: select('layout', layouts, layouts[0]),
     size: select('size', sizes, sizes[3]),
-    formatValue: formatsValue[select('formatValue', formatsValueKeys, formatsValueKeys[0])],
+    formatValue: formatsValue[select('formatValue', formattersKeys, formattersKeys[0])],
+    formatRate: formatsRate[select('formatRate', formattersKeys, formattersKeys[0])],
   }
 }
 
