@@ -3,11 +3,10 @@ import React, { RefObject, useLayoutEffect, useState } from 'react'
 import { Text } from '@consta/uikit/Text'
 import { times } from 'lodash'
 
+import { cn } from '@/__private__/utils/bem'
 import { Scaler } from '@/__private__/utils/scale'
 
 import { cropText, getTextAlign, getTransformTranslate, SLANTED_TEXT_MAX_LENGTH } from './helpers'
-import { cn } from '@/__private__/utils/bem'
-
 import './Ticks.css'
 
 const cnTicks = cn('Ticks')
@@ -34,13 +33,6 @@ type Props<T> = {
       isLabel?: never
     }
 )
-
-// const positionClasses: Record<Position, string> = {
-//   top: 'isTop',
-//   right: 'isRight',
-//   bottom: 'isBottom',
-//   left: 'isLeft',
-// }
 
 export function Ticks<T>(props: Props<T>) {
   const {
@@ -126,12 +118,10 @@ export function Ticks<T>(props: Props<T>) {
     return (
       <div
         key={idx}
-        className={cnTicks(typeTicks,
-          {
-            position,
-            isXAxisLabelsSlanted
-          }
-        )}
+        className={cnTicks(typeTicks, {
+          position,
+          isXAxisLabelsSlanted,
+        })}
         style={{
           transform,
           alignItems,
@@ -145,13 +135,10 @@ export function Ticks<T>(props: Props<T>) {
           size={'xs'}
           align={textAlign}
           title={textValue}
-          className={cnTicks(
-            'Text',
-            {
-              isDisabled: isDisabled(value),
-              isHorizontal
-            }
-          )}
+          className={cnTicks('Text', {
+            isDisabled: isDisabled(value),
+            isHorizontal,
+          })}
           lineHeight="s"
         >
           {(isXAxisLabelsSlanted && (
@@ -167,7 +154,7 @@ export function Ticks<T>(props: Props<T>) {
   return props.isLabel ? (
     <>{children}</>
   ) : (
-    <div className={cnTicks('Group', {position})} style={style}>
+    <div className={cnTicks('Group', { position })} style={style}>
       {children}
     </div>
   )

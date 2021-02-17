@@ -6,6 +6,7 @@ import { Text } from '@consta/uikit/Text'
 import { ZeroLine } from '@/__private__/components/BarChart/components/ZeroLine/ZeroLine'
 import { Grid } from '@/__private__/components/Grid/Grid'
 import { FormatValue } from '@/__private__/types'
+import { cn } from '@/__private__/utils/bem'
 import { NumberRange, scaleLinear } from '@/__private__/utils/scale'
 import { getTicks } from '@/__private__/utils/ticks'
 
@@ -32,14 +33,9 @@ import {
   RenderGroup,
   RenderGroupsLabels,
 } from './renders'
-import { cn } from '@/__private__/utils/bem'
-
 import './BarChart.css'
 
 const cnBarChart = cn('CoreBarChart')
-
-export const unitPositions = ['left', 'bottom', 'left-and-bottom', 'none'] as const
-export type UnitPosition = typeof unitPositions[number]
 
 export type OnMouseHoverColumn = (groupName: string) => void
 
@@ -68,7 +64,6 @@ export type Props<T> = {
   maxNumberGroups: number
   isXAxisLabelsSlanted?: boolean
   unit?: string
-  unitPosition?: UnitPosition
   activeSectionIndex?: number
   activeGroup?: string
   threshold?: Threshold
@@ -303,18 +298,18 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     <div className={cnBarChart('Scroll')}>
       <div className={cnBarChart('Wrapper')}>
         <Title style={{ paddingLeft: gridStyle.left }}>{title}</Title>
-        <div className={cnBarChart('Main', {withVerticalScroll: withScroll && isHorizontal})}>
+        <div className={cnBarChart('Main', { withVerticalScroll: withScroll && isHorizontal })}>
           {isHorizontal && axisShowPositions.top && renderHorizontal('top')}
           <div
             ref={ref}
-            className={cnBarChart('Chart', {isHorizontal})}
+            className={cnBarChart('Chart', { isHorizontal })}
             style={{
               ...getGridSettings({
                 isHorizontal,
                 countGroups: groups.length,
                 axisShowPositions,
               }),
-              ...getPaddingThreshold(isHorizontal, threshold)
+              ...getPaddingThreshold(isHorizontal, threshold),
             }}
           >
             <svg className={cnBarChart('Svg')} ref={svgRef} style={gridStyle}>

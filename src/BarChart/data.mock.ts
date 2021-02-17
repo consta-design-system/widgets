@@ -79,6 +79,24 @@ export const groupExampleData = {
     },
     {
       groupName: 'вторая группа',
+      values: [650, 210, 80],
+    },
+    {
+      groupName: 'третья группа',
+      values: [75],
+    },
+  ],
+}
+
+export const groupExampleDataOverflow = {
+  colors,
+  groups: [
+    {
+      groupName: 'первая группа',
+      values: [410, 115],
+    },
+    {
+      groupName: 'вторая группа',
       values: [670, 210, 80],
     },
     {

@@ -3,7 +3,12 @@ import React from 'react'
 import { Example } from '@/__private__/storybook'
 
 import { BarChart } from '../..'
-import { groupExampleData, minimalData, withNegativeValueData } from '../../data.mock'
+import {
+  groupExampleData,
+  groupExampleDataOverflow,
+  minimalData,
+  withNegativeValueData,
+} from '../../data.mock'
 
 export const BarChartExampleGeneral = () => (
   <Example>
@@ -13,45 +18,6 @@ export const BarChartExampleGeneral = () => (
       groups={withNegativeValueData.groups}
       isHorizontal={true}
       showValues={true}
-    />
-  </Example>
-)
-
-export const BarChartExampleSizeS = () => (
-  <Example width="300px">
-    <BarChart
-      formatValueForTooltip={v => `${v} км`}
-      colors={minimalData.colors}
-      groups={minimalData.groups}
-      isHorizontal={true}
-      showValues={true}
-      threshold={minimalData.threshold}
-    />
-  </Example>
-)
-
-export const BarChartExampleSizeM = () => (
-  <Example width="300px">
-    <BarChart
-      formatValueForTooltip={v => `${v} км`}
-      colors={minimalData.colors}
-      groups={minimalData.groups}
-      isHorizontal={true}
-      showValues={true}
-      threshold={minimalData.threshold}
-    />
-  </Example>
-)
-
-export const BarChartExampleSizeAuto = () => (
-  <Example>
-    <BarChart
-      formatValueForTooltip={v => `${v} км`}
-      colors={minimalData.colors}
-      groups={minimalData.groups}
-      isHorizontal={true}
-      showValues={true}
-      threshold={minimalData.threshold}
     />
   </Example>
 )
@@ -79,7 +45,6 @@ export const BarChartExampleUnitLeft = () => (
       showValues={true}
       threshold={minimalData.threshold}
       unit="тыс. тонн"
-      unitPosition="left"
     />
   </Example>
 )
@@ -90,26 +55,10 @@ export const BarChartExampleUnitBottom = () => (
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
       groups={minimalData.groups}
-      isHorizontal={true}
+      isHorizontal={false}
       showValues={true}
       threshold={minimalData.threshold}
       unit="тыс. тонн"
-      unitPosition="bottom"
-    />
-  </Example>
-)
-
-export const BarChartExampleUnitLeftBottom = () => (
-  <Example>
-    <BarChart
-      formatValueForTooltip={v => `${v} км`}
-      colors={minimalData.colors}
-      groups={minimalData.groups}
-      isHorizontal={true}
-      showValues={true}
-      threshold={minimalData.threshold}
-      unit="тыс. тонн"
-      unitPosition="left-and-bottom"
     />
   </Example>
 )
@@ -124,7 +73,6 @@ export const BarChartExampleUnitNone = () => (
       showValues={true}
       threshold={minimalData.threshold}
       unit="тыс. тонн"
-      unitPosition="none"
     />
   </Example>
 )
@@ -150,7 +98,6 @@ export const BarChartExampleGroup = () => (
       groups={groupExampleData.groups}
       isHorizontal={true}
       unit="тыс. тонн"
-      unitPosition="none"
     />
   </Example>
 )
@@ -163,7 +110,6 @@ export const BarChartExampleGroupSlanted = () => (
       groups={groupExampleData.groups}
       isHorizontal={false}
       unit="тыс. тонн"
-      unitPosition="none"
       isXAxisLabelsSlanted
     />
   </Example>
@@ -177,7 +123,19 @@ export const BarChartExampleShowValues = () => (
       groups={groupExampleData.groups}
       isHorizontal={true}
       unit="тыс. тонн"
-      unitPosition="none"
+      showValues={true}
+    />
+  </Example>
+)
+
+export const BarChartExampleOverflow = () => (
+  <Example>
+    <BarChart
+      formatValueForTooltip={v => `${v} км`}
+      colors={groupExampleDataOverflow.colors}
+      groups={groupExampleDataOverflow.groups}
+      isHorizontal={true}
+      unit="тыс. тонн"
       showValues={true}
     />
   </Example>
@@ -192,7 +150,6 @@ export const BarChartExampleLableProcent = () => (
       groups={groupExampleData.groups}
       isHorizontal={true}
       unit="тыс. тонн"
-      unitPosition="none"
       showValues={true}
     />
   </Example>
@@ -206,8 +163,107 @@ export const BarChartExampleGrid = () => (
       formatValueForTooltip={v => `${v}%`}
       isHorizontal={true}
       unit="тыс. тонн"
-      unitPosition="none"
       showValues={true}
+    />
+  </Example>
+)
+
+export const BarChartExampleFrameControlShowAll = () => (
+  <Example>
+    <BarChart
+      colors={minimalData.colors}
+      groups={minimalData.groups}
+      formatValueForTooltip={v => `${v}%`}
+      isHorizontal={false}
+      unit="тыс. тонн"
+      showGrid={true}
+      showGroupsLabels={true}
+      showLineAtZero={true}
+    />
+  </Example>
+)
+
+export const BarChartExampleFrameControlHideGrid = () => (
+  <Example>
+    <BarChart
+      colors={minimalData.colors}
+      groups={minimalData.groups}
+      formatValueForTooltip={v => `${v}%`}
+      isHorizontal={false}
+      unit="тыс. тонн"
+      showGrid={false}
+      showGroupsLabels={true}
+      showLineAtZero={true}
+    />
+  </Example>
+)
+
+export const BarChartExampleFrameControlHideLineAtZero = () => (
+  <Example>
+    <BarChart
+      colors={minimalData.colors}
+      groups={minimalData.groups}
+      formatValueForTooltip={v => `${v}%`}
+      isHorizontal={false}
+      unit="тыс. тонн"
+      showGrid={true}
+      showGroupsLabels={true}
+      showLineAtZero={false}
+    />
+  </Example>
+)
+
+export const BarChartExampleFrameControlHideLabels = () => (
+  <Example>
+    <BarChart
+      colors={minimalData.colors}
+      groups={minimalData.groups}
+      formatValueForTooltip={v => `${v}%`}
+      isHorizontal={false}
+      unit="тыс. тонн"
+      showGrid={true}
+      showGroupsLabels={false}
+      showLineAtZero={true}
+    />
+  </Example>
+)
+
+export const BarChartExampleMinMaxY = () => (
+  <Example>
+    <BarChart
+      colors={minimalData.colors}
+      groups={minimalData.groups}
+      formatValueForTooltip={v => `${v}%`}
+      isHorizontal={false}
+      unit="тыс. тонн"
+      minValueY={-500}
+      maxValueY={1200}
+    />
+  </Example>
+)
+
+export const BarChartExampleMinY = () => (
+  <Example>
+    <BarChart
+      colors={minimalData.colors}
+      groups={minimalData.groups}
+      formatValueForTooltip={v => `${v}%`}
+      isHorizontal={false}
+      unit="тыс. тонн"
+      minValueY={-500}
+    />
+  </Example>
+)
+
+export const BarChartExampleMaxY = () => (
+  <Example>
+    <BarChart
+      colors={minimalData.colors}
+      groups={minimalData.groups}
+      formatValueForTooltip={v => `${v}%`}
+      isHorizontal={false}
+      unit="тыс. тонн"
+      maxValueY={1300}
     />
   </Example>
 )

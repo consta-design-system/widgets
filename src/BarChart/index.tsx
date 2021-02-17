@@ -6,7 +6,7 @@ import {
   isShowReversed,
 } from '@/__private__/components/BarChart/helpers'
 import { defaultRenderGroup } from '@/__private__/components/BarChart/renders'
-import { CoreBarChart, Threshold, UnitPosition } from '@/__private__/components/BarChart/BarChart'
+import { CoreBarChart, Threshold } from '@/__private__/components/BarChart/BarChart'
 import { FormatValue } from '@/__private__/types'
 
 import {
@@ -28,7 +28,6 @@ type Props = {
   maxValueY?: number
   colors: readonly string[]
   unit?: string
-  unitPosition?: UnitPosition
   showValues?: boolean
   isHorizontal?: boolean
   withScroll?: boolean

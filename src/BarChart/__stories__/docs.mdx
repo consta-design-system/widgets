@@ -1,19 +1,22 @@
 import {
   BarChartExampleGeneral,
   BarChartExampleThreshold,
-  BarChartExampleSizeS,
-  BarChartExampleSizeM,
-  BarChartExampleSizeAuto,
   BarChartExampleNotHorizontal,
   BarChartExampleUnitLeft,
   BarChartExampleUnitBottom,
-  BarChartExampleUnitLeftBottom,
-  BarChartExampleUnitNone,
   BarChartExampleGroup,
   BarChartExampleGroupSlanted,
   BarChartExampleShowValues,
   BarChartExampleLableProcent,
   BarChartExampleGrid,
+  BarChartExampleOverflow,
+  BarChartExampleFrameControlShowAll,
+  BarChartExampleFrameControlHideGrid,
+  BarChartExampleFrameControlHideLabels,
+  BarChartExampleFrameControlHideLineAtZero,
+  BarChartExampleMinMaxY,
+  BarChartExampleMaxY,
+  BarChartExampleMinY
 } from './examples/BarChartExample'
 
 # BarChart
@@ -27,11 +30,14 @@ import {
   - [Размер элементов](#размер-элементов)
   - [Горизонтальный или вертикальный](#горизонтальный-или-вертикальный)
   - [Единицы измерения](#единицы-измерения)
+  - [Управление каркасом](#управление-каркасом)
+  - [Максимумы и минимумы на осях](#максимумы-и-минимумы-на-осях)
 - [Группы и столбцы](#группы-и-столбцы)
   - [Как указывать значения](#группы-и-столбцы)
   - [Цвет столбцов](#цвет-столбцов)
   - [Значения у столбцов](#значения-у-столбцов)
   - [Отрицательные значения](#отрицательные-значения)
+  - [Переполнение столбца](#переполнение-столбца)
 - [Сетка](#сетка)
   - [Подписи к делениям](#подписи-к-делениям)
   - [Сколько показывать](#сколько-делений-показывать)
@@ -44,12 +50,9 @@ import {
 
 ### Размер элементов
 
-Вы можете менять размер элементов на графике с помощью свойства `size`.
-Варианты: `'s'`, `'m'`, `'auto'`.
-
-| `size='s'`               | `size='m`'               |
-| ------------------------ | ------------------------ |
-| <BarChartExampleSizeS /> | <BarChartExampleSizeM /> |
+Максимальный размер столбика (для одиночных) и группы столбиков (для групповых) зависит от размера контейнера и
+определяется соотношением.
+Максимальный размер столбика - 70% от ширины группы.
 
 ### Горизонтальный или вертикальный
 
@@ -62,16 +65,65 @@ import {
 
 За единицы измерения отвечает свойство `unit`.
 
-Вы можете расположить их как удобно, за расположение единиц отвечает `unitPosition`.
-Варианты: `left`, `bottom`, `left-and-bottom`, `none`.
-
-| `unitPosition="left"`       | `unitPosition="bottom"`       |
+| `isHorizontsl=true`         | `isHorizontsl=false`          |
 | --------------------------- | ----------------------------- |
 | <BarChartExampleUnitLeft /> | <BarChartExampleUnitBottom /> |
 
-| `unitPosition="left-and-bottom"`  | `unitPosition="none"`       |
-| --------------------------------- | --------------------------- |
-| <BarChartExampleUnitLeftBottom /> | <BarChartExampleUnitNone /> |
+### Управление каркасом
+
+За отображение частей каркаса отвечают параметры:
+- showGrid - отображение сетки;
+- showLineAtZero - отображение нулевой линии;
+- showGroupsLabels - отображение подписей на графике;
+
+Если скрыта нулевая линия, то сетка отображаться не будет.
+
+```tsx
+showGrid = true,
+showLineAtZero = true,
+showGroupsLabels = true
+```
+<BarChartExampleFrameControlShowAll />
+
+```tsx
+showGrid = false,
+showLineAtZero = true,
+showGroupsLabels = true
+```
+<BarChartExampleFrameControlHideGrid />
+
+```tsx
+showGrid = true,
+showLineAtZero = false,
+showGroupsLabels = true
+```
+<BarChartExampleFrameControlHideLineAtZero />
+
+```tsx
+showGrid = true,
+showLineAtZero = true,
+showGroupsLabels = false
+```
+<BarChartExampleFrameControlHideLabels />
+
+### Максимумы и минимумы на осях
+
+```tsx
+minValueY = 1200,
+maxValueY = -500
+```
+<BarChartExampleMinMaxY />
+
+```tsx
+minValueY = -500
+```
+<BarChartExampleMinY />
+
+```tsx
+maxValueY = 1300
+```
+<BarChartExampleMaxY />
+
 
 ## Группы и столбцы
 
@@ -163,37 +215,32 @@ import {
   {
     groupName: 'Q5-2016',
     values: [10, 20, 50],
-  }
+  },
+]
 ```
+
+### Переполнение столбца
+
+Если происходит переполнение, то столбец который не влез на график будет подписываться.
+
+<BarChartExampleOverflow />
 
 ## Сетка
 
 ### Сколько делений показывать
 
-За количество делений на графике отвечает `gridTicks`.
+Количество делений рассчитывается в зависимости от ширины графика.
 
 ### Подписи к делениям
-
-Вы можете указать, как часто ставить подписи рядом с делениями: у каждого, у каждого второго, третьего и т. д.
-За это отвечает `valuesTicks`.
 
 Формат подписи указывается в `formatValueForLabel`, по умолчанию число — номер деления,
 но вы можете показать что-то другое, например, процент или дату.
 
 ```tsx
-gridTicks={5} //показываем 5 делений на графике
-valuesTicks={2} //ставим подпись у каждого второго деления
 formatValueForLabel={v => `${v}%`} //добавляем к числу в подписи знак %
 ```
 
 <BarChartExampleLableProcent />
-
-```tsx
-gridTicks={10} // показываем 10 делений на графике
-valuesTicks={2} // ставим подпись у каждого второго деления
-```
-
-<BarChartExampleGrid />
 
 ## Тултип
 
@@ -213,40 +260,38 @@ formatValueForTooltip={v => `${v} км`}
 Вы можете описать область предельных значений в объекте `threshold`:
 
 - в `value` укажите предельное значение,
-- в `color` — цвет, которым его нужно обозначить.
 
-На графике появится пунктирная линия.
+На графике появится пунктирная линия и справа от неё подпись.
 
 <BarChartExampleThreshold />
 
 ```ts
 // threshold
-{
-  value: 410,
-  color: 'var(--color-bg-normal)',
-}
+{ value: 410 }
 ```
 
 ## Свойства
 
 <!-- props:start -->
 
-| Свойство                                            | Тип                                         | По умолчанию | Описание                                                                    |
-| --------------------------------------------------- | ------------------------------------------- | ------------ | --------------------------------------------------------------------------- |
-| [`groups`](#группы-и-столбцы)                       | [`Group[]`](#group)                         | -            | Группы значений                                                             |
-| [`colors`](#цвет-столцов)                           | `string[]`                                  | -            | Цвета столбцов                                                              |
-| [`showValues?`](#значения-у-столбцов)               | `boolean`                                   | -            | Показывать значения величины столбцов                                       |
-| [`gridTicks`](#сколько-делений-показывать)          | `number`                                    | -            | Количество делений на графике                                               |
-| [`valuesTicks`](#подписи-к-значениям)               | `number`                                    | -            | Когда ставить надписи рядом с делением: у каждого, у каждого второго и пр.  |
-| [`formatValueForLabel?`](#подписи-к-значениям)      | `(value: number) => string`                 | -            | Формат для подписи к делению                                                |
-| [`formatValueForTooltip?`](#тултип)                 | `(value: number) => string`                 | -            | Формат для вывода значения в тултипе                                        |
-| [`isXAxisLabelsSlanted?`](#группы-и-столбцы)        | `boolean`                                   | -            | Наклоняет подписи к столбцам вбок (работает только в вертикальных графиках) |
-| [`unit?`](#единицы-измерения)                       | `string`                                    | -            | Единицы измерения                                                           |
-| [`unitPosition?`](#единицы-измерения)               | `left`, `bottom`, `left-and-bottom`, `none` | -            | Расположение единиц измерения                                               |
-| [`size?`](#размер-элементов)                        | `'s'`, `'m'`, `'auto'`                      | -            | Размер графика и всех его элементов                                         |
-| [`isHorizontal?`](#горизонтальный-или-вертикальный) | `boolean`                                   | -            | Делает график горизонтальным                                                |
-| [`threshold?`](#предельные-значения)                | [`Threshold`](#threshold)                   | -            | Предельные значения                                                         |
-| [`isEmptyColumnsHidden?`](#)                        | `boolean`                                   | -            | Прячет пустые столбцы                                                        |
+| Свойство                                                    | Тип                                         | По умолчанию | Описание                                                                    |
+| ------------------------------------------------------------| ------------------------------------------- | ------------ | --------------------------------------------------------------------------- |
+| [`groups`](#группы-и-столбцы)                               | [`Group[]`](#group)                         | -            | Группы значений                                                             |
+| [`colors`](#цвет-столцов)                                   | `string[]`                                  | -            | Цвета столбцов                                                              |
+| [`showValues?`](#значения-у-столбцов)                       | `boolean`                                   | -            | Показывать значения величины столбцов                                       |
+| [`formatValueForLabel?`](#подписи-к-значениям)              | `(value: number) => string`                 | -            | Формат для подписи к делению                                                |
+| [`formatValueForTooltip?`](#тултип)                         | `(value: number) => string`                 | -            | Формат для вывода значения в тултипе                                        |
+| [`isXAxisLabelsSlanted?`](#группы-и-столбцы)                | `boolean`                                   | -            | Наклоняет подписи к столбцам вбок (работает только в вертикальных графиках) |
+| [`unit?`](#единицы-измерения)                               | `string`                                    | -            | Единицы измерения                                                           |
+| [`isHorizontal?`](#горизонтальный-или-вертикальный)         | `boolean`                                   | -            | Делает график горизонтальным                                                |
+| [`threshold?`](#предельные-значения)                        | [`Threshold`](#threshold)                   | -            | Предельные значения                                                         |
+| [`isEmptyColumnsHidden?`](#)                                | `boolean`                                   | -            | Прячет пустые столбцы                                                       |
+| [`showGrid?`](#отображение-сетки)                           | `boolean`                                   | -            | Отображает сетку                                                            |
+| [`showLineAtZero?`](#отображение-линии-в-нуле)              | `boolean`                                   | -            | Отображает линию в нуде                                                     |
+| [`showGroupsLabels?`](#отображение-подписей)                | `boolean`                                   | -            | Отображает подписи на сетке                                                 |
+| [`maxValueY?`](#максимальное-значение-оси-У)                | `number`                                    | -            | Устанавливает максимальное значение для оси У                               |             |
+| [`minValueY?`](#минимальное-значение-оси-У)                 | `number`                                    | -            | Устанавливает минимальное значение для оси У                                |
+| [`limitMinimumCategorySize?`](#минимальный-размер-категории)| `boolean`                                   | -            | Устанавливает минимальный размер шага категории                                |
 
 ### Group
 
@@ -260,7 +305,6 @@ formatValueForTooltip={v => `${v} км`}
 | Свойство                        | Тип      | По умолчанию | Описание |
 | ------------------------------- | -------- | ------------ | -------- |
 | [`value`](#предельные-значения) | `number` | -            | Значение |
-| [`color`](#предельные-значения) | `string` | -            | Цвет     |
 
 ## Пример
 
@@ -272,7 +316,6 @@ import { BarChart } from '@consta/widgets/BarChart'
     'var(--color-bg-normal)',
     'var(--color-bg-success)',
   ]}
-  gridTicks={4}
   groups={[
     {
       groupName: 'Апрель',
@@ -283,16 +326,10 @@ import { BarChart } from '@consta/widgets/BarChart'
       values: [7, 9],
     },
   ]}
-  valuesTicks={1}
-  size="s"
-  threshold={{
-    color: 'var(--color-bg-alert)',
-    value: 10,
-  }}
+  threshold={value: 10}
   isHorizontal
   showValues
   unit="тыс. м³"
-  unitPosition="bottom"
   formatValueForLabel={v => `${v} тыс. м³`}
 />
 ```

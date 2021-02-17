@@ -1,10 +1,9 @@
 import React from 'react'
 
 import { Text } from '@consta/uikit/Text'
-import { object, select, text } from '@storybook/addon-knobs'
+import { object, text } from '@storybook/addon-knobs'
 import { withSmartKnobs } from 'storybook-addon-smart-knobs'
 
-import { unitPositions } from '@/__private__/components/BarChart/BarChart'
 import { createMetadata, createStory } from '@/__private__/storybook'
 
 import { BarChart } from '..'
@@ -14,16 +13,14 @@ import docs from './docs.mdx'
 
 const getCommonProps = (initialUnit: string) => {
   const unit = text('unit', initialUnit)
-  const unitPosition = select('unitPosition', unitPositions, 'none')
 
   return {
-    gridTicks: 5,
-    valuesTicks: 1,
-    size: 'm',
     formatValueForTooltip: (v: number) => `${v} ${unit}`,
     unit,
-    unitPosition,
     withScroll: false,
+    showLineAtZero: true,
+    showGroupsLabels: true,
+    showGrid: true,
   } as const
 }
 

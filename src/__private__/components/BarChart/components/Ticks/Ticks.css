@@ -99,21 +99,6 @@
         text-overflow: ellipsis;
       }
     }
-
-    &_isXAxisLabelsSlanted.cw--Ticks-Label .cw--Ticks-Text {
-      position: absolute;
-      top: 0;
-      right: 50%;
-
-      overflow: hidden;
-
-      min-height: 15px;
-
-      white-space: pre;
-
-      transform: rotate(-55.81deg);
-      transform-origin: right center;
-    }
   }
 
   &-Line {
@@ -152,6 +137,21 @@
 
     &_isXAxisLabelsSlanted {
       position: relative;
+
+      .cw--Ticks-Text {
+        position: absolute;
+        top: 0;
+        right: 50%;
+
+        overflow: hidden;
+
+        min-height: 15px;
+
+        white-space: pre;
+
+        transform: rotate(-55.81deg);
+        transform-origin: right center;
+      }
     }
   }
 

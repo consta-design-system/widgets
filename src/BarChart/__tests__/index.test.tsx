@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { BarChart } from '../'
+import { BarChart } from '@/BarChart'
 
 describe('BarChart', () => {
   it('не крашится при динамической смене количества групп', () => {
