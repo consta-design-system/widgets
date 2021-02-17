@@ -2,9 +2,12 @@ import React from 'react'
 
 import { IconWarning } from '@consta/uikit/IconWarning'
 import { Text } from '@consta/uikit/Text'
-import classnames from 'classnames'
 
-import css from './index.css'
+import { cn } from '@/__private__/utils/bem'
+
+import './LegendItem.css'
+
+const cnLegendItem = cn('LegendItem')
 
 export const labelTypes = ['dot', 'line', 'warning'] as const
 export type LabelType = typeof labelTypes[number]
@@ -31,35 +34,35 @@ type Props = {
 
 const DOT_SIZE = 12
 
-const sizeClass = {
-  xs: css.sizeXS,
-  s: css.sizeS,
-  m: undefined,
-}
+// const sizeClass = {
+//   xs: css.sizeXS,
+//   s: css.sizeS,
+//   m: undefined,
+// }
 
 export const LegendItem: React.FC<Props> = ({
-  children,
-  color,
-  type = 'dot',
-  fontSize = 's',
-  position = 'left',
-  lineBold,
-  className,
-  shouldCropText,
-  onMouseEnter,
-  onMouseLeave,
-}) => {
-  const positionClass = ['dot', 'warning'].includes(type) ? css.left : css[position]
+                                              children,
+                                              color,
+                                              type = 'dot',
+                                              fontSize = 's',
+                                              position = 'left',
+                                              lineBold,
+                                              className,
+                                              shouldCropText,
+                                              onMouseEnter,
+                                              onMouseLeave,
+                                            }) => {
+  const positionClass = ['dot', 'warning'].includes(type) ? 'left' : position
   const dotStyle = type === 'dot' ? { width: DOT_SIZE, height: DOT_SIZE } : {}
 
   return (
     <div
-      className={classnames(css.main, sizeClass[fontSize], positionClass, className)}
+      className={cnLegendItem('Main', { fontSize, position: positionClass }, [className])}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
       {color && (
-        <div className={css.signWrapper}>
+        <div className={cnLegendItem('SignWrapper')}>
           {/*
           Эта дополнительная вложенность необходима чтобы получить возможность
           применить vertical-align к вложенному элементу, так как vertical-align
@@ -73,13 +76,14 @@ export const LegendItem: React.FC<Props> = ({
         */}
           {type === 'warning' ? (
             <IconWarning
-              className={classnames(css.sign, css.icon)}
+              // eslint-disable-next-line camelcase
+              className={cnLegendItem('Sign', { type_icon: true })}
               size={fontSize}
               style={{ color }}
             />
           ) : (
             <div
-              className={classnames(css.sign, css[type], lineBold && css.isBold)}
+              className={cnLegendItem('Sign', { type, isBold: lineBold })}
               style={{ background: color, ...dotStyle }}
             />
           )}
@@ -89,7 +93,7 @@ export const LegendItem: React.FC<Props> = ({
         as="span"
         size={fontSize}
         view="primary"
-        className={classnames(css.text, shouldCropText && css.isSeparating)}
+        className={cnLegendItem('Text', { isSeparating: shouldCropText })}
       >
         {children}
       </Text>

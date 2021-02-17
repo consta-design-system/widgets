@@ -5,7 +5,7 @@ import { withSmartKnobs } from 'storybook-addon-smart-knobs'
 
 import { createMetadata, createStory } from '@/__private__/storybook'
 
-import { LegendItem } from '.'
+import { LegendItem } from './LegendItem'
 
 export const Interactive = createStory(() => (
   <LegendItem position="left" fontSize="s" type="dot" color="red">
