@@ -15,6 +15,11 @@
     &_size_2xs {
       width: var(--graphics-size-xs);
       height: var(--graphics-size-xs);
+      margin-right: var(--space-3xs);
+    }
+
+    &_size_xs {
+      margin-right: var(--space-2xs);
     }
 
     &_size_xs,
@@ -27,6 +32,12 @@
     &_size_l {
       width: var(--graphics-size-m);
       height: var(--graphics-size-m);
+    }
+
+    &_size_s,
+    &_size_m,
+    &_size_l {
+      margin-right: var(--space-xs);
     }
   }
 }
