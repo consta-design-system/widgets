@@ -108,8 +108,8 @@ export const WithTitle = createStory(
 )
 
 export default createMetadata({
-  title: 'Компоненты|/CoreBarChart',
-  id: 'components/CoreBarChart',
+  title: 'Компоненты|/BarChart',
+  id: 'components/BarChart',
   decorators: [withSmartKnobs({ ignoreProps: ['title'] })],
   parameters: {
     docs: {
