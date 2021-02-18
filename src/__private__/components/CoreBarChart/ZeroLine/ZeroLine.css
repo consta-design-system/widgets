@@ -1,0 +1,14 @@
+.cw--ZeroLine {
+  &-Main {
+    position: absolute;
+
+    overflow: visible;
+
+    width: 100%;
+    height: 1px;
+  }
+
+  &-Line {
+    stroke: var(--color-bg-normal);
+  }
+}

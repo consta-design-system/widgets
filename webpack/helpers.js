@@ -23,7 +23,7 @@ const createRuleForMdx = (options = {}) => ({
 
 module.exports = {
   withMdxRules(config) {
-    // Для сборки mdx файлов, которые мы импортируем внутри index.stories.tsx
+    // Для сборки mdx файлов, которые мы импортируем внутри TooltipContentForMultipleValues.stories.tsx
     config.module.rules.push({
       include: /src|.storybook/,
       ...createRuleForMdx(),

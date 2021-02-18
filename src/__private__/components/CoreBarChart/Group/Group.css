@@ -1,0 +1,61 @@
+.cw--Group {
+  &-Groups {
+    display: flex;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+
+    &:not(&_isHorizontal) {
+      flex-direction: column;
+
+      text-align: center;
+
+      .cw--Group-Columns {
+        flex-direction: column;
+      }
+
+      .cw--Group-Wrapper {
+        align-items: flex-end;
+
+        &_isReversed {
+          align-items: flex-start;
+        }
+      }
+    }
+
+    &_isHorizontal {
+      align-items: center;
+      flex-direction: row-reverse;
+
+      .cw--Group-Columns {
+        flex-direction: row-reverse;
+      }
+
+      .cw--Group-Wrapper {
+        align-items: flex-start;
+        flex-direction: column;
+
+        &_isReversed {
+          align-items: flex-end;
+        }
+      }
+    }
+  }
+
+  &-Columns {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  &-Wrapper {
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+  }
+}

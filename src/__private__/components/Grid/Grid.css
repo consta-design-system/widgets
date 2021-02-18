@@ -1,0 +1,14 @@
+.cw--Grid {
+  &-Main {
+    color: var(--color-bg-border);
+  }
+
+  &-Line {
+    stroke: currentColor;
+    stroke-width: 1px;
+
+    &:not(&_guide) {
+      stroke-dasharray: 1, 3;
+    }
+  }
+}
