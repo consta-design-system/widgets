@@ -1,0 +1,79 @@
+.cw--LegendItem {
+  display: inline-flex;
+
+  &_position_top {
+    flex-direction: column;
+  }
+
+  &_position_left {
+    align-items: baseline;
+  }
+
+  &-SignWrapper {
+    line-height: 0;
+  }
+
+  &-Sign {
+    display: inline-block;
+
+    &_type_icon {
+      margin-bottom: -3px;
+    }
+
+    &_type_dot {
+      border-radius: 100%;
+    }
+
+    &_type_line {
+      width: 20px;
+      height: 2px;
+    }
+
+    &_type_icon,
+    &_type_dot {
+      vertical-align: baseline;
+    }
+
+    &_type_dot,
+    &_type_line {
+      background-color: currentColor;
+    }
+
+    &_size_xs&_type_icon,
+    &_size_xs&_type_dot,
+    &_size_s&_type_icon,
+    &_size_s&_type_dot {
+      margin-bottom: -1px;
+    }
+
+    &_type_line&_isLineBold {
+      height: 4px;
+    }
+  }
+
+  &_position_top &-SignWrapper {
+    margin-bottom: var(--space-2xs);
+  }
+
+  &_position_left &-SignWrapper {
+    margin-right: var(--space-xs);
+  }
+
+  &_position_left &-Sign {
+    &_type_line {
+      vertical-align: middle;
+    }
+  }
+
+  &-Text {
+    display: inline-block;
+
+    &_isSeparating {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+
+      overflow: hidden;
+    }
+  }
+}
