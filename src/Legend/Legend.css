@@ -1,0 +1,26 @@
+.cw--Legend {
+  --item-padding-x: var(--space-xs);
+  --item-padding-y: calc(var(--space-xs) / 2);
+
+  margin: calc(-1 * var(--item-padding-y)) calc(-1 * var(--item-padding-x));
+
+  &_direction_column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-Title {
+    margin-bottom: var(--space-s);
+    padding-left: var(--item-padding-x);
+  }
+
+  &-Item {
+    padding: var(--item-padding-y) var(--item-padding-x);
+
+    border-radius: var(--space-3xs);
+  }
+
+  &_isHoverable &-Item:hover {
+    background: var(--color-bg-ghost);
+  }
+}
