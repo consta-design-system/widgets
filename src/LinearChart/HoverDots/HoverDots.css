@@ -1,0 +1,11 @@
+.cw--HoverDots {
+  &-Item {
+    fill: transparent;
+
+    cursor: pointer;
+
+    &_isHoverable {
+      stroke-width: 10;
+    }
+  }
+}

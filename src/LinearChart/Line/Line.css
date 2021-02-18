@@ -1,0 +1,11 @@
+.cw--Line {
+  fill: none;
+
+  &_isDashed {
+    stroke-dasharray: 6, 6;
+  }
+
+  &_isHidden {
+    stroke: none;
+  }
+}

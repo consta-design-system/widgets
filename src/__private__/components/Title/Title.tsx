@@ -8,16 +8,17 @@ const cnTitle = cn('Title')
 
 type Props = {
   children: React.ReactNode
+  className?: string
   style?: React.CSSProperties
 }
 
-export const Title: React.FC<Props> = ({ children, style }) => {
+export const Title: React.FC<Props> = ({ children, className, style }) => {
   if (!children) {
     return null
   }
 
   return (
-    <div className={cnTitle('Main')} style={style}>
+    <div className={cnTitle('Main', [className])} style={style}>
       {children}
     </div>
   )

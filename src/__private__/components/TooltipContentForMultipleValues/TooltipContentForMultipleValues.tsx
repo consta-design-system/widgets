@@ -10,7 +10,7 @@ import { LegendItem } from '@/LegendItem/LegendItem'
 
 import './TooltipContentForMultipleValues.css'
 
-const cnTooltipContent = cn('TooltipContentForMultipleValues')
+const cnTooltipContentForMultipleValues = cn('TooltipContentForMultipleValues')
 
 export type Item = {
   name?: string
@@ -30,7 +30,7 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
   formatValueForTooltip,
 }) => {
   return (
-    <div className={cnTooltipContent('Container')}>
+    <div className={cnTooltipContentForMultipleValues('Container')}>
       {title && (
         <>
           <Text
@@ -38,15 +38,15 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
             size="xs"
             weight="bold"
             view="primary"
-            className={cnTooltipContent('Title')}
+            className={cnTooltipContentForMultipleValues('Title')}
           >
             {title}
           </Text>
-          <div className={cnTooltipContent('Divider')} />
+          <div className={cnTooltipContentForMultipleValues('Divider')} />
         </>
       )}
 
-      <div className={cnTooltipContent('Content')}>
+      <div className={cnTooltipContentForMultipleValues('Content')}>
         {items.map(({ name, color, value }, idx) => {
           const formattedValue = getFormattedValue(value ?? null, formatValueForTooltip)
 
@@ -55,8 +55,10 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
               <LegendItem
                 type={_.isNumber(value) ? 'dot' : 'warning'}
                 color={color}
-                fontSize="xs"
-                className={cnTooltipContent('LegendItem', { isSingleColumn: !name })}
+                size="xs"
+                className={cnTooltipContentForMultipleValues('LegendItem', {
+                  isSingleColumn: !name,
+                })}
               >
                 {name ?? formattedValue}
               </LegendItem>

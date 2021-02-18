@@ -1,0 +1,23 @@
+.cw--LineWithDots {
+  pointer-events: none;
+
+  &-Circle {
+    fill: currentColor;
+
+    &_isActive {
+      stroke: var(--color-bg-default);
+    }
+  }
+
+  &-Label {
+    font-size: var(--size-text-xs);
+
+    fill: var(--color-typo-secondary);
+
+    transform: translate(var(--axis-tick-offset), calc(var(--size-text-xs) / 3));
+
+    &_isHorizontal {
+      transform: translateY(calc(-1 * var(--axis-tick-offset)));
+    }
+  }
+}
