@@ -32,15 +32,3 @@ export const styleOrientation = (
     }
   }
 }
-
-export const getReversed = (isHorizontal: boolean, isReversed: boolean) => {
-  if (isHorizontal && isReversed) {
-    return 'isReversedIsHorizontal'
-  } else if (!isHorizontal && isReversed) {
-    return 'isReversedNotHorizontal'
-  } else if (isHorizontal && !isReversed) {
-    return 'notReversedIsHorizontal'
-  } else {
-    return 'notReversedNotHorizontal'
-  }
-}

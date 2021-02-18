@@ -49,7 +49,7 @@ export const Threshold: React.FC<Props> = ({ valuesScale, isHorizontal, value })
   const scaledValue = valuesScale.scale(value)
   const linePos = scaledValue && getLinePosition(scaledValue, isHorizontal)
   const textPos = scaledValue && getPositionText(scaledValue, isHorizontal)
-  const horizontal = isHorizontal ? 'isHorizontal' : 'notHorizontal'
+  const horizontal = !isHorizontal ? 'vertical' : ''
 
   return (
     <>

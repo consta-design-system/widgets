@@ -53,50 +53,58 @@
     overflow: visible;
   }
 
-  &-topTicks,
-  &-rightTicks,
-  &-bottomTicks,
-  &-leftTicks {
-    position: relative;
+  &-AxisTicks {
+    &_position {
+      &_top,
+      &_right,
+      &_bottom,
+      &_left {
+        position: relative;
+      }
+
+      &_left,
+      &_right {
+        max-width: 160px;
+      }
+
+      &_top {
+        grid-area: topTicks;
+      }
+
+      &_right {
+        grid-area: rightTicks;
+      }
+
+      &_bottom {
+        grid-area: bottomTicks;
+      }
+
+      &_left {
+        grid-area: leftTicks;
+
+        justify-self: end;
+      }
+    }
   }
 
-  &-leftTicks,
-  &-rightTicks {
-    max-width: 160px;
-  }
+  &-Unit {
+    &_position {
+      &_bottom {
+        grid-area: bottomUnit;
 
-  &-topTicks {
-    grid-area: topTicks;
-  }
+        margin-top: var(--space-2xs);
 
-  &-rightTicks {
-    grid-area: rightTicks;
-  }
+        text-align: center;
+      }
 
-  &-bottomTicks {
-    grid-area: bottomTicks;
-  }
+      &_topLeft {
+        grid-area: topLeft;
 
-  &-leftTicks {
-    grid-area: leftTicks;
+        margin-bottom: var(--space-xs);
 
-    justify-self: end;
-  }
-
-  &-TopLeftUnit {
-    grid-area: topLeft;
-
-    margin-bottom: var(--space-xs);
-
-    text-align: right;
-  }
-
-  &-BottomUnit {
-    grid-area: bottomUnit;
-
-    margin-top: var(--space-2xs);
-
-    text-align: center;
+        text-align: right;
+      }
+    }
   }
 
   &-GroupWrapper {

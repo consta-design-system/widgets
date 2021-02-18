@@ -11,7 +11,7 @@ import { LabelSize } from '../CoreBarChart'
 import {
   getBackground,
   getColor,
-  getReversed,
+  getDirection,
   getRoundedBorder,
   getSize,
   getTriangle,
@@ -73,26 +73,26 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
         onChangeLabelSize({ width: Math.round(width), height: Math.round(height) })
     }, [label, labelRef, onChangeLabelSize])
 
-    const reversed = getReversed(isHorizontal, isReversed)
-    const horizontal = isHorizontal ? 'isHorizontal' : 'notHorizontal'
+    const direction = getDirection(isHorizontal, isReversed)
+    const horizontal = !isHorizontal ? 'vertical' : ''
     const lastSection =
       (!!indexSection && numberColumnSections === indexSection + 1) || numberColumnSections === 1
-    const overflowLength =
-      isOverflow && numberColumnSections === 1 ? getReversed(isHorizontal, isReversed) : ''
+    const columnOverflow =
+      isOverflow && numberColumnSections === 1 ? getDirection(isHorizontal, isReversed) : ''
 
     return (
       <div
         ref={ref}
         className={cnSection('Sections', {
           horizontal,
-          reversed,
+          direction,
           isActive,
-          overflowLength,
+          columnOverflow,
         })}
         style={{
           ...getSize(length, isHorizontal, isOverflow, numberColumnSections, indexSection),
-          ...getRoundedBorder(columnProperty, reversed, lastSection),
-          ...getBackground(color, length, isOverflow, lastSection, reversed, numberColumnSections),
+          ...getRoundedBorder(columnProperty, direction, lastSection),
+          ...getBackground(color, length, isOverflow, lastSection, direction, numberColumnSections),
         }}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -101,9 +101,9 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
           <div
             className={cnSection('Overflow', {
               horizontal,
-              reversed,
+              direction,
             })}
-            style={getTriangle(color, isOverflow, reversed, maxLabelSize, lastSection)}
+            style={getTriangle(color, isOverflow, direction, maxLabelSize, lastSection)}
           />
         )}
         {label && numberColumnSections === 1 && (

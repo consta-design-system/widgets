@@ -7,30 +7,30 @@
     width: 100%;
     height: 100%;
 
-    &_horizontal_isHorizontal {
+    &_horizontal {
       width: 100%;
       height: 100%;
+
+      &_vertical {
+        width: 100%;
+        height: 100%;
+      }
     }
 
-    &_horizontal_notHorizontal {
-      width: 100%;
-      height: 100%;
-    }
-
-    &_reversed {
-      &_isReversedIsHorizontal {
+    &_direction {
+      &_horizontalReverse {
         flex-direction: row-reverse;
       }
 
-      &_notReversedIsHorizontal {
+      &_horizontal {
         flex-direction: row;
       }
 
-      &_isReversedNotHorizontal {
+      &_verticalReverse {
         flex-direction: column;
       }
 
-      &_notReversedNotHorizontal {
+      &_vertical {
         flex-direction: column-reverse;
       }
     }

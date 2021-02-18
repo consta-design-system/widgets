@@ -5,7 +5,7 @@ import { isDefined, isNotNil } from '@consta/widgets-utils/lib/type-guards'
 import { isNumber } from 'lodash'
 
 import { styleOrientation } from '@/__private__/components/CoreBarChart/Column/helpers'
-import { getReversed } from '@/__private__/components/CoreBarChart/Section/helpers'
+import { getDirection } from '@/__private__/components/CoreBarChart/Section/helpers'
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 import { NumberRange } from '@/__private__/utils/scale'
@@ -166,14 +166,14 @@ export const Column: React.FC<Props> = ({
     )
   }
 
-  const reversed = getReversed(isHorizontal, isReversed)
-  const horizontal = isHorizontal ? 'isHorizontal' : 'notHorizontal'
+  const direction = getDirection(isHorizontal, isReversed)
+  const horizontal = !isHorizontal ? 'vertical' : ''
 
   return (
     <div
       className={cnColumn('Columns', {
         horizontal,
-        reversed,
+        direction,
       })}
       style={styleOrientation(lengthColumn, maxNumberGroups, padding, isHorizontal)}
       ref={ref}

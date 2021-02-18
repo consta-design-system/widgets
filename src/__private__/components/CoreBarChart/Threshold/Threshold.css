@@ -10,14 +10,14 @@
     stroke-width: 1;
     stroke: rgba(246, 251, 253, 0.6);
 
-    &_horizontal_isHorizontal {
+    &_horizontal {
       text-anchor: middle;
       dominant-baseline: auto;
-    }
 
-    &_horizontal_notHorizontal {
-      text-anchor: start;
-      dominant-baseline: central;
+      &_vertical {
+        text-anchor: start;
+        dominant-baseline: central;
+      }
     }
   }
 }

@@ -79,13 +79,6 @@ export type Props<T> = {
   limitMinimumCategorySize?: boolean
 }
 
-const axisTicksPositionsClasses = {
-  left: cnCoreBarChart('leftTicks'),
-  bottom: cnCoreBarChart('bottomTicks'),
-  right: cnCoreBarChart('rightTicks'),
-  top: cnCoreBarChart('topTicks'),
-}
-
 const renderUnit = (className: string, unit: string) => (
   <Text as="div" size={'xs'} view="secondary" className={className}>
     {unit}
@@ -263,7 +256,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
 
   const getRenderAxisValues = (position: Position) => (
     <div
-      className={axisTicksPositionsClasses[position]}
+      className={cnCoreBarChart('AxisTicks', { position })}
       style={
         ['top', 'bottom'].includes(position)
           ? { marginLeft: `${gridStyle.left}px` }
@@ -330,7 +323,9 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
                 />
               )}
             </svg>
-            {unit && !isHorizontal && renderUnit(cnCoreBarChart('TopLeftUnit'), unit)}
+            {unit &&
+              !isHorizontal &&
+              renderUnit(cnCoreBarChart('Unit', { position: 'topLeft' }), unit)}
             {!isHorizontal && axisShowPositions.top && showGroupsLabels && renderHorizontal('top')}
             {axisShowPositions.right && showGroupsLabels && renderVertical('right')}
             {groups.map((group, groupIdx) => {
@@ -389,7 +384,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
             axisShowPositions.bottom &&
             showGroupsLabels &&
             renderHorizontal('bottom')}
-          {unit && isHorizontal && renderUnit(cnCoreBarChart('BottomUnit'), unit)}
+          {unit && isHorizontal && renderUnit(cnCoreBarChart('Unit', { position: 'bottom' }), unit)}
           {tooltipData && (
             <Tooltip
               data={tooltipData}

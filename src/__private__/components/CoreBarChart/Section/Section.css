@@ -16,35 +16,33 @@
     }
 
     &_horizontal {
-      &_isHorizontal {
-        min-width: 5px;
-      }
+      min-width: 5px;
 
-      &_notHorizontal {
+      &_vertical {
         min-height: 5px;
       }
     }
 
-    &_overflowLength {
-      &_isReversedNotHorizontal {
+    &_columnOverflow {
+      &_verticalReverse {
         min-height: 105%;
       }
 
-      &_notReversedIsHorizontal {
+      &_horizontal {
         min-width: 105%;
       }
 
-      &_isReversedIsHorizontal {
+      &_horizontalReverse {
         min-width: 105%;
       }
 
-      &_notReversedNotHorizontal {
+      &_vertical {
         min-height: 105%;
       }
     }
 
-    &_reversed {
-      &_notReversedIsHorizontal {
+    &_direction {
+      &_horizontal {
         .cw--Section-Overflow {
           top: 40%;
           right: 0;
@@ -60,7 +58,7 @@
         }
       }
 
-      &_isReversedIsHorizontal {
+      &_horizontalReverse {
         .cw--Section-Overflow {
           left: 0;
         }
@@ -75,7 +73,7 @@
         }
       }
 
-      &_notReversedNotHorizontal {
+      &_vertical {
         .cw--Section-Overflow {
           top: 0;
           left: 50%;
@@ -91,7 +89,7 @@
         }
       }
 
-      &_isReversedNotHorizontal {
+      &_verticalReverse {
         .cw--Section-Overflow {
           bottom: 0;
           left: 50%;

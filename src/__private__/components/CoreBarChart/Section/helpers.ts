@@ -30,25 +30,25 @@ export const getSize = (
   }
 }
 
-export const getReversed = (isHorizontal: boolean, isReversed: boolean) => {
+export const getDirection = (isHorizontal: boolean, isReversed: boolean) => {
   if (isHorizontal && isReversed) {
-    return 'isReversedIsHorizontal'
+    return 'horizontalReverse'
   } else if (!isHorizontal && isReversed) {
-    return 'isReversedNotHorizontal'
+    return 'verticalReverse'
   } else if (isHorizontal && !isReversed) {
-    return 'notReversedIsHorizontal'
+    return 'horizontal'
   } else {
-    return 'notReversedNotHorizontal'
+    return 'vertical'
   }
 }
 
 export const getRoundedBorder = (
   columnProperty: ColumnProperty,
-  reversed: string,
+  direction: string,
   lastSection: boolean
 ) => {
-  switch (reversed) {
-    case 'notReversedNotHorizontal':
+  switch (direction) {
+    case 'vertical':
       if (columnProperty.width < 8 || !lastSection) {
         return { borderRadius: '0' }
       } else if (columnProperty.width >= 8 && columnProperty.width < 16) {
@@ -56,7 +56,7 @@ export const getRoundedBorder = (
       } else {
         return { borderRadius: '2px 2px 0 0' }
       }
-    case 'isReversedNotHorizontal':
+    case 'verticalReverse':
       if (columnProperty.width < 8 || !lastSection) {
         return { borderRadius: '0' }
       } else if (columnProperty.width >= 8 && columnProperty.width < 16) {
@@ -64,7 +64,7 @@ export const getRoundedBorder = (
       } else {
         return { borderRadius: '0 0 2px 2px' }
       }
-    case 'isReversedIsHorizontal':
+    case 'horizontalReverse':
       if (columnProperty.height < 8 || !lastSection) {
         return { borderRadius: '0' }
       } else if (columnProperty.height >= 8 && columnProperty.height < 16) {
@@ -72,7 +72,7 @@ export const getRoundedBorder = (
       } else {
         return { borderRadius: '2px 0 0 2px' }
       }
-    case 'notReversedIsHorizontal':
+    case 'horizontal':
       if (columnProperty.height < 8 || !lastSection) {
         return { borderRadius: '0' }
       } else if (columnProperty.height >= 8 && columnProperty.height < 16) {
@@ -86,31 +86,31 @@ export const getRoundedBorder = (
 export const getTriangle = (
   color: string,
   isOverflow: boolean,
-  reversed: string,
+  direction: string,
   maxLabelSize: LabelSize,
   lastSection: boolean
 ) => {
   if (isOverflow && lastSection) {
-    switch (reversed) {
-      case 'notReversedNotHorizontal':
+    switch (direction) {
+      case 'vertical':
         return {
           border: '6px solid transparent',
           borderBottom: `6px solid ${color}`,
           transform: 'translate(-50%, -270%)',
         }
-      case 'isReversedNotHorizontal':
+      case 'verticalReverse':
         return {
           border: '6px solid transparent',
           borderTop: `6px solid ${color}`,
           transform: 'translate(-50%, 290%)',
         }
-      case 'notReversedIsHorizontal':
+      case 'horizontal':
         return {
           border: '6px solid transparent',
           borderLeft: `6px solid ${color}`,
           margin: `0 -${maxLabelSize.width + 15}px 0 0`,
         }
-      case 'isReversedIsHorizontal':
+      case 'horizontalReverse':
         return {
           border: '6px solid transparent',
           borderRight: `6px solid ${color}`,
@@ -120,27 +120,27 @@ export const getTriangle = (
   }
 }
 
-const getBackgroundOverflow = (color: string, reversed: string, numberColumnSections: number) => {
+const getBackgroundOverflow = (color: string, direction: string, numberColumnSections: number) => {
   if (numberColumnSections > 1) {
-    switch (reversed) {
-      case 'notReversedNotHorizontal':
+    switch (direction) {
+      case 'vertical':
         return { background: `linear-gradient(to top, ${color} 75%, rgba(10,165,255,0) 100%)` }
-      case 'isReversedNotHorizontal':
+      case 'verticalReverse':
         return { background: `linear-gradient(to bottom, ${color} 75%, rgba(10,165,255,0) 100%)` }
-      case 'notReversedIsHorizontal':
+      case 'horizontal':
         return { background: `linear-gradient(to right, ${color} 75%, rgba(10,165,255,0) 100%)` }
-      case 'isReversedIsHorizontal':
+      case 'horizontalReverse':
         return { background: `linear-gradient(to left, ${color} 75%, rgba(10,165,255,0) 100%)` }
     }
   } else {
-    switch (reversed) {
-      case 'notReversedNotHorizontal':
+    switch (direction) {
+      case 'vertical':
         return { background: `linear-gradient(to top, ${color} 95%, rgba(10,165,255,0) 100%)` }
-      case 'isReversedNotHorizontal':
+      case 'verticalReverse':
         return { background: `linear-gradient(to bottom, ${color} 95%, rgba(10,165,255,0) 100%)` }
-      case 'notReversedIsHorizontal':
+      case 'horizontal':
         return { background: `linear-gradient(to right, ${color} 95%, rgba(10,165,255,0) 100%)` }
-      case 'isReversedIsHorizontal':
+      case 'horizontalReverse':
         return { background: `linear-gradient(to left, ${color} 95%, rgba(10,165,255,0) 100%)` }
     }
   }
@@ -151,13 +151,13 @@ export const getBackground = (
   length: number,
   isOverflow: boolean,
   lastSection: boolean,
-  reversed: string,
+  direction: string,
   numberColumnSections: number
 ) => {
   if (length === 0) {
     return { background: 'rgba(0,0,0,0)' }
   } else if (isOverflow && lastSection) {
-    return getBackgroundOverflow(color, reversed, numberColumnSections)
+    return getBackgroundOverflow(color, direction, numberColumnSections)
   } else {
     return { background: `${color}` }
   }
