@@ -106,7 +106,7 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
             style={getTriangle(color, isOverflow, direction, maxLabelSize, lastSection)}
           />
         )}
-        {label && numberColumnSections === 1 && (
+        {label && lastSection && (
           <Text
             ref={labelRef}
             as="div"

@@ -135,23 +135,21 @@ export const Group: React.FC<Props> = props => {
       <div className={cnGroup('Columns')}>
         <div
           className={cnGroup('Wrapper')}
-          style={styleOrientation(columnLength, isHorizontal, scalerColumnsGroups, gridDomain)}
+          style={styleOrientation(isHorizontal, scalerColumnsGroups, gridDomain, columnLength)}
         >
           {columns.map((column, index) => renderColumn(column, index))}
         </div>
-        {reversedColumnLength && (
-          <div
-            className={cnGroup('Wrapper')}
-            style={styleOrientation(
-              reversedColumnLength,
-              isHorizontal,
-              scalerColumnsGroups,
-              gridDomain
-            )}
-          >
-            {reversedColumns.map((column, index) => renderColumn(column, index, true))}
-          </div>
-        )}
+        <div
+          className={cnGroup('Wrapper')}
+          style={styleOrientation(
+            isHorizontal,
+            scalerColumnsGroups,
+            gridDomain,
+            reversedColumnLength
+          )}
+        >
+          {reversedColumns.map((column, index) => renderColumn(column, index, true))}
+        </div>
       </div>
     </div>
   )
