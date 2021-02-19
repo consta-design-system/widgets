@@ -7,7 +7,7 @@ import {
 } from '@/__private__/components/CoreBarChart/helpers'
 import { defaultRenderGroup } from '@/__private__/components/CoreBarChart/renders'
 import { CoreBarChart, Threshold } from '@/__private__/components/CoreBarChart/CoreBarChart'
-import { FormatValue } from '@/__private__/types'
+import { FormatGroupName, FormatValue } from '@/__private__/types'
 
 import {
   getColumnsLengthArray,
@@ -37,6 +37,7 @@ type Props = {
   title?: React.ReactNode
   formatValueForLabel?: FormatValue
   formatValueForTooltip?: FormatValue
+  formatGroupName?: FormatGroupName
   isXAxisLabelsSlanted?: boolean
   minValueY?: number
   maxValueY?: number
@@ -47,7 +48,7 @@ type Props = {
 }
 
 export const StackedBarChart: React.FC<Props> = props => {
-  const { groups, threshold, showValues, minValueY, maxValueY, ...rest } = props
+  const { groups, threshold, showValues, minValueY, maxValueY, formatGroupName, ...rest } = props
 
   const commonGroups = transformGroupsToCommonGroups(groups)
   const showReversed = isShowReversed({ groups: commonGroups, threshold: props.threshold })
@@ -78,6 +79,7 @@ export const StackedBarChart: React.FC<Props> = props => {
       renderGroup={defaultRenderGroup}
       maxNumberGroups={maxNumberGroups}
       maxColumnLength={maxGroupTotalLength}
+      formatGroupName={formatGroupName}
     />
   )
 }

@@ -5,7 +5,7 @@ import { Text } from '@consta/uikit/Text'
 
 import { ZeroLine } from '@/__private__/components/CoreBarChart/ZeroLine/ZeroLine'
 import { Grid } from '@/__private__/components/Grid/Grid'
-import { FormatValue } from '@/__private__/types'
+import { FormatGroupName, FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 import { NumberRange, scaleLinear } from '@/__private__/utils/scale'
 import { getTicks } from '@/__private__/utils/ticks'
@@ -72,6 +72,7 @@ export type Props<T> = {
   getAxisShowPositions?: GetAxisShowPositions
   formatValueForLabel?: FormatValue
   formatValueForTooltip?: FormatValue
+  formatGroupName?: FormatGroupName
   renderGroupsLabels?: RenderGroupsLabels
   renderAxisValues?: RenderAxisValues
   onMouseEnterColumn?: OnMouseHoverColumn
@@ -108,6 +109,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     getAxisShowPositions = defaultGetAxisShowPositions,
     formatValueForLabel = String,
     formatValueForTooltip,
+    formatGroupName,
     renderGroup,
     renderAxisValues = defaultRenderAxisValues,
     renderGroupsLabels = defaultRenderGroupsLabels,
@@ -249,9 +251,10 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     renderGroupsLabels({
       values: groupsDomain,
       position,
-      getGridAreaName: getLabelGridAreaName(position),
       isXAxisLabelsSlanted,
       showGroupsLabels,
+      getGridAreaName: getLabelGridAreaName(position),
+      formatGroupName,
     })
 
   const getRenderAxisValues = (position: Position) => (

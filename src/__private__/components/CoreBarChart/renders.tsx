@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { LabelSize } from '@/__private__/components/CoreBarChart/CoreBarChart'
-import { FormatValue } from '@/__private__/types'
+import { FormatGroupName, FormatValue } from '@/__private__/types'
 import { NumberRange, Scaler } from '@/__private__/utils/scale'
 
 import { Group, GroupItem } from './Group/Group'
@@ -14,6 +14,7 @@ export type RenderGroupsLabels = (props: {
   isXAxisLabelsSlanted?: boolean
   showGroupsLabels?: boolean
   getGridAreaName: (index: number) => string
+  formatGroupName?: FormatGroupName
 }) => React.ReactElement | null
 
 export const defaultRenderGroupsLabels: RenderGroupsLabels = ({ ...rest }) => {

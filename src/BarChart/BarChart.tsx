@@ -7,7 +7,7 @@ import {
 } from '@/__private__/components/CoreBarChart/helpers'
 import { defaultRenderGroup } from '@/__private__/components/CoreBarChart/renders'
 import { CoreBarChart, Threshold } from '@/__private__/components/CoreBarChart/CoreBarChart'
-import { FormatValue } from '@/__private__/types'
+import { FormatGroupName, FormatValue } from '@/__private__/types'
 
 import {
   getColumnsLengthArray,
@@ -36,6 +36,7 @@ type Props = {
   title?: React.ReactNode
   formatValueForLabel?: FormatValue
   formatValueForTooltip?: FormatValue
+  formatGroupName?: FormatGroupName
   isEmptyColumnsHidden?: boolean
   showGrid?: boolean
   showLineAtZero?: boolean
@@ -54,6 +55,7 @@ export const BarChart: React.FC<Props> = props => {
     showGrid,
     showLineAtZero,
     showGroupsLabels,
+    formatGroupName,
     isEmptyColumnsHidden = false,
     ...rest
   } = props
@@ -95,6 +97,7 @@ export const BarChart: React.FC<Props> = props => {
       showLineAtZero={showLineAtZero}
       showGroupsLabels={showGroupsLabels}
       maxNumberGroups={maxNumberGroups}
+      formatGroupName={formatGroupName}
     />
   )
 }

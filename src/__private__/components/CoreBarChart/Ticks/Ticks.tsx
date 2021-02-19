@@ -24,6 +24,7 @@ type Props<T> = {
   isXAxisLabelsSlanted?: boolean
   style?: React.CSSProperties
   formatValueForLabel?: (value: T) => string
+  formatGroupName?: (value: T) => React.ReactNode
 } & (
   | {
       isLabel: true
@@ -45,12 +46,12 @@ export function Ticks<T>(props: Props<T>) {
     isTicksSnuggleOnEdge = false,
     style,
     formatValueForLabel = String,
+    formatGroupName,
   } = props
   const isTop = position === 'top'
   const isBottom = position === 'bottom'
   const isHorizontal = isTop || isBottom
   const [maxLabelHeight, setMaxLabelHeight] = useState(0)
-
   const refs: ReadonlyArray<RefObject<HTMLDivElement>> = times(values.length, () =>
     React.createRef()
   )
@@ -76,8 +77,6 @@ export function Ticks<T>(props: Props<T>) {
   const tickTransform = isHorizontal
     ? (v: T) => getTransformTranslate((scaler?.scale(v) || 0) + getTickOffset(v), 0)
     : (v: T) => getTransformTranslate(0, (scaler?.scale(v) || 0) + getTickOffset(v))
-
-  // const positionClassName = positionClasses[position]
 
   const getAlignItems = (index: number, length: number) => {
     const isFirst = index === 0
@@ -115,6 +114,7 @@ export function Ticks<T>(props: Props<T>) {
     const alignItems = getAlignItems(idx, values.length)
     const textValue = formatValueForLabel(value)
     const textAlign = getTextAlign({ isXAxisLabelsSlanted, isHorizontal })
+
     return (
       <div
         key={idx}
@@ -129,23 +129,27 @@ export function Ticks<T>(props: Props<T>) {
           gridArea: props.isLabel ? props.getGridAreaName(idx) : '',
         }}
       >
-        <Text
-          as="div"
-          view="secondary"
-          size={'xs'}
-          align={textAlign}
-          title={textValue}
-          className={cnTicks('Text', {
-            isDisabled: isDisabled(value),
-            isHorizontal,
-          })}
-          lineHeight="s"
-        >
-          {(isXAxisLabelsSlanted && (
-            <span ref={refs[idx]}>{cropText(textValue, SLANTED_TEXT_MAX_LENGTH)}</span>
-          )) ||
-            textValue}
-        </Text>
+        {formatGroupName && formatGroupName(value) !== undefined && props.isLabel ? (
+          formatGroupName(value)
+        ) : (
+          <Text
+            as="div"
+            view="secondary"
+            size={'xs'}
+            align={textAlign}
+            title={textValue}
+            className={cnTicks('Text', {
+              isDisabled: isDisabled(value),
+              isHorizontal,
+            })}
+            lineHeight="s"
+          >
+            {(isXAxisLabelsSlanted && (
+              <span ref={refs[idx]}>{cropText(textValue, SLANTED_TEXT_MAX_LENGTH)}</span>
+            )) ||
+              textValue}
+          </Text>
+        )}
         {showLine && <span className={cnTicks('Line')} />}
       </div>
     )
