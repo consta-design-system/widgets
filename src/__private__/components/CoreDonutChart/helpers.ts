@@ -23,16 +23,16 @@ export type GetMinChartSize = (
 
 export type SortValue = (prev: DataItem, next: DataItem) => number
 
-export const donutSize: Record<number, number> = {
-  1: 18,
-  2: 14,
-  3: 10,
+export const donutSizeInPercent: Record<number, number> = {
+  1: 0.12,
+  2: 0.1,
+  3: 0.08,
 }
 
-export const paddingBetweenDonuts: Record<number, number> = {
+export const paddingBetweenDonutsInPercent: Record<number, number> = {
   1: 0,
-  2: 12,
-  3: 16,
+  2: 0.08,
+  3: 0.06,
 }
 
 export const isHalfDonutHorizontal = (halfDonut?: HalfDonut) => {
@@ -43,8 +43,8 @@ export const isHalfDonutVertical = (halfDonut?: HalfDonut) => {
   return halfDonut === 'right' || halfDonut === 'left'
 }
 
-export const getPadding = (countLines: number) => {
-  return paddingBetweenDonuts[countLines]
+export const getPadding = (circlesCount: number, chartSize: number) => {
+  return chartSize * paddingBetweenDonutsInPercent[circlesCount]
 }
 
 export const getChartSize = ({
@@ -67,16 +67,25 @@ export const getChartSize = ({
   return Math.min(width, height)
 }
 
-export const getSizeDonut = (
-  countLines: number,
-  isExistTextData?: boolean,
-  halfDonut?: HalfDonut
-) => {
-  return halfDonut || isExistTextData ? 16 : donutSize[countLines]
+export const getSizeDonut = (circlesCount: number, chartSize: number) => {
+  return chartSize * donutSizeInPercent[circlesCount]
 }
 
-export const getDonutRadius = (mainRadius: number, index: number, countLines: number) => {
-  return mainRadius - (getSizeDonut(countLines) + getPadding(countLines)) * index
+export const getDonutRadius = ({
+  mainRadius,
+  index,
+  circlesCount,
+  chartSize,
+}: {
+  mainRadius: number
+  index: number
+  circlesCount: number
+  chartSize: number
+}) => {
+  return (
+    mainRadius -
+    (getSizeDonut(circlesCount, chartSize) + getPadding(circlesCount, chartSize)) * index
+  )
 }
 
 export const defaultGetCirclesCount: GetCirclesCount = data => {
