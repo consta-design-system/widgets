@@ -2,7 +2,8 @@ import React from 'react'
 
 import { Title } from '@/__private__/components/Title/Title'
 import { cn } from '@/__private__/utils/bem'
-import { LabelPosition, LabelType, LegendItem, Size } from '@/LegendItem/LegendItem'
+import { PropsWithHTMLAttributesAndRef } from '@/__private__/utils/types/PropsWithHTMLAttributes'
+import { Icon, LegendItem, LegendItemMouseEventHandler, Size } from '@/LegendItem/LegendItem'
 
 import './Legend.css'
 
@@ -11,56 +12,61 @@ const cnLegend = cn('Legend')
 export const directions = ['column', 'row'] as const
 export type Direction = typeof directions[number]
 
-export type Item = {
-  text: string
-  color: string
-}
-export type Items = readonly Item[]
-
-type Props = {
-  items: Items
+type CommonProps<ITEM> = {
+  items: readonly ITEM[]
+  getItemLabel: (item: ITEM) => string
+  getItemColor: (item: ITEM) => string
   direction: Direction
-  type: LabelType
+  icon?: Icon
+  renderLeftSide?: () => React.ReactNode
   size: Size
-  labelPosition: LabelPosition
   title?: React.ReactNode
-  onItemMouseEnter?: (item: Item) => void
-  onItemMouseLeave?: (item: Item) => void
+  onItemMouseEnter?: LegendItemMouseEventHandler<ITEM>
+  onItemMouseLeave?: LegendItemMouseEventHandler<ITEM>
+  onItemClick?: LegendItemMouseEventHandler<ITEM>
 }
 
-export const Legend: React.FC<Props> = ({
-  direction,
-  items,
-  type,
-  labelPosition,
-  size,
-  title,
-  onItemMouseEnter,
-  onItemMouseLeave,
-}) => {
+type Props<ITEM> = PropsWithHTMLAttributesAndRef<CommonProps<ITEM>, HTMLDivElement>
+
+type Legend = <ITEM>(props: Props<ITEM>) => React.ReactElement | null
+
+export const Legend: Legend = React.forwardRef((props, ref) => {
+  const {
+    direction,
+    items,
+    getItemLabel,
+    getItemColor,
+    icon,
+    size,
+    title,
+    onItemMouseEnter,
+    onItemMouseLeave,
+    onItemClick,
+  } = props
   return (
     <div
-      className={cnLegend('Main', {
+      ref={ref}
+      className={cnLegend({
         isHoverable: Boolean(onItemMouseEnter),
+        isClickable: Boolean(onItemClick),
         column: direction === 'column',
       })}
     >
       <Title>{title}</Title>
       {items.map(item => (
         <LegendItem
-          color={item.color}
-          key={item.text}
+          label={getItemLabel(item)}
+          color={getItemColor(item)}
+          key={getItemLabel(item)}
           className={cnLegend('Item')}
           size={size}
-          type={type}
-          position={labelPosition}
+          icon={icon}
           shouldCropText
-          onMouseEnter={onItemMouseEnter ? () => onItemMouseEnter(item) : undefined}
-          onMouseLeave={onItemMouseLeave ? () => onItemMouseLeave(item) : undefined}
-        >
-          {item.text}
-        </LegendItem>
+          onMouseEnter={e => onItemMouseEnter?.({ e, item })}
+          onMouseLeave={e => onItemMouseLeave?.({ e, item })}
+          onClick={e => onItemClick?.({ e, item })}
+        />
       ))}
     </div>
   )
-}
+})

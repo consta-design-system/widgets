@@ -1,16 +1,19 @@
 import { formatForValue } from './formatForValue'
 
 export const formatForArray = (valueArray: number[]) => {
-  let num: number
+  let num: number = 0
 
-  const newValueArray = valueArray.map((item: number) => formatForValue(String(item)))
+  valueArray.map((item: number) => {
+    if (String(item).indexOf('.') > 0) {
+      const digitsLength = String(item).split('.')[1].length
 
-  return newValueArray.map((item: string, index) => {
-    if (item.indexOf(',') > 0) {
-      num = newValueArray[index].split('.')[1].length
-      return String(Number(item).toFixed(num))
-    } else {
-      return item
+      if (digitsLength > num) {
+        num = digitsLength
+      } else {
+        return
+      }
     }
   })
+
+  return valueArray.map((item: number) => formatForValue(String(item.toFixed(num))))
 }

@@ -1,85 +1,81 @@
 import React from 'react'
 
-import { IconWarning } from '@consta/uikit/IconWarning'
+import { IconProps } from '@consta/uikit/Icon'
 import { Text } from '@consta/uikit/Text'
 
 import { cn } from '@/__private__/utils/bem'
+import { PropsWithHTMLAttributesAndRef } from '@/__private__/utils/types/PropsWithHTMLAttributes'
 
 import './LegendItem.css'
 
 const cnLegendItem = cn('LegendItem')
 
-export const labelTypes = ['dot', 'line', 'lineBold', 'warning'] as const
-export type LabelType = typeof labelTypes[number]
+export const iconTypes = ['dot', 'line', 'lineBold', 'gap'] as const
+export type IconType = typeof iconTypes[number]
+export type Icon = IconType | React.FC<IconProps>
 
 export const sizes = ['xs', 's', 'm'] as const
 export type Size = typeof sizes[number]
 
-export const labelPositions = ['top', 'left'] as const
-export type LabelPosition = typeof labelPositions[number]
+export type LegendItemMouseEventHandler<ITEM> = (props: {
+  e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  item: ITEM
+}) => void
 
-type Props = {
-  children: React.ReactNode
+type CommonProps = {
+  label: string
   color?: string
-  type?: LabelType
+  icon?: Icon
   size?: Size
-  position?: LabelPosition
   className?: string
   /** Обрезать текст, если он больше 2 строк */
   shouldCropText?: boolean
-  onMouseEnter?: () => void
-  onMouseLeave?: () => void
+  children?: never
 }
 
-const DOT_SIZE = 12
+type LegendItem = (
+  props: PropsWithHTMLAttributesAndRef<CommonProps, HTMLDivElement>
+) => React.ReactElement | null
 
-export const LegendItem = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
+export const LegendItem: LegendItem = React.forwardRef((props, ref) => {
   const {
-    children,
+    label,
     color,
-    type = 'dot',
+    icon = 'dot',
     size = 's',
-    position = 'left',
     className,
     shouldCropText,
     onMouseEnter,
     onMouseLeave,
+    onClick,
   } = props
-  const positionClass = ['dot', 'warning'].includes(type) ? 'left' : position
-  const dotStyle = type === 'dot' ? { width: DOT_SIZE, height: DOT_SIZE } : {}
+  const Icon = typeof icon === 'function' ? icon : null
 
   return (
     <div
       ref={ref}
-      className={cnLegendItem('Main', { size, position: positionClass }, [className])}
+      className={cnLegendItem({ size }, [className])}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onClick={onClick}
+      style={{
+        ['--icon-color' as string]: color,
+      }}
     >
-      {color && (
-        <div className={cnLegendItem('SignWrapper')}>
+      {(color || Icon) && (
+        <div className={cnLegendItem('SignWrapper', { custom: !!Icon })}>
           {/*
-          Эта дополнительная вложенность необходима чтобы получить возможность
-          применить vertical-align к вложенному элементу, так как vertical-align
-          не может примениться к элементу у которого родитель flex или inline-flex.
+            Эта дополнительная вложенность необходима чтобы получить возможность
+            применить vertical-align к вложенному элементу, так как vertical-align
+            не может примениться к элементу у которого родитель flex или inline-flex.
 
-          Другие типы выравнивания нам не подходят потому что:
-          - `align-items: center` центрирует по всей высоте и ломает отображение
-            легенды с многострочным текстом;
-          - `align-items: baseline` из-за невозможности применить отрицательный
-            сдвиг используя margin, который необходим для размеров `s` и `xs`.
-        */}
-          {type === 'warning' ? (
-            <IconWarning
-              className={cnLegendItem('Sign', { type: 'icon' })}
-              size="s"
-              style={{ color }}
-            />
-          ) : (
-            <div
-              className={cnLegendItem('Sign', { type })}
-              style={{ background: color, ...dotStyle }}
-            />
-          )}
+            Другие типы выравнивания нам не подходят потому что:
+            - `align-items: center` центрирует по всей высоте и ломает отображение
+              легенды с многострочным текстом;
+            - `align-items: baseline` из-за невозможности применить отрицательный
+              сдвиг используя margin, который необходим для размеров `s` и `xs`.
+          */}
+          {Icon ? <Icon /> : <div className={cnLegendItem('Sign', { icon: icon as string })} />}
         </div>
       )}
       <Text
@@ -89,7 +85,7 @@ export const LegendItem = React.forwardRef<HTMLDivElement, Props>((props, ref) =
         display="inlineBlock"
         className={cnLegendItem('Text', { isSeparating: shouldCropText })}
       >
-        {children}
+        {label}
       </Text>
     </div>
   )
