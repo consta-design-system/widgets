@@ -77,7 +77,7 @@ export type Props<T> = {
   renderAxisValues?: RenderAxisValues
   onMouseEnterColumn?: OnMouseHoverColumn
   onMouseLeaveColumn?: OnMouseHoverColumn
-  limitMinimumCategorySize?: boolean
+  minCategorySizeLimit?: boolean
 }
 
 const renderUnit = (className: string, unit: string) => (
@@ -116,7 +116,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     isXAxisLabelsSlanted,
     onMouseEnterColumn,
     onMouseLeaveColumn,
-    limitMinimumCategorySize,
+    minCategorySizeLimit,
   } = props
   const ref = useRef<HTMLDivElement>(null)
   const svgRef = useRef(null)
@@ -158,7 +158,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     if (!isHorizontal && showValues) {
       return maxLabelSize.height
     } else if (!isHorizontal && isColumnOverflow) {
-      return maxLabelSize.height + 10
+      return maxLabelSize.height + 5
     } else {
       return 0
     }
@@ -371,7 +371,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
                     onChangeLabelSize: changeLabelSize,
                     getNumberGridTicks,
                     gridDomain,
-                    limitMinimumCategorySize,
+                    minCategorySizeLimit,
                     maxLabelSize,
                   })}
                 </div>

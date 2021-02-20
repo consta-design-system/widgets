@@ -2,8 +2,7 @@ import { isDefined, isNotNil } from '@consta/widgets-utils/lib/type-guards'
 import _ from 'lodash'
 
 import { GroupItem } from '@/__private__/components/CoreBarChart/Group/Group'
-
-import { Column, Group } from './StackedBarChart'
+import { Column, Group } from '@/StackedBarChart/StackedBarChart'
 
 const defaultColumnItem = {
   total: 0,

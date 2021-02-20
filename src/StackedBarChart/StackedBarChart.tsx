@@ -44,7 +44,7 @@ type Props = {
   showGrid?: boolean
   showLineAtZero?: boolean
   showGroupsLabels?: boolean
-  limitMinimumCategorySize?: boolean
+  minCategorySizeLimit?: boolean
 }
 
 export const StackedBarChart: React.FC<Props> = props => {

@@ -5,6 +5,7 @@
 
     width: 100%;
     height: 100%;
+    padding: var(--space-m) 0;
   }
 
   &-Wrapper {
@@ -13,7 +14,7 @@
 
     width: 100%;
     height: 100%;
-    margin-bottom: 15px;
+    margin-bottom: var(--space-m);
   }
 
   &-Main {

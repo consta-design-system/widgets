@@ -1,5 +1,5 @@
-import { transformGroupsToCommonGroups } from '../helpers'
-import { Group } from '../StackedBarChart'
+import { Group } from '@/StackedBarChart'
+import { transformGroupsToCommonGroups } from '@/StackedBarChart/helpers'
 
 describe('transformGroupsToCommonGroups', () => {
   const groups: readonly Group[] = [

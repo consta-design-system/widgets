@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { Example } from '@/__private__/storybook'
+import { BarChart } from '@/BarChart'
 
-import { BarChart } from '../..'
 import {
   groupExampleData,
   groupExampleDataOverflow,

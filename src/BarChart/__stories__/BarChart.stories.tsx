@@ -5,8 +5,8 @@ import { object, text } from '@storybook/addon-knobs'
 import { withSmartKnobs } from 'storybook-addon-smart-knobs'
 
 import { createMetadata, createStory } from '@/__private__/storybook'
+import { BarChart } from '@/BarChart'
 
-import { BarChart } from '..'
 import { minimalData, withNegativeValueData, withThreeColumnsData } from '../data.mock'
 
 import docs from './BarChart.mdx'
