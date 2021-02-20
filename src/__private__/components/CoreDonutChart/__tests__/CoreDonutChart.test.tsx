@@ -8,7 +8,6 @@ type Props = React.ComponentProps<typeof CoreDonutChart>
 
 const commonProps: Props = {
   data: [],
-  showShadow: false,
   showSubBlock: false,
   showText: false,
   showTitle: false,

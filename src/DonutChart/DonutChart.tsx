@@ -24,7 +24,6 @@ export const DonutChart: React.FC<Props> = ({ halfDonut, ...rest }) => {
       halfDonut={halfDonut}
       titlePosition={halfDonut === 'bottom' ? 'bottom' : 'top'}
       textPaddingFromBorder={halfDonut ? 8 : 0}
-      showShadow={Boolean(halfDonut)}
       showTitle={Boolean(halfDonut)}
       showSubBlock={isHalfDonutVertical(halfDonut)}
       showTooltip

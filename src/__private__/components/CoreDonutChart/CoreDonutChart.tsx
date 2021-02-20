@@ -49,7 +49,6 @@ export type Props = {
   data: readonly Data[]
   textData?: TextData
   titlePosition: 'top' | 'bottom'
-  showShadow: boolean
   showTooltip: boolean
   showText: boolean
   showTitle: boolean
@@ -67,7 +66,6 @@ export const CoreDonutChart: React.FC<Props> = ({
   data = [],
   textData,
   titlePosition,
-  showShadow,
   showTooltip,
   showText,
   showTitle,
@@ -97,7 +95,6 @@ export const CoreDonutChart: React.FC<Props> = ({
   const circlesCount = getCirclesCount(data)
   const sizeDonut = getSizeDonut(circlesCount, isDefined(textData), halfDonut)
   const minChartSize = getMinChartSize(circlesCount, isDefined(textData), halfDonut)
-  const shadowSize = Math.max(svgWidth, svgHeight) - sizeDonut * 2
   const isTooltipVisible = Boolean(tooltipData.length)
 
   const lineRadiuses: readonly LineRadius[] = createArrayOfIndexes(circlesCount).map(index => {
@@ -158,15 +155,6 @@ export const CoreDonutChart: React.FC<Props> = ({
         ['--donut-width' as string]: `${sizeDonut}px`,
       }}
     >
-      {showShadow && (
-        <div
-          className={cnCoreDonutChart('Shadow', { half: halfDonut ?? 'none' })}
-          style={{
-            width: shadowSize,
-            height: shadowSize,
-          }}
-        />
-      )}
       {isTooltipVisible && (
         <Tooltip size="m" position={mousePosition} isInteractive={false}>
           <TooltipContentForMultipleValues
