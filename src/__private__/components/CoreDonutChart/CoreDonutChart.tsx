@@ -97,12 +97,12 @@ export const CoreDonutChart: React.FC<Props> = ({
   const svgHeight = isHalfDonutHorizontal ? mainRadius : size
   const viewBox = `${svgOffsetX}, ${svgOffsetY}, ${svgWidth}, ${svgHeight}`
   const circlesCount = getCirclesCount(data)
-  const sizeDonut = getSizeDonut(circlesCount, isDefined(textData), halfDonut)
+  const sizeDonut = getSizeDonut(circlesCount, size)
   const minChartSize = getMinChartSize(circlesCount, isDefined(textData), halfDonut)
   const isTooltipVisible = Boolean(tooltipData.length)
 
   const lineRadiuses: readonly LineRadius[] = createArrayOfIndexes(circlesCount).map(index => {
-    const outerRadius = getDonutRadius(mainRadius, index, circlesCount)
+    const outerRadius = getDonutRadius({ mainRadius, index, circlesCount, chartSize: size })
     const innerRadius = outerRadius - sizeDonut
 
     return {

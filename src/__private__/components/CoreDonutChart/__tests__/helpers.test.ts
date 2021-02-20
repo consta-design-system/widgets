@@ -3,14 +3,12 @@ import { times } from 'lodash'
 import {
   defaultGetCirclesCount,
   defaultGetMinChartSize,
-  donutSize,
   getChartSize,
   getDonutRadius,
   getPadding,
   getSizeDonut,
   MAX_CIRCLES_TO_RENDER,
   minChartSize,
-  paddingBetweenDonuts,
 } from '../helpers'
 
 const LINES = [1, 2, 3] as const
@@ -33,56 +31,56 @@ describe('getChartSize', () => {
 
 describe('getPadding', () => {
   it('получение размера отступа между линиями графика', () => {
-    LINES.map(l => {
-      expect(getPadding(l)).toEqual(paddingBetweenDonuts[l])
-    })
+    expect(getPadding(1, 100)).toEqual(0)
+    expect(getPadding(2, 100)).toEqual(8)
+    expect(getPadding(3, 100)).toEqual(6)
   })
 })
 
 describe('getSizeDonut', () => {
   it('получение размера толщины линии графика', () => {
-    LINES.map(l => {
-      expect(getSizeDonut(l)).toEqual(donutSize[l])
-    })
-  })
-
-  it('получение размера толщины линии графика с текстом', () => {
-    expect(getSizeDonut(1, true)).toEqual(16)
-  })
-
-  it('получение размера толщины линии обрезанного графика без текста', () => {
-    LINES.map(l => {
-      expect(getSizeDonut(l, false, 'top')).toEqual(16)
-      expect(getSizeDonut(l, false, 'right')).toEqual(16)
-      expect(getSizeDonut(l, false, 'bottom')).toEqual(16)
-      expect(getSizeDonut(l, false, 'left')).toEqual(16)
-    })
-  })
-
-  it('получение размера толщины линии обрезанного графика с текстом', () => {
-    LINES.map(l => {
-      expect(getSizeDonut(l, true, 'top')).toEqual(16)
-      expect(getSizeDonut(l, true, 'right')).toEqual(16)
-      expect(getSizeDonut(l, true, 'bottom')).toEqual(16)
-      expect(getSizeDonut(l, true, 'left')).toEqual(16)
-    })
+    expect(getSizeDonut(1, 100)).toEqual(12)
+    expect(getSizeDonut(2, 100)).toEqual(10)
+    expect(getSizeDonut(3, 100)).toEqual(8)
   })
 })
 
 describe('getDonutRadius', () => {
-  const MAIN_RADIUS = 500
+  const MAIN_RADIUS = 50
   const COUNT_LINES = LINES.length
+  const SIZE = 100
 
   it('получение размера радиуса первой линии', () => {
-    expect(getDonutRadius(MAIN_RADIUS, 0, COUNT_LINES)).toEqual(500)
+    const received = getDonutRadius({
+      mainRadius: MAIN_RADIUS,
+      index: 0,
+      circlesCount: COUNT_LINES,
+      chartSize: SIZE,
+    })
+
+    expect(received).toEqual(50)
   })
 
   it('получение размера радиуса второй линии', () => {
-    expect(getDonutRadius(MAIN_RADIUS, 1, COUNT_LINES)).toEqual(474)
+    const received = getDonutRadius({
+      mainRadius: MAIN_RADIUS,
+      index: 1,
+      circlesCount: COUNT_LINES,
+      chartSize: SIZE,
+    })
+
+    expect(received).toEqual(36)
   })
 
   it('получение размера радиуса третьей линии', () => {
-    expect(getDonutRadius(MAIN_RADIUS, 2, COUNT_LINES)).toEqual(448)
+    const received = getDonutRadius({
+      mainRadius: MAIN_RADIUS,
+      index: 2,
+      circlesCount: COUNT_LINES,
+      chartSize: SIZE,
+    })
+
+    expect(received).toEqual(22)
   })
 })
 
