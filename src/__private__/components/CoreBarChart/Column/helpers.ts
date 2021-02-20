@@ -1,6 +1,7 @@
 export const styleOrientation = (
   lengthColumns: number,
   maxNumberGroups: number,
+  maxPercentageWidth: number,
   padding: number,
   isHorizontal: boolean
 ) => {
@@ -8,26 +9,26 @@ export const styleOrientation = (
     if (maxNumberGroups > 1) {
       return {
         minHeight: `${lengthColumns}%`,
-        minWidth: `${70 / maxNumberGroups - padding}%`,
+        minWidth: `${maxPercentageWidth / maxNumberGroups - padding}%`,
         padding: `0 ${padding}% 0 0`,
       }
     } else {
       return {
         minHeight: `${lengthColumns}%`,
-        minWidth: `${70 / maxNumberGroups}%`,
+        minWidth: `${maxPercentageWidth / maxNumberGroups}%`,
       }
     }
   } else {
     if (maxNumberGroups > 1) {
       return {
         minWidth: `${lengthColumns}%`,
-        minHeight: `${70 / maxNumberGroups - padding}%`,
+        minHeight: `${maxPercentageWidth / maxNumberGroups - padding}%`,
         padding: `0 0 ${padding}% 0`,
       }
     } else {
       return {
         minWidth: `${lengthColumns}%`,
-        minHeight: `${70 / maxNumberGroups}%`,
+        minHeight: `${maxPercentageWidth / maxNumberGroups}%`,
       }
     }
   }

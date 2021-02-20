@@ -51,12 +51,20 @@ export const transformGroupsToCommonGroups = (
   })
 }
 
+export const getMaxOfArray = (numberArray: number[]) => {
+  return numberArray.length > 0 ? Math.max.apply(null, numberArray) : 0
+}
+
+export const getMinOfArray = (numberArray: number[]) => {
+  return numberArray.length > 0 ? Math.min.apply(null, numberArray) : 0
+}
+
 export const getColumnsLengthArray = (groupsItem: GroupItem[], typeColumn: TypeColumn) => {
   let columnsLengthArray: number[] = []
 
   groupsItem.map((group: GroupItem) =>
     group[typeColumn].map(column => {
-      if (column?.sections?.[0]?.value && column?.sections?.[0]?.value !== undefined) {
+      if (column?.sections?.[0]?.value) {
         columnsLengthArray = columnsLengthArray.concat(column.sections[0].value)
       }
     })

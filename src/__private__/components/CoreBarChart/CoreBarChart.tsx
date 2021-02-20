@@ -288,6 +288,8 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
    * Для isHorizontal рендерится вне обертки с барчартом, чтобы при скролле ось оставалась на месте.
    * Для !isHorizontal рендерится внутри обертки, для того, чтобы лейблы строились по grid сетке.
    */
+  const paddingThreshold = getPaddingThreshold(isHorizontal, threshold)
+
   return (
     <div className={cnCoreBarChart('Scroll')}>
       <div className={cnCoreBarChart('Wrapper')}>
@@ -296,14 +298,13 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
           {isHorizontal && axisShowPositions.top && renderHorizontal('top')}
           <div
             ref={ref}
-            className={cnCoreBarChart('Chart', { isHorizontal })}
+            className={cnCoreBarChart('Chart', { isHorizontal, paddingThreshold })}
             style={{
               ...getGridSettings({
                 isHorizontal,
                 countGroups: groups.length,
                 axisShowPositions,
               }),
-              ...getPaddingThreshold(isHorizontal, threshold),
             }}
           >
             <svg className={cnCoreBarChart('Svg')} ref={svgRef} style={gridStyle}>

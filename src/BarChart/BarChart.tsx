@@ -12,6 +12,8 @@ import { FormatGroupName, FormatValue } from '@/__private__/types'
 import {
   getColumnsLengthArray,
   getMaxNumberGroupsArray,
+  getMaxOfArray,
+  getMinOfArray,
   transformGroupsToCommonGroups,
 } from './helpers'
 
@@ -72,14 +74,12 @@ export const BarChart: React.FC<Props> = props => {
 
   const columnsLengthArray = getColumnsLengthArray(commonGroups, 'columns')
   const reversedColumnsLengthArray = getColumnsLengthArray(commonGroups, 'reversedColumns')
-  const maxColumnLength =
-    columnsLengthArray.length > 0 ? Math.max.apply(null, columnsLengthArray) : 0
-  const minReversedColumnLength =
-    reversedColumnsLengthArray.length > 0 ? Math.min.apply(null, reversedColumnsLengthArray) : 0
+
+  const maxColumnLength = getMaxOfArray(columnsLengthArray)
+  const minReversedColumnLength = getMinOfArray(reversedColumnsLengthArray)
 
   const maxNumberGroupsArray = getMaxNumberGroupsArray(commonGroups)
-  const maxNumberGroups: number =
-    maxNumberGroupsArray.length > 0 ? Math.max.apply(null, maxNumberGroupsArray) : 0
+  const maxNumberGroups = getMaxOfArray(maxNumberGroupsArray)
 
   return (
     <CoreBarChart

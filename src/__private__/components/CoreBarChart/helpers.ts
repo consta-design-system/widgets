@@ -316,10 +316,10 @@ export const getColumnLength = (columnLength: number, gridItem: number, typeColu
 
 export const getPaddingThreshold = (isHorizontal: boolean, threshold?: Threshold) => {
   if (threshold?.value && !isHorizontal) {
-    return { padding: '0 50px 0 0' }
+    return 'right'
   } else if (threshold?.value && isHorizontal) {
-    return { padding: '50px 0 0 0' }
+    return 'top'
   } else {
-    return { padding: '0' }
+    return 'none'
   }
 }

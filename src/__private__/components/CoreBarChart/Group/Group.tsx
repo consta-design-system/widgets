@@ -10,7 +10,12 @@ import { NumberRange } from '@/__private__/utils/scale'
 import { Column, SectionItem } from '../Column/Column'
 import { TooltipData } from '../Tooltip/Tooltip'
 
-import { getSections, scalerCommonColumnsGroups, styleGroups, styleOrientation } from './helpers'
+import {
+  getSections,
+  getSizeGroupsLimit,
+  scalerCommonColumnsGroups,
+  styleOrientation,
+} from './helpers'
 import './Group.css'
 
 const cnGroup = cn('Group')
@@ -126,12 +131,11 @@ export const Group: React.FC<Props> = props => {
       />
     )
   }
+
+  const sizeGroupsLimit = getSizeGroupsLimit(isHorizontal, minCategorySizeLimit)
+
   return (
-    <div
-      className={cnGroup('Groups', { isHorizontal })}
-      style={styleGroups(isHorizontal, minCategorySizeLimit)}
-      ref={ref}
-    >
+    <div className={cnGroup('Groups', { isHorizontal, sizeGroupsLimit })} ref={ref}>
       <div className={cnGroup('Columns')}>
         <div
           className={cnGroup('Wrapper')}

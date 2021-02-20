@@ -99,7 +99,8 @@ export const Column: React.FC<Props> = ({
   const { width, height } = useComponentSize(ref)
   const columnProperty: ColumnProperty = { width, height }
 
-  const padding = (70 / maxNumberGroups) * 0.2
+  const maxPercentageWidth = 70
+  const padding = (maxPercentageWidth / maxNumberGroups) * 0.2
   const lengthColumn = lengthColumns ?? 0
 
   const numberColumnSections = sections?.length ?? 0
@@ -175,7 +176,13 @@ export const Column: React.FC<Props> = ({
         horizontal,
         direction,
       })}
-      style={styleOrientation(lengthColumn, maxNumberGroups, padding, isHorizontal)}
+      style={styleOrientation(
+        lengthColumn,
+        maxNumberGroups,
+        maxPercentageWidth,
+        padding,
+        isHorizontal
+      )}
       ref={ref}
     >
       {sections.map(renderSection)}

@@ -8,6 +8,7 @@ import {
 import { defaultRenderGroup } from '@/__private__/components/CoreBarChart/renders'
 import { CoreBarChart, Threshold } from '@/__private__/components/CoreBarChart/CoreBarChart'
 import { FormatGroupName, FormatValue } from '@/__private__/types'
+import { getMaxOfArray } from '@/BarChart/helpers'
 
 import {
   getColumnsLengthArray,
@@ -61,11 +62,10 @@ export const StackedBarChart: React.FC<Props> = props => {
   })
 
   const groupTotalArray = getColumnsLengthArray(commonGroups)
-  const maxGroupTotalLength = groupTotalArray.length > 0 ? Math.max.apply(null, groupTotalArray) : 0
+  const maxGroupTotalLength = getMaxOfArray(groupTotalArray)
 
   const maxNumberGroupsArray = getMaxNumberGroupsArray(commonGroups)
-  const maxNumberGroups: number =
-    maxNumberGroupsArray.length > 0 ? Math.max.apply(null, maxNumberGroupsArray) : 0
+  const maxNumberGroups = getMaxOfArray(maxNumberGroupsArray)
 
   return (
     <CoreBarChart

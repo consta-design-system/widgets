@@ -82,12 +82,12 @@ export const scalerCommonColumnsGroups = (
   }
 }
 
-export const styleGroups = (isHorizontal: boolean, minCategorySizeLimit: boolean) => {
+export const getSizeGroupsLimit = (isHorizontal: boolean, minCategorySizeLimit: boolean) => {
   if (!isHorizontal && minCategorySizeLimit) {
-    return { minWidth: '30px', minHeight: '100%' }
+    return 'vertical'
   } else if (isHorizontal && minCategorySizeLimit) {
-    return { minHeight: '30px', minWidth: '100%' }
+    return 'horizontal'
   } else {
-    return {}
+    return ''
   }
 }

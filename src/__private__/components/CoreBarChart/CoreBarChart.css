@@ -46,6 +46,20 @@
     &_isHorizontal {
       padding-right: var(--space-m);
     }
+
+    &_paddingThreshold {
+      &_top {
+        padding: 50px 0 0 0;
+      }
+
+      &_right {
+        padding: 0 50px 0 0;
+      }
+
+      &_none {
+        padding: 0;
+      }
+    }
   }
 
   &-Svg {
