@@ -12,6 +12,6 @@ const renderComponent = (props: Props) => {
 
 describe('Компонент Stats', () => {
   it('render без ошибок', () => {
-    expect(() => renderComponent({ size: '2xs', value: 100 })).not.toThrow()
+    expect(() => renderComponent({ value: 100 })).not.toThrow()
   })
 })

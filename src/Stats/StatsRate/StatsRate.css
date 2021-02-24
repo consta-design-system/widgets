@@ -1,0 +1,25 @@
+.cw--StatsRate {
+  font-size: 0.7em;
+
+  white-space: nowrap;
+
+  &-Icon {
+    font-size: 0.75em;
+
+    display: inline-block;
+
+    width: 0;
+    height: 0;
+    margin-right: var(--space-3xs);
+
+    border-top: 0;
+    border-right: 0.4em solid transparent;
+    border-bottom: 0.6em solid currentColor;
+    border-left: 0.4em solid transparent;
+
+    &_isNegative {
+      border-top: 0.6em solid currentColor;
+      border-bottom: 0;
+    }
+  }
+}
