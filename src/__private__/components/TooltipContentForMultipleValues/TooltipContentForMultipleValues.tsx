@@ -55,7 +55,7 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
               <LegendItem
                 type={_.isNumber(value) ? 'dot' : 'warning'}
                 color={color}
-                fontSize="xs"
+                size="xs"
                 className={cnTooltipContent('LegendItem', { isSingleColumn: !name })}
               >
                 {name ?? formattedValue}

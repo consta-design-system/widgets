@@ -45,7 +45,7 @@ export const Legend: React.FC<Props> = ({
         column: direction === 'column',
       })}
     >
-      <Title className={cnLegend('Title')}>{title}</Title>
+      <Title>{title}</Title>
       {items.map(item => (
         <LegendItem
           color={item.color}
