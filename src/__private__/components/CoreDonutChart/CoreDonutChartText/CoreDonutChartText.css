@@ -1,0 +1,113 @@
+.cw--CoreDonutChartText {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  text-align: center;
+
+  &_half_top {
+    align-items: flex-start;
+  }
+
+  &_half_right {
+    justify-content: flex-end;
+
+    text-align: right;
+  }
+
+  &_half_bottom {
+    align-items: flex-end;
+  }
+
+  &_half_left {
+    justify-content: flex-start;
+
+    text-align: left;
+  }
+
+  &_half_right,
+  &_half_left {
+    align-items: center;
+  }
+
+  &-Content {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+
+    &_half_top {
+      padding-top: var(--padding-from-border);
+      padding-bottom: var(--donut-width);
+    }
+
+    &_half_right {
+      align-items: flex-end;
+
+      padding-right: var(--padding-from-border);
+      padding-left: var(--donut-width);
+
+      text-align: right;
+    }
+
+    &_half_bottom {
+      padding-top: var(--donut-width);
+      padding-bottom: var(--padding-from-border);
+    }
+
+    &_half_left {
+      align-items: flex-start;
+
+      padding: 0 var(--padding-from-border);
+      padding-right: var(--donut-width);
+
+      text-align: left;
+    }
+
+    &_half_none {
+      margin: var(--donut-width);
+      padding: var(--padding-from-line);
+    }
+  }
+
+  &-Title {
+    line-height: var(--line-height-text-xs);
+
+    white-space: nowrap;
+
+    color: var(--color-typo-secondary);
+  }
+
+  &-Value {
+    line-height: var(--line-height-text-s);
+
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+
+    color: var(--color-typo-primary);
+
+    &_half_left {
+      justify-content: flex-start;
+    }
+
+    &_half_right {
+      justify-content: flex-end;
+    }
+  }
+
+  &-SubValue {
+    font-weight: bold;
+    line-height: var(--line-height-text-xs);
+
+    color: var(--color-typo-primary);
+  }
+}
