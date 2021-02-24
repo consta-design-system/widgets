@@ -24,9 +24,9 @@ export type FormatRate = (value: string) => string
 export const titleSizes: Record<Size, TextPropSize> = {
   '2xs': 'xs',
   xs: 'm',
-  s: 'l',
-  m: 'xl',
-  l: '2xl',
+  s: 'xl',
+  m: '2xl',
+  l: '3xl',
 }
 
 export const iconTitleSizes: Record<Size, IconSize> = {

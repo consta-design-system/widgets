@@ -6,7 +6,7 @@
   }
 
   &-Icon {
-    line-height: 1em;
+    line-height: 0;
 
     display: inline-block;
 
