@@ -15,6 +15,7 @@ import {
   Data,
   defaultGetCirclesCount,
   defaultGetMinChartSize,
+  defaultSortValue,
   getChartSize,
   GetCirclesCount,
   getDonutRadius,
@@ -22,6 +23,7 @@ import {
   getSizeDonut,
   isHalfDonutHorizontal as getIsHalfDonutHorizontal,
   isHalfDonutVertical as getIsHalfDonutVertical,
+  SortValue,
 } from './helpers'
 import './CoreDonutChart.css'
 import {
@@ -56,6 +58,7 @@ export type Props = {
   textPaddingFromBorder: number
   halfDonut?: HalfDonut
   valueSize?: number
+  sortValue?: SortValue | null
   getCirclesCount?: GetCirclesCount
   getMinChartSize?: GetMinChartSize
   formatValueForTooltip?: FormatValue
@@ -73,6 +76,7 @@ export const CoreDonutChart: React.FC<Props> = ({
   textPaddingFromBorder,
   halfDonut,
   valueSize,
+  sortValue = defaultSortValue,
   getCirclesCount = defaultGetCirclesCount,
   getMinChartSize = defaultGetMinChartSize,
   formatValueForTooltip,
@@ -194,6 +198,7 @@ export const CoreDonutChart: React.FC<Props> = ({
               handleMouseOut={handleMouseOut}
               isTooltipVisible={isTooltipVisible}
               halfDonut={halfDonut}
+              sortValue={sortValue}
             />
           )
         })}

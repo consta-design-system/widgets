@@ -4,6 +4,8 @@ import * as d3 from 'd3'
 
 import { cn } from '@/__private__/utils/bem'
 
+import { SortValue } from '../helpers'
+
 import './CoreDonutChartPie.css'
 
 const cnCoreDonutChartPie = cn('CoreDonutChartPie')
@@ -28,6 +30,7 @@ type Props = {
   handleMouseOver: (data: Data) => void
   handleMouseOut: () => void
   isTooltipVisible: boolean
+  sortValue: SortValue | null
   halfDonut?: HalfDonut
 }
 
@@ -85,13 +88,14 @@ export const Donut: React.FC<Props> = ({
   handleMouseOver,
   handleMouseOut,
   isTooltipVisible,
+  sortValue,
   halfDonut,
 }) => {
   const { startAngle, endAngle } = getAnglesByHalfDonut(halfDonut)
 
   const pieData = d3
     .pie<DataItem>()
-    .sort(null)
+    .sort((prev, next) => (sortValue ? sortValue(prev, next) : 0))
     .startAngle(startAngle)
     .endAngle(endAngle)
     .value(d => d.value)([...data])

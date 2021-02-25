@@ -1,4 +1,4 @@
-import { HalfDonut } from './CoreDonutChartPie/CoreDonutChartPie'
+import { DataItem, HalfDonut } from './CoreDonutChartPie/CoreDonutChartPie'
 
 export const MAX_CIRCLES_TO_RENDER = 3
 
@@ -20,6 +20,8 @@ export type GetMinChartSize = (
   isExistTextData?: boolean,
   halfDonut?: HalfDonut
 ) => number
+
+export type SortValue = (prev: DataItem, next: DataItem) => number
 
 export const donutSize: Record<number, number> = {
   1: 18,
@@ -99,4 +101,8 @@ export const defaultGetMinChartSize: GetMinChartSize = (
   }
 
   return minChartSize[countLines]
+}
+
+export const defaultSortValue: SortValue = (prev, next) => {
+  return next.value - prev.value
 }
