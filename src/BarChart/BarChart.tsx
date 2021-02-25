@@ -35,7 +35,6 @@ type Props = {
   withScroll?: boolean
   isXAxisLabelsSlanted?: boolean
   threshold?: Threshold
-  title?: React.ReactNode
   formatValueForLabel?: FormatValue
   formatValueForTooltip?: FormatValue
   formatGroupName?: FormatGroupName

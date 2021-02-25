@@ -10,8 +10,6 @@ import { cn } from '@/__private__/utils/bem'
 import { NumberRange, scaleLinear } from '@/__private__/utils/scale'
 import { getTicks } from '@/__private__/utils/ticks'
 
-import { Title } from '../Title/Title'
-
 import {
   CHART_MIN_HEIGHT,
   defaultGetAxisShowPositions,
@@ -67,7 +65,6 @@ export type Props<T> = {
   activeSectionIndex?: number
   activeGroup?: string
   threshold?: Threshold
-  title?: React.ReactNode
   renderGroup: RenderGroup<T>
   getAxisShowPositions?: GetAxisShowPositions
   formatValueForLabel?: FormatValue
@@ -105,7 +102,6 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     activeSectionIndex,
     activeGroup,
     threshold,
-    title,
     getAxisShowPositions = defaultGetAxisShowPositions,
     formatValueForLabel = String,
     formatValueForTooltip,
@@ -293,7 +289,6 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
   return (
     <div className={cnCoreBarChart('Scroll')}>
       <div className={cnCoreBarChart('Wrapper')}>
-        <Title style={{ paddingLeft: gridStyle.left }}>{title}</Title>
         <div className={cnCoreBarChart('Main', { withVerticalScroll: withScroll && isHorizontal })}>
           {isHorizontal && axisShowPositions.top && renderHorizontal('top')}
           <div

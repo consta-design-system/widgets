@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { Text } from '@consta/uikit/Text'
 import { object, text } from '@storybook/addon-knobs'
 import { withSmartKnobs } from 'storybook-addon-smart-knobs'
 
@@ -85,26 +84,6 @@ export const WithThreshold = createStory(
     />
   ),
   { name: 'с предельным значением' }
-)
-
-export const WithTitle = createStory(
-  () => {
-    return (
-      <BarChart
-        {...getCommonProps(minimalData.unit)}
-        colors={object('colors', minimalData.colors)}
-        groups={minimalData.groups}
-        title={
-          <Text as="div" view="primary" size="m">
-            {text('title', 'Заголовок')}
-          </Text>
-        }
-      />
-    )
-  },
-  {
-    name: 'с заголовком',
-  }
 )
 
 export default createMetadata({
