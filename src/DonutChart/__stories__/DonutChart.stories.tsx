@@ -2,6 +2,7 @@ import React from 'react'
 
 import { object, select } from '@storybook/addon-knobs'
 
+import { defaultSortValue, SortValue } from '@/__private__/components/CoreDonutChart/helpers'
 import { halvesDonut } from '@/__private__/components/CoreDonutChart/CoreDonutChartPie/CoreDonutChartPie'
 import {
   createMetadata,
@@ -22,6 +23,12 @@ const formatsValueForTooltip: Record<typeof formattersKeysForTooltip[number], Fo
   'Без форматирования': String,
 }
 
+const sortsValueKey = ['Как пришли', 'От большего к меньшему'] as const
+const sortsValue: Record<typeof sortsValueKey[number], SortValue | null> = {
+  'От большего к меньшему': defaultSortValue,
+  'Как пришли': null,
+}
+
 const getKnobs = () => {
   return {
     data: object('data', donutData.data),
@@ -36,6 +43,7 @@ const getKnobs = () => {
       formatsValueForTooltip[
         select('formatValueForTooltip', formattersKeysForTooltip, formattersKeysForTooltip[0])
       ],
+    sortValue: sortsValue[select('sortValue', sortsValueKey, sortsValueKey[0])],
   }
 }
 
