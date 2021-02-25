@@ -1,15 +1,18 @@
-import { times } from 'lodash'
+import { createArrayOfIndexes } from '@consta/widgets-utils/lib/array'
 
 import {
   defaultGetCirclesCount,
   defaultGetMinChartSize,
+  getArcRadiuses,
   getChartSize,
   getDonutMaxMinSizeRect,
   getDonutRadius,
   getPadding,
+  getPieData,
   getSizeDonut,
+  getValues,
+  isEmptyPieArcDatum,
   MAX_CIRCLES_TO_RENDER,
-  minChartSize,
 } from '../helpers'
 
 const LINES = [1, 2, 3] as const
@@ -95,50 +98,179 @@ describe('defaultGetCirclesCount', () => {
   })
 
   it('возвращает количество линий не больше максимального', () => {
-    expect(defaultGetCirclesCount([{ name: '', color: '', values: times(10, () => 0) }])).toBe(
-      MAX_CIRCLES_TO_RENDER
-    )
+    expect(
+      defaultGetCirclesCount([{ name: '', color: '', values: createArrayOfIndexes(10) }])
+    ).toBe(MAX_CIRCLES_TO_RENDER)
   })
 })
 
 describe('defaultGetMinChartSize', () => {
-  it('получение минимального размера необрезанного графика без текста', () => {
-    LINES.map(l => {
-      expect(defaultGetMinChartSize(l)).toEqual(minChartSize[l])
-    })
+  it('получение минимального размера необрезанного графика с 1 линией без текста', () => {
+    expect(defaultGetMinChartSize(1, false)).toEqual(0)
   })
 
-  it('получение минимального размера необрезанного графика с 1 линией и текстом', () => {
-    expect(defaultGetMinChartSize(1, true)).toEqual(96)
+  it('получение минимального размера необрезанного графика с 2 линиями без текста', () => {
+    expect(defaultGetMinChartSize(2, false)).toEqual(0)
   })
 
-  it('получение минимального размера необрезанного графика с 2 линиями и текстом', () => {
-    expect(defaultGetMinChartSize(2, true)).toEqual(minChartSize[2])
+  it('получение минимального размера необрезанного графика с 3 линиями без текста', () => {
+    expect(defaultGetMinChartSize(3, false)).toEqual(0)
   })
 
-  it('получение минимального размера необрезанного графика с 3 линиями и текстом', () => {
-    expect(defaultGetMinChartSize(3, true)).toEqual(minChartSize[3])
+  it('получение минимального размера необрезанного графика с 1 линией с текстом', () => {
+    expect(defaultGetMinChartSize(1, true)).toEqual(100)
+  })
+
+  it('получение минимального размера необрезанного графика с 2 линиями с текстом', () => {
+    expect(defaultGetMinChartSize(2, true)).toEqual(0)
+  })
+
+  it('получение минимального размера необрезанного графика с 3 линиями с текстом', () => {
+    expect(defaultGetMinChartSize(3, true)).toEqual(0)
+    expect(defaultGetMinChartSize(3, false)).toEqual(0)
   })
 
   it('получение минимального размера обрезанного графика с 1 линией и текстом', () => {
-    expect(defaultGetMinChartSize(1, true, 'top')).toEqual(170)
-    expect(defaultGetMinChartSize(1, true, 'right')).toEqual(170)
-    expect(defaultGetMinChartSize(1, true, 'bottom')).toEqual(170)
-    expect(defaultGetMinChartSize(1, true, 'right')).toEqual(170)
+    expect(defaultGetMinChartSize(1, true, 'top')).toEqual(0)
+    expect(defaultGetMinChartSize(1, true, 'right')).toEqual(0)
+    expect(defaultGetMinChartSize(1, true, 'bottom')).toEqual(0)
+    expect(defaultGetMinChartSize(1, true, 'left')).toEqual(0)
+  })
+})
+
+describe('getValues', () => {
+  it('получает данные для одного кольца', () => {
+    const received = getValues(
+      [
+        {
+          color: 'red',
+          name: 'Group 1',
+          values: [1, 2, 3],
+        },
+      ],
+      1
+    )
+
+    expect(received).toEqual([[{ color: 'red', name: 'Group 1', value: 1 }]])
   })
 
-  it('получение минимального размера обрезанного графика с 2 линиями и текстом', () => {
-    expect(defaultGetMinChartSize(2, true, 'top')).toEqual(minChartSize[2])
-    expect(defaultGetMinChartSize(2, true, 'right')).toEqual(minChartSize[2])
-    expect(defaultGetMinChartSize(2, true, 'bottom')).toEqual(minChartSize[2])
-    expect(defaultGetMinChartSize(2, true, 'left')).toEqual(minChartSize[2])
+  it('Получает данные для трех колец', () => {
+    const received = getValues(
+      [
+        {
+          color: 'red',
+          name: 'Group 1',
+          values: [1, 2, 3],
+        },
+      ],
+      3
+    )
+
+    expect(received).toEqual([
+      [{ color: 'red', name: 'Group 1', value: 1 }],
+      [{ color: 'red', name: 'Group 1', value: 2 }],
+      [{ color: 'red', name: 'Group 1', value: 3 }],
+    ])
   })
 
-  it('получение минимального размера обрезанного графика с 3 линиями и текстом', () => {
-    expect(defaultGetMinChartSize(3, true, 'top')).toEqual(minChartSize[3])
-    expect(defaultGetMinChartSize(3, true, 'right')).toEqual(minChartSize[3])
-    expect(defaultGetMinChartSize(3, true, 'bottom')).toEqual(minChartSize[3])
-    expect(defaultGetMinChartSize(3, true, 'left')).toEqual(minChartSize[3])
+  it('Получает данные для трех колец, если исходные данные пустые', () => {
+    const received = getValues([], 3)
+
+    expect(received).toEqual([[], [], []])
+  })
+})
+
+describe('getPieData', () => {
+  it('получение данных для кольца, если исходные данные пустые', () => {
+    const received = getPieData([], null)
+
+    expect(received).toEqual([])
+  })
+
+  it('получение данных для кольца', () => {
+    const received = getPieData([{ color: 'red', name: 'Group 1', value: null }], null)
+
+    expect(received).toEqual([
+      {
+        data: { color: 'red', name: 'Group 1', value: null },
+        endAngle: 0,
+        index: 0,
+        padAngle: 0,
+        startAngle: 0,
+        value: 0,
+      },
+    ])
+  })
+})
+
+describe('getArcRadiuses', () => {
+  it('получение радиусов для дуг', () => {
+    const received = getArcRadiuses({
+      mainRadius: 100,
+      circlesCount: 3,
+      sizeDonut: 5,
+      chartSize: 200,
+    })
+
+    expect(received).toEqual([
+      { inner: 95, outer: 100 },
+      { inner: 67, outer: 72 },
+      { inner: 39, outer: 44 },
+    ])
+  })
+})
+
+describe('isEmptyPieArcDatum', () => {
+  it('возвращает true если передать пустой массив', () => {
+    const received = isEmptyPieArcDatum([])
+
+    expect(received).toBeTrue()
+  })
+
+  it('возвращает true если передать массив в котором у всех элементов в качестве значения дуги 0', () => {
+    const received = isEmptyPieArcDatum([
+      {
+        data: { color: 'red', name: 'Group 1', value: null },
+        endAngle: 0,
+        index: 0,
+        padAngle: 0,
+        startAngle: 0,
+        value: 0,
+      },
+      {
+        data: { color: 'red', name: 'Group 1', value: null },
+        endAngle: 0,
+        index: 0,
+        padAngle: 0,
+        startAngle: 0,
+        value: 0,
+      },
+    ])
+
+    expect(received).toBeTrue()
+  })
+
+  it('возвращает false если передать массив в котором хотя бы у одной дуги значение не равняется 0', () => {
+    const received = isEmptyPieArcDatum([
+      {
+        data: { color: 'red', name: 'Group 1', value: null },
+        endAngle: 0,
+        index: 0,
+        padAngle: 0,
+        startAngle: 0,
+        value: 1,
+      },
+      {
+        data: { color: 'red', name: 'Group 2', value: null },
+        endAngle: 0,
+        index: 0,
+        padAngle: 0,
+        startAngle: 0,
+        value: 0,
+      },
+    ])
+
+    expect(received).toBeFalse()
   })
 })
 

@@ -4,7 +4,7 @@ import { Textfit } from '@evless/react-textfit'
 
 import { cn } from '@/__private__/utils/bem'
 
-import { HalfDonut } from '../CoreDonutChartPie/CoreDonutChartPie'
+import { HalfDonut } from '../helpers'
 
 import {
   getContainerPadding,
