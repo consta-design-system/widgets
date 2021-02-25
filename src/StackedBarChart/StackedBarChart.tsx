@@ -33,7 +33,6 @@ type Props = {
   unit?: string
   showValues?: boolean
   isHorizontal?: boolean
-  withScroll?: boolean
   threshold?: Threshold
   title?: React.ReactNode
   formatValueForLabel?: FormatValue

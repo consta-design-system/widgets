@@ -9,7 +9,6 @@ import {
   StackedBarChartExampleHorizontal,
   StackedBarChartUnitsLeft,
   StackedBarChartUnitsBottom,
-  StackedBarChartExampleScroll,
   StackedBarChartExampleFrameControlHideGrid,
   StackedBarChartExampleFrameControlHideLabels,
   StackedBarChartExampleFrameControlHideLineAtZero,
@@ -193,12 +192,6 @@ formatValueForTooltip={v => `${v} тысяч`}
 | ------------------------------------ | ------------------------- |
 | <StackedBarChartExampleHorizontal /> | <StackedBarChartExampleM /> |
 
-### Прокрутка
-
-Вы можете добавить полосу прокрутки с помощью свойства `withScroll`. Она появится, если
-график не поместится по высоте в родительский контейнер. Работает только с горизонтальными
-диаграммами (`isHorizontal={true}`).
-
 ### Единицы измерения
 
 Указать единицы измерения можно в свойстве `unit`.
@@ -264,7 +257,6 @@ maxValueY = 1300
 | [`unit?`](#единицы-измерения)                           | `string`                                    | -            | Единицы измерения                                                                 |
 | [`showValues?`](#значения-у-столбцов)                   | `boolean`                                   | -            | Показывать значения величины столбцов                                             |
 | [`isHorizontal?`](#горизонтальный-или-вертикальный)     | `boolean`                                   | -            | Делает график горизонтальным                                                      |
-| [`withScroll?`](#прокрутка)                             | `boolean`                                   | -            | Добавляет прокрутку по вертикали (работает только вместе с `isHorizontal = true`) |
 | [`threshold?`](#предельные-значения)                    | [`Threshold`](#threshold)                   | -            | Предельные значения                                                               |
 | [`formatValueForLabel?`](#подписи-к-значениям)          | `(value: number) => string`                 | -            | Формат для подписи к делению                                                      |
 | [`formatValueForTooltip?`](#тултип)                     | `(value: number) => string`                 | -            | Формат для вывода значения в тултипе                                              |

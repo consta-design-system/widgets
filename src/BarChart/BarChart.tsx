@@ -32,7 +32,6 @@ type Props = {
   unit?: string
   showValues?: boolean
   isHorizontal?: boolean
-  withScroll?: boolean
   isXAxisLabelsSlanted?: boolean
   threshold?: Threshold
   formatValueForLabel?: FormatValue

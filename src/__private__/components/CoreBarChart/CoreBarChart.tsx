@@ -51,7 +51,6 @@ export type Props<T> = {
   valuesDomain: NumberRange
   groups: readonly T[]
   isHorizontal?: boolean
-  withScroll?: boolean
   showValues?: boolean
   showReversed?: boolean
   showGrid?: boolean
@@ -89,7 +88,6 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     valuesDomain,
     groups,
     isHorizontal = false,
-    withScroll = false,
     showValues = false,
     showReversed = false,
     showGrid = true,
@@ -289,7 +287,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
   return (
     <div className={cnCoreBarChart('Scroll')}>
       <div className={cnCoreBarChart('Wrapper')}>
-        <div className={cnCoreBarChart('Main', { withVerticalScroll: withScroll && isHorizontal })}>
+        <div className={cnCoreBarChart('Main')}>
           {isHorizontal && axisShowPositions.top && renderHorizontal('top')}
           <div
             ref={ref}

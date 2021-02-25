@@ -92,12 +92,6 @@ export const StackedBarChartUnitsBottom = () => (
   </Example>
 )
 
-export const StackedBarChartExampleScroll = () => (
-  <Example height="50px">
-    <StackedBarChart groups={withTwoColumnsData.groups} isHorizontal={true} withScroll={true} />
-  </Example>
-)
-
 export const StackedBarChartExampleFrameControlShowAll = () => (
   <Example>
     <StackedBarChart
