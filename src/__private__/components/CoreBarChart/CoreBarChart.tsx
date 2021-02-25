@@ -328,8 +328,6 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
             {unit &&
               !isHorizontal &&
               renderUnit(cnCoreBarChart('Unit', { position: 'topLeft' }), unit)}
-            {!isHorizontal && axisShowPositions.top && showGroupsLabels && renderHorizontal('top')}
-            {axisShowPositions.right && showGroupsLabels && renderVertical('right')}
             {groups.map((group, groupIdx) => {
               const isFirstGroup = groupIdx === 0
               const isLastGroup = groupIdx === groups.length - 1
