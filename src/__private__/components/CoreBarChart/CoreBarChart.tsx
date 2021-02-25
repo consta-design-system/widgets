@@ -319,14 +319,19 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
                 />
               )}
               {showLineAtZero && <ZeroLine valuesScale={valuesScale} isHorizontal={isHorizontal} />}
-              {threshold && (
+            </svg>
+            {threshold && (
+              <svg
+                className={cnCoreBarChart('Svg', { threshold: threshold?.value ? 'up' : '' })}
+                style={gridStyle}
+              >
                 <Threshold
                   valuesScale={valuesScale}
                   isHorizontal={isHorizontal}
                   value={threshold.value}
                 />
-              )}
-            </svg>
+              </svg>
+            )}
             {unit &&
               !isHorizontal &&
               renderUnit(cnCoreBarChart('Unit', { position: 'topLeft' }), unit)}

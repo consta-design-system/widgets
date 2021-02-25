@@ -66,6 +66,10 @@
     position: absolute;
 
     overflow: visible;
+
+    &_threshold_up {
+      z-index: 999;
+    }
   }
 
   &-AxisTicks {
