@@ -1,12 +1,11 @@
-import { Data } from '@/__private__/components/CoreDonutChart/helpers'
-import { DataItem } from '@/__private__/components/CoreDonutChart/CoreDonutChartPie/CoreDonutChartPie'
+import { ArcDataItem, DonutDataItem } from '@/__private__/components/CoreDonutChart/helpers'
 
 export const DUMMY_ARC_NAME = '@arc:empty'
 
 export const legendPositions = ['top', 'right', 'bottom', 'left'] as const
 export type LegendPosition = typeof legendPositions[number]
 
-export const getTotalByCircle = (circles: readonly Data[]) => {
+export const getTotalByCircle = (circles: readonly DonutDataItem[]) => {
   return circles.reduce<readonly number[]>(
     (acc, insetArray) => insetArray.values.map((value, index) => acc[index] + (value ?? 0)),
     new Array(circles.length).fill(0)
@@ -20,7 +19,7 @@ export const getDiffsByTotalFromCircles = (totals: readonly number[], sums: read
   })
 }
 
-export const getComputedData = (circles: readonly Data[], sums?: readonly number[]) => {
+export const getComputedData = (circles: readonly DonutDataItem[], sums?: readonly number[]) => {
   if (!sums || sums.length === 0) {
     return circles
   }
@@ -35,7 +34,7 @@ export const getComputedData = (circles: readonly Data[], sums?: readonly number
   })
 }
 
-export const filterComputedData = (item: DataItem) => {
+export const filterComputedData = (item: ArcDataItem) => {
   return item.name !== DUMMY_ARC_NAME
 }
 

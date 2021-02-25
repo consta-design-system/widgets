@@ -1,11 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { CSSProperties, useRef, useState } from 'react'
 
 import { useComponentSize } from '@consta/uikit/useComponentSize'
 import { Position } from '@consta/uikit/Popover'
 import { Tooltip } from '@consta/uikit/Tooltip'
-import { createArrayOfIndexes } from '@consta/widgets-utils/lib/array'
 import { isDefined } from '@consta/widgets-utils/lib/type-guards'
-import zip from 'lodash/zip'
+import { PieArcDatum } from 'd3-shape'
 
 import { TooltipContentForMultipleValues } from '@/__private__/components/TooltipContentForMultipleValues/TooltipContentForMultipleValues'
 import { FormatValue } from '@/__private__/types'
@@ -13,45 +12,40 @@ import { cn } from '@/__private__/utils/bem'
 import { numberFormatter } from '@/__private__/utils/formatters'
 
 import {
-  Data,
+  ArcDataItem,
   defaultGetCirclesCount,
   defaultGetMinChartSize,
   defaultSortValue,
+  DonutDataItem,
+  getArcRadiuses,
   getChartSize,
   GetCirclesCount,
   getDonutMaxMinSizeRect,
-  getDonutRadius,
   GetMinChartSize,
+  getPieData,
+  getRenderArc,
   getSizeDonut,
+  getValues,
+  HalfDonut,
   isHalfDonutHorizontal as getIsHalfDonutHorizontal,
   isHalfDonutVertical as getIsHalfDonutVertical,
   LimitSizeSide,
   SortValue,
 } from './helpers'
 import './CoreDonutChart.css'
-import {
-  Data as DonutData,
-  DataItem,
-  Donut,
-  HalfDonut,
-} from './CoreDonutChartPie/CoreDonutChartPie'
+import { CoreDonutChartPie } from './CoreDonutChartPie/CoreDonutChartPie'
 import { CoreDonutChartText } from './CoreDonutChartText/CoreDonutChartText'
 
 const cnCoreDonutChart = cn('CoreDonutChart')
 
-type LineRadius = {
-  outerRadius: number
-  innerRadius: number
-}
-
 type TooltipDataState = ReadonlyArray<{
-  value: number
+  value: number | null
   color: string
   name: string
 }>
 
 export type Props = {
-  data: readonly Data[]
+  data: readonly DonutDataItem[]
   showTooltip: boolean
   value?: string
   label?: string
@@ -63,7 +57,11 @@ export type Props = {
   formatValue?: (value: string) => string
   formatLabel?: (label: string) => string
   formatValueForTooltip?: FormatValue
-  filterTooltipItem?: (itemData: DataItem) => boolean
+  filterTooltipItem?: (itemData: ArcDataItem) => boolean
+}
+
+type MainStyle = CSSProperties & {
+  '--donut-width': string
 }
 
 export const CoreDonutChart: React.FC<Props> = ({
@@ -83,7 +81,7 @@ export const CoreDonutChart: React.FC<Props> = ({
 }) => {
   const [tooltipData, changeTooltipData] = useState<TooltipDataState>([])
   const [mousePosition, changeMousePosition] = useState<Position>()
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null)
   const { width, height } = useComponentSize(ref)
 
   const isHalfDonutHorizontal = getIsHalfDonutHorizontal(halfDonut)
@@ -100,42 +98,15 @@ export const CoreDonutChart: React.FC<Props> = ({
   const sizeDonut = getSizeDonut(circlesCount, size)
   const minChartSize = getMinChartSize(circlesCount, showText, halfDonut)
   const isTooltipVisible = Boolean(tooltipData.length)
-
-  const lineRadiuses: readonly LineRadius[] = createArrayOfIndexes(circlesCount).map(index => {
-    const outerRadius = getDonutRadius({ mainRadius, index, circlesCount, chartSize: size })
-    const innerRadius = outerRadius - sizeDonut
-
-    return {
-      outerRadius,
-      innerRadius,
-    }
-  })
-
-  const values = zip(
-    ...data.map(item =>
-      item.values.slice(0, circlesCount).map(itemValue => ({
-        color: item.color,
-        name: item.name,
-        value: itemValue,
-      }))
-    )
-  ) as readonly DonutData[]
-
+  const arcRadiuses = getArcRadiuses({ mainRadius, circlesCount, sizeDonut, chartSize: size })
+  const values = getValues(data, circlesCount)
   const isTextVisible = values.length === 1 && showText
+  const piesData = values.map(item => getPieData(item, sortValue, halfDonut))
+  const rendersArc = arcRadiuses.map(getRenderArc)
 
   const handleMouseOver = showTooltip
-    ? (d: DonutData) => {
-        changeTooltipData(
-          d.filter(filterTooltipItem).map(item => {
-            const itemValue = isDefined(item.showValue) ? item.showValue : item.value
-
-            return {
-              value: itemValue,
-              color: item.color,
-              name: item.name,
-            }
-          })
-        )
+    ? (d: ReadonlyArray<PieArcDatum<ArcDataItem>>) => {
+        changeTooltipData(d.filter(item => filterTooltipItem(item.data)).map(item => item.data))
       }
     : () => null
 
@@ -150,22 +121,20 @@ export const CoreDonutChart: React.FC<Props> = ({
     })
   }
 
+  const mainStyle: MainStyle = {
+    ...getDonutMaxMinSizeRect({
+      height,
+      width,
+      minSize: minChartSize,
+      isHalfHorizontal: isHalfDonutHorizontal,
+      isHalfVertical: isHalfDonutVertical,
+      limitSizeSide,
+    }),
+    '--donut-width': `${sizeDonut}px`,
+  }
+
   return (
-    <div
-      ref={ref}
-      className={cnCoreDonutChart()}
-      style={{
-        ...getDonutMaxMinSizeRect({
-          height,
-          width,
-          minSize: minChartSize,
-          isHalfHorizontal: isHalfDonutHorizontal,
-          isHalfVertical: isHalfDonutVertical,
-          limitSizeSide,
-        }),
-        ['--donut-width' as string]: `${sizeDonut}px`,
-      }}
-    >
+    <div ref={ref} className={cnCoreDonutChart()} style={mainStyle}>
       {isTooltipVisible && (
         <Tooltip size="m" position={mousePosition} isInteractive={false}>
           <TooltipContentForMultipleValues
@@ -179,7 +148,7 @@ export const CoreDonutChart: React.FC<Props> = ({
           className={cnCoreDonutChart('Text', { half: halfDonut ?? 'none' })}
           value={value ? formatValue(value) : value}
           label={label ? formatLabel(label) : label}
-          radius={lineRadiuses[0].innerRadius}
+          radius={arcRadiuses[0].inner}
           halfDonut={halfDonut}
           lineWidth={sizeDonut}
         />
@@ -189,23 +158,17 @@ export const CoreDonutChart: React.FC<Props> = ({
         viewBox={viewBox}
         onMouseMove={handleMouseMove}
       >
-        {values.map((d, index) => {
-          const { outerRadius, innerRadius } = lineRadiuses[index]
-
-          return (
-            <Donut
-              key={index}
-              data={d.filter(isDefined)}
-              innerRadius={innerRadius}
-              outerRadius={outerRadius}
-              handleMouseOver={handleMouseOver}
-              handleMouseOut={handleMouseOut}
-              isTooltipVisible={isTooltipVisible}
-              halfDonut={halfDonut}
-              sortValue={sortValue}
-            />
-          )
-        })}
+        {piesData.map((pieData, index) => (
+          <CoreDonutChartPie
+            key={index}
+            data={pieData}
+            renderArc={rendersArc[index]}
+            isTransparent={isTooltipVisible}
+            halfDonut={halfDonut}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          />
+        ))}
       </svg>
     </div>
   )

@@ -1,4 +1,4 @@
-import { Data } from '@/__private__/components/CoreDonutChart/helpers'
+import { DonutDataItem } from '@/__private__/components/CoreDonutChart/helpers'
 
 import {
   DUMMY_ARC_NAME,
@@ -32,7 +32,7 @@ describe('filterComputedData', () => {
 })
 
 describe('getComputedData', () => {
-  const BASE_ITEMS: readonly Data[] = [
+  const BASE_ITEMS: readonly DonutDataItem[] = [
     {
       name: 'Item 1',
       color: 'red',

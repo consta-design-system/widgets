@@ -3,7 +3,7 @@ import React from 'react'
 import { object, select, text } from '@storybook/addon-knobs'
 
 import { defaultSortValue, SortValue } from '@/__private__/components/CoreDonutChart/helpers'
-import { halvesDonut } from '@/__private__/components/CoreDonutChart/CoreDonutChartPie/CoreDonutChartPie'
+import { halvesDonut } from '@/__private__/components/CoreDonutChart/helpers'
 import {
   createMetadata,
   createStory,

@@ -1,8 +1,8 @@
 import React, { forwardRef, HTMLAttributes } from 'react'
 
 import { CoreDonutChart } from '@/__private__/components/CoreDonutChart'
-import { Data as DonutData, SortValue } from '@/__private__/components/CoreDonutChart/helpers'
-import { HalfDonut } from '@/__private__/components/CoreDonutChart/CoreDonutChartPie/CoreDonutChartPie'
+import { DonutDataItem, SortValue } from '@/__private__/components/CoreDonutChart/helpers'
+import { HalfDonut } from '@/__private__/components/CoreDonutChart/helpers'
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 import { Legend } from '@/Legend/Legend'
@@ -13,7 +13,7 @@ import './DonutChart.css'
 const cnDonutChart = cn('DonutChart')
 
 type Props = HTMLAttributes<HTMLDivElement> & {
-  data: readonly DonutData[]
+  data: readonly DonutDataItem[]
   value?: string
   label?: string
   halfDonut?: HalfDonut

@@ -1,5 +1,5 @@
 import { isHalfDonutHorizontal, isHalfDonutVertical } from '../helpers'
-import { HalfDonut } from '../CoreDonutChartPie/CoreDonutChartPie'
+import { HalfDonut } from '../helpers'
 
 type HalfDonutDirection = 'horizontal' | 'vertical' | 'none'
 
