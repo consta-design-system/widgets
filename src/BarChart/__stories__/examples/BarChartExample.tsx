@@ -236,8 +236,8 @@ export const BarChartExampleMinMaxY = () => (
       formatValueForTooltip={v => `${v}%`}
       isHorizontal={false}
       unit="тыс. тонн"
-      minValueY={-500}
-      maxValueY={1200}
+      min={-500}
+      max={1200}
     />
   </Example>
 )
@@ -250,7 +250,7 @@ export const BarChartExampleMinY = () => (
       formatValueForTooltip={v => `${v}%`}
       isHorizontal={false}
       unit="тыс. тонн"
-      minValueY={-500}
+      min={-500}
     />
   </Example>
 )
@@ -263,7 +263,7 @@ export const BarChartExampleMaxY = () => (
       formatValueForTooltip={v => `${v}%`}
       isHorizontal={false}
       unit="тыс. тонн"
-      maxValueY={1300}
+      max={1300}
     />
   </Example>
 )

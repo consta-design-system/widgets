@@ -39,24 +39,24 @@ type Props = {
   formatValueForTooltip?: FormatValue
   formatGroupName?: FormatGroupName
   isXAxisLabelsSlanted?: boolean
-  minValueY?: number
-  maxValueY?: number
+  min?: number
+  max?: number
   showGrid?: boolean
   showLineAtZero?: boolean
   showGroupsLabels?: boolean
-  minCategorySizeLimit?: boolean
+  limitMinimumStepSize?: boolean
 }
 
 export const StackedBarChart: React.FC<Props> = props => {
-  const { groups, threshold, showValues, minValueY, maxValueY, formatGroupName, ...rest } = props
+  const { groups, threshold, showValues, min, max, formatGroupName, ...rest } = props
 
   const commonGroups = transformGroupsToCommonGroups(groups)
   const showReversed = isShowReversed({ groups: commonGroups, threshold: props.threshold })
   const groupsDomain = getGroupsDomain(commonGroups)
   const valuesDomain = getValuesDomain({
     groups: commonGroups,
-    minValueY,
-    maxValueY,
+    min,
+    max,
     threshold: props.threshold,
   })
 

@@ -82,10 +82,10 @@ export const scalerCommonColumnsGroups = (
   }
 }
 
-export const getSizeGroupsLimit = (isHorizontal: boolean, minCategorySizeLimit: boolean) => {
-  if (!isHorizontal && minCategorySizeLimit) {
+export const getSizeGroupsLimit = (isHorizontal: boolean, limitMinimumStepSize: boolean) => {
+  if (!isHorizontal && limitMinimumStepSize) {
     return 'vertical'
-  } else if (isHorizontal && minCategorySizeLimit) {
+  } else if (isHorizontal && limitMinimumStepSize) {
     return 'horizontal'
   } else {
     return ''

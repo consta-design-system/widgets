@@ -150,7 +150,7 @@ export const StackedBarChartExampleMaxY = () => (
       groups={withTwoColumnsData.groups}
       isHorizontal={false}
       unit="тыс."
-      maxValueY={1300}
+      max={1300}
     />
   </Example>
 )

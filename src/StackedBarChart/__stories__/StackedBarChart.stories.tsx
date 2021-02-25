@@ -14,10 +14,11 @@ const getCommonProps = (initialUnit: string) => {
   const unit = text('unit', initialUnit)
 
   return {
-    gridTicks: 4,
-    valuesTicks: 1,
     unit,
     isHorizontal: false,
+    showLineAtZero: true,
+    showGroupsLabels: true,
+    showGrid: true,
     formatValueForTooltip: (v: number) => `${v} ${unit}`,
   } as const
 }

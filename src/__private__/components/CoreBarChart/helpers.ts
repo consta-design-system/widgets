@@ -19,8 +19,8 @@ export type GetGroupsDomain = (groups: readonly GroupItem[]) => readonly string[
 
 export type GetValuesDomain = (params: {
   groups: readonly GroupItem[]
-  minValueY?: number
-  maxValueY?: number
+  min?: number
+  max?: number
   threshold?: Threshold
 }) => NumberRange
 
@@ -49,7 +49,7 @@ const getValueY = (value: number, filter: (value: number) => void) => {
   return null
 }
 
-export const getValuesDomain: GetValuesDomain = ({ groups, minValueY, maxValueY, threshold }) => {
+export const getValuesDomain: GetValuesDomain = ({ groups, min, max, threshold }) => {
   const numbers = groups
     .map(({ columns, reversedColumns }) => columns.concat(reversedColumns).map(getTotalByColumn))
     .flat()
@@ -58,8 +58,8 @@ export const getValuesDomain: GetValuesDomain = ({ groups, minValueY, maxValueY,
   const maxNumber = Math.max(...numbers, Math.abs(thresholdValue), 0)
   const minNumber = Math.min(...numbers, Math.abs(thresholdValue))
 
-  const maxValue = maxValueY && getValueY(maxValueY, v => v >= 0)
-  const minValue = minValueY && getValueY(minValueY, v => v < 0)
+  const maxValue = max && getValueY(max, v => v >= 0)
+  const minValue = min && getValueY(min, v => v < 0)
 
   if (
     (maxValue || maxValue === 0) &&

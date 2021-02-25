@@ -26,8 +26,8 @@ export type Group = {
 
 type Props = {
   groups: readonly Group[]
-  minValueY?: number
-  maxValueY?: number
+  min?: number
+  max?: number
   colors: readonly string[]
   unit?: string
   showValues?: boolean
@@ -41,14 +41,14 @@ type Props = {
   showGrid?: boolean
   showLineAtZero?: boolean
   showGroupsLabels?: boolean
-  minCategorySizeLimit?: boolean
+  limitMinimumStepSize?: boolean
 }
 
 export const BarChart: React.FC<Props> = props => {
   const {
     groups,
-    minValueY,
-    maxValueY,
+    min,
+    max,
     colors,
     threshold,
     showValues,
@@ -65,8 +65,8 @@ export const BarChart: React.FC<Props> = props => {
   const groupsDomain = getGroupsDomain(commonGroups)
   const valuesDomain = getValuesDomain({
     groups: commonGroups,
-    minValueY,
-    maxValueY,
+    min,
+    max,
     threshold: props.threshold,
   })
 

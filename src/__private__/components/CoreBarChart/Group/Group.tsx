@@ -55,7 +55,7 @@ type Props = {
   style?: React.CSSProperties
   getNumberGridTicks: (length: number) => void
   gridDomain: NumberRange
-  minCategorySizeLimit?: boolean
+  limitMinimumStepSize?: boolean
   maxLabelSize: LabelSize
 }
 
@@ -77,7 +77,7 @@ export const Group: React.FC<Props> = props => {
     onChangeLabelSize,
     getNumberGridTicks,
     gridDomain,
-    minCategorySizeLimit = false,
+    limitMinimumStepSize = false,
     maxLabelSize,
   } = props
   const ref = useRef<HTMLDivElement>(null)
@@ -132,7 +132,7 @@ export const Group: React.FC<Props> = props => {
     )
   }
 
-  const sizeGroupsLimit = getSizeGroupsLimit(isHorizontal, minCategorySizeLimit)
+  const sizeGroupsLimit = getSizeGroupsLimit(isHorizontal, limitMinimumStepSize)
 
   return (
     <div className={cnGroup('Groups', { isHorizontal, sizeGroupsLimit })} ref={ref}>
