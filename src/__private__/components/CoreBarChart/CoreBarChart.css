@@ -111,7 +111,7 @@
       &_bottom {
         grid-area: bottomUnit;
 
-        margin-top: var(--space-2xs);
+        margin-top: var(--space-xs);
 
         text-align: center;
       }
@@ -119,6 +119,7 @@
       &_topLeft {
         grid-area: topLeft;
 
+        margin-right: var(--space-xs);
         margin-bottom: var(--space-xs);
 
         text-align: right;

@@ -19,7 +19,6 @@ type Props<T> = {
   disabledValues?: readonly T[]
   scaler?: Scaler<T>
   position: Position
-  showLine?: boolean
   isTicksSnuggleOnEdge?: boolean
   isXAxisLabelsSlanted?: boolean
   style?: React.CSSProperties
@@ -42,7 +41,6 @@ export function Ticks<T>(props: Props<T>) {
     disabledValues = [],
     scaler,
     position,
-    showLine = true,
     isTicksSnuggleOnEdge = false,
     style,
     formatValueForLabel = String,
@@ -150,7 +148,6 @@ export function Ticks<T>(props: Props<T>) {
               textValue}
           </Text>
         )}
-        {showLine && <span className={cnTicks('Line')} />}
       </div>
     )
   })

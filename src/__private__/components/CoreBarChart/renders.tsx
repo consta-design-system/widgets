@@ -18,7 +18,7 @@ export type RenderGroupsLabels = (props: {
 }) => React.ReactElement | null
 
 export const defaultRenderGroupsLabels: RenderGroupsLabels = ({ ...rest }) => {
-  return <Ticks {...rest} isLabel showLine />
+  return <Ticks {...rest} isLabel />
 }
 
 export type RenderAxisValues = (props: {
@@ -30,7 +30,7 @@ export type RenderAxisValues = (props: {
 }) => React.ReactElement | null
 
 export const defaultRenderAxisValues: RenderAxisValues = ({ ...rest }) => {
-  return <Ticks {...rest} showLine />
+  return <Ticks {...rest} />
 }
 
 export type RenderGroup<T> = (props: {

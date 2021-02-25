@@ -83,7 +83,7 @@
           top: 0;
           left: 50%;
 
-          padding-bottom: var(--space-3xs);
+          padding-bottom: var(--space-2xs);
 
           transform: translate(-50%, -100%);
         }
