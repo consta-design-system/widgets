@@ -6,7 +6,13 @@ import { times } from 'lodash'
 import { cn } from '@/__private__/utils/bem'
 import { Scaler } from '@/__private__/utils/scale'
 
-import { cropText, getTextAlign, getTransformTranslate, SLANTED_TEXT_MAX_LENGTH } from './helpers'
+import {
+  cropText,
+  getTextAlign,
+  getTransformTranslate,
+  getXAxisLabelsSlanted,
+  SLANTED_TEXT_MAX_LENGTH,
+} from './helpers'
 import './Ticks.css'
 
 const cnTicks = cn('Ticks')
@@ -50,6 +56,7 @@ export function Ticks<T>(props: Props<T>) {
   const isBottom = position === 'bottom'
   const isHorizontal = isTop || isBottom
   const [maxLabelHeight, setMaxLabelHeight] = useState(0)
+  const [maxLabelWidth, setMaxLabelWidth] = useState(0)
   const refs: ReadonlyArray<RefObject<HTMLDivElement>> = times(values.length, () =>
     React.createRef()
   )
@@ -64,6 +71,16 @@ export function Ticks<T>(props: Props<T>) {
     })
 
     setMaxLabelHeight(Math.max(0, ...refsHeights))
+
+    const refsWidth = refs.map(ref => {
+      if (!ref.current) {
+        return 0
+      }
+      const width = ref.current.getBoundingClientRect().width
+      return Math.round(width)
+    })
+
+    setMaxLabelWidth(Math.max(0, ...refsWidth))
   }, [refs, values, isXAxisLabelsSlanted])
 
   const getBandwidth = (v: T) => {
@@ -112,18 +129,20 @@ export function Ticks<T>(props: Props<T>) {
     const alignItems = getAlignItems(idx, values.length)
     const textValue = formatValueForLabel(value)
     const textAlign = getTextAlign({ isXAxisLabelsSlanted, isHorizontal })
+    const xAxisLabelsSlanted = getXAxisLabelsSlanted(isHorizontal, isXAxisLabelsSlanted)
 
     return (
       <div
         key={idx}
         className={cnTicks(typeTicks, {
           position,
-          isXAxisLabelsSlanted,
+          xAxisLabelsSlanted,
         })}
         style={{
           transform,
           alignItems,
-          minHeight: isXAxisLabelsSlanted ? maxLabelHeight : undefined,
+          minHeight: isXAxisLabelsSlanted && isHorizontal ? maxLabelHeight : undefined,
+          minWidth: isXAxisLabelsSlanted && !isHorizontal ? maxLabelWidth : undefined,
           gridArea: props.isLabel ? props.getGridAreaName(idx) : '',
         }}
       >

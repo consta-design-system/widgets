@@ -92,22 +92,41 @@
       }
     }
 
-    &_isXAxisLabelsSlanted {
-      position: relative;
+    &_xAxisLabelsSlanted {
+      &_left {
+        position: relative;
 
-      .cw--Ticks-Text {
-        position: absolute;
-        top: 0;
-        right: 50%;
+        .cw--Ticks-Text {
+          position: absolute;
+          top: 50%;
 
-        overflow: hidden;
+          overflow: hidden;
 
-        min-height: 15px;
+          min-height: 15px;
 
-        white-space: pre;
+          white-space: pre;
 
-        transform: rotate(-55.81deg);
-        transform-origin: right center;
+          transform: rotate(55.81deg);
+          transform-origin: right center;
+        }
+      }
+
+      &_bottom {
+        position: relative;
+
+        .cw--Ticks-Text {
+          position: absolute;
+          right: 50%;
+
+          overflow: hidden;
+
+          min-height: 15px;
+
+          white-space: pre;
+
+          transform: rotate(-55.81deg);
+          transform-origin: right center;
+        }
       }
     }
   }
