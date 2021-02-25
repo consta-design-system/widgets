@@ -23,7 +23,7 @@ export const styleOrientation = (
       return {
         minWidth: `${lengthColumns}%`,
         minHeight: `${maxPercentageWidth / maxNumberGroups - padding}%`,
-        padding: `0 0 ${padding}% 0`,
+        padding: `0 0 ${padding}px 0`,
       }
     } else {
       return {
