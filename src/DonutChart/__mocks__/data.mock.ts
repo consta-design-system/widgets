@@ -13,17 +13,17 @@ export const donutData = {
     {
       name: 'Северный бур',
       color: colors.first,
-      values: [1, 2, 3],
+      values: [1],
     },
     {
       name: 'Южный бур',
       color: colors.second,
-      values: [4, 5, 6],
+      values: [4],
     },
     {
       name: 'Западный бур',
       color: colors.third,
-      values: [7, 8, 9],
+      values: [7],
     },
   ],
 }
