@@ -1,8 +1,13 @@
 import React from 'react'
 
-import { object, select, text } from '@storybook/addon-knobs'
+import { boolean, object, select, text } from '@storybook/addon-knobs'
 
-import { defaultSortValue, SortValue } from '@/__private__/components/CoreDonutChart/helpers'
+import {
+  defaultFormatArcLabel,
+  defaultSortValue,
+  FormatArcLabel,
+  SortValue,
+} from '@/__private__/components/CoreDonutChart/helpers'
 import { halvesDonut } from '@/__private__/components/CoreDonutChart/helpers'
 import {
   createMetadata,
@@ -24,6 +29,12 @@ const formatsValueForTooltip: Record<typeof formattersKeysForTooltip[number], Fo
   'Без форматирования': String,
 }
 
+const formattersKeysArcLabel = ['По умолчанию', 'Значения'] as const
+const formattersArcLabel: Record<typeof formattersKeysArcLabel[number], FormatArcLabel> = {
+  'По умолчанию': defaultFormatArcLabel,
+  Значения: item => String(item.value),
+}
+
 const sortsValueKey = ['Как пришли', 'От большего к меньшему'] as const
 const sortsValue: Record<typeof sortsValueKey[number], SortValue | null> = {
   'От большего к меньшему': defaultSortValue,
@@ -38,9 +49,14 @@ const getKnobs = () => {
     halfDonut: optionalSelect('halfDonut', halvesDonut, undefined),
     sums: object('sums', []),
     legendPosition: optionalSelect('legendPosition', legendPositions, undefined),
+    showArcLabels: boolean('showArcLabels', false),
     formatValueForTooltip:
       formatsValueForTooltip[
         select('formatValueForTooltip', formattersKeysForTooltip, formattersKeysForTooltip[0])
+      ],
+    formatArcLabel:
+      formattersArcLabel[
+        select('formatArcLabel', formattersKeysArcLabel, formattersKeysArcLabel[0])
       ],
     sortValue: sortsValue[select('sortValue', sortsValueKey, sortsValueKey[0])],
   }

@@ -17,6 +17,7 @@ import {
   DonutChartLegendRight,
   DonutChartLegendBottom,
   DonutChartLegendLeft,
+  DonutChartWithArcLabels,
 } from './examples/DonutChartExample'
 
 # DonutChart
@@ -134,6 +135,10 @@ formatValueForTooltip={v => `${v} км`}
 
 <DonutChartLegendLeft />
 
+## Подписи дуг окружности
+
+<DonutChartWithArcLabels />
+
 ## Свойства
 
 | Свойство                            | Тип                                                      | По умолчанию                                 | Описание                                                                                                                                    |
@@ -147,6 +152,8 @@ formatValueForTooltip={v => `${v} км`}
 | `sums?`                             | `readonly number[]`                                      | -                                            | Массив максимальных значений для окружности, если сумма всех дуг будет меньше появится заполнитель, иначе заполнитель не будет отображаться |
 | `sortValue?`                        | `((prev: DataItem, next: DataItem) => number)` \| `null` | `(prev: DataItem, next: DataItem) => number` | Метод сортировки значений, по умолчанию сортирует от большего к меньшему                                                                    |
 | `legendPosition?`                   | `'top', 'right', 'left', 'bottom'`                       | -                                            | Определяет необходимость отображения легенды, и ее положение относительно графика                                                           |
+| `showArcLabels?`                    | `boolean`                                                | -                                            | Показывает или скрывает отображение подписей к дугам первой окружности    |
+| `formatArcLabel?`                   | `(item: ArcDataItem) => string`                          | `(item: ArcDataItem) => string`              | Метод форматирования подписей к дугам, позволяет настроить что выводить   |
 
 ### DonutData
 

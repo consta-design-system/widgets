@@ -1,4 +1,8 @@
-import { ArcDataItem, DonutDataItem } from '@/__private__/components/CoreDonutChart/helpers'
+import {
+  ArcDataItem,
+  DonutDataItem,
+  HalfDonut,
+} from '@/__private__/components/CoreDonutChart/helpers'
 
 export const DUMMY_ARC_NAME = '@arc:empty'
 
@@ -38,7 +42,21 @@ export const filterComputedData = (item: ArcDataItem) => {
   return item.name !== DUMMY_ARC_NAME
 }
 
-export const getLimitSizeSide = (legendPosition?: LegendPosition) => {
+export const getLimitSizeSide = (legendPosition?: LegendPosition, halfDonut?: HalfDonut) => {
+  if (
+    (legendPosition === 'right' || legendPosition === 'left') &&
+    (halfDonut === 'right' || halfDonut === 'left')
+  ) {
+    return 'width'
+  }
+
+  if (
+    (legendPosition === 'top' || legendPosition === 'bottom') &&
+    (halfDonut === 'top' || halfDonut === 'bottom')
+  ) {
+    return 'height'
+  }
+
   if (!legendPosition) {
     return
   }
@@ -47,5 +65,9 @@ export const getLimitSizeSide = (legendPosition?: LegendPosition) => {
     return 'width'
   }
 
-  return 'height'
+  if (legendPosition === 'top' || legendPosition === 'bottom') {
+    return 'height'
+  }
+
+  return
 }

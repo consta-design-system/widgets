@@ -1,0 +1,12 @@
+.cw--CoreDonutChartLabels {
+  &-Line {
+    stroke-width: 1px;
+    stroke: var(--color-bg-border);
+  }
+
+  &-Label {
+    font-size: var(--size-text-s);
+    line-height: var(--line-height-text-xs);
+    fill: var(--color-typo-primary);
+  }
+}
