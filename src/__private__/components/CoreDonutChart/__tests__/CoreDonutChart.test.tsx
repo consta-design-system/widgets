@@ -8,12 +8,7 @@ type Props = React.ComponentProps<typeof CoreDonutChart>
 
 const commonProps: Props = {
   data: [],
-  showSubBlock: false,
-  showText: false,
-  showTitle: false,
   showTooltip: false,
-  textPaddingFromBorder: 0,
-  titlePosition: 'top',
 }
 
 const renderComponent = (props: Props) => {

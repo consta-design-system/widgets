@@ -10,6 +10,7 @@ import zip from 'lodash/zip'
 import { TooltipContentForMultipleValues } from '@/__private__/components/TooltipContentForMultipleValues/TooltipContentForMultipleValues'
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
+import { numberFormatter } from '@/__private__/utils/formatters'
 
 import {
   Data,
@@ -34,7 +35,7 @@ import {
   Donut,
   HalfDonut,
 } from './CoreDonutChartPie/CoreDonutChartPie'
-import { Data as TextData, DonutText } from './CoreDonutChartText/CoreDonutChartText'
+import { CoreDonutChartText } from './CoreDonutChartText/CoreDonutChartText'
 
 const cnCoreDonutChart = cn('CoreDonutChart')
 
@@ -51,38 +52,32 @@ type TooltipDataState = ReadonlyArray<{
 
 export type Props = {
   data: readonly Data[]
-  textData?: TextData
-  titlePosition: 'top' | 'bottom'
   showTooltip: boolean
-  showText: boolean
-  showTitle: boolean
-  showSubBlock: boolean
-  textPaddingFromBorder: number
+  value?: string
+  label?: string
   halfDonut?: HalfDonut
-  valueSize?: number
   limitSizeSide?: LimitSizeSide
   sortValue?: SortValue | null
   getCirclesCount?: GetCirclesCount
   getMinChartSize?: GetMinChartSize
+  formatValue?: (value: string) => string
+  formatLabel?: (label: string) => string
   formatValueForTooltip?: FormatValue
   filterTooltipItem?: (itemData: DataItem) => boolean
 }
 
 export const CoreDonutChart: React.FC<Props> = ({
   data = [],
-  textData,
-  titlePosition,
   showTooltip,
-  showText,
-  showTitle,
-  showSubBlock,
-  textPaddingFromBorder,
   halfDonut,
-  valueSize,
+  value,
+  label,
   limitSizeSide,
   sortValue = defaultSortValue,
   getCirclesCount = defaultGetCirclesCount,
   getMinChartSize = defaultGetMinChartSize,
+  formatValue = numberFormatter,
+  formatLabel = numberFormatter,
   formatValueForTooltip,
   filterTooltipItem = () => true,
 }) => {
@@ -101,8 +96,9 @@ export const CoreDonutChart: React.FC<Props> = ({
   const svgHeight = isHalfDonutHorizontal ? mainRadius : size
   const viewBox = `${svgOffsetX}, ${svgOffsetY}, ${svgWidth}, ${svgHeight}`
   const circlesCount = getCirclesCount(data)
+  const showText = isDefined(value) || isDefined(label)
   const sizeDonut = getSizeDonut(circlesCount, size)
-  const minChartSize = getMinChartSize(circlesCount, isDefined(textData), halfDonut)
+  const minChartSize = getMinChartSize(circlesCount, showText, halfDonut)
   const isTooltipVisible = Boolean(tooltipData.length)
 
   const lineRadiuses: readonly LineRadius[] = createArrayOfIndexes(circlesCount).map(index => {
@@ -117,10 +113,10 @@ export const CoreDonutChart: React.FC<Props> = ({
 
   const values = zip(
     ...data.map(item =>
-      item.values.slice(0, circlesCount).map(value => ({
+      item.values.slice(0, circlesCount).map(itemValue => ({
         color: item.color,
         name: item.name,
-        value,
+        value: itemValue,
       }))
     )
   ) as readonly DonutData[]
@@ -178,21 +174,18 @@ export const CoreDonutChart: React.FC<Props> = ({
           />
         </Tooltip>
       )}
-      {isTextVisible && textData && (
-        <DonutText
-          data={textData}
+      {isTextVisible && showText && (
+        <CoreDonutChartText
+          className={cnCoreDonutChart('Text', { half: halfDonut ?? 'none' })}
+          value={value ? formatValue(value) : value}
+          label={label ? formatLabel(label) : label}
           radius={lineRadiuses[0].innerRadius}
           halfDonut={halfDonut}
           lineWidth={sizeDonut}
-          titlePosition={titlePosition}
-          valueSize={valueSize}
-          paddingFromBorder={textPaddingFromBorder}
-          showTitle={showTitle}
-          showSubBlock={showSubBlock}
         />
       )}
       <svg
-        className={cnCoreDonutChart('Graph', { half: halfDonut })}
+        className={cnCoreDonutChart('Graph', { half: halfDonut ?? 'none' })}
         viewBox={viewBox}
         onMouseMove={handleMouseMove}
       >

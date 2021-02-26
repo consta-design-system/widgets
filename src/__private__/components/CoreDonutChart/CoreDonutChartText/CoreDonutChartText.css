@@ -1,113 +1,71 @@
 .cw--CoreDonutChartText {
   display: flex;
-  justify-content: center;
+  overflow: hidden;
+  flex-direction: column;
 
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
+  padding: 14%;
 
   text-align: center;
 
+  &_half_none {
+    align-content: center;
+    justify-content: center;
+  }
+
   &_half_top {
-    align-items: flex-start;
+    padding-top: 0;
+    padding-bottom: 10%;
   }
 
   &_half_right {
-    justify-content: flex-end;
-
-    text-align: right;
+    padding-right: 0;
+    padding-left: 10%;
   }
 
   &_half_bottom {
-    align-items: flex-end;
+    justify-content: flex-end;
+
+    padding-top: 10%;
+    padding-bottom: 0;
   }
 
   &_half_left {
-    justify-content: flex-start;
-
-    text-align: left;
+    padding-right: 10%;
+    padding-left: 0;
   }
 
   &_half_right,
   &_half_left {
-    align-items: center;
-  }
-
-  &-Content {
-    display: flex;
-    overflow: hidden;
-    align-items: center;
-    flex-direction: column;
     justify-content: center;
-
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-
-    &_half_top {
-      padding-top: var(--padding-from-border);
-      padding-bottom: var(--donut-width);
-    }
-
-    &_half_right {
-      align-items: flex-end;
-
-      padding-right: var(--padding-from-border);
-      padding-left: var(--donut-width);
-
-      text-align: right;
-    }
-
-    &_half_bottom {
-      padding-top: var(--donut-width);
-      padding-bottom: var(--padding-from-border);
-    }
-
-    &_half_left {
-      align-items: flex-start;
-
-      padding: 0 var(--padding-from-border);
-      padding-right: var(--donut-width);
-
-      text-align: left;
-    }
-
-    &_half_none {
-      margin: var(--donut-width);
-      padding: var(--padding-from-line);
-    }
-  }
-
-  &-Title {
-    line-height: var(--line-height-text-xs);
-
-    white-space: nowrap;
-
-    color: var(--color-typo-secondary);
   }
 
   &-Value {
-    line-height: var(--line-height-text-s);
-
-    display: flex;
-    justify-content: center;
-
-    width: 100%;
+    font-weight: bold;
 
     color: var(--color-typo-primary);
+  }
 
-    &_half_left {
-      justify-content: flex-start;
+  &-Label {
+    color: var(--color-typo-secondary);
+  }
+
+  &-Value,
+  &-Label {
+    line-height: var(--line-height-text-xs);
+
+    display: flex;
+
+    &_half_none,
+    &_half_top,
+    &_half_bottom {
+      justify-content: center;
     }
 
     &_half_right {
       justify-content: flex-end;
     }
-  }
-
-  &-SubValue {
-    font-weight: bold;
-    line-height: var(--line-height-text-xs);
-
-    color: var(--color-typo-primary);
   }
 }

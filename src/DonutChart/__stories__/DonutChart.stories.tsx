@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { object, select } from '@storybook/addon-knobs'
+import { object, select, text } from '@storybook/addon-knobs'
 
 import { defaultSortValue, SortValue } from '@/__private__/components/CoreDonutChart/helpers'
 import { halvesDonut } from '@/__private__/components/CoreDonutChart/CoreDonutChartPie/CoreDonutChartPie'
@@ -33,12 +33,8 @@ const sortsValue: Record<typeof sortsValueKey[number], SortValue | null> = {
 const getKnobs = () => {
   return {
     data: object('data', donutData.data),
-    textData: object('textData', {
-      value: '',
-      title: '',
-      subValue: '',
-      subTitle: '',
-    }),
+    value: text('value', '122'),
+    label: text('label', 'км'),
     halfDonut: optionalSelect('halfDonut', halvesDonut, undefined),
     sums: object('sums', []),
     legendPosition: optionalSelect('legendPosition', legendPositions, undefined),
