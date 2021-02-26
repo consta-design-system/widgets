@@ -102,93 +102,19 @@ export const DonutChartData40 = () => (
 
 export const DonutChartText = () => (
   <Example height="200px">
-    <DonutChart
-      data={donutProgressData.data}
-      textData={{
-        title: 'всего',
-        value: '90',
-        subTitle: 'МГРП',
-        subValue: '20',
-      }}
-    />
+    <DonutChart data={donutProgressData.data} value="90" label="всего" />
   </Example>
 )
 
 export const DonutChartTextTop = () => (
   <Example height="200px">
-    <DonutChart
-      data={donutProgressData.data}
-      textData={{
-        title: 'всего',
-        value: '90',
-        subTitle: 'МГРП',
-        subValue: '20',
-      }}
-      halfDonut="top"
-    />
+    <DonutChart data={donutProgressData.data} value="90" label="всего" halfDonut="top" />
   </Example>
 )
 
 export const DonutChartTextRight = () => (
   <Example height="200px">
-    <DonutChart
-      data={donutProgressData.data}
-      textData={{
-        title: 'всего',
-        value: '90',
-        subTitle: 'МГРП',
-        subValue: '20',
-      }}
-      halfDonut="right"
-    />
-  </Example>
-)
-
-export const DonutChartText40 = () => (
-  <Example height="200px">
-    <DonutChart
-      data={donutProgressData.data}
-      textData={{
-        title: 'всего',
-        value: '90',
-        subTitle: 'МГРП',
-        subValue: '20',
-      }}
-      valueSize={40}
-      halfDonut="left"
-    />
-  </Example>
-)
-
-export const DonutChartText10 = () => (
-  <Example height="200px">
-    <DonutChart
-      data={donutProgressData.data}
-      textData={{
-        title: 'всего',
-        value: '90',
-        subTitle: 'МГРП',
-        subValue: '20',
-      }}
-      valueSize={10}
-      halfDonut="right"
-    />
-  </Example>
-)
-
-export const DonutChartText20 = () => (
-  <Example height="200px">
-    <DonutChart
-      data={donutProgressData.data}
-      textData={{
-        title: 'всего',
-        value: '90',
-        subTitle: 'МГРП',
-        subValue: '20',
-      }}
-      valueSize={20}
-      halfDonut="top"
-    />
+    <DonutChart data={donutProgressData.data} value="90" label="всего" halfDonut="right" />
   </Example>
 )
 

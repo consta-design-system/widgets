@@ -5,9 +5,9 @@ import { isNotNil } from '@consta/widgets-utils/lib/type-guards'
 
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
+import { numberFormatter } from '@/__private__/utils/formatters'
 
 import {
-  defaultFormatter,
   FormatRate,
   IconArrowRate,
   IconTitle,
@@ -51,8 +51,8 @@ export const Stats = forwardRef<HTMLDivElement, Props>((props, ref) => {
     layout = 'default',
     size = 'm',
     status = 'system',
-    formatValue = defaultFormatter,
-    formatRate = defaultFormatter,
+    formatValue = numberFormatter,
+    formatRate = numberFormatter,
     ...mainElementProps
   } = props
   const isDefaultLayout = layout === 'default'

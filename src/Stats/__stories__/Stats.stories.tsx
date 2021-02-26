@@ -5,17 +5,10 @@ import { number, select, text } from '@storybook/addon-knobs'
 
 import { createMetadata, createStory, optionalSelect } from '@/__private__/storybook'
 import { FormatValue } from '@/__private__/types'
+import { numberFormatter } from '@/__private__/utils/formatters'
 
 import { Stats } from '..'
-import {
-  defaultFormatter,
-  FormatRate,
-  iconsArrowRate,
-  IconTitle,
-  layouts,
-  sizes,
-  statuses,
-} from '../helpers'
+import { FormatRate, iconsArrowRate, IconTitle, layouts, sizes, statuses } from '../helpers'
 
 import mdx from './Stats.mdx'
 
@@ -27,11 +20,11 @@ const iconsTitle: Record<typeof iconsTitleKeys[number], IconTitle | undefined> =
 
 const formattersKeys = ['По умолчанию', 'Без форматирования'] as const
 const formatsValue: Record<typeof formattersKeys[number], FormatValue> = {
-  'По умолчанию': defaultFormatter,
+  'По умолчанию': numberFormatter,
   'Без форматирования': String,
 }
 const formatsRate: Record<typeof formattersKeys[number], FormatRate> = {
-  'По умолчанию': defaultFormatter,
+  'По умолчанию': numberFormatter,
   'Без форматирования': String,
 }
 

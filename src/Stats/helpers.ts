@@ -3,7 +3,6 @@ import { ReactElement } from 'react'
 import { TextPropSize } from '@consta/uikit/Text'
 
 import { IconSize } from '@/__private__/utils/consta'
-import { DECIMAL_SEPARATOR, NARROW_NO_BREAK_SPACE } from '@/__private__/utils/symbols'
 
 export const sizes = ['2xs', 'xs', 's', 'm', 'l'] as const
 export type Size = typeof sizes[number]
@@ -35,12 +34,6 @@ export const iconTitleSizes: Record<Size, IconSize> = {
   s: 's',
   m: 'm',
   l: 'm',
-}
-
-export const defaultFormatter = (value: string | number) => {
-  return String(value)
-    .replace(/(\d)(?=(\d{3})+\b)(?<!\.\d+)/g, `$1${NARROW_NO_BREAK_SPACE}`)
-    .replace(/(?<=\d+)\.(?=\d+)/g, DECIMAL_SEPARATOR)
 }
 
 export const isNegativeRate = (rate: string) => {
