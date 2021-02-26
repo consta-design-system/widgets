@@ -64,7 +64,7 @@ export const withThreeColumnsData = {
     },
     {
       groupName: 'май',
-      values: [1200, 630, 100],
+      values: [1200, -630, 100],
     },
   ],
   unit: 'тыс. м³',

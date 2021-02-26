@@ -44,8 +44,12 @@
     &_direction {
       &_horizontal {
         .cw--Section-Overflow {
-          top: 40%;
+          top: 50%;
           right: 0;
+
+          padding-bottom: 1px;
+
+          transform: translate(0%, -50%);
         }
 
         .cw--Section-Label {
@@ -60,7 +64,10 @@
 
       &_horizontalReverse {
         .cw--Section-Overflow {
+          top: 50%;
           left: 0;
+
+          transform: translate(0%, -50%);
         }
 
         .cw--Section-Label {
@@ -77,6 +84,8 @@
         .cw--Section-Overflow {
           top: 0;
           left: 50%;
+
+          padding-bottom: 1px;
         }
 
         .cw--Section-Label {

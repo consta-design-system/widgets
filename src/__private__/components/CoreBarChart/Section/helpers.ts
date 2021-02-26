@@ -139,9 +139,9 @@ const getBackgroundOverflow = (color: string, direction: string, numberColumnSec
       case 'verticalReverse':
         return { background: `linear-gradient(to bottom, ${color} 95%, rgba(10,165,255,0) 100%)` }
       case 'horizontal':
-        return { background: `linear-gradient(to right, ${color} 95%, rgba(10,165,255,0) 100%)` }
+        return { background: `linear-gradient(to right, ${color} 98%, rgba(10,165,255,0) 100%)` }
       case 'horizontalReverse':
-        return { background: `linear-gradient(to left, ${color} 95%, rgba(10,165,255,0) 100%)` }
+        return { background: `linear-gradient(to left, ${color} 98%, rgba(10,165,255,0) 100%)` }
     }
   }
 }
