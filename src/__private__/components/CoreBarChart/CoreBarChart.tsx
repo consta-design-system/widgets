@@ -142,7 +142,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
   const getPaddingRight = () => {
     if (isHorizontal && showValues && !isColumnOverflow) {
       return maxLabelSize.width
-    } else if (isHorizontal && showValues && isColumnOverflow) {
+    } else if (isHorizontal && isColumnOverflow) {
       return maxLabelSize.width + 14
     } else {
       return 0
@@ -151,7 +151,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
   const getPaddingTop = () => {
     if (!isHorizontal && showValues && !isColumnOverflow) {
       return maxLabelSize.height
-    } else if (!isHorizontal && showValues && isColumnOverflow) {
+    } else if (!isHorizontal && isColumnOverflow) {
       return maxLabelSize.height + 8
     } else {
       return 0
