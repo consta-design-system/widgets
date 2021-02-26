@@ -4,6 +4,7 @@ import { Text } from '@consta/uikit/Text'
 
 import { ColumnProperty } from '@/__private__/components/CoreBarChart/Column/Column'
 import { cn } from '@/__private__/utils/bem'
+import { formatForValue } from '@/__private__/utils/formatForValue'
 import { NumberRange } from '@/__private__/utils/scale'
 
 import { LabelSize } from '../CoreBarChart'
@@ -79,6 +80,7 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
       (!!indexSection && numberColumnSections === indexSection + 1) || numberColumnSections === 1
     const columnOverflow =
       isOverflow && numberColumnSections === 1 ? getDirection(isHorizontal, isReversed) : ''
+    const formatLabel = label && formatForValue(label)
 
     return (
       <div
@@ -115,7 +117,7 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
             size="xs"
             style={getColor(color, isOverflow)}
           >
-            {label}
+            {formatLabel}
           </Text>
         )}
       </div>

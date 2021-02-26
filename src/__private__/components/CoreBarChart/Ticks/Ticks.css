@@ -132,6 +132,8 @@
   }
 
   &-Text {
+    white-space: nowrap;
+
     &:not(&_isHorizontal) {
       overflow: hidden;
 

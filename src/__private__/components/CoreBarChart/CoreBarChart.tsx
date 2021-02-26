@@ -316,7 +316,21 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
             {threshold && (
               <svg
                 className={cnCoreBarChart('Svg', { threshold: threshold?.value ? 'up' : '' })}
-                style={gridStyle}
+                style={
+                  isHorizontal
+                    ? {
+                        width: '1px',
+                        height: gridStyle.height,
+                        left: gridStyle.left,
+                        top: gridStyle.top,
+                      }
+                    : {
+                        height: '1px',
+                        width: gridStyle.width,
+                        left: gridStyle.left,
+                        top: gridStyle.top,
+                      }
+                }
               >
                 <Threshold
                   valuesScale={valuesScale}

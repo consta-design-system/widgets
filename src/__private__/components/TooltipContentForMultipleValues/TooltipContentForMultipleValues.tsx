@@ -6,6 +6,7 @@ import _ from 'lodash'
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 import { getFormattedValue } from '@/__private__/utils/chart'
+import { formatForArray } from '@/__private__/utils/formatForArray'
 import { LegendItem } from '@/LegendItem/LegendItem'
 
 import './TooltipContentForMultipleValues.css'
@@ -29,6 +30,9 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
   items,
   formatValueForTooltip,
 }) => {
+  const newItems = items.map(item => item.value || 0)
+  const formatItems = formatForArray(newItems)
+
   return (
     <div className={cnTooltipContent('Container')}>
       {title && (
@@ -49,6 +53,13 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
       <div className={cnTooltipContent('Content')}>
         {items.map(({ name, color, value }, idx) => {
           const formattedValue = getFormattedValue(value ?? null, formatValueForTooltip)
+          const newFormattedValue =
+            formatItems[idx] +
+            ' ' +
+            formattedValue
+              .split(' ')
+              .slice(1)
+              .join(' ')
 
           return (
             <React.Fragment key={idx}>
@@ -58,11 +69,11 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
                 size="xs"
                 className={cnTooltipContent('LegendItem', { isSingleColumn: !name })}
               >
-                {name ?? formattedValue}
+                {name ?? newFormattedValue}
               </LegendItem>
               {name && (
                 <Text as="span" size="xs" weight="bold" view="primary">
-                  {formattedValue}
+                  {newFormattedValue}
                 </Text>
               )}
             </React.Fragment>

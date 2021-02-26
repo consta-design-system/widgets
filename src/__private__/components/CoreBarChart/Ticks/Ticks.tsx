@@ -4,6 +4,7 @@ import { Text } from '@consta/uikit/Text'
 import { times } from 'lodash'
 
 import { cn } from '@/__private__/utils/bem'
+import { formatForArray } from '@/__private__/utils/formatForArray'
 import { Scaler } from '@/__private__/utils/scale'
 
 import {
@@ -28,12 +29,15 @@ type Props<T> = {
   isTicksSnuggleOnEdge?: boolean
   isXAxisLabelsSlanted?: boolean
   style?: React.CSSProperties
-  formatValueForLabel?: (value: T) => string
+  formatValueForLabel?: (value: number) => string
   formatGroupName?: (value: T) => React.ReactNode
 } & (
   | {
       isLabel: true
       getGridAreaName: (index: number) => string
+    }
+  | {
+      isLabel: false
     }
   | {
       isLabel?: never
@@ -124,10 +128,25 @@ export function Ticks<T>(props: Props<T>) {
   const isDisabled = (value: T) => disabledValues.includes(value)
   const typeTicks = props.isLabel ? 'Label' : 'Tick'
 
+  let newValues: number[] = []
+  values.map(item => {
+    return (newValues = newValues.concat(Number(item)))
+  })
+  const formatNewValues = formatForArray(newValues)
+
   const children = values.map((value, idx) => {
     const transform = scaler && tickTransform(value)
     const alignItems = getAlignItems(idx, values.length)
-    const textValue = formatValueForLabel(value)
+    const textValue = typeof value === 'string' ? value : formatValueForLabel(Number(value))
+    const newTextValue =
+      typeof value === 'string'
+        ? textValue
+        : formatNewValues[idx] +
+          formatValueForLabel(0)
+            .split('')
+            .slice(1)
+            .join('')
+
     const textAlign = getTextAlign({ isXAxisLabelsSlanted, isHorizontal })
     const xAxisLabelsSlanted = getXAxisLabelsSlanted(isHorizontal, isXAxisLabelsSlanted)
 
@@ -154,7 +173,7 @@ export function Ticks<T>(props: Props<T>) {
             view="secondary"
             size={'xs'}
             align={textAlign}
-            title={textValue}
+            title={newTextValue}
             className={cnTicks('Text', {
               isDisabled: isDisabled(value),
               isHorizontal,
@@ -162,9 +181,9 @@ export function Ticks<T>(props: Props<T>) {
             lineHeight="s"
           >
             {(isXAxisLabelsSlanted && (
-              <span ref={refs[idx]}>{cropText(textValue, SLANTED_TEXT_MAX_LENGTH)}</span>
+              <span ref={refs[idx]}>{cropText(newTextValue, SLANTED_TEXT_MAX_LENGTH)}</span>
             )) ||
-              textValue}
+              newTextValue}
           </Text>
         )}
       </div>

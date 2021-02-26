@@ -9,6 +9,8 @@
     width: 100%;
     height: 100%;
 
+    white-space: nowrap;
+
     opacity: 0.3;
 
     &_isActive {
