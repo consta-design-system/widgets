@@ -17,9 +17,15 @@ export const StatsExampleContentLong = () => (
   <Example width="180px">
     <Stats
       {...exampleData}
-      title="Молний за год произошло в Роcсии"
+      title="В этом году в выскоие дубы ударило"
       iconTitle={IconLightningBolt}
-      unit="дополнительный комментарий"
+      unit="молний"
     />
+  </Example>
+)
+
+export const StatsExamplePlaceholder = () => (
+  <Example width="180px">
+    <Stats {...exampleData} value={null} title="В этом году я видел" rate="" unit="молний" />
   </Example>
 )
