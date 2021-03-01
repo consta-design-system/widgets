@@ -39,6 +39,7 @@ const getKnobs = () => {
       subTitle: '',
     }),
     halfDonut: optionalSelect('halfDonut', halvesDonut, undefined),
+    sums: object('sums', []),
     formatValueForTooltip:
       formatsValueForTooltip[
         select('formatValueForTooltip', formattersKeysForTooltip, formattersKeysForTooltip[0])
