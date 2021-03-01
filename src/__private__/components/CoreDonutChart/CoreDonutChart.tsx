@@ -18,11 +18,13 @@ import {
   defaultSortValue,
   getChartSize,
   GetCirclesCount,
+  getDonutMaxMinSizeRect,
   getDonutRadius,
   GetMinChartSize,
   getSizeDonut,
   isHalfDonutHorizontal as getIsHalfDonutHorizontal,
   isHalfDonutVertical as getIsHalfDonutVertical,
+  LimitSizeSide,
   SortValue,
 } from './helpers'
 import './CoreDonutChart.css'
@@ -58,6 +60,7 @@ export type Props = {
   textPaddingFromBorder: number
   halfDonut?: HalfDonut
   valueSize?: number
+  limitSizeSide?: LimitSizeSide
   sortValue?: SortValue | null
   getCirclesCount?: GetCirclesCount
   getMinChartSize?: GetMinChartSize
@@ -76,6 +79,7 @@ export const CoreDonutChart: React.FC<Props> = ({
   textPaddingFromBorder,
   halfDonut,
   valueSize,
+  limitSizeSide,
   sortValue = defaultSortValue,
   getCirclesCount = defaultGetCirclesCount,
   getMinChartSize = defaultGetMinChartSize,
@@ -155,7 +159,14 @@ export const CoreDonutChart: React.FC<Props> = ({
       ref={ref}
       className={cnCoreDonutChart()}
       style={{
-        ['--min-size' as string]: `${minChartSize}px`,
+        ...getDonutMaxMinSizeRect({
+          height,
+          width,
+          minSize: minChartSize,
+          isHalfHorizontal: isHalfDonutHorizontal,
+          isHalfVertical: isHalfDonutVertical,
+          limitSizeSide,
+        }),
         ['--donut-width' as string]: `${sizeDonut}px`,
       }}
     >

@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react'
+
 import { DataItem, HalfDonut } from './CoreDonutChartPie/CoreDonutChartPie'
 
 export const MAX_CIRCLES_TO_RENDER = 3
@@ -20,6 +22,8 @@ export type GetMinChartSize = (
   isExistTextData?: boolean,
   halfDonut?: HalfDonut
 ) => number
+
+export type LimitSizeSide = 'width' | 'height'
 
 export type SortValue = (prev: DataItem, next: DataItem) => number
 
@@ -114,4 +118,34 @@ export const defaultGetMinChartSize: GetMinChartSize = (
 
 export const defaultSortValue: SortValue = (prev, next) => {
   return next.value - prev.value
+}
+
+type GetSizeRectParams = {
+  width: number
+  height: number
+  minSize: number
+  isHalfVertical: boolean
+  isHalfHorizontal: boolean
+  limitSizeSide?: LimitSizeSide
+}
+
+export const getDonutMaxMinSizeRect = ({
+  height,
+  width,
+  minSize,
+  isHalfVertical,
+  isHalfHorizontal,
+  limitSizeSide,
+}: GetSizeRectParams): CSSProperties => {
+  const halfWidth = width / 2
+  const halfHeight = height / 2
+  const maxWidth = limitSizeSide === 'width' ? height : undefined
+  const maxHeight = limitSizeSide === 'height' ? width : undefined
+
+  return {
+    minWidth: isHalfVertical ? halfHeight : minSize,
+    maxWidth: isHalfVertical ? halfHeight : maxWidth,
+    minHeight: isHalfHorizontal ? halfWidth : minSize,
+    maxHeight: isHalfHorizontal ? halfWidth : maxHeight,
+  }
 }

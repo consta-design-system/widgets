@@ -4,6 +4,7 @@ import {
   defaultGetCirclesCount,
   defaultGetMinChartSize,
   getChartSize,
+  getDonutMaxMinSizeRect,
   getDonutRadius,
   getPadding,
   getSizeDonut,
@@ -138,5 +139,94 @@ describe('defaultGetMinChartSize', () => {
     expect(defaultGetMinChartSize(3, true, 'right')).toEqual(minChartSize[3])
     expect(defaultGetMinChartSize(3, true, 'bottom')).toEqual(minChartSize[3])
     expect(defaultGetMinChartSize(3, true, 'left')).toEqual(minChartSize[3])
+  })
+})
+
+describe('getDonutMaxMinSizeRect', () => {
+  it('получение стилей для минимального и максимального размера графика', () => {
+    const received = getDonutMaxMinSizeRect({
+      height: 100,
+      width: 100,
+      isHalfHorizontal: false,
+      isHalfVertical: false,
+      minSize: 50,
+    })
+
+    expect(received).toEqual({
+      minWidth: 50,
+      maxWidth: undefined,
+      minHeight: 50,
+      maxHeight: undefined,
+    })
+  })
+
+  it('получение стилей для минимального и максимального размера обрезанного по горизонтали графика', () => {
+    const received = getDonutMaxMinSizeRect({
+      height: 100,
+      width: 100,
+      isHalfHorizontal: true,
+      isHalfVertical: false,
+      minSize: 50,
+    })
+
+    expect(received).toEqual({
+      minWidth: 50,
+      maxWidth: undefined,
+      minHeight: 50,
+      maxHeight: 50,
+    })
+  })
+
+  it('получение стилей для минимального и максимального размера обрезанного по вертикале графика', () => {
+    const received = getDonutMaxMinSizeRect({
+      height: 100,
+      width: 100,
+      isHalfHorizontal: false,
+      isHalfVertical: true,
+      minSize: 50,
+    })
+
+    expect(received).toEqual({
+      minWidth: 50,
+      maxWidth: 50,
+      minHeight: 50,
+      maxHeight: undefined,
+    })
+  })
+
+  it('получение стилей для минимального и максимального размера полного графика с ограничение максимального размера по высоте', () => {
+    const received = getDonutMaxMinSizeRect({
+      height: 100,
+      width: 100,
+      isHalfHorizontal: false,
+      isHalfVertical: false,
+      minSize: 50,
+      limitSizeSide: 'height',
+    })
+
+    expect(received).toEqual({
+      minWidth: 50,
+      maxWidth: undefined,
+      minHeight: 50,
+      maxHeight: 100,
+    })
+  })
+
+  it('получение стилей для минимального и максимального размера полного графика с ограничение максимального размера по ширине', () => {
+    const received = getDonutMaxMinSizeRect({
+      height: 100,
+      width: 100,
+      isHalfHorizontal: false,
+      isHalfVertical: false,
+      minSize: 50,
+      limitSizeSide: 'width',
+    })
+
+    expect(received).toEqual({
+      minWidth: 50,
+      maxWidth: 100,
+      minHeight: 50,
+      maxHeight: undefined,
+    })
   })
 })

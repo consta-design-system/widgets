@@ -5,6 +5,7 @@ import {
   filterComputedData,
   getComputedData,
   getDiffsByTotalFromCircles,
+  getLimitSizeSide,
   getTotalByCircle,
 } from '../helpers'
 
@@ -88,5 +89,30 @@ describe('getTotalByCircle', () => {
     ])
 
     expect(received).toEqual([11, 15, 18])
+  })
+})
+
+describe('getLimitSizeSide', () => {
+  const horizontalSides = ['top', 'bottom'] as const
+  const verticalSides = ['right', 'left'] as const
+
+  it('получение плоскости для ограничения размера, без легенды', () => {
+    const received = getLimitSizeSide()
+
+    expect(received).toEqual(undefined)
+  })
+
+  it('получение плоскости для ограничения размера, с легендой', () => {
+    horizontalSides.map(side => {
+      const received = getLimitSizeSide(side)
+
+      expect(received).toEqual('height')
+    })
+
+    verticalSides.map(side => {
+      const received = getLimitSizeSide(side)
+
+      expect(received).toEqual('width')
+    })
   })
 })

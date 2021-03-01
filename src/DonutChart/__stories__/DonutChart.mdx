@@ -16,6 +16,10 @@ import {
   DonutChartHalfDonutBottom,
   DonutChartHalfDonutLeft,
   DonutChartHalfDonutRight,
+  DonutChartLegendTop,
+  DonutChartLegendRight,
+  DonutChartLegendBottom,
+  DonutChartLegendLeft,
 } from './examples/DonutChartExample'
 
 # DonutChart
@@ -125,6 +129,24 @@ formatValueForTooltip={v => `${v} км`}
 | --------------------------- | ---------------------------- |
 | <DonutChartHalfDonutLeft /> | <DonutChartHalfDonutRight /> |
 
+## Легенда
+
+**legendPosition="top"**
+
+<DonutChartLegendTop />
+
+**legendPosition="right"**
+
+<DonutChartLegendRight />
+
+**legendPosition="bottom"**
+
+<DonutChartLegendBottom />
+
+**legendPosition="left"**
+
+<DonutChartLegendLeft />
+
 ## Свойства
 
 | Свойство                            | Тип                                                      | По умолчанию                                 | Описание                                                                                                                                    |
@@ -136,6 +158,7 @@ formatValueForTooltip={v => `${v} км`}
 | [`formatValueForTooltip?`](#тултип) | `string`                                                 | -                                            | Формат значения в тултипе                                                                                                                   |
 | `sums?`                             | `readonly number[]`                                      | -                                            | Массив максимальных значений для окружности, если сумма всех дуг будет меньше появится заполнитель, иначе заполнитель не будет отображаться |
 | `sortValue?`                        | `((prev: DataItem, next: DataItem) => number)` \| `null` | `(prev: DataItem, next: DataItem) => number` | Метод сортировки значений, по умолчанию сортирует от большего к меньшему                                                                    |
+| `legendPosition?`                   | `'top', 'right', 'left', 'bottom'`                       | -                                            | Определяет необходимость отображения легенды, и ее положение относительно графика                                                           |
 
 ### DonutData
 
