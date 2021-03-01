@@ -13,6 +13,7 @@ import {
 import { FormatValue } from '@/__private__/types'
 
 import { DonutChart } from '..'
+import { legendPositions } from '../helpers'
 import { donutData } from '../__mocks__/data.mock'
 
 import mdx from './DonutChart.mdx'
@@ -40,6 +41,7 @@ const getKnobs = () => {
     }),
     halfDonut: optionalSelect('halfDonut', halvesDonut, undefined),
     sums: object('sums', []),
+    legendPosition: optionalSelect('legendPosition', legendPositions, undefined),
     formatValueForTooltip:
       formatsValueForTooltip[
         select('formatValueForTooltip', formattersKeysForTooltip, formattersKeysForTooltip[0])

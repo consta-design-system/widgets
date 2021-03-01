@@ -221,3 +221,27 @@ export const DonutChartHalfDonutRight = () => (
     <DonutChart data={donutData.data} halfDonut="right" />
   </Example>
 )
+
+export const DonutChartLegendTop = () => (
+  <Example width="200" height="300px">
+    <DonutChart data={donutData.data} legendPosition="top" />
+  </Example>
+)
+
+export const DonutChartLegendRight = () => (
+  <Example width="400px" height="200">
+    <DonutChart data={donutData.data} legendPosition="right" />
+  </Example>
+)
+
+export const DonutChartLegendBottom = () => (
+  <Example width="200" height="300px">
+    <DonutChart data={donutData.data} legendPosition="bottom" />
+  </Example>
+)
+
+export const DonutChartLegendLeft = () => (
+  <Example width="400px" height="200">
+    <DonutChart data={donutData.data} legendPosition="left" />
+  </Example>
+)
