@@ -58,7 +58,7 @@
           top: 50%;
           right: 0;
 
-          padding-left: var(--space-2xs);
+          padding-left: var(--space-xs);
 
           transform: translate(100%, -50%);
         }
@@ -76,7 +76,7 @@
           top: 50%;
           left: 0;
 
-          padding-right: var(--space-2xs);
+          padding-right: var(--space-xs);
 
           transform: translate(-100%, -50%);
         }
@@ -94,7 +94,7 @@
           top: 0;
           left: 50%;
 
-          padding-bottom: var(--space-2xs);
+          padding-bottom: var(--space-xs);
 
           transform: translate(-50%, -100%);
         }
@@ -110,7 +110,7 @@
           bottom: 0;
           left: 50%;
 
-          padding-top: var(--space-2xs);
+          padding-top: var(--space-xs);
 
           transform: translate(-50%, 100%);
         }

@@ -106,7 +106,7 @@
 
           white-space: pre;
 
-          transform: rotate(55.81deg);
+          transform: rotate(40deg);
           transform-origin: right center;
         }
       }
@@ -116,16 +116,15 @@
 
         .cw--Ticks-Text {
           position: absolute;
-          right: 50%;
 
           overflow: hidden;
 
           min-height: 15px;
+          padding: var(--space-s) 0 0 0;
 
           white-space: pre;
 
-          transform: rotate(-55.81deg);
-          transform-origin: right center;
+          transform: rotate(40deg);
         }
       }
     }
