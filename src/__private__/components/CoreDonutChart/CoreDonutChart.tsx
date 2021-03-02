@@ -99,9 +99,9 @@ export const CoreDonutChart: React.FC<Props> = ({
   const minChartSize = getMinChartSize(circlesCount, showText, halfDonut)
   const isTooltipVisible = Boolean(tooltipData.length)
   const arcRadiuses = getArcRadiuses({ mainRadius, circlesCount, sizeDonut, chartSize: size })
-  const values = getValues(data, circlesCount)
+  const values = getValues({ data, circlesCount, sortValue })
   const isTextVisible = values.length === 1 && showText
-  const piesData = values.map(item => getPieData(item, sortValue, halfDonut))
+  const piesData = values.map(item => getPieData(item, halfDonut))
   const rendersArc = arcRadiuses.map(getRenderArc)
 
   const handleMouseOver = showTooltip
