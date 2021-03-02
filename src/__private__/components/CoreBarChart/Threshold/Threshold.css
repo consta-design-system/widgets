@@ -5,10 +5,9 @@
   }
 
   &-Text {
-    font-size: 12px;
-    font-weight: 100;
-    stroke-width: 1;
-    stroke: var(--color-bg-warning);
+    font-size: var(--size-text-xs);
+    font-weight: 400;
+    fill: var(--color-bg-warning);
 
     &_horizontal {
       text-anchor: middle;
