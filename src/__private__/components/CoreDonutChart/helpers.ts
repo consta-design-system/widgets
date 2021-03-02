@@ -199,15 +199,11 @@ export const getArcRadiuses = (params: GetArcRadiusesParams): readonly ArcRadius
   })
 }
 
-export const getPieData = (
-  data: readonly ArcDataItem[],
-  sortValue: SortValue | null,
-  halfDonut?: HalfDonut
-) => {
+export const getPieData = (data: readonly ArcDataItem[], halfDonut?: HalfDonut) => {
   const { startAngle, endAngle } = getArcAnglesByHalfDonut(halfDonut)
 
   const dataGenerator = pie<ArcDataItem>()
-    .sort((prev, next) => (sortValue ? sortValue(prev, next) : 0))
+    .sort(null)
     .startAngle(startAngle)
     .endAngle(endAngle)
     .value(item => item.value ?? 0)
@@ -249,7 +245,13 @@ export const isEmptyPieArcDatum = (value: ReadonlyArray<PieArcDatum<ArcDataItem>
   return value.every(item => item.value === 0)
 }
 
-export const getValues = (data: readonly DonutDataItem[], circlesCount: number) => {
+type GetValuesParams = {
+  data: readonly DonutDataItem[]
+  circlesCount: number
+  sortValue?: SortValue | null
+}
+
+export const getValues = ({ circlesCount, data, sortValue }: GetValuesParams) => {
   const arraysOfDataItems = data.map(item =>
     item.values.slice(0, circlesCount).map(value => ({
       color: item.color,
@@ -259,7 +261,9 @@ export const getValues = (data: readonly DonutDataItem[], circlesCount: number) 
   )
 
   return createArrayOfIndexes(circlesCount).map((_, index) =>
-    arraysOfDataItems.map(dataItems => dataItems[index])
+    arraysOfDataItems
+      .map(dataItems => dataItems[index])
+      .sort((prev, next) => (sortValue ? sortValue(prev, next) : 0))
   )
 }
 

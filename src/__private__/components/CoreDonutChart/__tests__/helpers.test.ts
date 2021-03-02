@@ -3,6 +3,7 @@ import { createArrayOfIndexes } from '@consta/widgets-utils/lib/array'
 import {
   defaultGetCirclesCount,
   defaultGetMinChartSize,
+  defaultSortValue,
   getArcRadiuses,
   getChartSize,
   getDonutMaxMinSizeRect,
@@ -140,31 +141,31 @@ describe('defaultGetMinChartSize', () => {
 
 describe('getValues', () => {
   it('получает данные для одного кольца', () => {
-    const received = getValues(
-      [
+    const received = getValues({
+      data: [
         {
           color: 'red',
           name: 'Group 1',
           values: [1, 2, 3],
         },
       ],
-      1
-    )
+      circlesCount: 1,
+    })
 
     expect(received).toEqual([[{ color: 'red', name: 'Group 1', value: 1 }]])
   })
 
   it('Получает данные для трех колец', () => {
-    const received = getValues(
-      [
+    const received = getValues({
+      data: [
         {
           color: 'red',
           name: 'Group 1',
           values: [1, 2, 3],
         },
       ],
-      3
-    )
+      circlesCount: 3,
+    })
 
     expect(received).toEqual([
       [{ color: 'red', name: 'Group 1', value: 1 }],
@@ -174,21 +175,58 @@ describe('getValues', () => {
   })
 
   it('Получает данные для трех колец, если исходные данные пустые', () => {
-    const received = getValues([], 3)
+    const received = getValues({
+      data: [],
+      circlesCount: 3,
+    })
 
     expect(received).toEqual([[], [], []])
+  })
+
+  it('Получает данные для трех колец с сортировкой', () => {
+    const received = getValues({
+      data: [
+        {
+          color: 'red',
+          name: 'Group 1',
+          values: [4, 5, 6],
+        },
+        {
+          color: 'blue',
+          name: 'Group 2',
+          values: [1, 2, 3],
+        },
+      ],
+      circlesCount: 3,
+      sortValue: defaultSortValue,
+    })
+
+    expect(received).toEqual([
+      [
+        { color: 'red', name: 'Group 1', value: 4 },
+        { color: 'blue', name: 'Group 2', value: 1 },
+      ],
+      [
+        { color: 'red', name: 'Group 1', value: 5 },
+        { color: 'blue', name: 'Group 2', value: 2 },
+      ],
+      [
+        { color: 'red', name: 'Group 1', value: 6 },
+        { color: 'blue', name: 'Group 2', value: 3 },
+      ],
+    ])
   })
 })
 
 describe('getPieData', () => {
   it('получение данных для кольца, если исходные данные пустые', () => {
-    const received = getPieData([], null)
+    const received = getPieData([])
 
     expect(received).toEqual([])
   })
 
   it('получение данных для кольца', () => {
-    const received = getPieData([{ color: 'red', name: 'Group 1', value: null }], null)
+    const received = getPieData([{ color: 'red', name: 'Group 1', value: null }])
 
     expect(received).toEqual([
       {
