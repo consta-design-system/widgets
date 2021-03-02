@@ -36,13 +36,15 @@ const getPositionText = (value: number, isHorizontal: boolean) => {
   if (isHorizontal) {
     return {
       x: value,
-      y: '-5%',
+      y: '0',
+      dy: '-8px',
     }
   }
 
   return {
-    x: '102%',
+    x: '100%',
     y: value,
+    dx: '8px',
   }
 }
 
