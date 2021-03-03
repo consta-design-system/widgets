@@ -155,6 +155,8 @@ export const CoreDonutChart: React.FC<Props> = ({
       )}
       <svg
         className={cnCoreDonutChart('Graph', { half: halfDonut ?? 'none' })}
+        width={svgWidth}
+        height={svgHeight}
         viewBox={viewBox}
         onMouseMove={handleMouseMove}
       >

@@ -106,36 +106,8 @@ describe('defaultGetCirclesCount', () => {
 })
 
 describe('defaultGetMinChartSize', () => {
-  it('получение минимального размера необрезанного графика с 1 линией без текста', () => {
-    expect(defaultGetMinChartSize(1, false)).toEqual(0)
-  })
-
-  it('получение минимального размера необрезанного графика с 2 линиями без текста', () => {
-    expect(defaultGetMinChartSize(2, false)).toEqual(0)
-  })
-
-  it('получение минимального размера необрезанного графика с 3 линиями без текста', () => {
-    expect(defaultGetMinChartSize(3, false)).toEqual(0)
-  })
-
-  it('получение минимального размера необрезанного графика с 1 линией с текстом', () => {
-    expect(defaultGetMinChartSize(1, true)).toEqual(100)
-  })
-
-  it('получение минимального размера необрезанного графика с 2 линиями с текстом', () => {
-    expect(defaultGetMinChartSize(2, true)).toEqual(0)
-  })
-
-  it('получение минимального размера необрезанного графика с 3 линиями с текстом', () => {
-    expect(defaultGetMinChartSize(3, true)).toEqual(0)
-    expect(defaultGetMinChartSize(3, false)).toEqual(0)
-  })
-
-  it('получение минимального размера обрезанного графика с 1 линией и текстом', () => {
-    expect(defaultGetMinChartSize(1, true, 'top')).toEqual(0)
-    expect(defaultGetMinChartSize(1, true, 'right')).toEqual(0)
-    expect(defaultGetMinChartSize(1, true, 'bottom')).toEqual(0)
-    expect(defaultGetMinChartSize(1, true, 'left')).toEqual(0)
+  it('получение минимального размера графика', () => {
+    expect(defaultGetMinChartSize(1, false)).toEqual(100)
   })
 })
 
