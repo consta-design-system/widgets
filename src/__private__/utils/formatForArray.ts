@@ -3,18 +3,14 @@ import { formatForValue } from './formatForValue'
 export const formatForArray = (valueArray: number[]) => {
   let num: number
 
-  valueArray.map((data: number, index) => {
-    if (data.toString().indexOf('.') > 0) {
-      num = valueArray[index].toString().split('.')[1].length
-      return num
+  const newValueArray = valueArray.map((item: number) => formatForValue(String(item)))
+
+  return newValueArray.map((item: string, index) => {
+    if (item.indexOf(',') > 0) {
+      num = newValueArray[index].split('.')[1].length
+      return String(Number(item).toFixed(num))
+    } else {
+      return item
     }
   })
-
-  return valueArray.map((data: number) =>
-    formatForValue(
-      Number(data)
-        .toFixed(num)
-        .toString()
-    )
-  )
 }
