@@ -309,6 +309,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
                   yTickValues={gridYTickValues}
                   width={gridStyle.width}
                   height={gridStyle.height}
+                  showLineAtZero={showLineAtZero}
                 />
               )}
               {showLineAtZero && <ZeroLine valuesScale={valuesScale} isHorizontal={isHorizontal} />}
