@@ -84,7 +84,6 @@ export const getRoundedBorder = (
 }
 
 export const getTriangle = (
-  color: string,
   isOverflow: boolean,
   direction: string,
   maxLabelSize: LabelSize,
@@ -92,29 +91,13 @@ export const getTriangle = (
 ) => {
   if (isOverflow && lastSection) {
     switch (direction) {
-      case 'vertical':
-        return {
-          border: '6px solid transparent',
-          borderBottom: `6px solid ${color}`,
-          transform: 'translate(-50%, -270%)',
-        }
-      case 'verticalReverse':
-        return {
-          border: '6px solid transparent',
-          borderTop: `6px solid ${color}`,
-          transform: 'translate(-50%, 290%)',
-        }
       case 'horizontal':
         return {
-          border: '6px solid transparent',
-          borderLeft: `6px solid ${color}`,
-          margin: `0 -${maxLabelSize.width + 15}px 0 0`,
+          margin: `0 -${maxLabelSize.width + 10}px 0 0`,
         }
       case 'horizontalReverse':
         return {
-          border: '6px solid transparent',
-          borderRight: `6px solid ${color}`,
-          margin: `0 0 0 -${maxLabelSize.width + 15}px`,
+          margin: `0 0 0 -${maxLabelSize.width + 10}px`,
         }
     }
   }

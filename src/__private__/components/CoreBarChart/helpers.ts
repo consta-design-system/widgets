@@ -320,6 +320,6 @@ export const getPaddingThreshold = (isHorizontal: boolean, threshold?: Threshold
   } else if (threshold?.value && isHorizontal) {
     return 'top'
   } else {
-    return 'none'
+    return ''
   }
 }

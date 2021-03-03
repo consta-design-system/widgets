@@ -51,7 +51,7 @@
 
           padding-bottom: 1px;
 
-          transform: translate(0%, -50%);
+          transform: translate(0%, -50%) rotate(90deg);
         }
 
         .cw--Section-Label {
@@ -69,7 +69,7 @@
           top: 50%;
           left: 0;
 
-          transform: translate(0%, -50%);
+          transform: translate(0%, -50%) rotate(-90deg);
         }
 
         .cw--Section-Label {
@@ -87,7 +87,9 @@
           top: 0;
           left: 50%;
 
-          padding-bottom: 1px;
+          padding-bottom: var(--space-xs);
+
+          transform: translate(-50%, -270%) rotate(0deg);
         }
 
         .cw--Section-Label {
@@ -104,6 +106,10 @@
         .cw--Section-Overflow {
           bottom: 0;
           left: 50%;
+
+          padding-top: var(--space-xs);
+
+          transform: translate(-50%, 290%) rotate(180deg);
         }
 
         .cw--Section-Label {
@@ -120,11 +126,9 @@
 
   &-Label {
     position: absolute;
-    z-index: 1;
   }
 
   &-Overflow {
     position: absolute;
-    z-index: 999999;
   }
 }

@@ -33,7 +33,7 @@
     box-sizing: border-box;
 
     &_isHorizontal {
-      padding-right: var(--space-m);
+      padding-right: var(--space-xl);
     }
 
     &_paddingThreshold {
@@ -43,10 +43,6 @@
 
       &_right {
         padding: 0 50px 0 0;
-      }
-
-      &_none {
-        padding: 0;
       }
     }
   }

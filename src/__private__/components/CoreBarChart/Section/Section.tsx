@@ -100,13 +100,19 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
         onMouseLeave={onMouseLeave}
       >
         {isOverflow && (
-          <div
+          <svg
             className={cnSection('Overflow', {
               horizontal,
               direction,
             })}
-            style={getTriangle(color, isOverflow, direction, maxLabelSize, lastSection)}
-          />
+            style={getTriangle(isOverflow, direction, maxLabelSize, lastSection)}
+            width="8"
+            height="5"
+            viewBox="0 0 8 5"
+            fill="none"
+          >
+            <path d="M4 0.5L8 5H0L4 0.5Z" fill={color} />
+          </svg>
         )}
         {label && lastSection && (
           <Text
