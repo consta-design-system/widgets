@@ -134,16 +134,8 @@ export const defaultGetCirclesCount: GetCirclesCount = data => {
   return Math.min(Math.max(...data.map(i => i.values.length)), MAX_CIRCLES_TO_RENDER)
 }
 
-export const defaultGetMinChartSize: GetMinChartSize = (
-  countLines: number,
-  isExistTextData?: boolean,
-  halfDonut?: HalfDonut
-) => {
-  if (countLines === 1 && isExistTextData && !halfDonut) {
-    return 100
-  }
-
-  return 0
+export const defaultGetMinChartSize: GetMinChartSize = () => {
+  return 100
 }
 
 export const getArcAnglesByHalfDonut = (halfDonut?: HalfDonut) => {
@@ -252,15 +244,17 @@ type GetValuesParams = {
 }
 
 export const getValues = ({ circlesCount, data, sortValue }: GetValuesParams) => {
+  const indexes = createArrayOfIndexes(circlesCount)
+
   const arraysOfDataItems = data.map(item =>
-    item.values.slice(0, circlesCount).map(value => ({
+    indexes.map((_, index) => ({
       color: item.color,
       name: item.name,
-      value,
+      value: item.values[index] ?? null,
     }))
   )
 
-  return createArrayOfIndexes(circlesCount).map((_, index) =>
+  return indexes.map((_, index) =>
     arraysOfDataItems
       .map(dataItems => dataItems[index])
       .sort((prev, next) => (sortValue ? sortValue(prev, next) : 0))
@@ -294,13 +288,20 @@ export const getDonutMaxMinSizeRect = ({
 }: GetSizeRectParams): CSSProperties => {
   const halfWidth = width / 2
   const halfHeight = height / 2
-  const maxWidth = limitSizeSide === 'width' ? height : undefined
-  const maxHeight = limitSizeSide === 'height' ? width : undefined
-
-  return {
+  const base = {
     minWidth: isHalfVertical ? halfHeight : minSize,
-    maxWidth: isHalfVertical ? halfHeight : maxWidth,
+    maxWidth: isHalfVertical ? halfHeight : undefined,
     minHeight: isHalfHorizontal ? halfWidth : minSize,
-    maxHeight: isHalfHorizontal ? halfWidth : maxHeight,
+    maxHeight: isHalfHorizontal ? halfWidth : undefined,
   }
+
+  if (!isHalfHorizontal && !isHalfVertical) {
+    return {
+      ...base,
+      maxWidth: limitSizeSide === 'width' ? height : undefined,
+      maxHeight: limitSizeSide === 'height' ? width : undefined,
+    }
+  }
+
+  return base
 }
