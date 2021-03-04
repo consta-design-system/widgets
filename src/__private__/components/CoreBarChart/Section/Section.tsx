@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Text } from '@consta/uikit/Text'
 
@@ -33,7 +33,6 @@ type Props = {
   onChangeLabelSize?: (size: LabelSize) => void
   columnProperty: ColumnProperty
   gridDomain: NumberRange
-  maxLabelSize: LabelSize
   numberColumnSections: number
   indexSection?: number
 }
@@ -52,13 +51,14 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
       onChangeLabelSize,
       columnProperty,
       gridDomain,
-      maxLabelSize,
       numberColumnSections,
       indexSection,
     },
     ref
   ) => {
     const labelRef = React.useRef<HTMLDivElement>(null)
+    const [labelWidth, setLabelWidth] = useState<number | null>(null)
+
     const isOverflow =
       (!isReversed && gridDomain[1] < Number(label)) ||
       (isReversed && gridDomain[0] > Number(label))
@@ -69,6 +69,8 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
       }
 
       const { width, height } = labelRef.current.getBoundingClientRect()
+
+      setLabelWidth(width)
 
       onChangeLabelSize &&
         onChangeLabelSize({ width: Math.round(width), height: Math.round(height) })
@@ -105,7 +107,7 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
               horizontal,
               direction,
             })}
-            style={getTriangle(isOverflow, direction, maxLabelSize, lastSection)}
+            style={getTriangle(isOverflow, direction, labelWidth, lastSection)}
             width="8"
             height="5"
             viewBox="0 0 8 5"

@@ -74,7 +74,6 @@ type Props = {
   onChangeLabelSize?: (size: LabelSize) => void
   maxNumberGroups: number
   gridDomain: NumberRange
-  maxLabelSize: LabelSize
 }
 
 export const Column: React.FC<Props> = ({
@@ -93,7 +92,6 @@ export const Column: React.FC<Props> = ({
   onChangeLabelSize,
   maxNumberGroups,
   gridDomain,
-  maxLabelSize,
 }) => {
   const ref = React.useRef<HTMLDivElement>(null)
   const { width, height } = useComponentSize(ref)
@@ -160,7 +158,6 @@ export const Column: React.FC<Props> = ({
         onMouseLeave={onMouseLeaveColumn}
         columnProperty={columnProperty}
         gridDomain={gridDomain}
-        maxLabelSize={maxLabelSize}
         numberColumnSections={numberColumnSections}
         indexSection={index}
       />

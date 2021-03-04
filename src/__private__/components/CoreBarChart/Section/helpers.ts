@@ -1,5 +1,4 @@
 import { ColumnProperty } from '@/__private__/components/CoreBarChart/Column/Column'
-import { LabelSize } from '@/__private__/components/CoreBarChart/CoreBarChart'
 
 export const getSize = (
   length: number,
@@ -86,18 +85,18 @@ export const getRoundedBorder = (
 export const getTriangle = (
   isOverflow: boolean,
   direction: string,
-  maxLabelSize: LabelSize,
+  labelWidth: number | null,
   lastSection: boolean
 ) => {
-  if (isOverflow && lastSection) {
+  if (isOverflow && lastSection && labelWidth) {
     switch (direction) {
       case 'horizontal':
         return {
-          margin: `0 -${maxLabelSize.width + 10}px 0 0`,
+          margin: `0 -${labelWidth + 10}px 0 0`,
         }
       case 'horizontalReverse':
         return {
-          margin: `0 0 0 -${maxLabelSize.width + 10}px`,
+          margin: `0 0 0 -${labelWidth + 10}px`,
         }
     }
   }

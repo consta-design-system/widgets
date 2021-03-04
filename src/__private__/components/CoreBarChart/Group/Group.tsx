@@ -56,7 +56,6 @@ type Props = {
   getNumberGridTicks: (length: number) => void
   gridDomain: NumberRange
   limitMinimumStepSize?: boolean
-  maxLabelSize: LabelSize
 }
 
 export const Group: React.FC<Props> = props => {
@@ -78,7 +77,6 @@ export const Group: React.FC<Props> = props => {
     getNumberGridTicks,
     gridDomain,
     limitMinimumStepSize = false,
-    maxLabelSize,
   } = props
   const ref = useRef<HTMLDivElement>(null)
   const { width, height } = useComponentSize(ref)
@@ -127,7 +125,6 @@ export const Group: React.FC<Props> = props => {
         onChangeLabelSize={onChangeLabelSize}
         maxNumberGroups={maxNumberGroups}
         gridDomain={gridDomain}
-        maxLabelSize={maxLabelSize}
       />
     )
   }

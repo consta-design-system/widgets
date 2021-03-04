@@ -384,7 +384,6 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
                     getNumberGridTicks,
                     gridDomain,
                     limitMinimumStepSize,
-                    maxLabelSize,
                   })}
                 </div>
               )
