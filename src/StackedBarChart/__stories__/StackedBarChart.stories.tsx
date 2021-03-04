@@ -16,7 +16,7 @@ const getCommonProps = (initialUnit: string) => {
   return {
     unit,
     isHorizontal: false,
-    showLineAtZero: true,
+    showGuide: true,
     showGroupsLabels: true,
     showGrid: true,
     formatValueForTooltip: (v: number) => `${v} ${unit}`,

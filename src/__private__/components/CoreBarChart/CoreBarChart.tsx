@@ -54,7 +54,7 @@ export type Props<T> = {
   showValues?: boolean
   showReversed?: boolean
   showGrid?: boolean
-  showLineAtZero?: boolean
+  showGuide?: boolean
   showGroupsLabels?: boolean
   maxColumnLength: number
   minReversedColumnLength?: number
@@ -91,7 +91,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     showValues = false,
     showReversed = false,
     showGrid = true,
-    showLineAtZero = true,
+    showGuide = true,
     showGroupsLabels = true,
     maxColumnLength,
     minReversedColumnLength,
@@ -301,7 +301,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
             }}
           >
             <svg className={cnCoreBarChart('Svg')} ref={svgRef} style={gridStyle}>
-              {showGrid && showLineAtZero && (
+              {showGrid && showGuide && (
                 <Grid
                   scalerX={valuesScale}
                   scalerY={valuesScale}
@@ -309,10 +309,10 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
                   yTickValues={gridYTickValues}
                   width={gridStyle.width}
                   height={gridStyle.height}
-                  showLineAtZero={showLineAtZero}
+                  showGuide={showGuide}
                 />
               )}
-              {showLineAtZero && <ZeroLine valuesScale={valuesScale} isHorizontal={isHorizontal} />}
+              {showGuide && <ZeroLine valuesScale={valuesScale} isHorizontal={isHorizontal} />}
             </svg>
             {threshold && (
               <svg

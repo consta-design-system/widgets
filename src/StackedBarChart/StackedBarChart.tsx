@@ -42,7 +42,7 @@ type Props = {
   min?: number
   max?: number
   showGrid?: boolean
-  showLineAtZero?: boolean
+  showGuide?: boolean
   showGroupsLabels?: boolean
   limitMinimumStepSize?: boolean
 }

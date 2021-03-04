@@ -16,7 +16,7 @@ type Props = {
   height: number
   xGridGuide?: number
   yGridGuide?: number
-  showLineAtZero?: boolean
+  showGuide?: boolean
 }
 
 export const Grid: React.FC<Props> = ({
@@ -28,14 +28,14 @@ export const Grid: React.FC<Props> = ({
   height,
   xGridGuide,
   yGridGuide,
-  showLineAtZero,
+  showGuide,
 }) => {
   return (
     <g className={cnGrid('Main')}>
       {xTickValues.map(tick => {
         const x = scalerX.scale(tick)
         const isGuide = xGridGuide && tick === xGridGuide
-        if (tick === 0 && showLineAtZero) {
+        if (tick === 0 && showGuide) {
           return (
             <line
               key={tick}
@@ -62,7 +62,7 @@ export const Grid: React.FC<Props> = ({
       {yTickValues.map(tick => {
         const y = scalerY.scale(tick)
         const isGuide = yGridGuide && tick === yGridGuide
-        if (tick === 0 && showLineAtZero) {
+        if (tick === 0 && showGuide) {
           return (
             <line
               key={tick}

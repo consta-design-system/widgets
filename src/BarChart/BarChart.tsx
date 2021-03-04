@@ -39,7 +39,7 @@ type Props = {
   formatGroupName?: FormatGroupName
   isEmptyColumnsHidden?: boolean
   showGrid?: boolean
-  showLineAtZero?: boolean
+  showGuide?: boolean
   showGroupsLabels?: boolean
   limitMinimumStepSize?: boolean
 }
@@ -52,9 +52,6 @@ export const BarChart: React.FC<Props> = props => {
     colors,
     threshold,
     showValues,
-    showGrid,
-    showLineAtZero,
-    showGroupsLabels,
     formatGroupName,
     isEmptyColumnsHidden = false,
     ...rest
@@ -91,9 +88,6 @@ export const BarChart: React.FC<Props> = props => {
       maxColumnLength={maxColumnLength}
       minReversedColumnLength={minReversedColumnLength}
       renderGroup={defaultRenderGroup}
-      showGrid={showGrid}
-      showLineAtZero={showLineAtZero}
-      showGroupsLabels={showGroupsLabels}
       maxNumberGroups={maxNumberGroups}
       formatGroupName={formatGroupName}
     />

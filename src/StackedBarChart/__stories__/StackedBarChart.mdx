@@ -207,35 +207,35 @@ formatValueForTooltip={v => `${v} тысяч`}
 
 За отображение частей каркаса отвечают параметры:
 - showGrid - отображение сетки;
-- showLineAtZero - отображение нулевой линии;
+- showGuide - отображение нулевой линии;
 - showGroupsLabels - отображение подписей на графике;
 
 Если скрыта нулевая линия, то сетка отображаться не будет.
 
 ```tsx
 showGrid = true,
-showLineAtZero = true,
+showGuide = true,
 showGroupsLabels = true
 ```
 <StackedBarChartExampleFrameControlShowAll />
 
 ```tsx
 showGrid = false,
-showLineAtZero = true,
+showGuide = true,
 showGroupsLabels = true
 ```
 <StackedBarChartExampleFrameControlHideGrid />
 
 ```tsx
 showGrid = true,
-showLineAtZero = false,
+showGuide = false,
 showGroupsLabels = true
 ```
 <StackedBarChartExampleFrameControlHideLineAtZero />
 
 ```tsx
 showGrid = true,
-showLineAtZero = true,
+showGuide = true,
 showGroupsLabels = false
 ```
 <StackedBarChartExampleFrameControlHideLabels />
@@ -263,7 +263,7 @@ max = 1300
 | [`formatGroupName`](#подпись-для-категории)             | `(value: string) => React.ReactNode`        | -            | Формат для подписи категории у деления                                            |
 | [`isXAxisLabelsSlanted?`](#группы-и-столбцы)            | `boolean`                                   | -            | Наклоняет подписи к столбцам вбок (работает только в вертикальных графиках)       |
 | [`showGrid?`](#отображение-сетки)                       | `boolean`                                   | -            | Отображает сетку                                                                  |
-| [`showLineAtZero?`](#отображение-линии-в-нуле)          | `boolean`                                   | -            | Отображает линию в нуде                                                           |
+| [`showGuide?`](#отображение-линии-в-нуле)          | `boolean`                                   | -            | Отображает линию в нуде                                                           |
 | [`showGroupsLabels?`](#отображение-подписей)            | `boolean`                                   | -            | Отображает подписи на сетке                                                       |
 | [`max?`](#максимальное-значение-оси-У)                  | `number`                                    | -            | Устанавливает максимальное значение для оси У                                     |
 | [`min?`](#минимальное-значение-оси-У)                   | `number`                                    | -            | Устанавливает минимальное значение для оси У                                      |
@@ -319,7 +319,7 @@ max = 1300
     showValues
     unit="тыс."
     showGrid
-    showLineAtZero
+    showGuide
     showGroupsLabels
 />
 ```

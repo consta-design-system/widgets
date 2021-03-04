@@ -100,7 +100,7 @@ export const StackedBarChartExampleFrameControlShowAll = () => (
       unit="тыс. тонн"
       showGrid={true}
       showGroupsLabels={true}
-      showLineAtZero={true}
+      showGuide={true}
     />
   </Example>
 )
@@ -113,7 +113,7 @@ export const StackedBarChartExampleFrameControlHideGrid = () => (
       unit="тыс. тонн"
       showGrid={false}
       showGroupsLabels={true}
-      showLineAtZero={true}
+      showGuide={true}
     />
   </Example>
 )
@@ -126,7 +126,7 @@ export const StackedBarChartExampleFrameControlHideLineAtZero = () => (
       unit="тыс."
       showGrid={true}
       showGroupsLabels={true}
-      showLineAtZero={false}
+      showGuide={false}
     />
   </Example>
 )
@@ -139,7 +139,7 @@ export const StackedBarChartExampleFrameControlHideLabels = () => (
       unit="тыс."
       showGrid={true}
       showGroupsLabels={false}
-      showLineAtZero={true}
+      showGuide={true}
     />
   </Example>
 )

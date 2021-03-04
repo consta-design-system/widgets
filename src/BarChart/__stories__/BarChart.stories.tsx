@@ -16,7 +16,7 @@ const getCommonProps = (initialUnit: string) => {
   return {
     formatValueForTooltip: (v: number) => `${v} ${unit}`,
     unit,
-    showLineAtZero: true,
+    showGuide: true,
     showGroupsLabels: true,
     showGrid: true,
   } as const

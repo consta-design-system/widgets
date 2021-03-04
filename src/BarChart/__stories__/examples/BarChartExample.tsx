@@ -178,7 +178,7 @@ export const BarChartExampleFrameControlShowAll = () => (
       unit="тыс. тонн"
       showGrid={true}
       showGroupsLabels={true}
-      showLineAtZero={true}
+      showGuide={true}
     />
   </Example>
 )
@@ -193,7 +193,7 @@ export const BarChartExampleFrameControlHideGrid = () => (
       unit="тыс. тонн"
       showGrid={false}
       showGroupsLabels={true}
-      showLineAtZero={true}
+      showGuide={true}
     />
   </Example>
 )
@@ -208,7 +208,7 @@ export const BarChartExampleFrameControlHideLineAtZero = () => (
       unit="тыс. тонн"
       showGrid={true}
       showGroupsLabels={true}
-      showLineAtZero={false}
+      showGuide={false}
     />
   </Example>
 )
@@ -223,7 +223,7 @@ export const BarChartExampleFrameControlHideLabels = () => (
       unit="тыс. тонн"
       showGrid={true}
       showGroupsLabels={false}
-      showLineAtZero={true}
+      showGuide={true}
     />
   </Example>
 )
