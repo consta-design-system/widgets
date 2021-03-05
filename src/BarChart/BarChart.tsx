@@ -29,6 +29,7 @@ type Props = {
   min?: number
   max?: number
   colors: readonly string[]
+  gridConfig?: number
   unit?: string
   showValues?: boolean
   isHorizontal?: boolean

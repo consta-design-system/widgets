@@ -45,6 +45,7 @@ type Props = {
   showGuide?: boolean
   showGroupsLabels?: boolean
   limitMinimumStepSize?: boolean
+  gridConfig?: number
 }
 
 export const StackedBarChart: React.FC<Props> = props => {

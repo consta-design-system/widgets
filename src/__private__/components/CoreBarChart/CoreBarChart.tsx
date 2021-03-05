@@ -52,6 +52,7 @@ export type Props<T> = {
   groupsDomain: readonly string[]
   valuesDomain: NumberRange
   groups: readonly T[]
+  gridConfig?: number
   isHorizontal?: boolean
   showValues?: boolean
   showReversed?: boolean
@@ -113,6 +114,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     onMouseEnterColumn,
     onMouseLeaveColumn,
     limitMinimumStepSize,
+    gridConfig,
   } = props
   const ref = useRef<HTMLDivElement>(null)
   const axisRef = useRef<HTMLDivElement>(null)
@@ -134,9 +136,9 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     height: 0,
   })
   const numberGridTicks = Math.round(isHorizontal && width && height ? width / 50 : height / 50)
-  const [gridTicks, setGridTicks] = useState<number>(numberGridTicks)
+  const [gridTicks, setGridTicks] = useState<number>(gridConfig ? gridConfig : numberGridTicks)
   const getNumberGridTicks = (length: number) => {
-    if (length) {
+    if (length && !gridConfig) {
       setGridTicks(Math.round(length / 50))
     }
   }

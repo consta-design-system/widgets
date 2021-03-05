@@ -58,11 +58,13 @@
     overflow: visible;
 
     &_threshold_up {
-      z-index: 999;
+      z-index: 20;
     }
   }
 
   &-AxisTicks {
+    z-index: 20;
+
     &_position {
       &_top,
       &_right,
@@ -153,7 +155,7 @@
       width: var(--shadow-width);
       margin-top: var(--shadow-padding-top-offset);
 
-      background: linear-gradient(90deg, rgba(var(--color-nums-shadow), 0.5), transparent);
+      background: linear-gradient(90deg, rgba(var(--color-nums-shadow), 0.15), transparent);
     }
 
     &_right {
@@ -163,7 +165,7 @@
       width: var(--shadow-width);
       margin-top: var(--shadow-padding-top-offset);
 
-      background: linear-gradient(270deg, rgba(var(--color-nums-shadow), 0.5), transparent);
+      background: linear-gradient(270deg, rgba(var(--color-nums-shadow), 0.15), transparent);
     }
   }
 }
