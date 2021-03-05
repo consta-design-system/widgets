@@ -5,6 +5,10 @@
 
     width: 100%;
     height: 100%;
+
+    &::-webkit-scrollbar-track {
+      margin-left: 50px;
+    }
   }
 
   &-Wrapper {
@@ -26,6 +30,7 @@
 
   &-Chart {
     position: relative;
+    z-index: 15;
 
     display: grid;
     flex-grow: 1;
@@ -87,11 +92,17 @@
         grid-area: leftTicks;
 
         justify-self: end;
+
+        position: fixed;
+
+        background: var(--color-bg-default);
       }
     }
   }
 
   &-Unit {
+    white-space: nowrap;
+
     &_position {
       &_bottom {
         grid-area: bottomUnit;
@@ -102,12 +113,20 @@
       }
 
       &_topLeft {
+        position: sticky;
+
         grid-area: topLeft;
 
+        left: 0;
+
+        width: var(--unit-width);
+        height: 100%;
         margin-right: var(--space-xs);
-        margin-bottom: var(--space-xs);
+        margin-bottom: var(--space-m);
 
         text-align: right;
+
+        background: var(--color-bg-default);
       }
     }
   }
@@ -118,5 +137,33 @@
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+  }
+
+  &-Shadow {
+    position: absolute;
+    z-index: 11;
+
+    height: var(--shadow-height);
+
+    &_left {
+      /* задаётся в js */
+      top: var(--shadow-top-offset);
+      left: var(--shadow-left-offset);
+
+      width: var(--shadow-width);
+      margin-top: var(--shadow-padding-top-offset);
+
+      background: linear-gradient(90deg, rgba(var(--color-nums-shadow), 0.5), transparent);
+    }
+
+    &_right {
+      top: var(--shadow-top-offset);
+      left: var(--shadow-right-offset);
+
+      width: var(--shadow-width);
+      margin-top: var(--shadow-padding-top-offset);
+
+      background: linear-gradient(270deg, rgba(var(--color-nums-shadow), 0.5), transparent);
+    }
   }
 }
