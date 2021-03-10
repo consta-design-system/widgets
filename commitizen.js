@@ -13,7 +13,7 @@ module.exports = {
     { value: 'release', name: 'release      New release' },
   ],
 
-  scopes: [{ name: 'custom' }, { name: 'components' }, { name: 'global' }],
+  scopes: [{ name: 'custom' }, { name: 'global' }],
 
   messages: {
     type: 'Type of change',
