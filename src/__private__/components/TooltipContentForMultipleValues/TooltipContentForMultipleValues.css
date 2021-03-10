@@ -31,5 +31,9 @@
     &_isSingleColumn {
       grid-column: 2 span;
     }
+
+    &_withPadding {
+      padding-left: calc(var(--dot-size) + var(--space-xs));
+    }
   }
 }

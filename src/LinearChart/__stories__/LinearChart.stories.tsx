@@ -805,7 +805,7 @@ export const LinearChartWithUnit = createStory(
         withPaddings: false,
       },
     }
-    return <LinearChart lines={lines} gridConfig={gridConfig} yDimensionUnit="г/моль" />
+    return <LinearChart lines={lines} gridConfig={gridConfig} unit="г/моль" />
   },
   {
     name: 'с размерностью по Oy',
@@ -887,7 +887,7 @@ export const LinearChartWithThreshold = createStory(
         lines={lines}
         gridConfig={gridConfig}
         threshold={threshold}
-        yDimensionUnit={'килограммы'}
+        unit={'килограммы'}
       />
     )
   },
@@ -971,7 +971,7 @@ export const LinearChartWithTooltipDot = createStory(
         lines={lines}
         gridConfig={gridConfig}
         threshold={threshold}
-        yDimensionUnit="килограммы"
+        unit="килограммы"
         tooltipVariant="dot"
         onClickHoverDot={value => alert(JSON.stringify(value))}
       />
@@ -995,6 +995,10 @@ export const LinearChartWithLimitedSteps = createStory(
           { x: 3.5, y: 0 },
           { x: 4, y: 10 },
           { x: 5, y: 3 },
+          { x: 6, y: 9 },
+          { x: 7, y: 2 },
+          { x: 8.5, y: 3 },
+          { x: 10, y: 6 },
         ],
         dots: false,
         lineName: 'Северный бур',
@@ -1011,6 +1015,12 @@ export const LinearChartWithLimitedSteps = createStory(
           { x: 4, y: 2 },
           { x: 4.5, y: 8 },
           { x: 5, y: 6 },
+          { x: 5.5, y: 5.5 },
+          { x: 7, y: 3 },
+          { x: 8, y: 1 },
+          { x: 9, y: 6 },
+          { x: 9.5, y: 2 },
+          { x: 10, y: 3 },
         ],
         dots: true,
         lineName: 'Южная нора',
@@ -1037,6 +1047,7 @@ export const LinearChartWithLimitedSteps = createStory(
           { x: 1, y: 5 },
           { x: 2, y: 4 },
           { x: 5, y: 10 },
+          { x: 10, y: 8 },
         ],
       },
       min: {
@@ -1046,6 +1057,11 @@ export const LinearChartWithLimitedSteps = createStory(
           { x: 3, y: 1 },
           { x: 4, y: 1 },
           { x: 5, y: 1 },
+          { x: 6, y: 1 },
+          { x: 7, y: 1 },
+          { x: 8, y: 1 },
+          { x: 9, y: 1 },
+          { x: 10, y: 1 },
         ],
       },
     }
@@ -1055,7 +1071,7 @@ export const LinearChartWithLimitedSteps = createStory(
         lines={lines}
         gridConfig={gridConfig}
         threshold={threshold}
-        yDimensionUnit={'килограммы'}
+        unit={'килограммы'}
         limitMinimumStepSize={true}
       />
     )

@@ -1,37 +1,15 @@
 .cw--LegendItem {
-  &-Main {
-    display: inline-flex;
+  --dot-size: 12px;
 
-    &_position {
-      &_top {
-        flex-direction: column;
+  display: inline-flex;
+  align-items: baseline;
 
-        .cw--LegendItem-Sign {
-          margin-bottom: var(--space-2xs);
-        }
-      }
-
-      &_left {
-        align-items: baseline;
-
-        .cw--LegendItem-Sign {
-          margin-right: var(--space-xs);
-
-          &_type_line {
-            vertical-align: middle;
-          }
-        }
-      }
-    }
-
-    &_fontSize {
-      &_xs,
-      &_s {
-        .cw--LegendItem-Sign_type {
-          &_icon,
-          &_dot {
-            margin-bottom: -1px;
-          }
+  &_size {
+    &_xs,
+    &_s {
+      .cw--LegendItem-Sign_icon {
+        &_dot {
+          margin-bottom: -1px;
         }
       }
     }
@@ -39,38 +17,58 @@
 
   &-SignWrapper {
     line-height: 0;
+
+    &_custom {
+      align-self: center;
+    }
   }
 
-  &-Sign {
+  &-Sign,
+  .Icon {
     display: inline-block;
 
-    &_type {
-      &_icon {
-        margin-bottom: -3px;
+    margin-right: var(--space-xs);
 
-        vertical-align: baseline;
-      }
-
+    &_icon {
       &_dot {
+        width: var(--dot-size);
+        height: var(--dot-size);
+
         vertical-align: baseline;
 
         border-radius: 100%;
+
+        /* Задаются через js */
+        background: var(--icon-color);
       }
 
       &_line {
         width: 20px;
         height: 2px;
-      }
-    }
 
-    &_isBold {
-      height: 4px;
+        vertical-align: middle;
+
+        /* Задаётся через js */
+        background: var(--icon-color);
+      }
+
+      &_lineBold {
+        width: 20px;
+        height: 4px;
+
+        vertical-align: middle;
+
+        /* Задаётся через js */
+        background: var(--icon-color);
+      }
+
+      &_gap {
+        width: var(--dot-size);
+      }
     }
   }
 
   &-Text {
-    display: inline-block;
-
     &_isSeparating {
       display: -webkit-box;
       -webkit-line-clamp: 2;

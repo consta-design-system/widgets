@@ -20,10 +20,10 @@ import {
 
 ## Маркеры и подписи
 
-Список маркеров и подписей к ним задается в объекте `data`:
+Список маркеров и подписей к ним задается в объекте `items`:
 
-- в `color` указывается цвет маркера,
-- в `text` — расшифровка, что значит на графике этот цвет.
+- в `getItemColor` указывается метод определения цвета маркера,
+- в `getItemLabel` — метод-расшифровка, что значит на графике этот цвет.
 
 Начните подпись с заглавной буквы, точка не нужна.
 
@@ -34,7 +34,7 @@ import {
 ```tsx
 <Legend
   direction="column"
-  data={[
+  items={[
     {
       color: 'var(--color-bg-alert)',
       text: 'Эта линия красивая красная',
@@ -52,9 +52,10 @@ import {
       text: 'Эта линия зеленая',
     },
   ]}
-  fontSize="s"
-  labelType="dot"
-  labelPosition="left"
+  getItemLabel={item => item.text}
+  getItemColor={item => item.color}
+  size="s"
+  icon="dot"
 />
 ```
 
@@ -74,53 +75,52 @@ import {
 
 ## Размер подписи
 
-За размер подписи отвечает свойство `fontSize`. Варианты: `'xs'`, `'s'`, `'m'`.
+За размер подписи отвечает свойство `size`. Варианты: `'xs'`, `'s'`, `'m'`.
 
 <LegendExampleSize />
 
 ```tsx
 <Legend
-  fontSize="xs"
-  data={[
+  size="xs"
+  items={[
     {
       color: 'var(--color-bg-alert)',
       text: 'Надпись XS',
     },
   ]}
-  labelType="dot"
-  labelPosition="left"
+  icon="dot"
+  getItemLabel={item => item.text}
+  getItemColor={item => item.color}
 />
 ```
 
 ## Типы маркеров
 
-За тип маркеров отвечает свойство `labelType`. Варианты: `'dot'`, `'line'`, `'warning'`.
+За тип маркеров отвечает свойство `icon`. Варианты: `'dot'`, `'line'`, `'lineBold'`, `'gap'`.
+Вы также можете использовать в качестве маркера иконку, передав этому свойству значение иконки.
 
 <LegendExampleType />
 
-У `line` есть модификаторы:
-
-- чтобы сделать полоску толще, добавьте `lineBold`,
-- чтобы расположить полоску сверху от надписи, используйте `labelPosition = 'top'`.
-  В остальных случаях указывайте `labelPosition = 'left'`
-
-<LegendExampleTypeLine />
-
 ## Свойства
+
+```tsx
+type Icon = 'dot' | 'line' | 'lineBold' | 'gap' | React.FC<IconProps>
+```
 
 <!-- props:start -->
 
-| Свойство                          | Тип                                    | По умолчанию | Описание                                                         |
-| --------------------------------- | -------------------------------------- | ------------ | ---------------------------------------------------------------- |
-| [`data`](#маркеры-и-подписи)      | `Item[]`                               | -            | Объект с данными для легенды, цвет маркера и текст к нему        |
-| [`direction`](#расположение)      | `'column'`, `'row'`                    | -            | Расположение легенды: в столбик или на одной строке.             |
-| [`fontSize`](#размер-подписи)     | `'xs',`'s'`,`'m'` | - | Размер подписи |
-| [`labelType`](#типы-маркеров)     | `'dot'`, `'line'`, `'warning'`         | -            | Тип маркера                                                      |
-| [`lineBold?`](#типы-маркеров)     | `boolean`                              | `false`      | Толщина маркера для `labelType = line`                           |
-| [`labelPosition`](#типы-маркеров) | `'left'`, `'top'`                      | -            | Расположение маркера относительно подписи для `labelType = line` |
-| `title?`                          | `React.ReactNode`                      | -            | Заголовок                                                        |
-| `onItemMouseEnter?`               | `(item: Item) => void`                 | -            | Действие при наведении курсора на элемент                        |
-| `onItemMouseLeave?`               | `(item: Item) => void`                 | -            | Действие при выходе курсора за границы элемента                  |
+| Свойство                          | Тип                                       | По умолчанию | Описание                                                         |
+| --------------------------------- | ----------------------------------------- | ------------ | ---------------------------------------------------------------- |
+| [`items`](#маркеры-и-подписи)     | `Item[]`                                  | -            | Объект с данными для легенды, цвет маркера и текст к нему        |
+| [`direction`](#расположение)      | `'column'`, `'row'`                       | -            | Расположение легенды: в столбик или на одной строке.             |
+| [`size`](#размер-подписи)         | `'xs',`'s'`,`'m'`                         | -            | Размер подписи                                                   |
+| [`icon?`](#типы-маркеров)         | `Icon`                                    | `'dot'`      | Тип маркера                                                      |
+| `title?`                          | `React.ReactNode`                         | -            | Заголовок                                                        |
+| `getItemLabel`                    | `(item: Item) => string`                  | -            | Метод для получения текста к маркеру                             |
+| `getItemColor`                    | `(item: Item) => string`                  | -            | Метод для получения цвета маркера                                |
+| `onItemMouseEnter?`               | `(item: Item) => void`                    | -            | Действие при наведении курсора на элемент                        |
+| `onItemMouseLeave?`               | `(item: Item) => void`                    | -            | Действие при выходе курсора за границы элемента                  |
+| `onItemClick?`                    | `(item: Item) => void`                    | -            | Действие при клике на элемент                                    |
 
 ## Примеры
 
@@ -131,7 +131,7 @@ import { Legend } from '@consta/widgets/Legend'
 const App = () => {
   return (
     <Legend
-      data={[
+      items={[
         {
           color: 'var(--color-bg-alert)',
           text: 'Пункт раз',
@@ -146,9 +146,10 @@ const App = () => {
         },
       ]}
       direction="column"
-      fontSize="s"
-      labelType="dot"
-      labelPosition="left"
+      size="s"
+      icon="dot"
+      getItemLabel={item => item.text}
+      getItemColor={item => item.color}
     />
   )
 }

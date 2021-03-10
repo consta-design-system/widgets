@@ -7,12 +7,8 @@ import * as _ from 'lodash'
 
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
-import { Direction as LegendDirection, Items as LegendItems, Legend } from '@/Legend/Legend'
-import {
-  LabelPosition as LegendLabelPosition,
-  LabelType as LegendType,
-  Size as LegendSize,
-} from '@/LegendItem/LegendItem'
+import { Direction as LegendDirection, Legend } from '@/Legend/Legend'
+import { IconType as LegendIcon, Size as LegendSize } from '@/LegendItem/LegendItem'
 import {
   flipPointsOnAxes,
   getDomainWithLimits,
@@ -70,6 +66,12 @@ export type Line = {
     }
 )
 
+export type LegendItem = {
+  text: string
+  color: string
+}
+export type LegendItems = readonly LegendItem[]
+
 type ThresholdLine = {
   name?: string
   label?: string
@@ -83,6 +85,10 @@ export type Threshold = {
 export type HoveredMainValue = number | undefined
 export type HoveredDotValue = NotEmptyItem | undefined
 
+type LinearChartCSSCustomProperty = {
+  '--hover-width': string
+}
+
 type LegendProps = {
   items: LegendItems
   position?: LegendPosition
@@ -94,7 +100,7 @@ type Props = {
   gridConfig: GridConfig
   threshold?: Threshold
   legend?: LegendProps
-  yDimensionUnit?: string
+  unit?: string
   yLabelsShowInPercent?: boolean
   xLabelsShowVertical?: boolean
   xHideFirstLabel?: boolean
@@ -118,21 +124,12 @@ type State = {
   yGuideValue: number
 }
 
-const DOT_SIZE = 5
+const DOT_SIZE = 6
 const SCROLL_OFFSET = 38
 const MIN_STEP_SIZE = 30
+const DEFAULT_STEP_SIZE = 50
 const TRANSITION_SIZE = 600
-
-// const positionLegendClass = {
-//   top: css.legendTop,
-//   bottom: css.legendBottom,
-// }
-//
-// const alignLegendClass = {
-//   left: css.legendLeft,
-//   center: css.legendCenter,
-//   right: css.legendRight,
-// }
+const SHADOW_WIDTH = 20
 
 export const domainPaddings = {
   top: 0.055,
@@ -145,7 +142,7 @@ export const LinearChart: React.FC<Props> = props => {
   const {
     lines,
     gridConfig,
-    yDimensionUnit,
+    unit,
     yLabelsShowInPercent = false,
     xLabelsShowVertical = false,
     xHideFirstLabel = false,
@@ -171,7 +168,9 @@ export const LinearChart: React.FC<Props> = props => {
   })
   const [hoveredMainValue, setHoveredMainValue] = React.useState<HoveredMainValue>(undefined)
   const [hoveredDotValue, setHoveredDotValue] = React.useState<HoveredDotValue>(undefined)
+  const [showLeftShadow, setShowLeftShadow] = React.useState<boolean>(false)
   const ref = React.createRef<HTMLDivElement>()
+  const wrapperRef = React.useRef<HTMLDivElement>(null)
   const svgWrapperRef = React.useRef<SVGSVGElement>(null)
   const paddingTransitionEl = {} as Element
   const uid = useUID()
@@ -281,13 +280,15 @@ export const LinearChart: React.FC<Props> = props => {
     const xGridTickValues = getMainTickValues({
       items: getAllValues(),
       domain: xDomain,
-      ticksCount: xGridTicks ?? Math.round(svgWidth / 50),
+      ticksCount: limitMinimumStepSize
+        ? _.uniqBy(getAllValues(), 'x').length
+        : xGridTicks ?? Math.round(svgWidth / DEFAULT_STEP_SIZE),
     })
 
     const yGridTickValues = getSecondaryTickValues({
       items: getAllValues(),
       domain: yDomain,
-      ticksCount: yGridTicks ?? Math.round(svgHeight / 50),
+      ticksCount: yGridTicks ?? Math.round(svgHeight / DEFAULT_STEP_SIZE),
     })
 
     return {
@@ -376,10 +377,15 @@ export const LinearChart: React.FC<Props> = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const { xDomain, yDomain } = state
+  const { xDomain, yDomain, paddingX } = state
   const { svgWidth, svgHeight } = getSvgSize()
   const { xGridTickValues, yGridTickValues } = getTicks()
-  const widthWithLimitedStep = svgWidth + xGridTickValues.length * MIN_STEP_SIZE
+  const withScroll = limitMinimumStepSize && xGridTickValues.length * DEFAULT_STEP_SIZE > svgWidth
+  const [showRightShadow, setShowRightShadow] = React.useState<boolean>(false)
+  const widthWithLimitedStep = withScroll
+    ? svgWidth + xGridTickValues.length * MIN_STEP_SIZE
+    : svgWidth
+  const graphWithScrollHeight = svgHeight + UNIT_Y_MARGIN + SCROLL_OFFSET
   const scaleX = getXScale(xDomain, limitMinimumStepSize ? widthWithLimitedStep : svgWidth)
   const scaleY = getYScale(yDomain, svgHeight)
   const lineClipPath = `url(#${lineClipId})`
@@ -389,13 +395,47 @@ export const LinearChart: React.FC<Props> = props => {
   const legendAlign = legend?.align || 'center'
   const legendProps = {
     direction: 'row' as LegendDirection,
-    type: 'dot' as LegendType,
+    icon: 'dot' as LegendIcon,
     size: 's' as LegendSize,
-    labelPosition: 'left' as LegendLabelPosition,
+  }
+  const hoverWidth = Math.floor(
+    (limitMinimumStepSize ? widthWithLimitedStep : svgWidth) / (xGridTickValues.length * 2)
+  )
+  const linearChartStyle: React.CSSProperties & LinearChartCSSCustomProperty = {
+    '--hover-width': `${hoverWidth}px`,
+  }
+
+  React.useEffect(() => {
+    setShowRightShadow(withScroll)
+  }, [withScroll])
+
+  const handleScroll = () => {
+    const { left: wrapperLeft, right: wrapperRight } = wrapperRef.current!.getBoundingClientRect()
+    const { left: svgLeft, right: svgRight } = svgWrapperRef.current!.getBoundingClientRect()
+
+    if (svgLeft < wrapperLeft) {
+      setShowLeftShadow(true)
+    } else {
+      setShowLeftShadow(false)
+    }
+
+    if (svgRight > wrapperRight) {
+      setShowRightShadow(true)
+    } else {
+      setShowRightShadow(false)
+    }
   }
 
   return (
-    <div className={cnLinearChart()}>
+    <div
+      className={cnLinearChart()}
+      style={{
+        ...linearChartStyle,
+        ['--shadow-width' as string]: `${SHADOW_WIDTH}px`,
+        ['--shadow-height' as string]: `${graphWithScrollHeight}px`,
+        ['--shadow-left-offset' as string]: `${paddingX}px`,
+      }}
+    >
       <LineTooltip
         lines={lines}
         scaleX={scaleX}
@@ -410,11 +450,16 @@ export const LinearChart: React.FC<Props> = props => {
       />
       {legend && (
         <div className={cnLinearChart('Legend', { legendPosition, legendAlign })}>
-          <Legend items={legend.items} {...legendProps} />
+          <Legend
+            items={legend.items}
+            {...legendProps}
+            getItemLabel={item => item.text}
+            getItemColor={item => item.color}
+          />
         </div>
       )}
       <div ref={ref} className={cnLinearChart('Graph')}>
-        {limitMinimumStepSize && (
+        {withScroll && (
           <svg
             className={cnLinearChart('Svg')}
             width={svgWidth}
@@ -431,7 +476,7 @@ export const LinearChart: React.FC<Props> = props => {
               }}
               xGridTickValues={xGridTickValues}
               yGridTickValues={yGridTickValues}
-              yDimensionUnit={yDimensionUnit}
+              yDimensionUnit={unit}
               yLabelsShowInPercent={yLabelsShowInPercent}
               xLabelsShowVertical={xLabelsShowVertical}
               xHideFirstLabel={xHideFirstLabel}
@@ -442,22 +487,24 @@ export const LinearChart: React.FC<Props> = props => {
           </svg>
         )}
         <div
+          ref={wrapperRef}
           style={{
             width: svgWidth,
-            height: svgHeight + UNIT_Y_MARGIN + SCROLL_OFFSET,
+            height: withScroll ? graphWithScrollHeight : svgHeight,
             paddingTop: UNIT_Y_MARGIN,
           }}
-          className={cnLinearChart('Wrapper', { isVisible: !limitMinimumStepSize }, ['Svg'])}
+          className={cnLinearChart('Wrapper', { isVisible: !withScroll }, ['Svg'])}
+          onScroll={handleScroll}
         >
           <svg
             ref={svgWrapperRef}
             className={cnLinearChart('Svg')}
-            width={limitMinimumStepSize ? widthWithLimitedStep : svgWidth}
+            width={withScroll ? widthWithLimitedStep : svgWidth}
             height={svgHeight}
-            style={limitMinimumStepSize ? { left: 0 } : { top: UNIT_Y_MARGIN }}
+            style={withScroll ? { left: 0 } : { top: UNIT_Y_MARGIN }}
           >
             <Frame
-              width={limitMinimumStepSize ? widthWithLimitedStep : svgWidth}
+              width={withScroll ? widthWithLimitedStep : svgWidth}
               height={svgHeight}
               gridConfig={gridConfig}
               scales={{
@@ -466,13 +513,13 @@ export const LinearChart: React.FC<Props> = props => {
               }}
               xGridTickValues={xGridTickValues}
               yGridTickValues={yGridTickValues}
-              yDimensionUnit={yDimensionUnit}
+              yDimensionUnit={unit}
               yLabelsShowInPercent={yLabelsShowInPercent}
               xLabelsShowVertical={xLabelsShowVertical}
               xHideFirstLabel={xHideFirstLabel}
               formatValueForLabel={formatValueForLabel}
               onFrameSizeChange={onFrameSizeChange}
-              hideYLabels={limitMinimumStepSize}
+              hideYLabels={withScroll}
             />
 
             {tooltipVariant === tooltipVariants[0] ? (
@@ -544,6 +591,15 @@ export const LinearChart: React.FC<Props> = props => {
             })}
           </svg>
         </div>
+        {showLeftShadow && (
+          <div className={cnLinearChart('Shadow', { left: true })} style={{ top: UNIT_Y_MARGIN }} />
+        )}
+        {showRightShadow && (
+          <div
+            className={cnLinearChart('Shadow', { right: true })}
+            style={{ top: UNIT_Y_MARGIN }}
+          />
+        )}
       </div>
     </div>
   )

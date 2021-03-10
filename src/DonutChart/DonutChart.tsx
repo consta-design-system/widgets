@@ -38,9 +38,10 @@ export const DonutChart = forwardRef<HTMLDivElement, Props>((props, ref) => {
           <Legend
             items={legendItems}
             direction={legendPosition === 'right' || legendPosition === 'left' ? 'column' : 'row'}
-            labelPosition="left"
             size="m"
-            type="dot"
+            icon="dot"
+            getItemColor={item => item.color}
+            getItemLabel={item => item.text}
           />
         </div>
       )}

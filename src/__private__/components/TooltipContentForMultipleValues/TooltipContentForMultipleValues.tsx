@@ -64,13 +64,15 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
           return (
             <React.Fragment key={idx}>
               <LegendItem
-                type={_.isNumber(value) ? 'dot' : 'warning'}
+                label={name ?? newFormattedValue}
+                icon={_.isNumber(value) ? 'dot' : undefined}
                 color={color}
                 size="xs"
-                className={cnTooltipContent('LegendItem', { isSingleColumn: !name })}
-              >
-                {name ?? newFormattedValue}
-              </LegendItem>
+                className={cnTooltipContent('LegendItem', {
+                  isSingleColumn: !name,
+                  withPadding: !color,
+                })}
+              />
               {name && (
                 <Text as="span" size="xs" weight="bold" view="primary">
                   {newFormattedValue}
