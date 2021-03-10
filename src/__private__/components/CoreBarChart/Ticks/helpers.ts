@@ -32,3 +32,13 @@ export const getTextAlign = ({
 
   return undefined
 }
+
+export const getXAxisLabelsSlanted = (isHorizontal: boolean, isXAxisLabelsSlanted?: boolean) => {
+  if (isXAxisLabelsSlanted && !isHorizontal) {
+    return 'left'
+  } else if (isXAxisLabelsSlanted && isHorizontal) {
+    return 'bottom'
+  } else {
+    return ''
+  }
+}

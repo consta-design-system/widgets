@@ -16,6 +16,7 @@ type Props = {
   height: number
   xGridGuide?: number
   yGridGuide?: number
+  showGuide?: boolean
 }
 
 export const Grid: React.FC<Props> = ({
@@ -27,37 +28,64 @@ export const Grid: React.FC<Props> = ({
   height,
   xGridGuide,
   yGridGuide,
-}) => (
-  <g className={cnGrid('Main')}>
-    {xTickValues.map(tick => {
-      const x = scalerX.scale(tick)
-      const isGuide = xGridGuide && tick === xGridGuide
-
-      return (
-        <line
-          key={tick}
-          className={cnGrid('Line', { guide: isGuide })}
-          x1={x}
-          x2={x}
-          y1={0}
-          y2={height}
-        />
-      )
-    })}
-    {yTickValues.map(tick => {
-      const y = scalerY.scale(tick)
-      const isGuide = yGridGuide && tick === yGridGuide
-
-      return (
-        <line
-          key={tick}
-          className={cnGrid('Line', { guide: isGuide })}
-          x1={0}
-          x2={width}
-          y1={y}
-          y2={y}
-        />
-      )
-    })}
-  </g>
-)
+  showGuide,
+}) => {
+  return (
+    <g className={cnGrid('Main')}>
+      {xTickValues.map(tick => {
+        const x = scalerX.scale(tick)
+        const isGuide = xGridGuide && tick === xGridGuide
+        if (tick === 0 && showGuide) {
+          return (
+            <line
+              key={tick}
+              className={cnGrid('Line', { guide: isGuide })}
+              x1={0}
+              x2={0}
+              y1={0}
+              y2={0}
+            />
+          )
+        } else {
+          return (
+            <line
+              key={tick}
+              className={cnGrid('Line', { guide: isGuide })}
+              x1={x}
+              x2={x}
+              y1={0}
+              y2={height}
+            />
+          )
+        }
+      })}
+      {yTickValues.map(tick => {
+        const y = scalerY.scale(tick)
+        const isGuide = yGridGuide && tick === yGridGuide
+        if (tick === 0 && showGuide) {
+          return (
+            <line
+              key={tick}
+              className={cnGrid('Line', { guide: isGuide })}
+              x1={0}
+              x2={0}
+              y1={0}
+              y2={0}
+            />
+          )
+        } else {
+          return (
+            <line
+              key={tick}
+              className={cnGrid('Line', { guide: isGuide })}
+              x1={0}
+              x2={width}
+              y1={y}
+              y2={y}
+            />
+          )
+        }
+      })}
+    </g>
+  )
+}

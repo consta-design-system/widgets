@@ -17,17 +17,14 @@
         .cw--LegendItem-Sign {
           margin-right: var(--space-xs);
 
-          &_type {
-            &_line,
-            &_lineBold {
-              vertical-align: middle;
-            }
+          &_type_line {
+            vertical-align: middle;
           }
         }
       }
     }
 
-    &_size {
+    &_fontSize {
       &_xs,
       &_s {
         .cw--LegendItem-Sign_type {
@@ -64,15 +61,16 @@
         width: 20px;
         height: 2px;
       }
+    }
 
-      &_lineBold {
-        width: 20px;
-        height: 4px;
-      }
+    &_isBold {
+      height: 4px;
     }
   }
 
   &-Text {
+    display: inline-block;
+
     &_isSeparating {
       display: -webkit-box;
       -webkit-line-clamp: 2;

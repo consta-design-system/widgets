@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { Text } from '@consta/uikit/Text'
 import { object, text } from '@storybook/addon-knobs'
 import { withSmartKnobs } from 'storybook-addon-smart-knobs'
 
@@ -15,11 +14,11 @@ const getCommonProps = (initialUnit: string) => {
   const unit = text('unit', initialUnit)
 
   return {
-    gridTicks: 4,
-    valuesTicks: 1,
     unit,
     isHorizontal: false,
-    withScroll: false,
+    showGuide: true,
+    showGroupsLabels: true,
+    showGrid: true,
     formatValueForTooltip: (v: number) => `${v} ${unit}`,
   } as const
 }
@@ -72,25 +71,6 @@ export const WithThreshold = createStory(
     />
   ),
   { name: 'с предельным значением' }
-)
-
-export const WithTitle = createStory(
-  () => {
-    return (
-      <StackedBarChart
-        {...getCommonProps(interactiveData.unit)}
-        groups={interactiveData.groups}
-        title={
-          <Text as="div" view="primary" size="m">
-            {text('title', 'Заголовок')}
-          </Text>
-        }
-      />
-    )
-  },
-  {
-    name: 'с заголовком',
-  }
 )
 
 export default createMetadata({

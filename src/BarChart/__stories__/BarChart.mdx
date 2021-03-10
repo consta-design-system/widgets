@@ -65,7 +65,7 @@ import {
 
 За единицы измерения отвечает свойство `unit`.
 
-| `isHorizontsl=true`         | `isHorizontsl=false`          |
+| `left`                      | `bottom`                      |
 | --------------------------- | ----------------------------- |
 | <BarChartExampleUnitLeft /> | <BarChartExampleUnitBottom /> |
 
@@ -73,35 +73,35 @@ import {
 
 За отображение частей каркаса отвечают параметры:
 - showGrid - отображение сетки;
-- showLineAtZero - отображение нулевой линии;
+- showGuide - отображение нулевой линии;
 - showGroupsLabels - отображение подписей на графике;
 
 Если скрыта нулевая линия, то сетка отображаться не будет.
 
 ```tsx
 showGrid = true,
-showLineAtZero = true,
+showGuide = true,
 showGroupsLabels = true
 ```
 <BarChartExampleFrameControlShowAll />
 
 ```tsx
 showGrid = false,
-showLineAtZero = true,
+showGuide = true,
 showGroupsLabels = true
 ```
 <BarChartExampleFrameControlHideGrid />
 
 ```tsx
 showGrid = true,
-showLineAtZero = false,
+showGuide = false,
 showGroupsLabels = true
 ```
 <BarChartExampleFrameControlHideLineAtZero />
 
 ```tsx
 showGrid = true,
-showLineAtZero = true,
+showGuide = true,
 showGroupsLabels = false
 ```
 <BarChartExampleFrameControlHideLabels />
@@ -109,18 +109,18 @@ showGroupsLabels = false
 ### Максимумы и минимумы на осях
 
 ```tsx
-minValueY = 1200,
-maxValueY = -500
+min = 1200,
+max = -500
 ```
 <BarChartExampleMinMaxY />
 
 ```tsx
-minValueY = -500
+min = -500
 ```
 <BarChartExampleMinY />
 
 ```tsx
-maxValueY = 1300
+max = 1300
 ```
 <BarChartExampleMaxY />
 
@@ -278,20 +278,22 @@ formatValueForTooltip={v => `${v} км`}
 | ------------------------------------------------------------| ------------------------------------------- | ------------ | --------------------------------------------------------------------------- |
 | [`groups`](#группы-и-столбцы)                               | [`Group[]`](#group)                         | -            | Группы значений                                                             |
 | [`colors`](#цвет-столцов)                                   | `string[]`                                  | -            | Цвета столбцов                                                              |
-| [`showValues?`](#значения-у-столбцов)                       | `boolean`                                   | -            | Показывать значения величины столбцов                                       |
+| [`showValues?`](#значения-у-столбцов)                       | `boolean`                                   | false        | Показывать значения величины столбцов                                       |
 | [`formatValueForLabel?`](#подписи-к-значениям)              | `(value: number) => string`                 | -            | Формат для подписи к делению                                                |
 | [`formatValueForTooltip?`](#тултип)                         | `(value: number) => string`                 | -            | Формат для вывода значения в тултипе                                        |
+| [`formatGroupName`](#подпись-для-категории)                 | `(value: string) => React.ReactNode`        | -            | Формат для подписи категории у деления                                      |
 | [`isXAxisLabelsSlanted?`](#группы-и-столбцы)                | `boolean`                                   | -            | Наклоняет подписи к столбцам вбок (работает только в вертикальных графиках) |
 | [`unit?`](#единицы-измерения)                               | `string`                                    | -            | Единицы измерения                                                           |
-| [`isHorizontal?`](#горизонтальный-или-вертикальный)         | `boolean`                                   | -            | Делает график горизонтальным                                                |
-| [`threshold?`](#предельные-значения)                        | [`Threshold`](#threshold)                   | -            | Предельные значения                                                         |
-| [`isEmptyColumnsHidden?`](#)                                | `boolean`                                   | -            | Прячет пустые столбцы                                                       |
-| [`showGrid?`](#отображение-сетки)                           | `boolean`                                   | -            | Отображает сетку                                                            |
-| [`showLineAtZero?`](#отображение-линии-в-нуле)              | `boolean`                                   | -            | Отображает линию в нуде                                                     |
-| [`showGroupsLabels?`](#отображение-подписей)                | `boolean`                                   | -            | Отображает подписи на сетке                                                 |
-| [`maxValueY?`](#максимальное-значение-оси-У)                | `number`                                    | -            | Устанавливает максимальное значение для оси У                               |             |
-| [`minValueY?`](#минимальное-значение-оси-У)                 | `number`                                    | -            | Устанавливает минимальное значение для оси У                                |
-| [`limitMinimumCategorySize?`](#минимальный-размер-категории)| `boolean`                                   | -            | Устанавливает минимальный размер шага категории                                |
+| [`isHorizontal?`](#горизонтальный-или-вертикальный)         | `boolean`                                   | false        | Делает график горизонтальным                                                |
+| [`threshold?`](#предельные-значения)                        | [`Threshold`](#threshold)                   | -            | Предельные значения                                                                   |
+| [`isEmptyColumnsHidden?`](#)                                | `boolean`                                   | -            | Прячет пустые столбцы                                                                |
+| [`showGrid?`](#отображение-сетки)                           | `boolean`                                   | true         | Отображает сетку                                                                     |
+| [`showGuide?`](#отображение-линии-в-нуле)                   | `boolean`                                   | true         | Отображает линию в нуде                                                              |
+| [`showGroupsLabels?`](#отображение-подписей)                | `boolean`                                   | true         | Отображает подписи на сетке                                                          |
+| [`max?`](#максимальное-значение-оси-У)                      | `number`                                    | -            | Устанавливает максимальное значение для оси У                                        |
+| [`min?`](#минимальное-значение-оси-У)                       | `number`                                    | -            | Устанавливает минимальное значение для оси У                                         |
+| [`limitMinimumStepSize?`](#минимальный-размер-категории)    | `boolean`                                   | -            | Устанавливает минимальный размер шага категории                                      |
+| [`gridTicks?`](#сетка)                                      | `number`                                    | -            | Количество делений, которые видны на графике. По умолчанию 1 деление на ~50 пикселей |
 
 ### Group
 
@@ -309,27 +311,28 @@ formatValueForTooltip={v => `${v} км`}
 ## Пример
 
 ```tsx
-import { BarChart } from '@consta/widgets/CoreBarChart'
-
 <BarChart
-  colors={[
-    'var(--color-bg-normal)',
-    'var(--color-bg-success)',
-  ]}
-  groups={[
-    {
-      groupName: 'Апрель',
-      values: [5, 15],
-    },
-    {
-      groupName: 'Май',
-      values: [7, 9],
-    },
-  ]}
-  threshold={value: 10}
-  isHorizontal
-  showValues
-  unit="тыс. м³"
-  formatValueForLabel={v => `${v} тыс. м³`}
+    colors={[
+      'var(--color-bg-normal)',
+      'var(--color-bg-success)',
+    ]}
+    groups={[
+      {
+        groupName: 'Апрель',
+        values: [5, 15],
+      },
+      {
+        groupName: 'Май',
+        values: [7, 9],
+      },
+    ]}
+    threshold={value: 10}
+    isHorizontal
+    showValues
+    showGrid
+    showGuide
+    showGroupsLabels
+    unit="тыс. м³"
+    formatValueForLabel={v => `${v} тыс. м³`}
 />
 ```

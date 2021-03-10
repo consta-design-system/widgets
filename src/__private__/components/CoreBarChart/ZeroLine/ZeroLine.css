@@ -9,6 +9,6 @@
   }
 
   &-Line {
-    stroke: var(--color-bg-normal);
+    stroke: var(--color-bg-border);
   }
 }

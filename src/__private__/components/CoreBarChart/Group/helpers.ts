@@ -23,23 +23,25 @@ export const getSections = ({
 }
 
 export const styleOrientation = (
-  column: number,
   isHorizontal: boolean,
   scaler: (column: number) => void,
-  gridDomain: NumberRange
+  gridDomain: NumberRange,
+  column?: number
 ) => {
-  if (column >= 0 && gridDomain[1] > 0) {
-    return !isHorizontal
-      ? { minHeight: `${scaler(gridDomain[1])}%`, maxWidth: '70%' }
-      : { minWidth: `${scaler(gridDomain[1])}%`, maxHeight: '70%' }
-  } else if (column <= 0 && gridDomain[0] < 0) {
-    return !isHorizontal
-      ? { minHeight: `${scaler(Math.abs(gridDomain[0]))}%`, maxWidth: '70%' }
-      : { minWidth: `${scaler(Math.abs(gridDomain[0]))}%`, maxHeight: '70%' }
-  } else {
-    return !isHorizontal
-      ? { minHeight: `${scaler(column)}%`, maxWidth: '70%' }
-      : { minWidth: `${scaler(column)}%`, maxHeight: '70%' }
+  if (column) {
+    if (column >= 0 && gridDomain[1] > 0) {
+      return !isHorizontal
+        ? { minHeight: `${scaler(gridDomain[1])}%`, maxWidth: '70%' }
+        : { minWidth: `${scaler(gridDomain[1])}%`, maxHeight: '70%' }
+    } else if (column <= 0 && gridDomain[0] < 0) {
+      return !isHorizontal
+        ? { minHeight: `${scaler(Math.abs(gridDomain[0]))}%`, maxWidth: '70%' }
+        : { minWidth: `${scaler(Math.abs(gridDomain[0]))}%`, maxHeight: '70%' }
+    } else {
+      return !isHorizontal
+        ? { minHeight: `${scaler(column)}%`, maxWidth: '70%' }
+        : { minWidth: `${scaler(column)}%`, maxHeight: '70%' }
+    }
   }
 }
 
@@ -80,12 +82,12 @@ export const scalerCommonColumnsGroups = (
   }
 }
 
-export const styleGroups = (isHorizontal: boolean, limitMinimumCategorySize: boolean) => {
-  if (!isHorizontal && limitMinimumCategorySize) {
-    return { minWidth: '30px', minHeight: '100%' }
-  } else if (isHorizontal && limitMinimumCategorySize) {
-    return { minHeight: '30px', minWidth: '100%' }
+export const getSizeGroupsLimit = (isHorizontal: boolean, limitMinimumStepSize: boolean) => {
+  if (!isHorizontal && limitMinimumStepSize) {
+    return 'vertical'
+  } else if (isHorizontal && limitMinimumStepSize) {
+    return 'horizontal'
   } else {
-    return {}
+    return ''
   }
 }

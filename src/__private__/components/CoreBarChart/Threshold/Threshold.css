@@ -5,15 +5,13 @@
   }
 
   &-Text {
-    font-size: 12px;
-    font-weight: 100;
-    stroke-width: 1;
-    stroke: rgba(246, 251, 253, 0.6);
+    font-size: var(--size-text-xs);
+    font-weight: 400;
+    fill: var(--color-bg-warning);
+    text-anchor: middle;
+    dominant-baseline: auto;
 
     &_horizontal {
-      text-anchor: middle;
-      dominant-baseline: auto;
-
       &_vertical {
         text-anchor: start;
         dominant-baseline: central;
