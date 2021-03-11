@@ -3,6 +3,7 @@ import React, { forwardRef, HTMLAttributes } from 'react'
 import { CoreDonutChart } from '@/__private__/components/CoreDonutChart'
 import {
   ArcDataItem,
+  ArcLabelSize,
   DonutDataItem,
   SortValue,
 } from '@/__private__/components/CoreDonutChart/helpers'
@@ -25,6 +26,7 @@ type Props = HTMLAttributes<HTMLDivElement> & {
   sums?: readonly number[]
   legendPosition?: LegendPosition
   showArcLabels?: boolean
+  arcLabelSize?: ArcLabelSize
   formatValue?: (value: string) => string
   formatLabel?: (label: string) => string
   formatValueForTooltip?: FormatValue
