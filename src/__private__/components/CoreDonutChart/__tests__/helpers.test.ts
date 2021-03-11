@@ -519,7 +519,7 @@ describe('getSvgOffset', () => {
     expect(received).toEqual({
       top: 20,
       right: 40,
-      bottom: 0,
+      bottom: 20,
       left: 40,
     })
   })
