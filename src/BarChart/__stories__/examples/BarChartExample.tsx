@@ -128,19 +128,6 @@ export const BarChartExampleShowValues = () => (
   </Example>
 )
 
-export const BarChartExampleOverflow = () => (
-  <Example>
-    <BarChart
-      formatValueForTooltip={v => `${v} км`}
-      colors={groupExampleDataOverflow.colors}
-      groups={groupExampleDataOverflow.groups}
-      isHorizontal={true}
-      unit="тыс. тонн"
-      showValues={true}
-    />
-  </Example>
-)
-
 export const BarChartExampleLableProcent = () => (
   <Example>
     <BarChart
@@ -264,6 +251,19 @@ export const BarChartExampleMaxY = () => (
       isHorizontal={false}
       unit="тыс. тонн"
       maxValueY={1300}
+    />
+  </Example>
+)
+
+export const BarChartExampleOverflow = () => (
+  <Example>
+    <BarChart
+      formatValueForTooltip={v => `${v} км`}
+      colors={groupExampleDataOverflow.colors}
+      groups={groupExampleDataOverflow.groups}
+      isHorizontal={false}
+      unit="тыс. тонн"
+      maxValueY={500}
     />
   </Example>
 )
