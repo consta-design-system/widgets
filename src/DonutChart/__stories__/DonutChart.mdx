@@ -155,6 +155,9 @@ formatValueForTooltip={v => `${v} км`}
 | `showArcLabels?`                    | `boolean`                                                | -                                            | Показывает или скрывает отображение подписей к дугам первой окружности                                                                      |
 | `formatArcLabel?`                   | `(item: ArcDataItem) => string`                          | `(item: ArcDataItem) => string`              | Метод форматирования подписей к дугам, позволяет настроить что выводить                                                                     |
 | `arcLabelSize?`                     | `'xs', 's'`                                              | `'s'`                                        | Размер подписей к дугам                                                                                                                     |
+| `onClick?`                          | `MouseEventHandler`                                      | -                                            | Обработчик нажатия по графику                                                                                                               |
+| `onClickPie?`                       | `(items: readonly ArcDataItem[]) => void`                | -                                            | Обработчик нажатия для кольца графика                                                                                                       |
+| `onClickArc?`                       | `(item: ArcDataItem) => void`                            | -                                            | Обработчик нажатия для дуги графика                                                                                                         |
 
 ### DonutData
 

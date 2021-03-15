@@ -1,4 +1,11 @@
-import React, { CSSProperties, useEffect, useMemo, useRef, useState } from 'react'
+import React, {
+  CSSProperties,
+  MouseEventHandler,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
 import { useComponentSize } from '@consta/uikit/useComponentSize'
 import { Position } from '@consta/uikit/Popover'
@@ -40,7 +47,11 @@ import {
 } from './helpers'
 import './CoreDonutChart.css'
 import { CoreDonutChartLabels } from './CoreDonutChartLabels/CoreDonutChartLabels'
-import { CoreDonutChartPie } from './CoreDonutChartPie/CoreDonutChartPie'
+import {
+  CoreDonutChartPie,
+  HandlerClickArc,
+  HandlerClickPie,
+} from './CoreDonutChartPie/CoreDonutChartPie'
 import { CoreDonutChartText } from './CoreDonutChartText/CoreDonutChartText'
 
 const cnCoreDonutChart = cn('CoreDonutChart')
@@ -68,6 +79,9 @@ export type Props = {
   formatValueForTooltip?: FormatValue
   formatArcLabel?: (item: ArcDataItem) => string
   filterTooltipItem?: (itemData: ArcDataItem) => boolean
+  onClick?: MouseEventHandler
+  onClickPie?: HandlerClickPie
+  onClickArc?: HandlerClickArc
 }
 
 export const CoreDonutChart: React.FC<Props> = ({
@@ -87,6 +101,9 @@ export const CoreDonutChart: React.FC<Props> = ({
   formatValueForTooltip,
   formatArcLabel = defaultFormatArcLabel,
   filterTooltipItem = () => true,
+  onClick,
+  onClickPie,
+  onClickArc,
 }) => {
   const [tooltipData, changeTooltipData] = useState<TooltipDataState>([])
   const [mousePosition, changeMousePosition] = useState<Position>()
@@ -183,7 +200,7 @@ export const CoreDonutChart: React.FC<Props> = ({
       : undefined
 
   return (
-    <div ref={ref} className={cnCoreDonutChart()} style={mainStyle}>
+    <div ref={ref} className={cnCoreDonutChart()} style={mainStyle} onClick={onClick}>
       {isTooltipVisible && (
         <Tooltip size="m" position={mousePosition} isInteractive={false}>
           <TooltipContentForMultipleValues
@@ -220,6 +237,8 @@ export const CoreDonutChart: React.FC<Props> = ({
               halfDonut={halfDonut}
               onMouseOver={handleMouseOver}
               onMouseOut={handleMouseOut}
+              onClickPie={onClickPie}
+              onClickArc={onClickArc}
             />
           ))}
         </g>

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { action } from '@storybook/addon-actions'
 import { boolean, object, select, text } from '@storybook/addon-knobs'
 
 import {
@@ -39,6 +40,9 @@ const getKnobs = (props: Partial<Props> = {}) => {
       ? defaultFormatArcLabel
       : (item: ArcDataItem) => String(item.value),
     sortValue: boolean('sortValue', true) ? defaultSortValue : null,
+    onClick: () => action('onClick')(),
+    onClickPie: action('onClickPie'),
+    onClickArc: action('onClickArc'),
   }
 }
 
