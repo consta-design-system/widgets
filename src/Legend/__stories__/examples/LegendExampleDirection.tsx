@@ -4,7 +4,12 @@ import { Example } from '@/__private__/storybook'
 
 import { Legend } from '../../Legend'
 
-const data = [
+type Item = {
+  color: string
+  text: string
+}
+
+const items: readonly Item[] = [
   {
     color: 'var(--color-bg-alert)',
     text: 'Пункт раз',
@@ -17,16 +22,30 @@ const data = [
     color: 'var(--color-bg-success)',
     text: 'Пункт три',
   },
-] as const
+]
 
 export const LegendExampleDirectionRow = () => (
   <Example>
-    <Legend direction="row" items={data} type="dot" size="s" labelPosition="left" />
+    <Legend
+      direction="row"
+      items={items}
+      icon="dot"
+      size="s"
+      getItemLabel={item => item.text}
+      getItemColor={item => item.color}
+    />
   </Example>
 )
 
 export const LegendExampleDirectionColumn = () => (
   <Example>
-    <Legend direction="column" items={data} type="dot" size="s" labelPosition="left" />
+    <Legend
+      direction="column"
+      items={items}
+      icon="dot"
+      size="s"
+      getItemLabel={item => item.text}
+      getItemColor={item => item.color}
+    />
   </Example>
 )

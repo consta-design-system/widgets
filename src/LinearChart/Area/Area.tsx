@@ -7,6 +7,7 @@ import { DirectionX, DirectionY } from '@/LinearChart/LinearChart'
 
 import { NotEmptyItem, ScaleLinear } from '../LinearChart'
 
+type AreaSign = 'positive' | 'negative' | 'default'
 type Props = {
   values: readonly NotEmptyItem[]
   color: string
@@ -72,19 +73,42 @@ export const Area: React.FC<Props> = ({
 }) => {
   const uid = useUID()
   const linearGradientId = `line_area_${uid}`
+  const flattenValues = values.map(v => v.y)
+  const getAreaSign = (): AreaSign => {
+    if (flattenValues.every(v => v >= 0)) {
+      return 'positive'
+    } else if (flattenValues.every(v => v <= 0)) {
+      return 'negative'
+    } else {
+      return 'default'
+    }
+  }
+  const maxValue = Math.max(...flattenValues)
+  const minValue = Math.min(...flattenValues)
+  const areaSign = getAreaSign()
+  const percentOffset =
+    areaSign === 'default' ? 100 - 100 / Math.abs((maxValue - minValue) / minValue) : undefined
   const area = d3
     .area<NotEmptyItem>()
     .x(({ x }) => scaleX(x))
     .y1(({ y }) => scaleY(y))
-    .y0(scaleY(areaBottom))
+    .y0(scaleY(areaSign !== 'negative' ? areaBottom : maxValue))
+
+  const renderGradient = () => {
+    return (
+      <linearGradient id={linearGradientId} {...getGradientDirection({ directionX, directionY })}>
+        <stop offset="0%" stopColor={color} stopOpacity={areaSign === 'negative' ? '0' : '0.4'} />
+        {areaSign === 'default' && (
+          <stop offset={`${percentOffset}%`} stopColor={color} stopOpacity="0" />
+        )}
+        <stop offset="100%" stopColor={color} stopOpacity={areaSign === 'positive' ? '0' : '0.4'} />
+      </linearGradient>
+    )
+  }
 
   return (
     <>
-      <linearGradient id={linearGradientId} {...getGradientDirection({ directionX, directionY })}>
-        <stop offset="0%" stopColor={color} stopOpacity="0.4" />
-        {/* <stop offset="50%" stopColor={color} stopOpacity="0" y={0} />*/} //TODO
-        <stop offset="100%" stopColor={color} stopOpacity="0" />
-      </linearGradient>
+      {renderGradient()}
       <path
         d={area([...values]) || undefined}
         style={{

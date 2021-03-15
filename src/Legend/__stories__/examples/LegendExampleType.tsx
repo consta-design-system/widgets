@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { IconWarning } from '@consta/uikit/IconWarning'
+
 import { Example } from '@/__private__/storybook'
 
 import { Legend } from '../../Legend'
@@ -8,7 +10,7 @@ export const LegendExampleType = () => (
   <Example>
     <Legend
       direction="column"
-      type="dot"
+      icon="dot"
       items={[
         {
           color: 'var(--color-bg-normal)',
@@ -16,11 +18,25 @@ export const LegendExampleType = () => (
         },
       ]}
       size="s"
-      labelPosition="left"
+      getItemColor={item => item.color}
+      getItemLabel={item => item.text}
     />
     <Legend
       direction="column"
-      type="line"
+      icon="gap"
+      items={[
+        {
+          color: 'var(--color-bg-normal)',
+          text: 'Маркер gap',
+        },
+      ]}
+      size="s"
+      getItemColor={item => item.color}
+      getItemLabel={item => item.text}
+    />
+    <Legend
+      direction="column"
+      icon="line"
       items={[
         {
           color: 'var(--color-bg-normal)',
@@ -28,19 +44,34 @@ export const LegendExampleType = () => (
         },
       ]}
       size="s"
-      labelPosition="left"
+      getItemColor={item => item.color}
+      getItemLabel={item => item.text}
     />
     <Legend
       direction="column"
-      type="warning"
+      icon="lineBold"
       items={[
         {
           color: 'var(--color-bg-normal)',
-          text: 'Маркер warning',
+          text: 'Маркер lineBold',
         },
       ]}
       size="s"
-      labelPosition="left"
+      getItemColor={item => item.color}
+      getItemLabel={item => item.text}
+    />
+    <Legend
+      direction="column"
+      icon={() => <IconWarning view="warning" size="s" />}
+      items={[
+        {
+          color: 'var(--color-bg-normal)',
+          text: 'Маркер <IconWarning />',
+        },
+      ]}
+      size="s"
+      getItemColor={item => item.color}
+      getItemLabel={item => item.text}
     />
   </Example>
 )
@@ -49,7 +80,7 @@ export const LegendExampleTypeLine = () => (
   <Example>
     <Legend
       direction="column"
-      type="line"
+      icon="line"
       items={[
         {
           color: 'var(--color-bg-success)',
@@ -57,11 +88,12 @@ export const LegendExampleTypeLine = () => (
         },
       ]}
       size="s"
-      labelPosition="left"
+      getItemColor={item => item.color}
+      getItemLabel={item => item.text}
     />
     <Legend
       direction="column"
-      type="lineBold"
+      icon="lineBold"
       items={[
         {
           color: 'var(--color-bg-success',
@@ -69,12 +101,12 @@ export const LegendExampleTypeLine = () => (
         },
       ]}
       size="s"
-      labelPosition="left"
+      getItemColor={item => item.color}
+      getItemLabel={item => item.text}
     />
     <Legend
       direction="column"
-      type="line"
-      labelPosition="top"
+      icon="line"
       items={[
         {
           color: 'var(--color-bg-success)',
@@ -82,6 +114,8 @@ export const LegendExampleTypeLine = () => (
         },
       ]}
       size="s"
+      getItemColor={item => item.color}
+      getItemLabel={item => item.text}
     />
   </Example>
 )

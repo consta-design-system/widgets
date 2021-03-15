@@ -10,7 +10,12 @@ import { NumberRange } from '@/__private__/utils/scale'
 import { Column, SectionItem } from '../Column/Column'
 import { TooltipData } from '../Tooltip/Tooltip'
 
-import { getSections, scalerCommonColumnsGroups, styleGroups, styleOrientation } from './helpers'
+import {
+  getSections,
+  getSizeGroupsLimit,
+  scalerCommonColumnsGroups,
+  styleOrientation,
+} from './helpers'
 import './Group.css'
 
 const cnGroup = cn('Group')
@@ -50,8 +55,7 @@ type Props = {
   style?: React.CSSProperties
   getNumberGridTicks: (length: number) => void
   gridDomain: NumberRange
-  limitMinimumCategorySize?: boolean
-  maxLabelSize: LabelSize
+  limitMinimumStepSize?: boolean
 }
 
 export const Group: React.FC<Props> = props => {
@@ -72,8 +76,7 @@ export const Group: React.FC<Props> = props => {
     onChangeLabelSize,
     getNumberGridTicks,
     gridDomain,
-    limitMinimumCategorySize = false,
-    maxLabelSize,
+    limitMinimumStepSize = false,
   } = props
   const ref = useRef<HTMLDivElement>(null)
   const { width, height } = useComponentSize(ref)
@@ -122,36 +125,32 @@ export const Group: React.FC<Props> = props => {
         onChangeLabelSize={onChangeLabelSize}
         maxNumberGroups={maxNumberGroups}
         gridDomain={gridDomain}
-        maxLabelSize={maxLabelSize}
       />
     )
   }
+
+  const sizeGroupsLimit = getSizeGroupsLimit(isHorizontal, limitMinimumStepSize)
+
   return (
-    <div
-      className={cnGroup('Groups', { isHorizontal })}
-      style={styleGroups(isHorizontal, limitMinimumCategorySize)}
-      ref={ref}
-    >
+    <div className={cnGroup('Groups', { isHorizontal, sizeGroupsLimit })} ref={ref}>
       <div className={cnGroup('Columns')}>
         <div
           className={cnGroup('Wrapper')}
-          style={styleOrientation(columnLength, isHorizontal, scalerColumnsGroups, gridDomain)}
+          style={styleOrientation(isHorizontal, scalerColumnsGroups, gridDomain, columnLength)}
         >
           {columns.map((column, index) => renderColumn(column, index))}
         </div>
-        {reversedColumnLength && (
-          <div
-            className={cnGroup('Wrapper')}
-            style={styleOrientation(
-              reversedColumnLength,
-              isHorizontal,
-              scalerColumnsGroups,
-              gridDomain
-            )}
-          >
-            {reversedColumns.map((column, index) => renderColumn(column, index, true))}
-          </div>
-        )}
+        <div
+          className={cnGroup('Wrapper')}
+          style={styleOrientation(
+            isHorizontal,
+            scalerColumnsGroups,
+            gridDomain,
+            reversedColumnLength
+          )}
+        >
+          {reversedColumns.map((column, index) => renderColumn(column, index, true))}
+        </div>
       </div>
     </div>
   )

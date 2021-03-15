@@ -6,6 +6,8 @@ import * as _ from 'lodash'
 
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
+import { formatForArray } from '@/__private__/utils/formatForArray'
+import { formatForValue } from '@/__private__/utils/formatForValue'
 import { ScaleLinear, TickValues } from '@/LinearChart/LinearChart'
 
 import { isInDomain } from '../helpers'
@@ -14,8 +16,8 @@ import './Frame.css'
 
 const cnFrame = cn('Frame')
 
-const TICK_PADDING = 15
-const X_TICK_OFFSET = 18
+const TICK_PADDING = 8
+const X_TICK_OFFSET = 15
 export const UNIT_Y_MARGIN = 8
 
 type GridConfigItem = {
@@ -155,7 +157,7 @@ export const Frame: React.FC<Props> = props => {
         getEl: () => xLabelsRef.current,
         direction: AxisDirections.bottom,
         scale: scaleX,
-        ticks: xGridTicks,
+        ticks: formatForArray([...xGridTicks]),
         classes: cnFrame('Labels', { isAxisX: true }),
         transform: `translateY(${height}px)`,
         values: xGridTickValues,
@@ -165,7 +167,7 @@ export const Frame: React.FC<Props> = props => {
         getEl: () => yLabelsRef.current,
         direction: AxisDirections.left,
         scale: scaleY,
-        ticks: yGridTicks,
+        ticks: formatForArray([...yGridTicks]),
         classes: cnFrame('Labels', { isAxisY: true }),
         transform: '',
         values: yGridTickValues,
@@ -208,8 +210,16 @@ export const Frame: React.FC<Props> = props => {
       >
       const axis = d3[labels.direction](labels.scale)
         .tickValues([...labels.values])
-        .tickPadding(labels.direction === AxisDirections.left ? TICK_PADDING : TICK_PADDING / 2)
-        .tickFormat(v => labels.formatLabel(v as number))
+        .tickPadding(TICK_PADDING / 2)
+        .tickFormat((v, index) => {
+          if (yLabelsShowInPercent && labels.direction === AxisDirections.left) {
+            return formatForValue(labels.formatLabel(v as number))
+          }
+          if (labels.direction === AxisDirections.left) {
+            return formatForArray([...yGridTickValues])[index]
+          }
+          return formatForArray([...xGridTickValues])[index]
+        })
 
       axisSelection
         .attr('class', labels.classes)
@@ -217,11 +227,11 @@ export const Frame: React.FC<Props> = props => {
         .call(axis)
         .selectAll('text')
         .style('text-anchor', (_datum, index, els) => {
-          if (labels.direction === 'axisBottom') {
-            if (index === 0) {
+          if (labels.direction === AxisDirections.bottom) {
+            if (hideYLabels && index === 0) {
               return 'start'
             }
-            if (index === els.length - 1) {
+            if (hideYLabels && index === els.length - 1) {
               return 'end'
             }
             return 'middle'
@@ -236,17 +246,17 @@ export const Frame: React.FC<Props> = props => {
           .selectAll('text')
           .style(
             'transform',
-            labels.direction === 'axisBottom' &&
+            labels.direction === AxisDirections.bottom &&
               `rotate(-90deg) translate3d(-${TICK_PADDING}px, -${X_TICK_OFFSET}px, 0)`
           )
-          .style('text-anchor', labels.direction === 'axisBottom' && 'end')
+          .style('text-anchor', labels.direction === AxisDirections.bottom && 'end')
 
       xHideFirstLabel &&
         axisSelection
           .call(axis)
           .selectAll('text')
           .style('visibility', (_datum, index) => {
-            if (labels.direction === 'axisBottom' && index === 0) {
+            if (labels.direction === AxisDirections.bottom && index === 0) {
               return 'hidden'
             } else {
               return ''
@@ -311,7 +321,7 @@ export const Frame: React.FC<Props> = props => {
   }, [])
 
   React.useEffect(() => {
-    onFrameSizeChange({ xAxisHeight, yAxisWidth })
+    onFrameSizeChange({ xAxisHeight: Math.floor(xAxisHeight), yAxisWidth: Math.floor(yAxisWidth) })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [xAxisHeight, yAxisWidth])
 

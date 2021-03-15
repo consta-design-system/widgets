@@ -171,3 +171,28 @@ export const DonutChartLegendLeft = () => (
     <DonutChart data={donutData.data} legendPosition="left" />
   </Example>
 )
+
+export const DonutChartWithArcLabels = () => (
+  <Example height="200px">
+    <DonutChart
+      data={[
+        {
+          name: 'Северный бур',
+          color: 'var(--color-bg-alert)',
+          values: [1],
+        },
+        {
+          name: 'Южный бур',
+          color: 'var(--color-bg-caution)',
+          values: [4],
+        },
+        {
+          name: 'Западный бур',
+          color: 'var(--color-bg-normal)',
+          values: [7],
+        },
+      ]}
+      showArcLabels
+    />
+  </Example>
+)

@@ -22,5 +22,15 @@ export const getTicks = (items: readonly number[], count: number) => {
       : [0, meanMaxValue, maxValue]
   }
 
+  if (count > 3) {
+    const ticksArray = ticks(minValue, maxValue, count)
+    const newTicksArray = ticksArray.slice(1, ticksArray.length - 1)
+    const newTicks: number[] = []
+
+    return isNegative
+      ? newTicks.concat(minValue, newTicksArray, maxValue)
+      : newTicks.concat(0, newTicksArray, maxValue)
+  }
+
   return ticks(minValue, maxValue, count)
 }

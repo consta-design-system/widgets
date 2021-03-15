@@ -41,6 +41,18 @@
         }
       }
     }
+
+    &_sizeGroupsLimit {
+      &_vertical {
+        min-width: 30px;
+        min-height: 100%;
+      }
+
+      &_horizontal {
+        min-width: 100%;
+        min-height: 30px;
+      }
+    }
   }
 
   &-Columns {

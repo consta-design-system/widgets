@@ -8,6 +8,7 @@
       &_top,
       &_bottom {
         width: 100%;
+        padding: var(--space-xs) 0 0 0;
       }
 
       &_right,
@@ -15,6 +16,7 @@
         flex-direction: column;
 
         height: 100%;
+        padding: 0 var(--space-xs) 0 0;
       }
     }
   }
@@ -50,44 +52,6 @@
         text-align: right;
       }
 
-      &_top .cw--Ticks-Line,
-      &_bottom .cw--Ticks-Line {
-        width: 1px;
-        height: 4px;
-      }
-
-      &_right .cw--Ticks-Line,
-      &_left .cw--Ticks-Line {
-        width: 4px;
-        height: 1px;
-      }
-
-      &_top .cw--Ticks-Line,
-      &_left .cw--Ticks-Line {
-        order: 1;
-      }
-
-      &_bottom .cw--Ticks-Line,
-      &_right .cw--Ticks-Line {
-        order: -1;
-      }
-
-      &_top .cw--Ticks-Line {
-        margin-top: var(var(--space-2xs));
-      }
-
-      &_bottom .cw--Ticks-Line {
-        margin-bottom: var(var(--space-2xs));
-      }
-
-      &_right .cw--Ticks-Line {
-        margin-right: var(var(--space-2xs));
-      }
-
-      &_left .cw--Ticks-Line {
-        margin-left: var(var(--space-2xs));
-      }
-
       &_right.cw--Ticks-Label,
       &_left.cw--Ticks-Label .cw--Ticks-Text {
         display: -webkit-box;
@@ -99,14 +63,6 @@
         text-overflow: ellipsis;
       }
     }
-  }
-
-  &-Line {
-    margin: var(--space-2xs);
-
-    color: var(--color-bg-border);
-    background-color: var(--color-bg-border);
-    size: 4px;
   }
 
   &-Label {
@@ -128,6 +84,7 @@
         justify-content: flex-end;
 
         max-width: 160px;
+        padding: 0 var(--space-xs) 0 0;
       }
 
       &_right {
@@ -135,27 +92,47 @@
       }
     }
 
-    &_isXAxisLabelsSlanted {
-      position: relative;
+    &_xAxisLabelsSlanted {
+      &_left {
+        position: relative;
 
-      .cw--Ticks-Text {
-        position: absolute;
-        top: 0;
-        right: 50%;
+        .cw--Ticks-Text {
+          position: absolute;
+          top: 50%;
 
-        overflow: hidden;
+          overflow: hidden;
 
-        min-height: 15px;
+          min-height: 15px;
 
-        white-space: pre;
+          white-space: pre;
 
-        transform: rotate(-55.81deg);
-        transform-origin: right center;
+          transform: rotate(-40deg);
+          transform-origin: right center;
+        }
+      }
+
+      &_bottom {
+        position: relative;
+
+        .cw--Ticks-Text {
+          position: absolute;
+
+          overflow: hidden;
+
+          min-height: 15px;
+          padding: var(--space-s) 0 0 0;
+
+          white-space: pre;
+
+          transform: rotate(-40deg);
+        }
       }
     }
   }
 
   &-Text {
+    white-space: nowrap;
+
     &:not(&_isHorizontal) {
       overflow: hidden;
 

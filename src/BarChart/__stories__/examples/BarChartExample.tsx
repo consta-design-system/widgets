@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { Example } from '@/__private__/storybook'
+import { BarChart } from '@/BarChart'
 
-import { BarChart } from '../..'
 import {
   groupExampleData,
   groupExampleDataOverflow,
@@ -165,7 +165,7 @@ export const BarChartExampleFrameControlShowAll = () => (
       unit="тыс. тонн"
       showGrid={true}
       showGroupsLabels={true}
-      showLineAtZero={true}
+      showGuide={true}
     />
   </Example>
 )
@@ -180,7 +180,7 @@ export const BarChartExampleFrameControlHideGrid = () => (
       unit="тыс. тонн"
       showGrid={false}
       showGroupsLabels={true}
-      showLineAtZero={true}
+      showGuide={true}
     />
   </Example>
 )
@@ -195,7 +195,7 @@ export const BarChartExampleFrameControlHideLineAtZero = () => (
       unit="тыс. тонн"
       showGrid={true}
       showGroupsLabels={true}
-      showLineAtZero={false}
+      showGuide={false}
     />
   </Example>
 )
@@ -210,7 +210,7 @@ export const BarChartExampleFrameControlHideLabels = () => (
       unit="тыс. тонн"
       showGrid={true}
       showGroupsLabels={false}
-      showLineAtZero={true}
+      showGuide={true}
     />
   </Example>
 )
@@ -223,8 +223,8 @@ export const BarChartExampleMinMaxY = () => (
       formatValueForTooltip={v => `${v}%`}
       isHorizontal={false}
       unit="тыс. тонн"
-      minValueY={-500}
-      maxValueY={1200}
+      min={-500}
+      max={1200}
     />
   </Example>
 )
@@ -237,7 +237,7 @@ export const BarChartExampleMinY = () => (
       formatValueForTooltip={v => `${v}%`}
       isHorizontal={false}
       unit="тыс. тонн"
-      minValueY={-500}
+      min={-500}
     />
   </Example>
 )
@@ -250,7 +250,7 @@ export const BarChartExampleMaxY = () => (
       formatValueForTooltip={v => `${v}%`}
       isHorizontal={false}
       unit="тыс. тонн"
-      maxValueY={1300}
+      max={1300}
     />
   </Example>
 )

@@ -1,6 +1,6 @@
-import { GroupItem as CoreGroup } from '@/__private__/components/CoreBarChart/Group/Group'
+import { GroupItem } from '@/__private__/components/CoreBarChart/Group'
+import { Group } from '@/BarChart'
 
-import { Group } from '../'
 import { transformGroupsToCommonGroups } from '../helpers'
 
 describe('transformGroupsToCoreGroups', () => {
@@ -14,7 +14,7 @@ describe('transformGroupsToCoreGroups', () => {
   it('преобразует CoreBarChart группы к основным группам', () => {
     const received = transformGroupsToCommonGroups(groups, ['red', 'blue', 'green'], false)
 
-    const expected: readonly CoreGroup[] = [
+    const expected: readonly GroupItem[] = [
       {
         name: 'март',
         columns: [
@@ -36,7 +36,7 @@ describe('transformGroupsToCoreGroups', () => {
   it('преобразует CoreBarChart группы к основным группам без пустых колонок при наличии соответствующего флага', () => {
     const received = transformGroupsToCommonGroups(groups, ['red', 'blue', 'green'], true)
 
-    const expected: readonly CoreGroup[] = [
+    const expected: readonly GroupItem[] = [
       {
         name: 'март',
         columns: [

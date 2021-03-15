@@ -9,6 +9,8 @@
     width: 100%;
     height: 100%;
 
+    white-space: nowrap;
+
     opacity: 0.3;
 
     &_isActive {
@@ -44,15 +46,19 @@
     &_direction {
       &_horizontal {
         .cw--Section-Overflow {
-          top: 40%;
+          top: 50%;
           right: 0;
+
+          padding-bottom: 1px;
+
+          transform: translate(0%, -50%) rotate(90deg);
         }
 
         .cw--Section-Label {
           top: 50%;
           right: 0;
 
-          padding-left: var(--space-2xs);
+          padding-left: var(--space-xs);
 
           transform: translate(100%, -50%);
         }
@@ -60,14 +66,17 @@
 
       &_horizontalReverse {
         .cw--Section-Overflow {
+          top: 50%;
           left: 0;
+
+          transform: translate(0%, -50%) rotate(-90deg);
         }
 
         .cw--Section-Label {
           top: 50%;
           left: 0;
 
-          padding-right: var(--space-2xs);
+          padding-right: var(--space-xs);
 
           transform: translate(-100%, -50%);
         }
@@ -77,13 +86,17 @@
         .cw--Section-Overflow {
           top: 0;
           left: 50%;
+
+          padding-bottom: var(--space-xs);
+
+          transform: translate(-50%, -270%) rotate(0deg);
         }
 
         .cw--Section-Label {
           top: 0;
           left: 50%;
 
-          padding-bottom: var(--space-3xs);
+          padding-bottom: var(--space-xs);
 
           transform: translate(-50%, -100%);
         }
@@ -93,13 +106,17 @@
         .cw--Section-Overflow {
           bottom: 0;
           left: 50%;
+
+          padding-top: var(--space-xs);
+
+          transform: translate(-50%, 290%) rotate(180deg);
         }
 
         .cw--Section-Label {
           bottom: 0;
           left: 50%;
 
-          padding-top: var(--space-2xs);
+          padding-top: var(--space-xs);
 
           transform: translate(-50%, 100%);
         }
@@ -109,11 +126,9 @@
 
   &-Label {
     position: absolute;
-    z-index: 1;
   }
 
   &-Overflow {
     position: absolute;
-    z-index: 999999;
   }
 }

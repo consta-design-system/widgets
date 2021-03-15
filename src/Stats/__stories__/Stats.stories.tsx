@@ -1,51 +1,74 @@
 import React from 'react'
 
 import { IconLightningBolt } from '@consta/uikit/IconLightningBolt'
-import { number, select, text } from '@storybook/addon-knobs'
+import { boolean, number, select, text } from '@storybook/addon-knobs'
 
 import { createMetadata, createStory, optionalSelect } from '@/__private__/storybook'
-import { FormatValue } from '@/__private__/types'
 import { numberFormatter } from '@/__private__/utils/formatters'
 
 import { Stats } from '..'
-import { FormatRate, iconsArrowRate, IconTitle, layouts, sizes, statuses } from '../helpers'
+import { iconsArrowRate, layouts, sizes, statuses } from '../helpers'
 
 import mdx from './Stats.mdx'
 
-const iconsTitleKeys = ['Без иконки', 'IconLightningBolt'] as const
-const iconsTitle: Record<typeof iconsTitleKeys[number], IconTitle | undefined> = {
-  'Без иконки': undefined,
-  IconLightningBolt,
+type Props = React.ComponentProps<typeof Stats> & {
+  showIconTitle?: boolean
 }
 
-const formattersKeys = ['По умолчанию', 'Без форматирования'] as const
-const formatsValue: Record<typeof formattersKeys[number], FormatValue> = {
-  'По умолчанию': numberFormatter,
-  'Без форматирования': String,
-}
-const formatsRate: Record<typeof formattersKeys[number], FormatRate> = {
-  'По умолчанию': numberFormatter,
-  'Без форматирования': String,
-}
-
-const getKnobs = () => {
+const getKnobs = (props: Partial<Props> = {}) => {
   return {
-    value: number('value', 2170),
-    placeholder: text('placeholder', '—'),
-    title: text('title', 'Молний за год'),
-    iconTitle: iconsTitle[select('iconTitle', iconsTitleKeys, iconsTitleKeys[0])],
-    unit: text('unit', 'разрядов'),
-    rate: text('rate', '20%'),
-    iconArrowRate: optionalSelect('iconArrowRate', iconsArrowRate),
-    status: select('status', statuses, statuses[0]),
-    layout: select('layout', layouts, layouts[0]),
-    size: select('size', sizes, sizes[3]),
-    formatValue: formatsValue[select('formatValue', formattersKeys, formattersKeys[0])],
-    formatRate: formatsRate[select('formatRate', formattersKeys, formattersKeys[0])],
+    value: number('value', props.value || 2170),
+    placeholder: text('placeholder', props.placeholder || '—'),
+    title: text('title', props.title ?? 'Молний за год'),
+    iconTitle: boolean('iconTitle', props.showIconTitle ?? false)
+      ? props.iconTitle ?? IconLightningBolt
+      : undefined,
+    unit: text('unit', props.unit ?? 'разрядов'),
+    rate: text('rate', props.rate ?? '20%'),
+    iconArrowRate: optionalSelect('iconArrowRate', iconsArrowRate, props.iconArrowRate),
+    status: select('status', statuses, props.status || statuses[0]),
+    layout: select('layout', layouts, props.layout || layouts[0]),
+    size: select('size', sizes, props.size || sizes[3]),
+    formatValue: boolean('formatValue', true) ? numberFormatter : String,
+    formatRate: boolean('formatRate', true) ? numberFormatter : String,
   }
 }
 
 export const Interactive = createStory(() => <Stats {...getKnobs()} />)
+
+export const WithIconTitle = createStory(() => <Stats {...getKnobs({ showIconTitle: true })} />, {
+  name: 'С иконкой в заголовке',
+})
+
+export const WithoutTitle = createStory(() => <Stats {...getKnobs({ title: '' })} />, {
+  name: 'Без заголовка',
+})
+
+export const WithoutUnit = createStory(() => <Stats {...getKnobs({ unit: '' })} />, {
+  name: 'Без единиц',
+})
+
+export const WithIconArrowRateUp = createStory(
+  () => <Stats {...getKnobs({ iconArrowRate: 'up' })} />,
+  {
+    name: 'С иконкой положительного показателя изменений',
+  }
+)
+
+export const WithIconArrowRateDown = createStory(
+  () => <Stats {...getKnobs({ iconArrowRate: 'down', status: 'error' })} />,
+  {
+    name: 'С иконкой отрицательного показателя изменений',
+  }
+)
+
+export const WithoutRate = createStory(() => <Stats {...getKnobs({ rate: '' })} />, {
+  name: 'Без показателя изменений',
+})
+
+export const ReversedLayout = createStory(() => <Stats {...getKnobs({ layout: 'reversed' })} />, {
+  name: 'С единицами справа',
+})
 
 export default createMetadata({
   title: 'Компоненты|/Stats',

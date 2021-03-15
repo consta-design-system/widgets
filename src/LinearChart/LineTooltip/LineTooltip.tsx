@@ -16,7 +16,6 @@ import {
   ScaleLinear,
   Threshold,
 } from '../LinearChart'
-import { THRESHOLD_COLOR } from '../Threshold/Threshold'
 
 type Props = {
   lines: readonly Line[]
@@ -83,7 +82,6 @@ export const LineTooltip: React.FC<Props> = props => {
           : 'Пороговое значение'
 
         return {
-          color: THRESHOLD_COLOR,
           name: thresholdLine.name || thresholdLine.label || defaultName,
           value: getSecondaryValue(item),
         }
