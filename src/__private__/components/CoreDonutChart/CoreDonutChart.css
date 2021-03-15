@@ -1,43 +1,14 @@
 .cw--CoreDonutChart {
   position: relative;
 
-  overflow: hidden;
-
   width: 100%;
-  min-width: var(--min-size, 0);
   height: 100%;
-  min-height: var(--min-size, 0);
+
+  &-Text {
+    position: absolute;
+  }
 
   &-Graph {
     position: absolute;
-
-    max-width: 100%;
-    max-height: 100%;
-
-    &:not(&_half_bottom) {
-      top: 0;
-    }
-
-    &:not(&_half_right) {
-      left: 0;
-    }
-
-    &_half_right {
-      right: 0;
-    }
-
-    &_half_bottom {
-      bottom: 0;
-    }
-
-    &_half_right,
-    &_half_left {
-      height: 100%;
-    }
-
-    &_half_top,
-    &_half_bottom {
-      width: 100%;
-    }
   }
 }

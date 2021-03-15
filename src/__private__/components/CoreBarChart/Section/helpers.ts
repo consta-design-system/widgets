@@ -1,5 +1,4 @@
 import { ColumnProperty } from '@/__private__/components/CoreBarChart/Column/Column'
-import { LabelSize } from '@/__private__/components/CoreBarChart/CoreBarChart'
 
 export const getSize = (
   length: number,
@@ -84,37 +83,20 @@ export const getRoundedBorder = (
 }
 
 export const getTriangle = (
-  color: string,
   isOverflow: boolean,
   direction: string,
-  maxLabelSize: LabelSize,
+  labelWidth: number | null,
   lastSection: boolean
 ) => {
-  if (isOverflow && lastSection) {
+  if (isOverflow && lastSection && labelWidth) {
     switch (direction) {
-      case 'vertical':
-        return {
-          border: '6px solid transparent',
-          borderBottom: `6px solid ${color}`,
-          transform: 'translate(-50%, -270%)',
-        }
-      case 'verticalReverse':
-        return {
-          border: '6px solid transparent',
-          borderTop: `6px solid ${color}`,
-          transform: 'translate(-50%, 290%)',
-        }
       case 'horizontal':
         return {
-          border: '6px solid transparent',
-          borderLeft: `6px solid ${color}`,
-          margin: `0 -${maxLabelSize.width + 15}px 0 0`,
+          margin: `0 -${labelWidth + 10}px 0 0`,
         }
       case 'horizontalReverse':
         return {
-          border: '6px solid transparent',
-          borderRight: `6px solid ${color}`,
-          margin: `0 0 0 -${maxLabelSize.width + 15}px`,
+          margin: `0 0 0 -${labelWidth + 10}px`,
         }
     }
   }
@@ -139,9 +121,9 @@ const getBackgroundOverflow = (color: string, direction: string, numberColumnSec
       case 'verticalReverse':
         return { background: `linear-gradient(to bottom, ${color} 95%, rgba(10,165,255,0) 100%)` }
       case 'horizontal':
-        return { background: `linear-gradient(to right, ${color} 95%, rgba(10,165,255,0) 100%)` }
+        return { background: `linear-gradient(to right, ${color} 98%, rgba(10,165,255,0) 100%)` }
       case 'horizontalReverse':
-        return { background: `linear-gradient(to left, ${color} 95%, rgba(10,165,255,0) 100%)` }
+        return { background: `linear-gradient(to left, ${color} 98%, rgba(10,165,255,0) 100%)` }
     }
   }
 }

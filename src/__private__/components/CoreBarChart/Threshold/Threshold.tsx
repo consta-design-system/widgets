@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { cn } from '@/__private__/utils/bem'
+import { formatForValue } from '@/__private__/utils/formatForValue'
 import { Scaler } from '@/__private__/utils/scale'
 
 import './Threshold.css'
@@ -35,27 +36,31 @@ const getPositionText = (value: number, isHorizontal: boolean) => {
   if (isHorizontal) {
     return {
       x: value,
-      y: '-5%',
+      y: '0',
+      dy: '-8px',
     }
   }
 
   return {
-    x: '102%',
+    x: '100%',
     y: value,
+    dx: '8px',
   }
 }
 
 export const Threshold: React.FC<Props> = ({ valuesScale, isHorizontal, value }) => {
   const scaledValue = valuesScale.scale(value)
-  const linePos = scaledValue && getLinePosition(scaledValue, isHorizontal)
-  const textPos = scaledValue && getPositionText(scaledValue, isHorizontal)
+  const linePos = getLinePosition(scaledValue, isHorizontal)
+  const textPos = getPositionText(scaledValue, isHorizontal)
   const horizontal = !isHorizontal ? 'vertical' : ''
+
+  const textValue = formatForValue(String(value))
 
   return (
     <>
       <line stroke={'var(--color-bg-warning)'} className={cnThreshold('Main')} {...linePos} />
       <text {...textPos} className={cnThreshold('Text', { horizontal })}>
-        {value}
+        {textValue}
       </text>
     </>
   )

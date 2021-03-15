@@ -102,93 +102,19 @@ export const DonutChartData40 = () => (
 
 export const DonutChartText = () => (
   <Example height="200px">
-    <DonutChart
-      data={donutProgressData.data}
-      textData={{
-        title: 'всего',
-        value: '90',
-        subTitle: 'МГРП',
-        subValue: '20',
-      }}
-    />
+    <DonutChart data={donutProgressData.data} value="90" label="всего" />
   </Example>
 )
 
 export const DonutChartTextTop = () => (
   <Example height="200px">
-    <DonutChart
-      data={donutProgressData.data}
-      textData={{
-        title: 'всего',
-        value: '90',
-        subTitle: 'МГРП',
-        subValue: '20',
-      }}
-      halfDonut="top"
-    />
+    <DonutChart data={donutProgressData.data} value="90" label="всего" halfDonut="top" />
   </Example>
 )
 
 export const DonutChartTextRight = () => (
   <Example height="200px">
-    <DonutChart
-      data={donutProgressData.data}
-      textData={{
-        title: 'всего',
-        value: '90',
-        subTitle: 'МГРП',
-        subValue: '20',
-      }}
-      halfDonut="right"
-    />
-  </Example>
-)
-
-export const DonutChartText40 = () => (
-  <Example height="200px">
-    <DonutChart
-      data={donutProgressData.data}
-      textData={{
-        title: 'всего',
-        value: '90',
-        subTitle: 'МГРП',
-        subValue: '20',
-      }}
-      valueSize={40}
-      halfDonut="left"
-    />
-  </Example>
-)
-
-export const DonutChartText10 = () => (
-  <Example height="200px">
-    <DonutChart
-      data={donutProgressData.data}
-      textData={{
-        title: 'всего',
-        value: '90',
-        subTitle: 'МГРП',
-        subValue: '20',
-      }}
-      valueSize={10}
-      halfDonut="right"
-    />
-  </Example>
-)
-
-export const DonutChartText20 = () => (
-  <Example height="200px">
-    <DonutChart
-      data={donutProgressData.data}
-      textData={{
-        title: 'всего',
-        value: '90',
-        subTitle: 'МГРП',
-        subValue: '20',
-      }}
-      valueSize={20}
-      halfDonut="top"
-    />
+    <DonutChart data={donutProgressData.data} value="90" label="всего" halfDonut="right" />
   </Example>
 )
 
@@ -219,5 +145,54 @@ export const DonutChartHalfDonutLeft = () => (
 export const DonutChartHalfDonutRight = () => (
   <Example height="200px">
     <DonutChart data={donutData.data} halfDonut="right" />
+  </Example>
+)
+
+export const DonutChartLegendTop = () => (
+  <Example width="200" height="300px">
+    <DonutChart data={donutData.data} legendPosition="top" />
+  </Example>
+)
+
+export const DonutChartLegendRight = () => (
+  <Example width="400px" height="200">
+    <DonutChart data={donutData.data} legendPosition="right" />
+  </Example>
+)
+
+export const DonutChartLegendBottom = () => (
+  <Example width="200" height="300px">
+    <DonutChart data={donutData.data} legendPosition="bottom" />
+  </Example>
+)
+
+export const DonutChartLegendLeft = () => (
+  <Example width="400px" height="200">
+    <DonutChart data={donutData.data} legendPosition="left" />
+  </Example>
+)
+
+export const DonutChartWithArcLabels = () => (
+  <Example height="200px">
+    <DonutChart
+      data={[
+        {
+          name: 'Северный бур',
+          color: 'var(--color-bg-alert)',
+          values: [1],
+        },
+        {
+          name: 'Южный бур',
+          color: 'var(--color-bg-caution)',
+          values: [4],
+        },
+        {
+          name: 'Западный бур',
+          color: 'var(--color-bg-normal)',
+          values: [7],
+        },
+      ]}
+      showArcLabels
+    />
   </Example>
 )

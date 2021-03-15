@@ -1,5 +1,7 @@
 import times from 'lodash/times'
 
+import { DonutDataItem } from '@/__private__/components/CoreDonutChart/helpers'
+
 const sectionWithOnlyZeroData = [...times(3, () => 0)] as const
 
 const colors = {
@@ -13,17 +15,17 @@ export const donutData = {
     {
       name: 'Северный бур',
       color: colors.first,
-      values: [1, 2, 3],
+      values: [1],
     },
     {
       name: 'Южный бур',
       color: colors.second,
-      values: [4, 5, 6],
+      values: [4],
     },
     {
       name: 'Западный бур',
       color: colors.third,
-      values: [7, 8, 9],
+      values: [7],
     },
   ],
 }
@@ -87,3 +89,21 @@ export const donutProgressData = {
     },
   ],
 }
+
+export const donutOneCircleData: readonly DonutDataItem[] = [
+  {
+    name: 'Синий',
+    color: '#3173F1',
+    values: [10],
+  },
+  {
+    name: 'Красный, длинный и стремящийся в бесконечность',
+    color: '#F05F3F',
+    values: [7],
+  },
+  {
+    name: 'Зеленый',
+    color: '#B7DA0C',
+    values: [3],
+  },
+]

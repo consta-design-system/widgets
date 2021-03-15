@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { LabelSize } from '@/__private__/components/CoreBarChart/CoreBarChart'
-import { FormatValue } from '@/__private__/types'
+import { FormatGroupName, FormatValue } from '@/__private__/types'
 import { NumberRange, Scaler } from '@/__private__/utils/scale'
 
 import { Group, GroupItem } from './Group/Group'
@@ -14,10 +14,11 @@ export type RenderGroupsLabels = (props: {
   isXAxisLabelsSlanted?: boolean
   showGroupsLabels?: boolean
   getGridAreaName: (index: number) => string
+  formatGroupName?: FormatGroupName
 }) => React.ReactElement | null
 
 export const defaultRenderGroupsLabels: RenderGroupsLabels = ({ ...rest }) => {
-  return <Ticks {...rest} isLabel showLine />
+  return <Ticks {...rest} isLabel />
 }
 
 export type RenderAxisValues = (props: {
@@ -29,7 +30,7 @@ export type RenderAxisValues = (props: {
 }) => React.ReactElement | null
 
 export const defaultRenderAxisValues: RenderAxisValues = ({ ...rest }) => {
-  return <Ticks {...rest} showLine />
+  return <Ticks {...rest} />
 }
 
 export type RenderGroup<T> = (props: {
@@ -53,8 +54,7 @@ export type RenderGroup<T> = (props: {
   onChangeLabelSize?: (size: LabelSize) => void
   getNumberGridTicks: (length: number) => void
   gridDomain: NumberRange
-  limitMinimumCategorySize?: boolean
-  maxLabelSize: LabelSize
+  limitMinimumStepSize?: boolean
 }) => React.ReactElement | null
 
 export const defaultRenderGroup: RenderGroup<GroupItem> = props => <Group {...props} />

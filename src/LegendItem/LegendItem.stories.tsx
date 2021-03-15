@@ -1,22 +1,37 @@
 import React from 'react'
 
-import { text } from '@storybook/addon-knobs'
-import { withSmartKnobs } from 'storybook-addon-smart-knobs'
+import { IconWarning } from '@consta/uikit/IconWarning'
+import { select, text } from '@storybook/addon-knobs'
 
 import { createMetadata, createStory } from '@/__private__/storybook'
 
-import { LegendItem } from './LegendItem'
+import { Icon, iconTypes, LegendItem, sizes } from './LegendItem'
 
-export const Interactive = createStory(() => (
-  <LegendItem position="left" size="s" type="dot" color="red">
-    {text('children', 'Тестовый текст')}
-  </LegendItem>
-))
+const getCommonProps = () =>
+  ({
+    iconType: select('icon', [...iconTypes, 'customIcon'], iconTypes[0]),
+    size: select('size', sizes, sizes[1]),
+    label: text('label', 'Тестовый текст'),
+    color: text('color', 'red'),
+  } as const)
+
+export const Interactive = createStory(() => {
+  const { iconType, size, label, color } = getCommonProps()
+  const Icon = () => <IconWarning view="warning" size="s" />
+  const iconSelect = {
+    dot: 'dot',
+    line: 'line',
+    lineBold: 'lineBold',
+    gap: 'gap',
+    customIcon: Icon,
+  }
+  const icon = iconSelect[iconType]
+  return <LegendItem icon={icon as Icon} size={size} label={label} color={color} />
+})
 
 export default createMetadata({
   title: 'Компоненты|/LegendItem',
   id: 'components/LegendItem',
-  decorators: [withSmartKnobs()],
   parameters: {
     environment: {
       style: {

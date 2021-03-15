@@ -5,7 +5,8 @@
     cursor: pointer;
 
     &_isHoverable {
-      stroke-width: 10;
+      /* Задаётся через js */
+      stroke-width: var(--hover-width);
     }
   }
 }

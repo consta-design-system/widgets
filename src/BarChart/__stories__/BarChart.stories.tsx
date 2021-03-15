@@ -1,12 +1,11 @@
 import React from 'react'
 
-import { Text } from '@consta/uikit/Text'
 import { object, text } from '@storybook/addon-knobs'
 import { withSmartKnobs } from 'storybook-addon-smart-knobs'
 
 import { createMetadata, createStory } from '@/__private__/storybook'
+import { BarChart } from '@/BarChart'
 
-import { BarChart } from '..'
 import { minimalData, withNegativeValueData, withThreeColumnsData } from '../data.mock'
 
 import docs from './BarChart.mdx'
@@ -17,8 +16,7 @@ const getCommonProps = (initialUnit: string) => {
   return {
     formatValueForTooltip: (v: number) => `${v} ${unit}`,
     unit,
-    withScroll: false,
-    showLineAtZero: true,
+    showGuide: true,
     showGroupsLabels: true,
     showGrid: true,
   } as const
@@ -85,26 +83,6 @@ export const WithThreshold = createStory(
     />
   ),
   { name: 'с предельным значением' }
-)
-
-export const WithTitle = createStory(
-  () => {
-    return (
-      <BarChart
-        {...getCommonProps(minimalData.unit)}
-        colors={object('colors', minimalData.colors)}
-        groups={minimalData.groups}
-        title={
-          <Text as="div" view="primary" size="m">
-            {text('title', 'Заголовок')}
-          </Text>
-        }
-      />
-    )
-  },
-  {
-    name: 'с заголовком',
-  }
 )
 
 export default createMetadata({

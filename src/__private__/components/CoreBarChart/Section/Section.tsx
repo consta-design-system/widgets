@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Text } from '@consta/uikit/Text'
 
 import { ColumnProperty } from '@/__private__/components/CoreBarChart/Column/Column'
 import { cn } from '@/__private__/utils/bem'
+import { formatForValue } from '@/__private__/utils/formatForValue'
 import { NumberRange } from '@/__private__/utils/scale'
 
 import { LabelSize } from '../CoreBarChart'
@@ -32,7 +33,6 @@ type Props = {
   onChangeLabelSize?: (size: LabelSize) => void
   columnProperty: ColumnProperty
   gridDomain: NumberRange
-  maxLabelSize: LabelSize
   numberColumnSections: number
   indexSection?: number
 }
@@ -51,13 +51,14 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
       onChangeLabelSize,
       columnProperty,
       gridDomain,
-      maxLabelSize,
       numberColumnSections,
       indexSection,
     },
     ref
   ) => {
     const labelRef = React.useRef<HTMLDivElement>(null)
+    const [labelWidth, setLabelWidth] = useState<number | null>(null)
+
     const isOverflow =
       (!isReversed && gridDomain[1] < Number(label)) ||
       (isReversed && gridDomain[0] > Number(label))
@@ -69,6 +70,8 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
 
       const { width, height } = labelRef.current.getBoundingClientRect()
 
+      setLabelWidth(width)
+
       onChangeLabelSize &&
         onChangeLabelSize({ width: Math.round(width), height: Math.round(height) })
     }, [label, labelRef, onChangeLabelSize])
@@ -79,6 +82,7 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
       (!!indexSection && numberColumnSections === indexSection + 1) || numberColumnSections === 1
     const columnOverflow =
       isOverflow && numberColumnSections === 1 ? getDirection(isHorizontal, isReversed) : ''
+    const formatLabel = label && formatForValue(label)
 
     return (
       <div
@@ -98,15 +102,21 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
         onMouseLeave={onMouseLeave}
       >
         {isOverflow && (
-          <div
+          <svg
             className={cnSection('Overflow', {
               horizontal,
               direction,
             })}
-            style={getTriangle(color, isOverflow, direction, maxLabelSize, lastSection)}
-          />
+            style={getTriangle(isOverflow, direction, labelWidth, lastSection)}
+            width="8"
+            height="5"
+            viewBox="0 0 8 5"
+            fill="none"
+          >
+            <path d="M4 0.5L8 5H0L4 0.5Z" fill={color} />
+          </svg>
         )}
-        {label && numberColumnSections === 1 && (
+        {label && lastSection && (
           <Text
             ref={labelRef}
             as="div"
@@ -115,7 +125,7 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
             size="xs"
             style={getColor(color, isOverflow)}
           >
-            {label}
+            {formatLabel}
           </Text>
         )}
       </div>

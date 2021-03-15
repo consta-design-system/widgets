@@ -1,160 +1,112 @@
-import React from 'react'
+import React, { forwardRef, HTMLAttributes } from 'react'
 
-import { isDefined, isNotNil } from '@consta/widgets-utils/lib/type-guards'
 import { Textfit } from '@evless/react-textfit'
 
 import { cn } from '@/__private__/utils/bem'
 
-import {
-  isHalfDonutHorizontal as getIsHalfDonutHorizontal,
-  isHalfDonutVertical as getIsHalfDonutVertical,
-} from '../helpers'
-import { HalfDonut } from '../CoreDonutChartPie/CoreDonutChartPie'
+import { HalfDonut } from '../helpers'
 
 import {
+  getContainerPadding,
   getContentBorderRadius,
   getContentHeight,
-  getValueHeightRatio,
-  getValueMaxFontSize,
-  getValueMaxWidth,
-  MARGIN_FROM_LINE,
-  MIN_FONT_SIZE,
-  SUBVALUE_FONT_SIZE_RATIO,
-  TITLE_FONT_SIZE_RATIO,
-  TITLE_MIN_FONT_SIZE,
+  getContentPadding,
+  getContentWidth,
+  getDonutHalfDirection,
+  getHeightPaddingRatio,
+  getRegularOrDoubleNumberByCondition,
+  getTextMaxSize,
+  getWidthPaddingRatio,
+  LABEL_MIN_SIZE,
+  TEXT_MAX_HEIGHT_RATIO,
+  VALUE_MIN_SIZE,
 } from './helpers'
 import './CoreDonutChartText.css'
 
 const cnCoreDonutChartText = cn('CoreDonutChartText')
 
-export type Data = {
-  value: string
-  title?: string
-  subTitle?: string
-  subValue?: string
-}
-
-type Props = {
-  data: Data
+type Props = HTMLAttributes<HTMLDivElement> & {
   radius: number
   lineWidth: number
-  titlePosition: 'top' | 'bottom'
-  paddingFromBorder: number
-  showTitle: boolean
-  showSubBlock: boolean
+  value?: string
+  label?: string
   halfDonut?: HalfDonut
-  valueSize?: number
 }
 
-export const DonutText: React.FC<Props> = ({
-  data,
-  radius,
-  lineWidth,
-  titlePosition,
-  paddingFromBorder,
-  showTitle,
-  showSubBlock,
-  halfDonut,
-  valueSize,
-}) => {
-  const [baseFontSize, setBaseFontSize] = React.useState(0)
-
-  const isHalfDonutHorizontal = getIsHalfDonutHorizontal(halfDonut)
-  const isHalfDonutVertical = getIsHalfDonutVertical(halfDonut)
-  const diameter = radius * 2
-  const paddingFromLine = halfDonut ? lineWidth : 7
-  const titleFontSize = Math.max(
-    Math.round(baseFontSize * TITLE_FONT_SIZE_RATIO),
-    TITLE_MIN_FONT_SIZE
-  )
-  const subValueFontSize = Math.round(baseFontSize * SUBVALUE_FONT_SIZE_RATIO)
-  const contentHeight = getContentHeight({
-    diameter,
+export const CoreDonutChartText = forwardRef<HTMLDivElement, Props>((props, ref) => {
+  const {
+    value,
+    label,
     radius,
-    isHalfDonutHorizontal,
-    isHalfDonutVertical,
-    paddingFromBorder,
-    paddingFromLine,
-  })
-  const contentHeightValueRatio = getValueHeightRatio({
-    isHalfDonutHorizontal,
-    isHalfDonutVertical,
-    titleIsExist: isDefined(data.title),
-  })
-  const valueMaxSize = isNotNil(valueSize)
-    ? valueSize
-    : getValueMaxFontSize({
-        height: contentHeight,
-        ratio: contentHeightValueRatio,
-      })
-  const valueMinSize = isNotNil(valueSize) ? valueSize : MIN_FONT_SIZE
-  const valueMaxWidth = `${getValueMaxWidth(diameter)}px`
+    halfDonut,
+    lineWidth,
+    className,
+    style,
+    ...mainElementProps
+  } = props
 
+  const halfDirection = getDonutHalfDirection(halfDonut)
+  const widthPadding = getContentPadding({
+    radius,
+    lineWidth,
+    ratio: getWidthPaddingRatio(halfDirection),
+  })
+  const heightPadding = getContentPadding({
+    radius,
+    lineWidth,
+    ratio: getHeightPaddingRatio(halfDirection),
+  })
+  const textPadding = getRegularOrDoubleNumberByCondition({
+    value: heightPadding,
+    condition: halfDirection === 'horizontal',
+  })
+  const maxWidth = getContentWidth({ radius, halfDirection })
+  const maxHeight = getContentHeight({ radius, halfDirection })
+  const valueMaxSize = getTextMaxSize({
+    padding: textPadding,
+    height: maxHeight,
+    ratio: label ? TEXT_MAX_HEIGHT_RATIO : 1,
+  })
+  const labelMaxSize = getTextMaxSize({
+    padding: value ? 0 : textPadding,
+    height: value ? valueMaxSize : maxHeight,
+    ratio: value ? TEXT_MAX_HEIGHT_RATIO : 1,
+  })
   const contentStyle: React.CSSProperties = {
-    maxWidth: (isHalfDonutVertical ? radius : diameter) - MARGIN_FROM_LINE,
-    maxHeight: (isHalfDonutHorizontal ? radius : diameter) - MARGIN_FROM_LINE,
+    ...style,
+    maxWidth,
+    maxHeight,
+    padding: getContainerPadding({ widthPadding, heightPadding, half: halfDonut }),
     borderRadius: getContentBorderRadius(radius, halfDonut),
   }
 
-  const elements = [
-    showTitle && data.title ? (
-      <div
-        key="title"
-        className={cnCoreDonutChartText('Title')}
-        style={{ fontSize: `${titleFontSize}px` }}
-      >
-        {data.title}
-      </div>
-    ) : null,
-    valueMaxSize > 0 ? (
-      <Textfit
-        key="value"
-        className={cnCoreDonutChartText('Value', { half: halfDonut })}
-        mode="single"
-        min={valueMinSize}
-        max={valueMaxSize}
-        style={{ maxWidth: valueMaxWidth }}
-        onReady={setBaseFontSize}
-      >
-        {data.value}
-      </Textfit>
-    ) : null,
-  ] as const
-
   return (
     <div
-      className={cnCoreDonutChartText({ half: halfDonut })}
-      style={{
-        ['--padding-from-line' as string]: `${paddingFromLine}px`,
-        ['--padding-from-border' as string]: `${paddingFromBorder}px`,
-      }}
+      {...mainElementProps}
+      ref={ref}
+      className={cnCoreDonutChartText({ half: halfDonut ?? 'none' }, [className])}
+      style={contentStyle}
     >
-      <div
-        className={cnCoreDonutChartText('Content', { half: halfDonut ?? 'none' })}
-        style={contentStyle}
-      >
-        {titlePosition === 'bottom' ? [...elements].reverse() : elements}
-        {showSubBlock && (
-          <>
-            {data.subTitle && (
-              <div
-                className={cnCoreDonutChartText('Title')}
-                style={{ fontSize: `${titleFontSize}px` }}
-              >
-                {data.subTitle}
-              </div>
-            )}
-            {data.subValue && (
-              <div
-                className={cnCoreDonutChartText('SubValue')}
-                style={{ fontSize: `${subValueFontSize}px` }}
-              >
-                {data.subValue}
-              </div>
-            )}
-          </>
-        )}
-      </div>
+      {valueMaxSize > 0 && (
+        <Textfit
+          className={cnCoreDonutChartText('Value', { half: halfDonut ?? 'none' })}
+          min={VALUE_MIN_SIZE}
+          max={valueMaxSize}
+          mode="single"
+        >
+          {value}
+        </Textfit>
+      )}
+      {labelMaxSize > 0 && (
+        <Textfit
+          className={cnCoreDonutChartText('Label', { half: halfDonut ?? 'none' })}
+          min={LABEL_MIN_SIZE}
+          max={labelMaxSize}
+          mode="single"
+        >
+          {label}
+        </Textfit>
+      )}
     </div>
   )
-}
+})
