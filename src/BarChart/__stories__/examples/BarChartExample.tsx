@@ -263,7 +263,7 @@ export const BarChartExampleOverflow = () => (
       groups={groupExampleDataOverflow.groups}
       isHorizontal={false}
       unit="тыс. тонн"
-      maxValueY={500}
+      max={500}
     />
   </Example>
 )
