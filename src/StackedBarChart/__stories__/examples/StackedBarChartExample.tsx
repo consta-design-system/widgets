@@ -12,19 +12,19 @@ export const StackedBarChartExampleMin = () => (
 
 export const StackedBarChartExampleSlanted = () => (
   <Example>
-    <StackedBarChart groups={interactiveData.groups} isHorizontal={false} isXAxisLabelsSlanted />
+    <StackedBarChart groups={interactiveData.groups} isXAxisLabelsSlanted />
   </Example>
 )
 
 export const StackedBarChartShowValues = () => (
   <Example>
-    <StackedBarChart groups={interactiveData.groups} isHorizontal={false} showValues />
+    <StackedBarChart groups={interactiveData.groups} showValues />
   </Example>
 )
 
 export const StackedBarChartTwoColumns = () => (
   <Example>
-    <StackedBarChart groups={withTwoColumnsData.groups} isHorizontal={false} showValues />
+    <StackedBarChart groups={withTwoColumnsData.groups} showValues />
   </Example>
 )
 
@@ -32,7 +32,6 @@ export const StackedBarChartTicks = () => (
   <Example>
     <StackedBarChart
       groups={interactiveData.groups}
-      isHorizontal={false}
       showValues
       formatValueForLabel={v => `${v} %`}
     />
@@ -41,7 +40,7 @@ export const StackedBarChartTicks = () => (
 
 export const StackedBarChartTicks2 = () => (
   <Example>
-    <StackedBarChart groups={interactiveData.groups} isHorizontal={false} showValues />
+    <StackedBarChart groups={interactiveData.groups} showValues />
   </Example>
 )
 
@@ -49,7 +48,6 @@ export const StackedBarChartTooltip = () => (
   <Example>
     <StackedBarChart
       groups={withTwoColumnsData.groups}
-      isHorizontal={false}
       showValues
       formatValueForLabel={v => `${v} тыс.`}
       formatValueForTooltip={v => `${v} тысяч`}
@@ -61,7 +59,6 @@ export const StackedBarChartExampleThreshold = () => (
   <Example>
     <StackedBarChart
       groups={withTwoColumnsData.groups}
-      isHorizontal={false}
       showValues
       threshold={interactiveData.threshold}
     />
@@ -80,15 +77,9 @@ export const StackedBarChartExampleHorizontal = () => (
   </Example>
 )
 
-export const StackedBarChartUnitsLeft = () => (
+export const StackedBarChartUnits = () => (
   <Example width="300px">
-    <StackedBarChart groups={withTwoColumnsData.groups} unit="тыс. м" isHorizontal={false} />
-  </Example>
-)
-
-export const StackedBarChartUnitsBottom = () => (
-  <Example width="300px">
-    <StackedBarChart groups={withTwoColumnsData.groups} unit="тыс. м" isHorizontal={true} />
+    <StackedBarChart groups={withTwoColumnsData.groups} unit="тыс. м" />
   </Example>
 )
 
@@ -96,7 +87,6 @@ export const StackedBarChartExampleFrameControlShowAll = () => (
   <Example>
     <StackedBarChart
       groups={withTwoColumnsData.groups}
-      isHorizontal={false}
       unit="тыс. тонн"
       showGrid={true}
       showGroupsLabels={true}
@@ -109,7 +99,6 @@ export const StackedBarChartExampleFrameControlHideGrid = () => (
   <Example>
     <StackedBarChart
       groups={withTwoColumnsData.groups}
-      isHorizontal={false}
       unit="тыс. тонн"
       showGrid={false}
       showGroupsLabels={true}
@@ -122,7 +111,6 @@ export const StackedBarChartExampleFrameControlHideLineAtZero = () => (
   <Example>
     <StackedBarChart
       groups={withTwoColumnsData.groups}
-      isHorizontal={false}
       unit="тыс."
       showGrid={true}
       showGroupsLabels={true}
@@ -135,7 +123,6 @@ export const StackedBarChartExampleFrameControlHideLabels = () => (
   <Example>
     <StackedBarChart
       groups={withTwoColumnsData.groups}
-      isHorizontal={false}
       unit="тыс."
       showGrid={true}
       showGroupsLabels={false}
@@ -146,11 +133,6 @@ export const StackedBarChartExampleFrameControlHideLabels = () => (
 
 export const StackedBarChartExampleMaxY = () => (
   <Example>
-    <StackedBarChart
-      groups={withTwoColumnsData.groups}
-      isHorizontal={false}
-      unit="тыс."
-      max={1300}
-    />
+    <StackedBarChart groups={withTwoColumnsData.groups} unit="тыс." max={1300} />
   </Example>
 )
