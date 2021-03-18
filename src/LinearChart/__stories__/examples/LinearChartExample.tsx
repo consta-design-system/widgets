@@ -125,31 +125,31 @@ const gridConfig = {
 // }
 
 // export const LinearChartExampleLegend = () => (
-//   <Example width="300px" height="150px" margin="l">
+//   <Example width="300px" height="150px" >
 //     <LinearChart lines={lines} gridConfig={gridConfig} legend={legend} />
 //   </Example>
 // )
 
-export const LinearChartExampleyDimensionUnit = () => (
-  <Example width="300px" height="150px" margin="l">
-    <LinearChart lines={lines} gridConfig={gridConfig} yDimensionUnit="единицы" />
+export const LinearChartExampleunit = () => (
+  <Example width="300px" height="150px">
+    <LinearChart lines={lines} gridConfig={gridConfig} unit="единицы" />
   </Example>
 )
 
 export const LinearChartExampleLines = () => (
-  <Example width="300px" height="150px" margin="l">
+  <Example width="300px" height="150px">
     <LinearChart lines={linesBig} gridConfig={gridConfig} />
   </Example>
 )
 
 export const LinearChartExampleLinesNull = () => (
-  <Example width="300px" height="150px" margin="l">
+  <Example width="300px" height="150px">
     <LinearChart lines={linesNu} gridConfig={gridConfig} />
   </Example>
 )
 
 export const LinearChartExamplePercentY = () => (
-  <Example width="300px" height="150px" margin="l">
+  <Example width="300px" height="150px">
     <LinearChart lines={lines} gridConfig={gridConfig} yLabelsShowInPercent />
   </Example>
 )
