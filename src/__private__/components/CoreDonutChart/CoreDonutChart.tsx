@@ -1,4 +1,11 @@
-import React, { CSSProperties, useEffect, useRef, useState } from 'react'
+import React, {
+  CSSProperties,
+  MouseEventHandler,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
 import { useComponentSize } from '@consta/uikit/useComponentSize'
 import { Position } from '@consta/uikit/Popover'
@@ -13,6 +20,7 @@ import { numberFormatter } from '@/__private__/utils/formatters'
 
 import {
   ArcDataItem,
+  ArcLabelSize,
   defaultFormatArcLabel,
   defaultGetCirclesCount,
   defaultGetMinChartSize,
@@ -39,7 +47,11 @@ import {
 } from './helpers'
 import './CoreDonutChart.css'
 import { CoreDonutChartLabels } from './CoreDonutChartLabels/CoreDonutChartLabels'
-import { CoreDonutChartPie } from './CoreDonutChartPie/CoreDonutChartPie'
+import {
+  CoreDonutChartPie,
+  HandlerClickArc,
+  HandlerClickPie,
+} from './CoreDonutChartPie/CoreDonutChartPie'
 import { CoreDonutChartText } from './CoreDonutChartText/CoreDonutChartText'
 
 const cnCoreDonutChart = cn('CoreDonutChart')
@@ -58,6 +70,7 @@ export type Props = {
   halfDonut?: HalfDonut
   limitSizeSide?: LimitSizeSide
   showArcLabels?: boolean
+  arcLabelSize?: ArcLabelSize
   sortValue?: SortValue | null
   getCirclesCount?: GetCirclesCount
   getMinChartSize?: GetMinChartSize
@@ -66,6 +79,9 @@ export type Props = {
   formatValueForTooltip?: FormatValue
   formatArcLabel?: (item: ArcDataItem) => string
   filterTooltipItem?: (itemData: ArcDataItem) => boolean
+  onClick?: MouseEventHandler
+  onClickPie?: HandlerClickPie
+  onClickArc?: HandlerClickArc
 }
 
 export const CoreDonutChart: React.FC<Props> = ({
@@ -76,6 +92,7 @@ export const CoreDonutChart: React.FC<Props> = ({
   label,
   showArcLabels,
   limitSizeSide,
+  arcLabelSize = 's',
   sortValue = defaultSortValue,
   getCirclesCount = defaultGetCirclesCount,
   getMinChartSize = defaultGetMinChartSize,
@@ -84,6 +101,9 @@ export const CoreDonutChart: React.FC<Props> = ({
   formatValueForTooltip,
   formatArcLabel = defaultFormatArcLabel,
   filterTooltipItem = () => true,
+  onClick,
+  onClickPie,
+  onClickArc,
 }) => {
   const [tooltipData, changeTooltipData] = useState<TooltipDataState>([])
   const [mousePosition, changeMousePosition] = useState<Position>()
@@ -102,12 +122,20 @@ export const CoreDonutChart: React.FC<Props> = ({
   const minChartSize = getMinChartSize(circlesCount, showText, halfDonut)
   const isTooltipVisible = Boolean(tooltipData.length)
   const arcRadiuses = getArcRadiuses({ mainRadius, circlesCount, sizeDonut, chartSize: size })
-  const values = getValues({ data, circlesCount, sortValue })
+  const values = useMemo(() => getValues({ data, circlesCount, sortValue }), [
+    data,
+    circlesCount,
+    sortValue,
+  ])
   const isTextVisible = values.length === 1 && showText
-  const piesData = values.map(item => getPieData(item, halfDonut))
+  const piesData = useMemo(() => values.map(item => getPieData(item, halfDonut)), [
+    values,
+    halfDonut,
+  ])
   const rendersArc = arcRadiuses.map(getRenderArc)
   const translate = getGroupTransformTranslate({ halfDonut, radius: mainRadius, svgOffset })
   const svgSize = getSvgSize({ diameter: mainDiameter, radius: mainRadius, svgOffset, halfDonut })
+  const labelsPieData = useMemo(() => (showArcLabels ? piesData[0] : []), [piesData, showArcLabels])
 
   useEffect(() => {
     if (!arcsRef.current || !labelsRef.current) {
@@ -172,7 +200,7 @@ export const CoreDonutChart: React.FC<Props> = ({
       : undefined
 
   return (
-    <div ref={ref} className={cnCoreDonutChart()} style={mainStyle}>
+    <div ref={ref} className={cnCoreDonutChart()} style={mainStyle} onClick={onClick}>
       {isTooltipVisible && (
         <Tooltip size="m" position={mousePosition} isInteractive={false}>
           <TooltipContentForMultipleValues
@@ -209,23 +237,22 @@ export const CoreDonutChart: React.FC<Props> = ({
               halfDonut={halfDonut}
               onMouseOver={handleMouseOver}
               onMouseOut={handleMouseOut}
+              onClickPie={onClickPie}
+              onClickArc={onClickArc}
             />
           ))}
         </g>
-        {showArcLabels &&
-          piesData
-            .slice(0, 1)
-            .map((pieData, labelIdx) => (
-              <CoreDonutChartLabels
-                key={labelIdx}
-                ref={labelsRef}
-                data={pieData}
-                radius={mainRadius}
-                halfDonut={halfDonut}
-                transform={translate}
-                formatArcLabel={formatArcLabel}
-              />
-            ))}
+        {showArcLabels && (
+          <CoreDonutChartLabels
+            ref={labelsRef}
+            data={labelsPieData}
+            radius={mainRadius}
+            size={arcLabelSize}
+            halfDonut={halfDonut}
+            transform={translate}
+            formatArcLabel={formatArcLabel}
+          />
+        )}
       </svg>
     </div>
   )

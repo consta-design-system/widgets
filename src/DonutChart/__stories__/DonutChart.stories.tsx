@@ -1,9 +1,11 @@
 import React from 'react'
 
-import { boolean, object, text } from '@storybook/addon-knobs'
+import { action } from '@storybook/addon-actions'
+import { boolean, object, select, text } from '@storybook/addon-knobs'
 
 import {
   ArcDataItem,
+  arcLabelSizes,
   defaultFormatArcLabel,
   defaultSortValue,
 } from '@/__private__/components/CoreDonutChart/helpers'
@@ -32,11 +34,15 @@ const getKnobs = (props: Partial<Props> = {}) => {
     sums: object('sums', props.sums || []),
     legendPosition: optionalSelect('legendPosition', legendPositions, props.legendPosition),
     showArcLabels: boolean('showArcLabels', props.showArcLabels ?? false),
+    arcLabelSize: select('arcLabelSizes', arcLabelSizes, props.arcLabelSize ?? 's'),
     formatValueForTooltip: boolean('formatValueForTooltip', true) ? cubeMeterFormatValue : String,
     formatArcLabel: boolean('formatArcLabel', true)
       ? defaultFormatArcLabel
       : (item: ArcDataItem) => String(item.value),
     sortValue: boolean('sortValue', true) ? defaultSortValue : null,
+    onClick: () => action('onClick')(),
+    onClickPie: action('onClickPie'),
+    onClickArc: action('onClickArc'),
   }
 }
 

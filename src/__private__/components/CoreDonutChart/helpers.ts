@@ -19,6 +19,9 @@ export type ArcDataItem = {
   name: string
 }
 
+export const arcLabelSizes = ['xs', 's'] as const
+export type ArcLabelSize = typeof arcLabelSizes[number]
+
 export type SvgOffset = {
   top: number
   right: number
@@ -455,12 +458,14 @@ export const getSvgOffset = ({ arcsRect, labelsRect }: GetSvgOffset) => {
     computedArcsWidth !== 0 ? Math.max(computedLabelsWidth - computedArcsWidth, 0) : 0
   const offsetBottom =
     computedArcsHeight !== 0 ? Math.max(computedLabelsHeight - computedArcsHeight, 0) : 0
+  const verticalOffset = Math.max(offsetRight, offsetLeft)
+  const horizontalOffset = Math.max(offsetTop, offsetBottom)
 
   return {
-    top: offsetTop,
-    right: offsetRight,
-    bottom: offsetBottom,
-    left: offsetLeft,
+    top: horizontalOffset,
+    right: verticalOffset,
+    bottom: horizontalOffset,
+    left: verticalOffset,
   }
 }
 

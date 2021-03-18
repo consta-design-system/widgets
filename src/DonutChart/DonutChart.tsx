@@ -1,12 +1,17 @@
-import React, { forwardRef, HTMLAttributes } from 'react'
+import React, { forwardRef, HTMLAttributes, MouseEventHandler } from 'react'
 
 import { CoreDonutChart } from '@/__private__/components/CoreDonutChart'
 import {
   ArcDataItem,
+  ArcLabelSize,
   DonutDataItem,
   SortValue,
 } from '@/__private__/components/CoreDonutChart/helpers'
 import { HalfDonut } from '@/__private__/components/CoreDonutChart/helpers'
+import {
+  HandlerClickArc,
+  HandlerClickPie,
+} from '@/__private__/components/CoreDonutChart/CoreDonutChartPie/CoreDonutChartPie'
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 import { Legend } from '@/Legend/Legend'
@@ -25,11 +30,15 @@ type Props = HTMLAttributes<HTMLDivElement> & {
   sums?: readonly number[]
   legendPosition?: LegendPosition
   showArcLabels?: boolean
+  arcLabelSize?: ArcLabelSize
   formatValue?: (value: string) => string
   formatLabel?: (label: string) => string
   formatValueForTooltip?: FormatValue
   formatArcLabel?: (item: ArcDataItem) => string
   sortValue?: SortValue | null
+  onClick?: MouseEventHandler
+  onClickPie?: HandlerClickPie
+  onClickArc?: HandlerClickArc
 }
 
 export const DonutChart = forwardRef<HTMLDivElement, Props>((props, ref) => {

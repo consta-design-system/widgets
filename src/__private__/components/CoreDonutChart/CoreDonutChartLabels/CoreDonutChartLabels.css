@@ -5,8 +5,16 @@
   }
 
   &-Label {
-    font-size: var(--size-text-s);
-    line-height: var(--line-height-text-xs);
     fill: var(--color-typo-primary);
+
+    &_size_xs {
+      font-size: var(--size-text-xs);
+      line-height: var(--line-height-text-xs);
+    }
+
+    &_size_s {
+      font-size: var(--size-text-s);
+      line-height: var(--line-height-text-xs);
+    }
   }
 }
