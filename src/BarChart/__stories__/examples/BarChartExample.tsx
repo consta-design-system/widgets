@@ -22,21 +22,8 @@ export const BarChartExampleGeneral = () => (
   </Example>
 )
 
-export const BarChartExampleNotHorizontal = () => (
+export const BarChartExampleHorizontal = () => (
   <Example width="300px">
-    <BarChart
-      formatValueForTooltip={v => `${v} км`}
-      colors={minimalData.colors}
-      groups={minimalData.groups}
-      isHorizontal={false}
-      showValues={true}
-      threshold={minimalData.threshold}
-    />
-  </Example>
-)
-
-export const BarChartExampleUnitLeft = () => (
-  <Example>
     <BarChart
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
@@ -44,18 +31,16 @@ export const BarChartExampleUnitLeft = () => (
       isHorizontal={true}
       showValues={true}
       threshold={minimalData.threshold}
-      unit="тыс. тонн"
     />
   </Example>
 )
 
-export const BarChartExampleUnitBottom = () => (
+export const BarChartExampleUnit = () => (
   <Example>
     <BarChart
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
       groups={minimalData.groups}
-      isHorizontal={false}
       showValues={true}
       threshold={minimalData.threshold}
       unit="тыс. тонн"
@@ -83,7 +68,6 @@ export const BarChartExampleThreshold = () => (
       formatValueForTooltip={v => `${v} км`}
       colors={minimalData.colors}
       groups={minimalData.groups}
-      isHorizontal={true}
       showValues={true}
       threshold={minimalData.threshold}
     />
@@ -135,9 +119,9 @@ export const BarChartExampleLableProcent = () => (
       formatValueForTooltip={v => `${v}%`}
       colors={groupExampleData.colors}
       groups={groupExampleData.groups}
-      isHorizontal={true}
-      unit="тыс. тонн"
       showValues={true}
+      showGrid
+      showGuide
     />
   </Example>
 )
