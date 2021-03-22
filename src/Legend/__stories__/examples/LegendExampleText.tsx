@@ -5,7 +5,7 @@ import { Example } from '@/__private__/storybook'
 import { Legend } from '../../Legend'
 
 export const LegendExampleText = () => (
-  <Example>
+  <Example style={{ marginBottom: '20px' }}>
     <Legend
       direction="column"
       items={[
