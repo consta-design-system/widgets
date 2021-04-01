@@ -128,6 +128,7 @@ export const CoreDonutChart: React.FC<Props> = ({
     sortValue,
   ])
   const isTextVisible = values.length === 1 && showText
+  const isArcLabelsVisible = values.length === 1 && showArcLabels
   const piesData = useMemo(() => values.map(item => getPieData(item, halfDonut)), [
     values,
     halfDonut,
@@ -242,7 +243,7 @@ export const CoreDonutChart: React.FC<Props> = ({
             />
           ))}
         </g>
-        {showArcLabels && (
+        {isArcLabelsVisible && (
           <CoreDonutChartLabels
             ref={labelsRef}
             data={labelsPieData}
