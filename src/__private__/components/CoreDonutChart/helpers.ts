@@ -442,22 +442,16 @@ type GetSvgOffset = {
 }
 
 export const getSvgOffset = ({ arcsRect, labelsRect }: GetSvgOffset) => {
-  const diffX = Math.round(Math.abs(arcsRect.x - labelsRect.x))
-  const diffY = Math.round(Math.abs(labelsRect.y - arcsRect.y))
-  const computedLabelsWidth = Math.round(
-    labelsRect.x > arcsRect.x ? labelsRect.width + diffX : labelsRect.width + labelsRect.x
-  )
-  const computedLabelsHeight = Math.round(
-    labelsRect.y > arcsRect.y ? labelsRect.height + diffY : labelsRect.height + labelsRect.y
-  )
-  const computedArcsWidth = Math.round(arcsRect.width + arcsRect.x)
-  const computedArcsHeight = Math.round(arcsRect.height + arcsRect.y)
-  const offsetTop = labelsRect.y < arcsRect.y ? diffY : 0
-  const offsetLeft = labelsRect.x < arcsRect.x ? diffX : 0
+  const offsetTop = labelsRect.y < arcsRect.y ? Math.round(Math.abs(labelsRect.y - arcsRect.y)) : 0
+  const offsetLeft = labelsRect.x < arcsRect.x ? Math.round(Math.abs(labelsRect.x - arcsRect.x)) : 0
   const offsetRight =
-    computedArcsWidth !== 0 ? Math.max(computedLabelsWidth - computedArcsWidth, 0) : 0
+    arcsRect.width + arcsRect.x < labelsRect.width + labelsRect.x
+      ? Math.round(labelsRect.width + labelsRect.x - (arcsRect.width + arcsRect.x))
+      : 0
   const offsetBottom =
-    computedArcsHeight !== 0 ? Math.max(computedLabelsHeight - computedArcsHeight, 0) : 0
+    arcsRect.height + arcsRect.y < labelsRect.height + labelsRect.y
+      ? Math.round(labelsRect.height + labelsRect.y - (arcsRect.height + arcsRect.y))
+      : 0
   const verticalOffset = Math.max(offsetRight, offsetLeft)
   const horizontalOffset = Math.max(offsetTop, offsetBottom)
 
@@ -501,9 +495,12 @@ export const getMainRadius = ({ width, height, svgOffset, halfDonut }: GetMainRa
   const widthDivider = isHalfDonutVertical(halfDonut) ? 1 : 2
   const heightDivider = isHalfDonutHorizontal(halfDonut) ? 1 : 2
 
-  return Math.min(
-    Math.floor((width - svgOffset.right - svgOffset.left) / widthDivider),
-    Math.floor((height - svgOffset.top - svgOffset.bottom) / heightDivider)
+  return Math.max(
+    Math.min(
+      Math.floor((width - svgOffset.right - svgOffset.left) / widthDivider),
+      Math.floor((height - svgOffset.top - svgOffset.bottom) / heightDivider)
+    ),
+    MIN_RADIUS
   )
 }
 
