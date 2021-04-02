@@ -4,20 +4,20 @@ import { useComponentSize } from '@consta/uikit/useComponentSize'
 import { isDefined, isNotNil } from '@consta/widgets-utils/lib/type-guards'
 import { isNumber } from 'lodash'
 
-import { styleOrientation } from '@/__private__/components/CoreBarChart/Column/helpers'
-import { getDirection } from '@/__private__/components/CoreBarChart/Section/helpers'
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 import { NumberRange } from '@/__private__/utils/scale'
 
 import { Size } from '../helpers'
 import { LabelSize } from '../CoreBarChart'
-import { Section } from '../Section/Section'
-import { TooltipData } from '../Tooltip/Tooltip'
+import { styleOrientation } from '../CoreBarChartColumn/helpers'
+import { getDirection } from '../CoreBarChartSection/helpers'
+import { CoreBarChartSection } from '../CoreBarChartSection/CoreBarChartSection'
+import { TooltipData } from '../CoreBarChartTooltip/CoreBarChartTooltip'
 
-import './Column.css'
+import './CoreBarChartColumn.css'
 
-const cnColumn = cn('Column')
+const cnCoreBarChartColumn = cn('CoreBarChartColumn')
 
 export type ColumnSize = Exclude<Size, 'auto'>
 
@@ -76,7 +76,7 @@ type Props = {
   gridDomain: NumberRange
 }
 
-export const Column: React.FC<Props> = ({
+export const CoreBarChartColumn: React.FC<Props> = ({
   group,
   total,
   sections = [],
@@ -145,7 +145,7 @@ export const Column: React.FC<Props> = ({
     }
 
     return (
-      <Section
+      <CoreBarChartSection
         color={item.color}
         length={item.length}
         key={index}
@@ -169,7 +169,7 @@ export const Column: React.FC<Props> = ({
 
   return (
     <div
-      className={cnColumn('Columns', {
+      className={cnCoreBarChartColumn('Columns', {
         horizontal,
         direction,
       })}

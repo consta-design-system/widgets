@@ -1,4 +1,4 @@
-.cw--Section {
+.cw--CoreBarChartSection {
   &-Sections {
     --round-radius: 2px;
 
@@ -45,7 +45,7 @@
 
     &_direction {
       &_horizontal {
-        .cw--Section-Overflow {
+        .cw--CoreBarChartSection-Overflow {
           top: 50%;
           right: 0;
 
@@ -54,7 +54,7 @@
           transform: translate(0%, -50%) rotate(90deg);
         }
 
-        .cw--Section-Label {
+        .cw--CoreBarChartSection-Label {
           top: 50%;
           right: 0;
 
@@ -65,14 +65,14 @@
       }
 
       &_horizontalReverse {
-        .cw--Section-Overflow {
+        .cw--CoreBarChartSection-Overflow {
           top: 50%;
           left: 0;
 
           transform: translate(0%, -50%) rotate(-90deg);
         }
 
-        .cw--Section-Label {
+        .cw--CoreBarChartSection-Label {
           top: 50%;
           left: 0;
 
@@ -83,7 +83,7 @@
       }
 
       &_vertical {
-        .cw--Section-Overflow {
+        .cw--CoreBarChartSection-Overflow {
           top: 0;
           left: 50%;
 
@@ -92,7 +92,7 @@
           transform: translate(-50%, -270%) rotate(0deg);
         }
 
-        .cw--Section-Label {
+        .cw--CoreBarChartSection-Label {
           top: 0;
           left: 50%;
 
@@ -103,7 +103,7 @@
       }
 
       &_verticalReverse {
-        .cw--Section-Overflow {
+        .cw--CoreBarChartSection-Overflow {
           bottom: 0;
           left: 50%;
 
@@ -112,7 +112,7 @@
           transform: translate(-50%, 290%) rotate(180deg);
         }
 
-        .cw--Section-Label {
+        .cw--CoreBarChartSection-Label {
           bottom: 0;
           left: 50%;
 

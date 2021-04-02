@@ -24,7 +24,11 @@ type Props = {
 const itemHasValue = (item: Item): item is Item & { value: NonNullable<Item['value']> } =>
   isNotNil(item.value)
 
-export const Tooltip: React.FC<Props> = ({ data, isHorizontal, formatValue = String }) => {
+export const CoreBarChartTooltip: React.FC<Props> = ({
+  data,
+  isHorizontal,
+  formatValue = String,
+}) => {
   return (
     <BaseTooltip
       size="s"

@@ -5,8 +5,8 @@ import { Threshold } from '@/__private__/components/CoreBarChart/CoreBarChart'
 import { getEveryN } from '@/__private__/utils/array'
 import { NumberRange } from '@/__private__/utils/scale'
 
-import { ColumnItem, GroupItem } from './Group/Group'
-import { Position } from './Ticks/Ticks'
+import { ColumnItem, GroupItem } from './CoreBarChartGroup/CoreBarChartGroup'
+import { Position } from './CoreBarChartTicks/CoreBarChartTicks'
 
 export const barCharSizes = ['s', 'm', 'l', 'xl', '2xl', '3xl', 'auto'] as const
 export type Size = typeof barCharSizes[number]

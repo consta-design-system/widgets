@@ -1,4 +1,4 @@
-.cw--Ticks {
+.cw--CoreBarChartTicks {
   &-Group {
     display: flex;
 
@@ -52,8 +52,8 @@
         text-align: right;
       }
 
-      &_right.cw--Ticks-Label,
-      &_left.cw--Ticks-Label .cw--Ticks-Text {
+      &_right.cw--CoreBarChartTicks-Label,
+      &_left.cw--CoreBarChartTicks-Label .cw--CoreBarChartTicks-Text {
         display: -webkit-box;
         -webkit-box-orient: vertical;
 
@@ -96,7 +96,7 @@
       &_left {
         position: relative;
 
-        .cw--Ticks-Text {
+        .cw--CoreBarChartTicks-Text {
           position: absolute;
           top: 50%;
 
@@ -114,7 +114,7 @@
       &_bottom {
         position: relative;
 
-        .cw--Ticks-Text {
+        .cw--CoreBarChartTicks-Text {
           position: absolute;
 
           overflow: hidden;

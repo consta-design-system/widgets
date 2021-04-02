@@ -1,4 +1,4 @@
-.cw--Group {
+.cw--CoreBarChartGroup {
   &-Groups {
     display: flex;
 
@@ -11,11 +11,11 @@
 
       text-align: center;
 
-      .cw--Group-Columns {
+      .cw--CoreBarChartGroup-Columns {
         flex-direction: column;
       }
 
-      .cw--Group-Wrapper {
+      .cw--CoreBarChartGroup-Wrapper {
         align-items: flex-end;
 
         &_isReversed {
@@ -28,11 +28,11 @@
       align-items: center;
       flex-direction: row-reverse;
 
-      .cw--Group-Columns {
+      .cw--CoreBarChartGroup-Columns {
         flex-direction: row-reverse;
       }
 
-      .cw--Group-Wrapper {
+      .cw--CoreBarChartGroup-Wrapper {
         align-items: flex-start;
         flex-direction: column;
 
