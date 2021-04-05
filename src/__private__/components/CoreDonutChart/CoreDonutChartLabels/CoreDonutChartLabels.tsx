@@ -165,7 +165,7 @@ export const CoreDonutChartLabels = forwardRef<SVGGElement, Props>((props, ref) 
         const [textX, textY] = startLabel(item)
         const degrees = radianToDegree(getArcMiddleInRadian(item))
 
-        if (hideIndexs.includes(itemIdx)) {
+        if (!item.data.value || hideIndexs.includes(itemIdx)) {
           return null
         }
 
