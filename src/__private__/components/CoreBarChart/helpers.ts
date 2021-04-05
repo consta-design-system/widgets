@@ -63,16 +63,11 @@ export const getValuesDomain: GetValuesDomain = ({ groups, min, max, threshold }
   const maxValue = max && getValueY(max, v => v >= 0)
   const minValue = min && getValueY(min, v => v < 0)
 
-  if (
-    (maxValue || maxValue === 0) &&
-    minValue &&
-    thresholdValue > minValue &&
-    thresholdValue < maxValue
-  ) {
+  if ((maxValue || maxValue === 0) && (minValue || minValue === 0)) {
     return [minValue, maxValue]
-  } else if (!maxValue && minValue && thresholdValue > minValue) {
+  } else if (!maxValue && minValue) {
     return [minValue, maxNumber]
-  } else if ((maxValue || maxValue === 0) && !minValue && thresholdValue < maxValue) {
+  } else if (maxValue && !minValue) {
     return [minNumber, maxValue]
   } else {
     return [minNumber, maxNumber]
@@ -387,4 +382,11 @@ export const useGridStyle = ({
   ])
 
   return gridStyle
+}
+
+export const isInDomain = (value: number, domain: NumberRange) => {
+  const minInDomain = Math.min(...domain)
+  const maxInDomain = Math.max(...domain)
+
+  return value >= minInDomain && value <= maxInDomain
 }

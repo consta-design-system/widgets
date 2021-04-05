@@ -102,44 +102,42 @@ export const getTriangle = (
   }
 }
 
-const getBackgroundOverflow = (color: string, direction: string, numberColumnSections: number) => {
-  if (numberColumnSections > 1) {
-    switch (direction) {
-      case 'vertical':
-        return { background: `linear-gradient(to top, ${color} 75%, rgba(10,165,255,0) 100%)` }
-      case 'verticalReverse':
-        return { background: `linear-gradient(to bottom, ${color} 75%, rgba(10,165,255,0) 100%)` }
-      case 'horizontal':
-        return { background: `linear-gradient(to right, ${color} 75%, rgba(10,165,255,0) 100%)` }
-      case 'horizontalReverse':
-        return { background: `linear-gradient(to left, ${color} 75%, rgba(10,165,255,0) 100%)` }
-    }
-  } else {
-    switch (direction) {
-      case 'vertical':
-        return { background: `linear-gradient(to top, ${color} 95%, rgba(10,165,255,0) 100%)` }
-      case 'verticalReverse':
-        return { background: `linear-gradient(to bottom, ${color} 95%, rgba(10,165,255,0) 100%)` }
-      case 'horizontal':
-        return { background: `linear-gradient(to right, ${color} 98%, rgba(10,165,255,0) 100%)` }
-      case 'horizontalReverse':
-        return { background: `linear-gradient(to left, ${color} 98%, rgba(10,165,255,0) 100%)` }
-    }
+const getBackgroundOverflow = (color: string, direction: string, gradientLength: number) => {
+  switch (direction) {
+    case 'vertical':
+      return {
+        background: `linear-gradient(to top, ${color} ${100 -
+          gradientLength}%, rgba(10,165,255,0) 100%)`,
+      }
+    case 'verticalReverse':
+      return {
+        background: `linear-gradient(to bottom, ${color} ${100 -
+          gradientLength}%, rgba(10,165,255,0) 100%)`,
+      }
+    case 'horizontal':
+      return {
+        background: `linear-gradient(to right, ${color} ${100 -
+          gradientLength}%, rgba(10,165,255,0) 100%)`,
+      }
+    case 'horizontalReverse':
+      return {
+        background: `linear-gradient(to left, ${color} ${100 -
+          gradientLength}%, rgba(10,165,255,0) 100%)`,
+      }
   }
 }
 
 export const getBackground = (
   color: string,
   length: number,
-  isOverflow: boolean,
-  lastSection: boolean,
   direction: string,
-  numberColumnSections: number
+  gradientLength: number,
+  isSectionOverflow?: boolean
 ) => {
   if (length === 0) {
     return { background: 'rgba(0,0,0,0)' }
-  } else if (isOverflow && lastSection) {
-    return getBackgroundOverflow(color, direction, numberColumnSections)
+  } else if (isSectionOverflow) {
+    return getBackgroundOverflow(color, direction, gradientLength)
   } else {
     return { background: `${color}` }
   }

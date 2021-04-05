@@ -9,7 +9,7 @@ import { NumberRange } from '@/__private__/utils/scale'
 import { LabelSize } from '../CoreBarChart'
 import { ColumnProperty } from '../CoreBarChartColumn/CoreBarChartColumn'
 
-import { getColor, getDirection, getRoundedBorder, getShadow, getTriangle } from './helpers'
+import { getBackground, getColor, getDirection, getRoundedBorder, getTriangle } from './helpers'
 import './CoreBarChartSection.css'
 
 const cnCoreBarChartSection = cn('CoreBarChartSection')
@@ -20,6 +20,7 @@ type Props = {
   isHorizontal: boolean
   isReversed: boolean
   isActive: boolean
+  overflowed?: boolean
   label?: string
   onMouseEnter?: React.MouseEventHandler
   onMouseLeave?: React.MouseEventHandler
@@ -39,6 +40,7 @@ export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
       isHorizontal,
       isReversed,
       isActive,
+      overflowed,
       label,
       onMouseEnter,
       onMouseLeave,
@@ -78,6 +80,9 @@ export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
     const columnOverflow =
       isOverflow && numberColumnSections === 1 ? getDirection(isHorizontal, isReversed) : ''
     const formatLabel = label && formatForValue(label)
+    const gradientLength =
+      ((16 / (isHorizontal ? columnProperty.width : columnProperty.height)) * 100 * 100) / length
+    const isSectionOverflow = isOverflow && overflowed
 
     return (
       <div
@@ -91,7 +96,7 @@ export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
         style={{
           width: isHorizontal ? `${Math.abs(length)}%` : undefined,
           height: isHorizontal ? undefined : `${Math.abs(length)}%`,
-          background: `${color}`,
+          ...getBackground(color, length, direction, gradientLength, isSectionOverflow),
           ...getRoundedBorder(columnProperty, direction, lastSection),
         }}
         onMouseEnter={onMouseEnter}
@@ -113,12 +118,6 @@ export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
             >
               <path d="M4 0.5L8 5H0L4 0.5Z" fill="var(--color-bg-soft)" />
             </svg>
-            <div
-              className={cnCoreBarChartSection('Shadow')}
-              style={{
-                ...getShadow(direction),
-              }}
-            />
           </>
         )}
         {label && lastSection && (

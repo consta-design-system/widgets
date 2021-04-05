@@ -26,6 +26,7 @@ export type SectionItem = {
   value?: number
   length?: number
   name?: string
+  overflowed?: boolean
 }
 
 export type ColumnProperty = {
@@ -101,8 +102,6 @@ export const CoreBarChartColumn: React.FC<Props> = ({
   const { width, height } = useComponentSize(ref)
   const columnProperty: ColumnProperty = { width, height }
 
-  const maxPercentageWidth = 70
-  const padding = isHorizontal ? height * 0.2 : (maxPercentageWidth / maxNumberGroups) * 0.2
   const lengthColumn = lengthColumns ?? 0
 
   const numberColumnSections = sections?.length ?? 0
@@ -130,7 +129,10 @@ export const CoreBarChartColumn: React.FC<Props> = ({
       if (index === 0) {
         sectionsLength = secLength
 
-        return item
+        return {
+          ...item,
+          overflowed: secLength === 100,
+        }
       }
 
       if (sectionsLength + secLength <= 100) {
@@ -145,6 +147,7 @@ export const CoreBarChartColumn: React.FC<Props> = ({
           return {
             ...item,
             length: newSecLength,
+            overflowed: true,
           }
         }
 
@@ -190,6 +193,7 @@ export const CoreBarChartColumn: React.FC<Props> = ({
         isHorizontal={isHorizontal}
         isReversed={isReversed}
         isActive={isActive}
+        overflowed={item.overflowed}
         label={getLabel()}
         onChangeLabelSize={onChangeLabelSize}
         onMouseEnter={handleMouseEnter}
@@ -213,7 +217,7 @@ export const CoreBarChartColumn: React.FC<Props> = ({
         direction,
         clickable,
       })}
-      style={styleOrientation(lengthColumn, maxNumberGroups, isHorizontal)}
+      style={styleOrientation(lengthColumn, maxNumberGroups, isHorizontal, height)}
       ref={ref}
     >
       {(mapSections(sections) || []).map(renderSection)}

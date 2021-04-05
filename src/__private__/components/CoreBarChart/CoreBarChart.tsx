@@ -19,6 +19,7 @@ import {
   getPaddingThreshold,
   getRange,
   getScaler,
+  isInDomain,
   useGridStyle,
 } from './helpers'
 import {
@@ -368,7 +369,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
                 <CoreBarChartZeroLine valuesScale={valuesScale} isHorizontal={isHorizontal} />
               )}
             </svg>
-            {threshold && (
+            {threshold && isInDomain(threshold.value, valuesDomain) && (
               <svg
                 className={cnCoreBarChart('Svg', { threshold: threshold?.value ? 'up' : '' })}
                 style={
