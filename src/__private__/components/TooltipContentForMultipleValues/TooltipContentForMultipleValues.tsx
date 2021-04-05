@@ -6,7 +6,7 @@ import _ from 'lodash'
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 import { getFormattedValue } from '@/__private__/utils/chart'
-import { formatForArray } from '@/__private__/utils/formatForArray'
+import { numberFormatter } from '@/__private__/utils/formatters'
 import { LegendItem } from '@/LegendItem/LegendItem'
 
 import './TooltipContentForMultipleValues.css'
@@ -30,9 +30,6 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
   items,
   formatValueForTooltip,
 }) => {
-  const newItems = items.map(item => item.value || 0)
-  const formatItems = formatForArray(newItems)
-
   return (
     <div className={cnTooltipContent('Container')}>
       {title && (
@@ -52,19 +49,14 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
 
       <div className={cnTooltipContent('Content')}>
         {items.map(({ name, color, value }, idx) => {
-          const formattedValue = getFormattedValue(value ?? null, formatValueForTooltip)
-          const newFormattedValue =
-            formatItems[idx] +
-            ' ' +
-            formattedValue
-              .split(' ')
-              .slice(1)
-              .join(' ')
+          const formattedValue = numberFormatter(
+            getFormattedValue(value ?? null, formatValueForTooltip)
+          )
 
           return (
             <React.Fragment key={idx}>
               <LegendItem
-                label={name ?? newFormattedValue}
+                label={name ?? formattedValue}
                 icon={_.isNumber(value) ? 'dot' : undefined}
                 color={color}
                 size="xs"
@@ -75,7 +67,7 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
               />
               {name && (
                 <Text as="span" size="xs" weight="bold" view="primary">
-                  {newFormattedValue}
+                  {formattedValue}
                 </Text>
               )}
             </React.Fragment>
