@@ -58,7 +58,7 @@ addParameters({
     page: stub,
   },
   options: {
-    theme: themes.dark,
+    // theme: themes.dark,
     showRoots: true,
     storySort,
   },
