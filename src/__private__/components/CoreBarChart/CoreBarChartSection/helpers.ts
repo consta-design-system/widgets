@@ -145,6 +145,25 @@ export const getBackground = (
   }
 }
 
+export const getShadow = (direction: string) => {
+  switch (direction) {
+    case 'vertical':
+      return {
+        top: 0,
+        width: '100%',
+        height: 'var(--space-m)',
+        background: 'linear-gradient(180deg, rgba(var(--color-nums-shadow), 0.5), transparent)',
+      }
+    case 'horizontal':
+      return {
+        right: 0,
+        height: '100%',
+        width: 'var(--space-m)',
+        background: 'linear-gradient(270deg, rgba(var(--color-nums-shadow), 0.5), transparent)',
+      }
+  }
+}
+
 export const getColor = (color: string, isOverflow: boolean) => {
   if (isOverflow) {
     return { color: `${color}` }

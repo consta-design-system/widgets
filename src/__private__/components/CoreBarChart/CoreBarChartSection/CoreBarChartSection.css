@@ -17,14 +17,6 @@
       opacity: 1;
     }
 
-    &_horizontal {
-      min-width: 5px;
-
-      &_vertical {
-        min-height: 5px;
-      }
-    }
-
     &_columnOverflow {
       &_verticalReverse {
         min-height: 105%;
@@ -124,11 +116,9 @@
     }
   }
 
-  &-Label {
-    position: absolute;
-  }
-
-  &-Overflow {
+  &-Label,
+  &-Overflow,
+  &-Shadow {
     position: absolute;
   }
 }

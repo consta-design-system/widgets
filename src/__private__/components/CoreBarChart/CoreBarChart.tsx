@@ -38,7 +38,7 @@ const cnCoreBarChart = cn('CoreBarChart')
 
 const SHADOW_WIDTH = 20
 
-export type OnMouseHoverColumn = (groupName: string) => void
+export type OnMouseEventColumn = (groupName: string) => void
 
 export type Threshold = {
   value: number
@@ -75,8 +75,9 @@ export type Props<T> = {
   formatGroupName?: FormatGroupName
   renderGroupsLabels?: RenderGroupsLabels
   renderAxisValues?: RenderAxisValues
-  onMouseEnterColumn?: OnMouseHoverColumn
-  onMouseLeaveColumn?: OnMouseHoverColumn
+  onMouseEnterColumn?: OnMouseEventColumn
+  onMouseLeaveColumn?: OnMouseEventColumn
+  onMouseClickColumn?: OnMouseEventColumn
   limitMinimumStepSize?: boolean
 }
 
@@ -114,6 +115,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     isXAxisLabelsSlanted,
     onMouseEnterColumn,
     onMouseLeaveColumn,
+    onMouseClickColumn,
     limitMinimumStepSize,
     gridConfig,
   } = props
@@ -431,6 +433,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
                     scalerMinValue,
                     onMouseEnterColumn: handleMouseEnterColumn,
                     onMouseLeaveColumn: handleMouseLeaveColumn,
+                    onMouseClickColumn,
                     formatValueForLabel,
                     onChangeLabelSize: changeLabelSize,
                     getNumberGridTicks,

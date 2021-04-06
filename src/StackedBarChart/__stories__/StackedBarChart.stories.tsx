@@ -57,6 +57,7 @@ export const Minimalistic = createStory(
       {...getCommonProps(interactiveData.unit)}
       groups={interactiveData.groups}
       isHorizontal={true}
+      onMouseClickColumn={(value: string) => alert(value)}
     />
   ),
   { name: 'минималистичный' }

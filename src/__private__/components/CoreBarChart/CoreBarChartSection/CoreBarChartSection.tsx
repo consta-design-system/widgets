@@ -9,14 +9,7 @@ import { NumberRange } from '@/__private__/utils/scale'
 import { LabelSize } from '../CoreBarChart'
 import { ColumnProperty } from '../CoreBarChartColumn/CoreBarChartColumn'
 
-import {
-  getBackground,
-  getColor,
-  getDirection,
-  getRoundedBorder,
-  getSize,
-  getTriangle,
-} from './helpers'
+import { getColor, getDirection, getRoundedBorder, getShadow, getTriangle } from './helpers'
 import './CoreBarChartSection.css'
 
 const cnCoreBarChartSection = cn('CoreBarChartSection')
@@ -30,6 +23,7 @@ type Props = {
   label?: string
   onMouseEnter?: React.MouseEventHandler
   onMouseLeave?: React.MouseEventHandler
+  onMouseClick?: React.MouseEventHandler
   onChangeLabelSize?: (size: LabelSize) => void
   columnProperty: ColumnProperty
   gridDomain: NumberRange
@@ -48,6 +42,7 @@ export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
       label,
       onMouseEnter,
       onMouseLeave,
+      onMouseClick,
       onChangeLabelSize,
       columnProperty,
       gridDomain,
@@ -94,27 +89,37 @@ export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
           columnOverflow,
         })}
         style={{
-          ...getSize(length, isHorizontal, isOverflow, numberColumnSections, indexSection),
+          width: isHorizontal ? `${Math.abs(length)}%` : undefined,
+          height: isHorizontal ? undefined : `${Math.abs(length)}%`,
+          background: `${color}`,
           ...getRoundedBorder(columnProperty, direction, lastSection),
-          ...getBackground(color, length, isOverflow, lastSection, direction, numberColumnSections),
         }}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        onClick={onMouseClick}
       >
-        {isOverflow && (
-          <svg
-            className={cnCoreBarChartSection('Overflow', {
-              horizontal,
-              direction,
-            })}
-            style={getTriangle(isOverflow, direction, labelWidth, lastSection)}
-            width="8"
-            height="5"
-            viewBox="0 0 8 5"
-            fill="none"
-          >
-            <path d="M4 0.5L8 5H0L4 0.5Z" fill={color} />
-          </svg>
+        {isOverflow && lastSection && (
+          <>
+            <svg
+              className={cnCoreBarChartSection('Overflow', {
+                horizontal,
+                direction,
+              })}
+              style={getTriangle(isOverflow, direction, labelWidth, lastSection)}
+              width="8"
+              height="5"
+              viewBox="0 0 8 5"
+              fill="none"
+            >
+              <path d="M4 0.5L8 5H0L4 0.5Z" fill="var(--color-bg-soft)" />
+            </svg>
+            <div
+              className={cnCoreBarChartSection('Shadow')}
+              style={{
+                ...getShadow(direction),
+              }}
+            />
+          </>
         )}
         {label && lastSection && (
           <Text
@@ -123,7 +128,7 @@ export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
             view="primary"
             className={cnCoreBarChartSection('Label')}
             size="xs"
-            style={getColor(color, isOverflow)}
+            style={getColor(color, false)}
           >
             {formatLabel}
           </Text>

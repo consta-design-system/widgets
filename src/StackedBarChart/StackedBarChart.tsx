@@ -6,7 +6,11 @@ import {
   isShowReversed,
 } from '@/__private__/components/CoreBarChart/helpers'
 import { defaultRenderGroup } from '@/__private__/components/CoreBarChart/renders'
-import { CoreBarChart, Threshold } from '@/__private__/components/CoreBarChart/CoreBarChart'
+import {
+  CoreBarChart,
+  OnMouseEventColumn,
+  Threshold,
+} from '@/__private__/components/CoreBarChart/CoreBarChart'
 import { FormatGroupName, FormatValue } from '@/__private__/types'
 import { getMaxOfArray } from '@/BarChart/helpers'
 
@@ -34,7 +38,6 @@ type Props = {
   showValues?: boolean
   isHorizontal?: boolean
   threshold?: Threshold
-  title?: React.ReactNode
   formatValueForLabel?: FormatValue
   formatValueForTooltip?: FormatValue
   formatGroupName?: FormatGroupName
@@ -46,6 +49,7 @@ type Props = {
   showGroupsLabels?: boolean
   limitMinimumStepSize?: boolean
   gridConfig?: number
+  onMouseClickColumn?: OnMouseEventColumn
 }
 
 export const StackedBarChart: React.FC<Props> = props => {
