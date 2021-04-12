@@ -1,34 +1,36 @@
+const maxPercentageWidth = 100
+
 export const styleOrientation = (
   lengthColumns: number,
   maxNumberGroups: number,
-  maxPercentageWidth: number,
-  padding: number,
   isHorizontal: boolean
 ) => {
+  const padding = (maxPercentageWidth / maxNumberGroups) * 0.2
+
   if (!isHorizontal) {
     if (maxNumberGroups > 1) {
       return {
         minHeight: `${lengthColumns}%`,
-        minWidth: `${maxPercentageWidth / maxNumberGroups - padding}%`,
+        width: `${maxPercentageWidth / maxNumberGroups - padding}%`,
         padding: `0 ${padding}% 0 0`,
       }
     } else {
       return {
         minHeight: `${lengthColumns}%`,
-        minWidth: `${maxPercentageWidth / maxNumberGroups}%`,
+        width: `${maxPercentageWidth / maxNumberGroups}%`,
       }
     }
   } else {
     if (maxNumberGroups > 1) {
       return {
         minWidth: `${lengthColumns}%`,
-        minHeight: `${maxPercentageWidth / maxNumberGroups - padding}%`,
+        height: `${maxPercentageWidth / maxNumberGroups - padding}%`,
         padding: `0 0 ${padding}px 0`,
       }
     } else {
       return {
         minWidth: `${lengthColumns}%`,
-        minHeight: `${maxPercentageWidth / maxNumberGroups}%`,
+        height: `${maxPercentageWidth / maxNumberGroups}%`,
       }
     }
   }

@@ -11,7 +11,7 @@ import {
 } from '../../data.mock'
 
 export const BarChartExampleGeneral = () => (
-  <Example>
+  <Example height="400px">
     <BarChart
       formatValueForTooltip={v => `${v} км`}
       colors={withNegativeValueData.colors}
@@ -91,7 +91,7 @@ export const BarChartExampleThreshold = () => (
 )
 
 export const BarChartExampleGroup = () => (
-  <Example>
+  <Example height="300px">
     <BarChart
       formatValueForTooltip={v => `${v} км`}
       colors={groupExampleData.colors}
@@ -116,7 +116,7 @@ export const BarChartExampleGroupSlanted = () => (
 )
 
 export const BarChartExampleShowValues = () => (
-  <Example>
+  <Example height="300px">
     <BarChart
       formatValueForTooltip={v => `${v} км`}
       colors={groupExampleData.colors}
@@ -129,7 +129,7 @@ export const BarChartExampleShowValues = () => (
 )
 
 export const BarChartExampleOverflow = () => (
-  <Example>
+  <Example height="300px">
     <BarChart
       formatValueForTooltip={v => `${v} км`}
       colors={groupExampleDataOverflow.colors}
@@ -142,7 +142,7 @@ export const BarChartExampleOverflow = () => (
 )
 
 export const BarChartExampleLableProcent = () => (
-  <Example>
+  <Example height="300px">
     <BarChart
       formatValueForLabel={v => `${v}%`}
       formatValueForTooltip={v => `${v}%`}
