@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 
 import { Text } from '@consta/uikit/Text'
 
-import { ColumnProperty } from '@/__private__/components/CoreBarChart/Column/Column'
 import { cn } from '@/__private__/utils/bem'
 import { formatForValue } from '@/__private__/utils/formatForValue'
 import { NumberRange } from '@/__private__/utils/scale'
 
 import { LabelSize } from '../CoreBarChart'
+import { ColumnProperty } from '../CoreBarChartColumn/CoreBarChartColumn'
 
 import {
   getBackground,
@@ -17,9 +17,9 @@ import {
   getSize,
   getTriangle,
 } from './helpers'
-import './Section.css'
+import './CoreBarChartSection.css'
 
-const cnSection = cn('Section')
+const cnCoreBarChartSection = cn('CoreBarChartSection')
 
 type Props = {
   color: string
@@ -37,7 +37,7 @@ type Props = {
   indexSection?: number
 }
 
-export const Section = React.forwardRef<HTMLDivElement, Props>(
+export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
   (
     {
       color,
@@ -87,7 +87,7 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
     return (
       <div
         ref={ref}
-        className={cnSection('Sections', {
+        className={cnCoreBarChartSection('Sections', {
           horizontal,
           direction,
           isActive,
@@ -103,7 +103,7 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
       >
         {isOverflow && (
           <svg
-            className={cnSection('Overflow', {
+            className={cnCoreBarChartSection('Overflow', {
               horizontal,
               direction,
             })}
@@ -121,7 +121,7 @@ export const Section = React.forwardRef<HTMLDivElement, Props>(
             ref={labelRef}
             as="div"
             view="primary"
-            className={cnSection('Label')}
+            className={cnCoreBarChartSection('Label')}
             size="xs"
             style={getColor(color, isOverflow)}
           >

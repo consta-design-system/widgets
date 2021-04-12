@@ -1,7 +1,7 @@
 import { getScaler } from '@/__private__/components/CoreBarChart/helpers'
 import { NumberRange } from '@/__private__/utils/scale'
 
-import { SectionItem } from '../Column/Column'
+import { SectionItem } from '../CoreBarChartColumn/CoreBarChartColumn'
 
 export const getSections = ({
   sections,

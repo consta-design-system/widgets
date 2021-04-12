@@ -4,9 +4,9 @@ import { cn } from '@/__private__/utils/bem'
 import { formatForValue } from '@/__private__/utils/formatForValue'
 import { Scaler } from '@/__private__/utils/scale'
 
-import './Threshold.css'
+import './CoreBarChartThreshold.css'
 
-const cnThreshold = cn('Threshold')
+const cnCoreBarChartThreshold = cn('CoreBarChartThreshold')
 
 type Props = {
   valuesScale: Scaler<number>
@@ -48,7 +48,7 @@ const getPositionText = (value: number, isHorizontal: boolean) => {
   }
 }
 
-export const Threshold: React.FC<Props> = ({ valuesScale, isHorizontal, value }) => {
+export const CoreBarChartThreshold: React.FC<Props> = ({ valuesScale, isHorizontal, value }) => {
   const scaledValue = valuesScale.scale(value)
   const linePos = getLinePosition(scaledValue, isHorizontal)
   const textPos = getPositionText(scaledValue, isHorizontal)
@@ -58,8 +58,12 @@ export const Threshold: React.FC<Props> = ({ valuesScale, isHorizontal, value })
 
   return (
     <>
-      <line stroke={'var(--color-bg-warning)'} className={cnThreshold('Main')} {...linePos} />
-      <text {...textPos} className={cnThreshold('Text', { horizontal })}>
+      <line
+        stroke={'var(--color-bg-warning)'}
+        className={cnCoreBarChartThreshold('Main')}
+        {...linePos}
+      />
+      <text {...textPos} className={cnCoreBarChartThreshold('Text', { horizontal })}>
         {textValue}
       </text>
     </>

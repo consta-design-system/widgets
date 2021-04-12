@@ -4,9 +4,9 @@ import { LabelSize } from '@/__private__/components/CoreBarChart/CoreBarChart'
 import { FormatGroupName, FormatValue } from '@/__private__/types'
 import { NumberRange, Scaler } from '@/__private__/utils/scale'
 
-import { Group, GroupItem } from './Group/Group'
-import { Position, Ticks } from './Ticks/Ticks'
-import { TooltipData } from './Tooltip/Tooltip'
+import { CoreBarChartGroup, GroupItem } from './CoreBarChartGroup/CoreBarChartGroup'
+import { CoreBarChartTicks, Position } from './CoreBarChartTicks/CoreBarChartTicks'
+import { TooltipData } from './CoreBarChartTooltip/CoreBarChartTooltip'
 
 export type RenderGroupsLabels = (props: {
   values: readonly string[]
@@ -18,7 +18,7 @@ export type RenderGroupsLabels = (props: {
 }) => React.ReactElement | null
 
 export const defaultRenderGroupsLabels: RenderGroupsLabels = ({ ...rest }) => {
-  return <Ticks {...rest} isLabel />
+  return <CoreBarChartTicks {...rest} isLabel />
 }
 
 export type RenderAxisValues = (props: {
@@ -30,7 +30,7 @@ export type RenderAxisValues = (props: {
 }) => React.ReactElement | null
 
 export const defaultRenderAxisValues: RenderAxisValues = ({ ...rest }) => {
-  return <Ticks {...rest} />
+  return <CoreBarChartTicks {...rest} />
 }
 
 export type RenderGroup<T> = (props: {
@@ -57,4 +57,4 @@ export type RenderGroup<T> = (props: {
   limitMinimumStepSize?: boolean
 }) => React.ReactElement | null
 
-export const defaultRenderGroup: RenderGroup<GroupItem> = props => <Group {...props} />
+export const defaultRenderGroup: RenderGroup<GroupItem> = props => <CoreBarChartGroup {...props} />

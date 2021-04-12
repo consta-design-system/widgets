@@ -3,9 +3,9 @@ import React from 'react'
 import { cn } from '@/__private__/utils/bem'
 import { Scaler } from '@/__private__/utils/scale'
 
-import './ZeroLine.css'
+import './CoreBarChartZeroLine.css'
 
-const cnZeroLine = cn('ZeroLine')
+const cnCoreBarChartZeroLine = cn('CoreBarChartZeroLine')
 
 type Props = {
   valuesScale: Scaler<number>
@@ -30,13 +30,13 @@ const getLinePosition = (value: number, isHorizontal: boolean) => {
   }
 }
 
-export const ZeroLine: React.FC<Props> = ({ valuesScale, isHorizontal }) => {
+export const CoreBarChartZeroLine: React.FC<Props> = ({ valuesScale, isHorizontal }) => {
   const scaledValue = valuesScale.scale(0)
   const linePos = getLinePosition(scaledValue, isHorizontal)
 
   return (
-    <svg className={cnZeroLine('Main')}>
-      <line className={cnZeroLine('Line')} {...linePos} />
+    <svg className={cnCoreBarChartZeroLine('Main')}>
+      <line className={cnCoreBarChartZeroLine('Line')} {...linePos} />
     </svg>
   )
 }

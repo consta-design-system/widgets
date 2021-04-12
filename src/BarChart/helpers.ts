@@ -1,7 +1,7 @@
 import { isNotNil } from '@consta/widgets-utils/lib/type-guards'
 
 import { TypeColumn } from '@/__private__/components/CoreBarChart/helpers'
-import { GroupItem } from '@/__private__/components/CoreBarChart/Group'
+import { GroupItem } from '@/__private__/components/CoreBarChart/CoreBarChartGroup/CoreBarChartGroup'
 import { Column, Group } from '@/BarChart/BarChart'
 
 const getDefaultColumnItem = (isEmptyColumnsHidden: boolean) =>
