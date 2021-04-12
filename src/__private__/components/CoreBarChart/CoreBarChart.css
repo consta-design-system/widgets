@@ -94,10 +94,6 @@
         grid-area: leftTicks;
 
         justify-self: end;
-
-        position: fixed;
-
-        background: var(--color-bg-default);
       }
     }
   }
@@ -127,8 +123,6 @@
         margin-bottom: var(--space-m);
 
         text-align: right;
-
-        background: var(--color-bg-default);
       }
     }
   }

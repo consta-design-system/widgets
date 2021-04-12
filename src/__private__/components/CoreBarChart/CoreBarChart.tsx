@@ -1,4 +1,4 @@
-import React, { RefObject, useLayoutEffect, useRef, useState } from 'react'
+import React, { RefObject, useRef, useState } from 'react'
 
 import { useComponentSize } from '@consta/uikit/useComponentSize'
 import { Text } from '@consta/uikit/Text'
@@ -19,6 +19,7 @@ import {
   getPaddingThreshold,
   getRange,
   getScaler,
+  useGridStyle,
 } from './helpers'
 import {
   defaultRenderAxisValues,
@@ -126,7 +127,6 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
    * Используется как триггер, чтобы при ресайзе окна мы делали перерасчет всех элементов
    */
   const { width, height } = useComponentSize(ref)
-  const [gridStyle, changeGridStyle] = useState({ width: 0, height: 0, left: 0, top: 0 })
   const [showLeftShadow, setShowLeftShadow] = React.useState<boolean>(false)
   const [showRightShadow, setShowRightShadow] = React.useState<boolean>(false)
 
@@ -175,6 +175,18 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
   const scalerMaxValue = getScaler(gridItems[gridItems.length - 1])
   const scalerMinValue = getScaler(Math.abs(gridItems[0]))
 
+  const gridStyle = useGridStyle({
+    paddingRight,
+    paddingLeft,
+    paddingTop,
+    paddingBottom,
+    ref,
+    isHorizontal,
+    width,
+    height,
+    groupsRef,
+  })
+
   const valuesScale = scaleLinear({
     domain: [gridItems[0], gridItems[gridItems.length - 1]],
     range: getRange(
@@ -218,39 +230,6 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     })
   }
 
-  useLayoutEffect(() => {
-    const firstGroup = groupsRef.current[0].current
-    // Если группа всего одна, то считаем её как первую и как последнюю
-    const lastGroup = groupsRef.current[1].current || groupsRef.current[0].current
-
-    if (ref && ref.current && firstGroup && lastGroup) {
-      const left =
-        firstGroup.getBoundingClientRect().left - ref.current.getBoundingClientRect().left
-      const top = firstGroup.getBoundingClientRect().top - ref.current.getBoundingClientRect().top
-      const newHeight =
-        lastGroup.getBoundingClientRect().bottom - firstGroup.getBoundingClientRect().top
-      const newWidth =
-        lastGroup.getBoundingClientRect().right - firstGroup.getBoundingClientRect().left
-
-      changeGridStyle({
-        left: left + paddingLeft,
-        top: top + paddingTop,
-        height: newHeight - paddingTop - paddingBottom,
-        width: newWidth - paddingLeft - paddingRight,
-      })
-    }
-  }, [
-    ref,
-    isHorizontal,
-    width,
-    height,
-    paddingLeft,
-    paddingRight,
-    paddingTop,
-    paddingBottom,
-    groupsRef,
-  ])
-
   const getRenderGroupsLabels = (position: Position) =>
     renderGroupsLabels({
       values: groupsDomain,
@@ -268,10 +247,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
       style={
         ['top', 'bottom'].includes(position)
           ? { marginLeft: `${gridStyle.left}px` }
-          : verticalStyles && {
-              height: `${height - 40}px`,
-              top: `${svgRef.current?.getBoundingClientRect()?.top}px`,
-            }
+          : verticalStyles && { paddingTop }
       }
     >
       {renderAxisValues({
