@@ -1,0 +1,134 @@
+.cw--CoreBarChartSection {
+  &-Sections {
+    --round-radius: 2px;
+
+    position: relative;
+
+    flex-shrink: 1;
+
+    width: 100%;
+    height: 100%;
+
+    white-space: nowrap;
+
+    opacity: 0.3;
+
+    &_isActive {
+      opacity: 1;
+    }
+
+    &_horizontal {
+      min-width: 5px;
+
+      &_vertical {
+        min-height: 5px;
+      }
+    }
+
+    &_columnOverflow {
+      &_verticalReverse {
+        min-height: 105%;
+      }
+
+      &_horizontal {
+        min-width: 105%;
+      }
+
+      &_horizontalReverse {
+        min-width: 105%;
+      }
+
+      &_vertical {
+        min-height: 105%;
+      }
+    }
+
+    &_direction {
+      &_horizontal {
+        .cw--CoreBarChartSection-Overflow {
+          top: 50%;
+          right: 0;
+
+          padding-bottom: 1px;
+
+          transform: translate(0%, -50%) rotate(90deg);
+        }
+
+        .cw--CoreBarChartSection-Label {
+          top: 50%;
+          right: 0;
+
+          padding-left: var(--space-xs);
+
+          transform: translate(100%, -50%);
+        }
+      }
+
+      &_horizontalReverse {
+        .cw--CoreBarChartSection-Overflow {
+          top: 50%;
+          left: 0;
+
+          transform: translate(0%, -50%) rotate(-90deg);
+        }
+
+        .cw--CoreBarChartSection-Label {
+          top: 50%;
+          left: 0;
+
+          padding-right: var(--space-xs);
+
+          transform: translate(-100%, -50%);
+        }
+      }
+
+      &_vertical {
+        .cw--CoreBarChartSection-Overflow {
+          top: 0;
+          left: 50%;
+
+          padding-bottom: var(--space-xs);
+
+          transform: translate(-50%, -270%) rotate(0deg);
+        }
+
+        .cw--CoreBarChartSection-Label {
+          top: 0;
+          left: 50%;
+
+          padding-bottom: var(--space-xs);
+
+          transform: translate(-50%, -100%);
+        }
+      }
+
+      &_verticalReverse {
+        .cw--CoreBarChartSection-Overflow {
+          bottom: 0;
+          left: 50%;
+
+          padding-top: var(--space-xs);
+
+          transform: translate(-50%, 290%) rotate(180deg);
+        }
+
+        .cw--CoreBarChartSection-Label {
+          bottom: 0;
+          left: 50%;
+
+          padding-top: var(--space-xs);
+
+          transform: translate(-50%, 100%);
+        }
+      }
+    }
+  }
+
+  &-Label {
+    position: absolute;
+  }
+
+  &-Overflow {
+    position: absolute;
+  }
+}

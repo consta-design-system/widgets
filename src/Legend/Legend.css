@@ -1,14 +1,12 @@
 .cw--Legend {
-  &-Main {
-    --item-padding-x: var(--space-xs);
-    --item-padding-y: calc(var(--space-xs) / 2);
+  --item-padding-x: var(--space-xs);
+  --item-padding-y: calc(var(--space-xs) / 2);
 
-    margin: calc(-1 * var(--item-padding-y)) calc(-1 * var(--item-padding-x));
+  margin: calc(-1 * var(--item-padding-y)) calc(-1 * var(--item-padding-x));
 
-    &_column {
-      display: flex;
-      flex-direction: column;
-    }
+  &_column {
+    display: flex;
+    flex-direction: column;
   }
 
   &-Title {
@@ -20,8 +18,13 @@
 
     border-radius: var(--space-3xs);
 
-    &_isHoverable &:hover {
+    .cw--Legend_isHoverable &:hover,
+    .cw--Legend_isClickable &:hover {
       background: var(--color-bg-ghost);
+    }
+
+    .cw--Legend_isClickable &:hover {
+      cursor: pointer;
     }
   }
 }

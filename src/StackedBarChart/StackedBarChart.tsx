@@ -7,7 +7,8 @@ import {
 } from '@/__private__/components/CoreBarChart/helpers'
 import { defaultRenderGroup } from '@/__private__/components/CoreBarChart/renders'
 import { CoreBarChart, Threshold } from '@/__private__/components/CoreBarChart/CoreBarChart'
-import { FormatValue } from '@/__private__/types'
+import { FormatGroupName, FormatValue } from '@/__private__/types'
+import { getMaxOfArray } from '@/BarChart/helpers'
 
 import {
   getColumnsLengthArray,
@@ -32,39 +33,39 @@ type Props = {
   unit?: string
   showValues?: boolean
   isHorizontal?: boolean
-  withScroll?: boolean
   threshold?: Threshold
   title?: React.ReactNode
   formatValueForLabel?: FormatValue
   formatValueForTooltip?: FormatValue
+  formatGroupName?: FormatGroupName
   isXAxisLabelsSlanted?: boolean
-  minValueY?: number
-  maxValueY?: number
+  min?: number
+  max?: number
   showGrid?: boolean
-  showLineAtZero?: boolean
+  showGuide?: boolean
   showGroupsLabels?: boolean
-  limitMinimumCategorySize?: boolean
+  limitMinimumStepSize?: boolean
+  gridConfig?: number
 }
 
 export const StackedBarChart: React.FC<Props> = props => {
-  const { groups, threshold, showValues, minValueY, maxValueY, ...rest } = props
+  const { groups, threshold, showValues, min, max, formatGroupName, ...rest } = props
 
   const commonGroups = transformGroupsToCommonGroups(groups)
   const showReversed = isShowReversed({ groups: commonGroups, threshold: props.threshold })
   const groupsDomain = getGroupsDomain(commonGroups)
   const valuesDomain = getValuesDomain({
     groups: commonGroups,
-    minValueY,
-    maxValueY,
+    min,
+    max,
     threshold: props.threshold,
   })
 
   const groupTotalArray = getColumnsLengthArray(commonGroups)
-  const maxGroupTotalLength = groupTotalArray.length > 0 ? Math.max.apply(null, groupTotalArray) : 0
+  const maxGroupTotalLength = getMaxOfArray(groupTotalArray)
 
   const maxNumberGroupsArray = getMaxNumberGroupsArray(commonGroups)
-  const maxNumberGroups: number =
-    maxNumberGroupsArray.length > 0 ? Math.max.apply(null, maxNumberGroupsArray) : 0
+  const maxNumberGroups = getMaxOfArray(maxNumberGroupsArray)
 
   return (
     <CoreBarChart
@@ -78,6 +79,7 @@ export const StackedBarChart: React.FC<Props> = props => {
       renderGroup={defaultRenderGroup}
       maxNumberGroups={maxNumberGroups}
       maxColumnLength={maxGroupTotalLength}
+      formatGroupName={formatGroupName}
     />
   )
 }

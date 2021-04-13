@@ -4,13 +4,21 @@ import {
   defaultGetCirclesCount,
   defaultGetMinChartSize,
   defaultSortValue,
+  DEFAULT_SVG_OFFSET,
+  getArcMiddleInRadian,
   getArcRadiuses,
   getChartSize,
   getDonutMaxMinSizeRect,
   getDonutRadius,
+  getGroupTransformTranslate,
+  getMainRadius,
   getPadding,
   getPieData,
   getSizeDonut,
+  getSvgOffset,
+  getSvgSize,
+  getSvgTextAnchor,
+  getSvgTextDY,
   getValues,
   isEmptyPieArcDatum,
   MAX_CIRCLES_TO_RENDER,
@@ -289,9 +297,8 @@ describe('getDonutMaxMinSizeRect', () => {
     const received = getDonutMaxMinSizeRect({
       height: 100,
       width: 100,
-      isHalfHorizontal: false,
-      isHalfVertical: false,
-      minSize: 50,
+      minChartSize: 50,
+      svgOffset: DEFAULT_SVG_OFFSET,
     })
 
     expect(received).toEqual({
@@ -306,16 +313,16 @@ describe('getDonutMaxMinSizeRect', () => {
     const received = getDonutMaxMinSizeRect({
       height: 100,
       width: 100,
-      isHalfHorizontal: true,
-      isHalfVertical: false,
-      minSize: 50,
+      halfDonut: 'top',
+      minChartSize: 50,
+      svgOffset: DEFAULT_SVG_OFFSET,
     })
 
     expect(received).toEqual({
       minWidth: 50,
       maxWidth: undefined,
-      minHeight: 50,
-      maxHeight: 50,
+      minHeight: 25,
+      maxHeight: undefined,
     })
   })
 
@@ -323,14 +330,14 @@ describe('getDonutMaxMinSizeRect', () => {
     const received = getDonutMaxMinSizeRect({
       height: 100,
       width: 100,
-      isHalfHorizontal: false,
-      isHalfVertical: true,
-      minSize: 50,
+      halfDonut: 'right',
+      minChartSize: 50,
+      svgOffset: DEFAULT_SVG_OFFSET,
     })
 
     expect(received).toEqual({
-      minWidth: 50,
-      maxWidth: 50,
+      minWidth: 25,
+      maxWidth: undefined,
       minHeight: 50,
       maxHeight: undefined,
     })
@@ -340,10 +347,9 @@ describe('getDonutMaxMinSizeRect', () => {
     const received = getDonutMaxMinSizeRect({
       height: 100,
       width: 100,
-      isHalfHorizontal: false,
-      isHalfVertical: false,
-      minSize: 50,
+      minChartSize: 50,
       limitSizeSide: 'height',
+      svgOffset: DEFAULT_SVG_OFFSET,
     })
 
     expect(received).toEqual({
@@ -358,10 +364,9 @@ describe('getDonutMaxMinSizeRect', () => {
     const received = getDonutMaxMinSizeRect({
       height: 100,
       width: 100,
-      isHalfHorizontal: false,
-      isHalfVertical: false,
-      minSize: 50,
+      minChartSize: 50,
       limitSizeSide: 'width',
+      svgOffset: DEFAULT_SVG_OFFSET,
     })
 
     expect(received).toEqual({
@@ -370,5 +375,217 @@ describe('getDonutMaxMinSizeRect', () => {
       minHeight: 50,
       maxHeight: undefined,
     })
+  })
+})
+
+describe('getSvgTextDY', () => {
+  it('получение сдвига текст по Y для 160 градусов', () => {
+    const received = getSvgTextDY(160)
+
+    expect(received).toEqual('1em')
+  })
+
+  it('получение сдвига текст по Y для 80 и 270 градусов', () => {
+    ;[80, 270].map(deg => {
+      const received = getSvgTextDY(deg)
+
+      expect(received).toEqual('0.35em')
+    })
+  })
+
+  it('получение сдвига текст по Y для 300, 360 и 60 градусов', () => {
+    ;[300, 360, 60].map(deg => {
+      const received = getSvgTextDY(deg)
+
+      expect(received).toEqual('-0.35em')
+    })
+  })
+})
+
+describe('getArcMiddleInRadian', () => {
+  it('получение цента дуги по начальной и конечной точке', () => {
+    const received = getArcMiddleInRadian({ startAngle: 0, endAngle: 10 })
+
+    expect(received).toEqual(5)
+  })
+})
+
+describe('getSvgTextAnchor', () => {
+  it('получение выравнивания текста по центру', () => {
+    ;[0, 180].map(deg => {
+      const received = getSvgTextAnchor(deg)
+
+      expect(received).toEqual('middle')
+    })
+  })
+
+  it('получение выравнивания текста по началу', () => {
+    const received = getSvgTextAnchor(100)
+
+    expect(received).toEqual('start')
+  })
+
+  it('получение выравнивания текста по концу', () => {
+    const received = getSvgTextAnchor(280)
+
+    expect(received).toEqual('end')
+  })
+
+  it('получение выравнивания текста для графика обрезанного слева', () => {
+    const received = getSvgTextAnchor(0, 'left')
+
+    expect(received).toEqual('start')
+  })
+
+  it('получение выравнивания текста для графика обрезанного справа', () => {
+    const received = getSvgTextAnchor(0, 'right')
+
+    expect(received).toEqual('end')
+  })
+})
+
+describe('getGroupTransformTranslate', () => {
+  const SVG_OFFSET = {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  }
+
+  it('получение сдвига элементов графика', () => {
+    const received = getGroupTransformTranslate({ radius: 50, svgOffset: SVG_OFFSET })
+
+    expect(received).toEqual('translate(50, 50)')
+  })
+
+  it('получение сдвига элементов графика обрезанного сверху', () => {
+    const received = getGroupTransformTranslate({
+      radius: 50,
+      svgOffset: SVG_OFFSET,
+      halfDonut: 'top',
+    })
+
+    expect(received).toEqual('translate(50, 0)')
+  })
+
+  it('получение сдвига элементов графика обрезанного справа', () => {
+    const received = getGroupTransformTranslate({
+      radius: 50,
+      svgOffset: SVG_OFFSET,
+      halfDonut: 'right',
+    })
+
+    expect(received).toEqual('translate(50, 50)')
+  })
+
+  it('получение сдвига элементов графика обрезанного снизу', () => {
+    const received = getGroupTransformTranslate({
+      radius: 50,
+      svgOffset: SVG_OFFSET,
+      halfDonut: 'bottom',
+    })
+
+    expect(received).toEqual('translate(50, 50)')
+  })
+
+  it('получение сдвига элементов графика обрезанного слева', () => {
+    const received = getGroupTransformTranslate({
+      radius: 50,
+      svgOffset: SVG_OFFSET,
+      halfDonut: 'left',
+    })
+
+    expect(received).toEqual('translate(0, 50)')
+  })
+})
+
+describe('getSvgOffset', () => {
+  const ARC_RECT = {
+    x: 0,
+    y: 0,
+    width: 100,
+    height: 100,
+  }
+  const LABELS_RECT = {
+    x: -40,
+    y: -20,
+    width: 180,
+    height: 120,
+  }
+
+  it('получение отступа вокруг окружности графика', () => {
+    const received = getSvgOffset({ arcsRect: ARC_RECT, labelsRect: LABELS_RECT })
+
+    expect(received).toEqual({
+      top: 20,
+      right: 40,
+      bottom: 20,
+      left: 40,
+    })
+  })
+})
+
+describe('getSvgSize', () => {
+  it('получение размера SVG элемента', () => {
+    const received = getSvgSize({
+      diameter: 100,
+      radius: 50,
+      svgOffset: DEFAULT_SVG_OFFSET,
+    })
+
+    expect(received).toEqual({
+      width: 100,
+      height: 100,
+    })
+  })
+
+  it('получение размера SVG элемента с учетом отступов вокруг окружности', () => {
+    const received = getSvgSize({
+      diameter: 100,
+      radius: 50,
+      svgOffset: {
+        top: 20,
+        right: 0,
+        bottom: 20,
+        left: 40,
+      },
+    })
+
+    expect(received).toEqual({
+      width: 140,
+      height: 140,
+    })
+  })
+})
+
+describe('getMainRadius', () => {
+  it('получение основного радиуса', () => {
+    const received = getMainRadius({
+      width: 200,
+      height: 200,
+      svgOffset: DEFAULT_SVG_OFFSET,
+    })
+
+    expect(received).toEqual(100)
+  })
+
+  it('получение минимального основного радиуса', () => {
+    const received = getMainRadius({
+      width: 100,
+      height: 200,
+      svgOffset: DEFAULT_SVG_OFFSET,
+    })
+
+    expect(received).toEqual(50)
+  })
+
+  it('получение основного радиуса окружности с учетом отступов', () => {
+    const received = getMainRadius({
+      width: 400,
+      height: 400,
+      svgOffset: { top: 20, right: 50, bottom: 10, left: 20 },
+    })
+
+    expect(received).toEqual(165)
   })
 })

@@ -14,12 +14,28 @@ export const getTicks = (items: readonly number[], count: number) => {
   }
 
   if (count === 3) {
-    const meanMinValue = minValue / 2
     const meanMaxValue = maxValue / 2
 
+    if (isNegative) {
+      const meanMinValue = 1 * -meanMaxValue
+
+      if (meanMinValue <= minValue || meanMinValue * 1.5 < minValue) {
+        return [minValue, 0, meanMaxValue, maxValue]
+      }
+      return [minValue, meanMinValue, 0, meanMaxValue, maxValue]
+    }
+
+    return [0, meanMaxValue, maxValue]
+  }
+
+  if (count > 3) {
+    const ticksArray = ticks(minValue, maxValue, count)
+    const newTicksArray = ticksArray.slice(1, ticksArray.length - 1)
+    const newTicks: number[] = []
+
     return isNegative
-      ? [minValue, meanMinValue, 0, meanMaxValue, maxValue]
-      : [0, meanMaxValue, maxValue]
+      ? newTicks.concat(minValue, newTicksArray, maxValue)
+      : newTicks.concat(0, newTicksArray, maxValue)
   }
 
   return ticks(minValue, maxValue, count)

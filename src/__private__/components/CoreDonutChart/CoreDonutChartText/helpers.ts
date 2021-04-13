@@ -1,5 +1,4 @@
-import { isHalfDonutHorizontal, isHalfDonutVertical } from '../helpers'
-import { HalfDonut } from '../helpers'
+import { HalfDonut, isHalfDonutHorizontal, isHalfDonutVertical } from '../helpers'
 
 type HalfDonutDirection = 'horizontal' | 'vertical' | 'none'
 

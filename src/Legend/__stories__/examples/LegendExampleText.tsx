@@ -26,9 +26,10 @@ export const LegendExampleText = () => (
           text: 'Эта линия зеленая',
         },
       ]}
-      type="dot"
+      icon="dot"
       size="s"
-      labelPosition="left"
+      getItemColor={item => item.color}
+      getItemLabel={item => item.text}
     />
   </Example>
 )

@@ -69,4 +69,28 @@
       overflow: visible;
     }
   }
+
+  &-Shadow {
+    position: absolute;
+    z-index: 11;
+
+    height: var(--shadow-height);
+
+    &_left {
+      /* задаётся в js */
+      left: var(--shadow-left-offset);
+
+      width: var(--shadow-width);
+
+      background: linear-gradient(90deg, rgba(var(--color-nums-shadow), 0.15), transparent);
+    }
+
+    &_right {
+      right: 0;
+
+      width: var(--shadow-width);
+
+      background: linear-gradient(270deg, rgba(var(--color-nums-shadow), 0.15), transparent);
+    }
+  }
 }

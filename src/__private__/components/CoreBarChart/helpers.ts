@@ -1,3 +1,5 @@
+import { useLayoutEffect, useState } from 'react'
+
 import { isTruthy } from '@consta/widgets-utils/lib/type-guards'
 import { startCase, sum } from 'lodash'
 
@@ -5,8 +7,8 @@ import { Threshold } from '@/__private__/components/CoreBarChart/CoreBarChart'
 import { getEveryN } from '@/__private__/utils/array'
 import { NumberRange } from '@/__private__/utils/scale'
 
-import { ColumnItem, GroupItem } from './Group/Group'
-import { Position } from './Ticks/Ticks'
+import { ColumnItem, GroupItem } from './CoreBarChartGroup/CoreBarChartGroup'
+import { Position } from './CoreBarChartTicks/CoreBarChartTicks'
 
 export const barCharSizes = ['s', 'm', 'l', 'xl', '2xl', '3xl', 'auto'] as const
 export type Size = typeof barCharSizes[number]
@@ -19,8 +21,8 @@ export type GetGroupsDomain = (groups: readonly GroupItem[]) => readonly string[
 
 export type GetValuesDomain = (params: {
   groups: readonly GroupItem[]
-  minValueY?: number
-  maxValueY?: number
+  min?: number
+  max?: number
   threshold?: Threshold
 }) => NumberRange
 
@@ -49,7 +51,7 @@ const getValueY = (value: number, filter: (value: number) => void) => {
   return null
 }
 
-export const getValuesDomain: GetValuesDomain = ({ groups, minValueY, maxValueY, threshold }) => {
+export const getValuesDomain: GetValuesDomain = ({ groups, min, max, threshold }) => {
   const numbers = groups
     .map(({ columns, reversedColumns }) => columns.concat(reversedColumns).map(getTotalByColumn))
     .flat()
@@ -58,8 +60,8 @@ export const getValuesDomain: GetValuesDomain = ({ groups, minValueY, maxValueY,
   const maxNumber = Math.max(...numbers, Math.abs(thresholdValue), 0)
   const minNumber = Math.min(...numbers, Math.abs(thresholdValue))
 
-  const maxValue = maxValueY && getValueY(maxValueY, v => v >= 0)
-  const minValue = minValueY && getValueY(minValueY, v => v < 0)
+  const maxValue = max && getValueY(max, v => v >= 0)
+  const minValue = min && getValueY(min, v => v < 0)
 
   if (
     (maxValue || maxValue === 0) &&
@@ -316,10 +318,73 @@ export const getColumnLength = (columnLength: number, gridItem: number, typeColu
 
 export const getPaddingThreshold = (isHorizontal: boolean, threshold?: Threshold) => {
   if (threshold?.value && !isHorizontal) {
-    return { padding: '0 50px 0 0' }
+    return 'right'
   } else if (threshold?.value && isHorizontal) {
-    return { padding: '50px 0 0 0' }
+    return 'top'
   } else {
-    return { padding: '0' }
+    return ''
   }
+}
+
+export const useGridStyle = ({
+  paddingRight,
+  paddingLeft,
+  paddingTop,
+  paddingBottom,
+  ref,
+  isHorizontal,
+  width,
+  height,
+  groupsRef,
+}: {
+  paddingRight: number
+  paddingLeft: number
+  paddingTop: number
+  paddingBottom: number
+  ref: React.RefObject<HTMLDivElement>
+  isHorizontal: boolean
+  width: number
+  height: number
+  groupsRef: React.MutableRefObject<Array<React.RefObject<HTMLDivElement>>>
+}) => {
+  const [gridStyle, changeGridStyle] = useState({ width: 0, height: 0, left: 0, top: 0 })
+
+  const firstGroup = groupsRef.current[0].current
+  // Если группа всего одна, то считаем её как первую и как последнюю
+  const lastGroup = groupsRef.current[1].current || firstGroup
+
+  let left = 0
+  let top = 0
+  let newHeight = 0
+  let newWidth = 0
+
+  if (ref && ref.current && firstGroup && lastGroup) {
+    left = firstGroup.getBoundingClientRect().left - ref.current.getBoundingClientRect().left
+    top = firstGroup.getBoundingClientRect().top - ref.current.getBoundingClientRect().top
+    newHeight = lastGroup.getBoundingClientRect().bottom - firstGroup.getBoundingClientRect().top
+    newWidth = lastGroup.getBoundingClientRect().right - firstGroup.getBoundingClientRect().left
+  }
+
+  useLayoutEffect(() => {
+    changeGridStyle({
+      left: left + paddingLeft,
+      top: top + paddingTop,
+      height: newHeight - paddingTop - paddingBottom,
+      width: newWidth - paddingLeft - paddingRight,
+    })
+  }, [
+    newWidth,
+    newHeight,
+    left,
+    top,
+    isHorizontal,
+    width,
+    height,
+    paddingLeft,
+    paddingRight,
+    paddingTop,
+    paddingBottom,
+  ])
+
+  return gridStyle
 }

@@ -27,19 +27,19 @@
   }
 
   &_legendPosition_top &-Legend {
-    margin-bottom: var(--space-4xl);
+    margin-bottom: var(--space-3xl);
   }
 
   &_legendPosition_right &-Legend {
-    margin-left: var(--space-4xl);
+    margin-left: var(--space-3xl);
   }
 
   &_legendPosition_bottom &-Legend {
-    margin-top: var(--space-4xl);
+    margin-top: var(--space-3xl);
   }
 
   &_legendPosition_left &-Legend {
-    margin-right: var(--space-4xl);
+    margin-right: var(--space-3xl);
   }
 
   &_legendPosition_top &-Legend,

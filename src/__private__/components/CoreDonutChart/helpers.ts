@@ -19,16 +19,36 @@ export type ArcDataItem = {
   name: string
 }
 
+export const arcLabelSizes = ['xs', 's'] as const
+export type ArcLabelSize = typeof arcLabelSizes[number]
+
+export type SvgOffset = {
+  top: number
+  right: number
+  bottom: number
+  left: number
+}
+
 export type SortValue = (prev: ArcDataItem, next: ArcDataItem) => number
 
 export type LimitSizeSide = 'width' | 'height'
+export type FormatArcLabel = (item: ArcDataItem) => string
 
 export type ArcRadius = {
   inner: number
   outer: number
 }
 
+export const MIN_RADIUS = 50
 export const MAX_CIRCLES_TO_RENDER = 3
+export const LABEL_LINE_WIDTH = 16
+export const LABEL_LINE_OFFSET = 4
+export const DEFAULT_SVG_OFFSET: SvgOffset = {
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+}
 
 /**
  * Отступ между D3.arc элементами, указывается в пикселях.
@@ -272,36 +292,239 @@ export const defaultSortValue: SortValue = (prev, next) => {
 type GetSizeRectParams = {
   width: number
   height: number
-  minSize: number
-  isHalfVertical: boolean
-  isHalfHorizontal: boolean
+  minChartSize: number
+  svgOffset: SvgOffset
+  halfDonut?: HalfDonut
   limitSizeSide?: LimitSizeSide
 }
 
-export const getDonutMaxMinSizeRect = ({
+const getDonutMaxWidth = ({
+  svgOffset,
   height,
+  halfDonut,
+}: {
+  svgOffset: SvgOffset
+  height: number
+  halfDonut?: HalfDonut
+  limitSizeSide?: LimitSizeSide
+}) => {
+  const computedHeight =
+    height - svgOffset.top - svgOffset.bottom + svgOffset.right + svgOffset.left
+
+  if (isHalfDonutVertical(halfDonut)) {
+    return computedHeight / 2
+  }
+
+  return computedHeight
+}
+
+const getDonutMaxHeight = ({
+  svgOffset,
   width,
-  minSize,
-  isHalfVertical,
-  isHalfHorizontal,
+  halfDonut,
+}: {
+  svgOffset: SvgOffset
+  width: number
+  halfDonut?: HalfDonut
+}) => {
+  const computedWidth = width - svgOffset.right - svgOffset.left + svgOffset.top + svgOffset.bottom
+
+  if (isHalfDonutHorizontal(halfDonut)) {
+    return computedWidth / 2
+  }
+
+  if (isHalfDonutVertical(halfDonut)) {
+    return computedWidth * 2
+  }
+
+  return computedWidth
+}
+
+export const getDonutMaxMinSizeRect = ({
+  width,
+  height,
+  minChartSize,
+  svgOffset,
+  halfDonut,
   limitSizeSide,
 }: GetSizeRectParams): CSSProperties => {
-  const halfWidth = width / 2
-  const halfHeight = height / 2
-  const base = {
-    minWidth: isHalfVertical ? halfHeight : minSize,
-    maxWidth: isHalfVertical ? halfHeight : undefined,
-    minHeight: isHalfHorizontal ? halfWidth : minSize,
-    maxHeight: isHalfHorizontal ? halfWidth : undefined,
+  const computedWidth = isHalfDonutVertical(halfDonut) ? minChartSize / 2 : minChartSize
+  const computedHeight = isHalfDonutHorizontal(halfDonut) ? minChartSize / 2 : minChartSize
+  const minWidth = computedWidth + svgOffset.right + svgOffset.left
+  const maxWidth =
+    limitSizeSide === 'width' && height !== 0 && width !== 0
+      ? getDonutMaxWidth({ svgOffset, height, halfDonut, limitSizeSide })
+      : undefined
+  const minHeight = computedHeight + svgOffset.top + svgOffset.bottom
+  const maxHeight =
+    limitSizeSide === 'height' && height !== 0 && width !== 0
+      ? getDonutMaxHeight({ svgOffset, width, halfDonut })
+      : undefined
+
+  return {
+    minWidth,
+    maxWidth,
+    minHeight,
+    maxHeight,
+  }
+}
+
+export const getSvgTextDY = (deg: number) => {
+  if (deg > 120 && deg < 240) {
+    return '1em'
   }
 
-  if (!isHalfHorizontal && !isHalfVertical) {
-    return {
-      ...base,
-      maxWidth: limitSizeSide === 'width' ? height : undefined,
-      maxHeight: limitSizeSide === 'height' ? width : undefined,
-    }
+  if ((deg > 60 && deg < 120) || (deg > 240 && deg < 300)) {
+    return '0.35em'
   }
 
-  return base
+  return '-0.35em'
+}
+
+export const radianToDegree = (radian: number) => {
+  const degrees = Math.round(radian * (180 / Math.PI))
+  return degrees > 0 ? degrees : 360 - Math.abs(degrees)
+}
+
+export const getArcMiddleInRadian = ({
+  startAngle,
+  endAngle,
+}: Pick<PieArcDatum<ArcDataItem>, 'startAngle' | 'endAngle'>) => {
+  return startAngle + (endAngle - startAngle) / 2
+}
+
+export const getSvgTextAnchor = (deg: number, halfDonut?: HalfDonut) => {
+  if (halfDonut === 'left' || (deg > 20 && deg < 160)) {
+    return 'start'
+  }
+
+  if (halfDonut === 'right' || (deg > 200 && deg < 340)) {
+    return 'end'
+  }
+
+  return 'middle'
+}
+
+type GetGroupTransformTranslate = {
+  radius: number
+  svgOffset: SvgOffset
+  halfDonut?: HalfDonut
+}
+
+export const getGroupTransformTranslate = ({
+  halfDonut,
+  radius,
+  svgOffset,
+}: GetGroupTransformTranslate) => {
+  if (halfDonut === 'top') {
+    return `translate(${radius + svgOffset.left}, 0)`
+  }
+
+  if (halfDonut === 'right') {
+    return `translate(${radius + svgOffset.left}, ${radius + svgOffset.top})`
+  }
+
+  if (halfDonut === 'bottom') {
+    return `translate(${radius + svgOffset.left}, ${radius + svgOffset.top})`
+  }
+
+  if (halfDonut === 'left') {
+    return `translate(0, ${radius + svgOffset.top})`
+  }
+
+  return `translate(${radius + svgOffset.left}, ${radius + svgOffset.top})`
+}
+
+type SvgOffsetDOMRect = Pick<DOMRect, 'x' | 'y' | 'width' | 'height'>
+type GetSvgOffset = {
+  arcsRect: SvgOffsetDOMRect
+  labelsRect: SvgOffsetDOMRect
+}
+
+export const getSvgOffset = ({ arcsRect, labelsRect }: GetSvgOffset) => {
+  const offsetTop = labelsRect.y < arcsRect.y ? Math.round(Math.abs(labelsRect.y - arcsRect.y)) : 0
+  const offsetLeft = labelsRect.x < arcsRect.x ? Math.round(Math.abs(labelsRect.x - arcsRect.x)) : 0
+  const offsetRight =
+    arcsRect.width + arcsRect.x < labelsRect.width + labelsRect.x
+      ? Math.round(labelsRect.width + labelsRect.x - (arcsRect.width + arcsRect.x))
+      : 0
+  const offsetBottom =
+    arcsRect.height + arcsRect.y < labelsRect.height + labelsRect.y
+      ? Math.round(labelsRect.height + labelsRect.y - (arcsRect.height + arcsRect.y))
+      : 0
+  const verticalOffset = Math.max(offsetRight, offsetLeft)
+  const horizontalOffset = Math.max(offsetTop, offsetBottom)
+
+  return {
+    top: horizontalOffset,
+    right: verticalOffset,
+    bottom: horizontalOffset,
+    left: verticalOffset,
+  }
+}
+
+type GetSvgSize = {
+  diameter: number
+  radius: number
+  svgOffset: SvgOffset
+  halfDonut?: HalfDonut
+}
+
+export const getSvgSize = ({ diameter, radius, svgOffset, halfDonut }: GetSvgSize) => {
+  const computedWidth = isHalfDonutVertical(halfDonut) ? radius : diameter
+  const computedHeight = isHalfDonutHorizontal(halfDonut) ? radius : diameter
+
+  return {
+    width: computedWidth + svgOffset.right + svgOffset.left,
+    height: computedHeight + svgOffset.top + svgOffset.bottom,
+  }
+}
+
+type GetMainRadius = {
+  width: number
+  height: number
+  svgOffset: SvgOffset
+  halfDonut?: HalfDonut
+}
+
+export const getMainRadius = ({ width, height, svgOffset, halfDonut }: GetMainRadius) => {
+  if (width === 0 || height === 0) {
+    return 0
+  }
+
+  const widthDivider = isHalfDonutVertical(halfDonut) ? 1 : 2
+  const heightDivider = isHalfDonutHorizontal(halfDonut) ? 1 : 2
+
+  return Math.max(
+    Math.min(
+      Math.floor((width - svgOffset.right - svgOffset.left) / widthDivider),
+      Math.floor((height - svgOffset.top - svgOffset.bottom) / heightDivider)
+    ),
+    MIN_RADIUS
+  )
+}
+
+type GetRendersLabelsParams = {
+  radius: number
+  lineWidth: number
+  labelOffset: number
+}
+
+export const getRendersLabels = ({ radius, lineWidth, labelOffset }: GetRendersLabelsParams) => {
+  const endLineRadius = radius + lineWidth
+  const startLabelRadius = endLineRadius + labelOffset
+
+  return {
+    startLine: getRenderArc({ inner: radius, outer: radius }).centroid,
+    endLine: getRenderArc({ inner: endLineRadius, outer: endLineRadius }).centroid,
+    startLabel: getRenderArc({ inner: startLabelRadius, outer: startLabelRadius }).centroid,
+  }
+}
+
+export const cropArcLabel = (value: string) => {
+  return value.length <= 20 ? value : `${value.slice(0, 20)}…`
+}
+
+export const defaultFormatArcLabel: FormatArcLabel = item => {
+  return item.name
 }

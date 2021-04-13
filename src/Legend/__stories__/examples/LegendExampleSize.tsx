@@ -15,8 +15,9 @@ export const LegendExampleSize = () => (
           text: 'Надпись XS',
         },
       ]}
-      type="dot"
-      labelPosition="left"
+      icon="dot"
+      getItemColor={item => item.color}
+      getItemLabel={item => item.text}
     />
     <Legend
       size="s"
@@ -27,8 +28,9 @@ export const LegendExampleSize = () => (
           text: 'Надпись S',
         },
       ]}
-      type="dot"
-      labelPosition="left"
+      icon="dot"
+      getItemColor={item => item.color}
+      getItemLabel={item => item.text}
     />
     <Legend
       size="m"
@@ -39,8 +41,9 @@ export const LegendExampleSize = () => (
           text: 'Надпись M',
         },
       ]}
-      type="dot"
-      labelPosition="left"
+      icon="dot"
+      getItemColor={item => item.color}
+      getItemLabel={item => item.text}
     />
   </Example>
 )

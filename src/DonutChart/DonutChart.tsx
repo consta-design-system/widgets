@@ -1,8 +1,17 @@
-import React, { forwardRef, HTMLAttributes } from 'react'
+import React, { forwardRef, HTMLAttributes, MouseEventHandler } from 'react'
 
 import { CoreDonutChart } from '@/__private__/components/CoreDonutChart'
-import { DonutDataItem, SortValue } from '@/__private__/components/CoreDonutChart/helpers'
+import {
+  ArcDataItem,
+  ArcLabelSize,
+  DonutDataItem,
+  SortValue,
+} from '@/__private__/components/CoreDonutChart/helpers'
 import { HalfDonut } from '@/__private__/components/CoreDonutChart/helpers'
+import {
+  HandlerClickArc,
+  HandlerClickPie,
+} from '@/__private__/components/CoreDonutChart/CoreDonutChartPie/CoreDonutChartPie'
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 import { Legend } from '@/Legend/Legend'
@@ -20,10 +29,16 @@ type Props = HTMLAttributes<HTMLDivElement> & {
   valueSize?: number
   sums?: readonly number[]
   legendPosition?: LegendPosition
+  showArcLabels?: boolean
+  arcLabelSize?: ArcLabelSize
   formatValue?: (value: string) => string
   formatLabel?: (label: string) => string
   formatValueForTooltip?: FormatValue
+  formatArcLabel?: (item: ArcDataItem) => string
   sortValue?: SortValue | null
+  onClick?: MouseEventHandler
+  onClickPie?: HandlerClickPie
+  onClickArc?: HandlerClickArc
 }
 
 export const DonutChart = forwardRef<HTMLDivElement, Props>((props, ref) => {
@@ -38,15 +53,16 @@ export const DonutChart = forwardRef<HTMLDivElement, Props>((props, ref) => {
           <Legend
             items={legendItems}
             direction={legendPosition === 'right' || legendPosition === 'left' ? 'column' : 'row'}
-            labelPosition="left"
             size="m"
-            type="dot"
+            icon="dot"
+            getItemColor={item => item.color}
+            getItemLabel={item => item.text}
           />
         </div>
       )}
       <CoreDonutChart
         {...rest}
-        limitSizeSide={getLimitSizeSide(legendPosition)}
+        limitSizeSide={getLimitSizeSide(legendPosition, halfDonut)}
         data={getComputedData(data, sums)}
         halfDonut={halfDonut}
         filterTooltipItem={filterComputedData}

@@ -1,16 +1,13 @@
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React, { RefObject, useRef, useState } from 'react'
 
 import { useComponentSize } from '@consta/uikit/useComponentSize'
 import { Text } from '@consta/uikit/Text'
 
-import { ZeroLine } from '@/__private__/components/CoreBarChart/ZeroLine/ZeroLine'
 import { Grid } from '@/__private__/components/Grid/Grid'
-import { FormatValue } from '@/__private__/types'
+import { FormatGroupName, FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 import { NumberRange, scaleLinear } from '@/__private__/utils/scale'
 import { getTicks } from '@/__private__/utils/ticks'
-
-import { Title } from '../Title/Title'
 
 import {
   CHART_MIN_HEIGHT,
@@ -22,6 +19,7 @@ import {
   getPaddingThreshold,
   getRange,
   getScaler,
+  useGridStyle,
 } from './helpers'
 import {
   defaultRenderAxisValues,
@@ -31,11 +29,14 @@ import {
   RenderGroupsLabels,
 } from './renders'
 import './CoreBarChart.css'
-import { Threshold } from './Threshold/Threshold'
-import { Position } from './Ticks/Ticks'
-import { Tooltip, TooltipData } from './Tooltip/Tooltip'
+import { CoreBarChartThreshold } from './CoreBarChartThreshold/CoreBarChartThreshold'
+import { Position } from './CoreBarChartTicks/CoreBarChartTicks'
+import { CoreBarChartTooltip, TooltipData } from './CoreBarChartTooltip/CoreBarChartTooltip'
+import { CoreBarChartZeroLine } from './CoreBarChartZeroLine/CoreBarChartZeroLine'
 
 const cnCoreBarChart = cn('CoreBarChart')
+
+const SHADOW_WIDTH = 20
 
 export type OnMouseHoverColumn = (groupName: string) => void
 
@@ -52,12 +53,12 @@ export type Props<T> = {
   groupsDomain: readonly string[]
   valuesDomain: NumberRange
   groups: readonly T[]
+  gridConfig?: number
   isHorizontal?: boolean
-  withScroll?: boolean
   showValues?: boolean
   showReversed?: boolean
   showGrid?: boolean
-  showLineAtZero?: boolean
+  showGuide?: boolean
   showGroupsLabels?: boolean
   maxColumnLength: number
   minReversedColumnLength?: number
@@ -67,20 +68,20 @@ export type Props<T> = {
   activeSectionIndex?: number
   activeGroup?: string
   threshold?: Threshold
-  title?: React.ReactNode
   renderGroup: RenderGroup<T>
   getAxisShowPositions?: GetAxisShowPositions
   formatValueForLabel?: FormatValue
   formatValueForTooltip?: FormatValue
+  formatGroupName?: FormatGroupName
   renderGroupsLabels?: RenderGroupsLabels
   renderAxisValues?: RenderAxisValues
   onMouseEnterColumn?: OnMouseHoverColumn
   onMouseLeaveColumn?: OnMouseHoverColumn
-  limitMinimumCategorySize?: boolean
+  limitMinimumStepSize?: boolean
 }
 
-const renderUnit = (className: string, unit: string) => (
-  <Text as="div" size={'xs'} view="secondary" className={className}>
+const renderUnit = (className: string, unit: string, unitRef?: RefObject<HTMLDivElement>) => (
+  <Text as="div" size={'xs'} view="secondary" className={className} ref={unitRef}>
     {unit}
   </Text>
 )
@@ -91,11 +92,10 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     valuesDomain,
     groups,
     isHorizontal = false,
-    withScroll = false,
     showValues = false,
     showReversed = false,
     showGrid = true,
-    showLineAtZero = true,
+    showGuide = true,
     showGroupsLabels = true,
     maxColumnLength,
     minReversedColumnLength,
@@ -104,35 +104,41 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     activeSectionIndex,
     activeGroup,
     threshold,
-    title,
     getAxisShowPositions = defaultGetAxisShowPositions,
     formatValueForLabel = String,
     formatValueForTooltip,
+    formatGroupName,
     renderGroup,
     renderAxisValues = defaultRenderAxisValues,
     renderGroupsLabels = defaultRenderGroupsLabels,
     isXAxisLabelsSlanted,
     onMouseEnterColumn,
     onMouseLeaveColumn,
-    limitMinimumCategorySize,
+    limitMinimumStepSize,
+    gridConfig,
   } = props
   const ref = useRef<HTMLDivElement>(null)
-  const svgRef = useRef(null)
+  const axisRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const svgRef = useRef<SVGSVGElement>(null)
+  const unitRef = useRef<HTMLDivElement>(null)
   const groupsRef = useRef([React.createRef<HTMLDivElement>(), React.createRef<HTMLDivElement>()])
   /**
    * Используется как триггер, чтобы при ресайзе окна мы делали перерасчет всех элементов
    */
   const { width, height } = useComponentSize(ref)
-  const [gridStyle, changeGridStyle] = useState({ width: 0, height: 0, left: 0, top: 0 })
+  const [showLeftShadow, setShowLeftShadow] = React.useState<boolean>(false)
+  const [showRightShadow, setShowRightShadow] = React.useState<boolean>(false)
+
   const [tooltipData, setTooltipData] = useState<TooltipData>()
   const [maxLabelSize, setMaxLabelSize] = useState<LabelSize>({
     width: 0,
     height: 0,
   })
   const numberGridTicks = Math.round(isHorizontal && width && height ? width / 50 : height / 50)
-  const [gridTicks, setGridTicks] = useState<number>(numberGridTicks)
+  const [gridTicks, setGridTicks] = useState<number>(gridConfig ? gridConfig : numberGridTicks)
   const getNumberGridTicks = (length: number) => {
-    if (length) {
+    if (length && !gridConfig) {
       setGridTicks(Math.round(length / 50))
     }
   }
@@ -144,19 +150,19 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     (showReversed && minReversedColumnLength && gridDomain[0] > minReversedColumnLength)
 
   const getPaddingRight = () => {
-    if (isHorizontal && showValues) {
+    if (isHorizontal && showValues && !isColumnOverflow) {
       return maxLabelSize.width
     } else if (isHorizontal && isColumnOverflow) {
-      return maxLabelSize.width + 10
+      return maxLabelSize.width + 14
     } else {
       return 0
     }
   }
   const getPaddingTop = () => {
-    if (!isHorizontal && showValues) {
+    if (!isHorizontal && showValues && !isColumnOverflow) {
       return maxLabelSize.height
     } else if (!isHorizontal && isColumnOverflow) {
-      return maxLabelSize.height + 10
+      return maxLabelSize.height + 8
     } else {
       return 0
     }
@@ -168,6 +174,18 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
 
   const scalerMaxValue = getScaler(gridItems[gridItems.length - 1])
   const scalerMinValue = getScaler(Math.abs(gridItems[0]))
+
+  const gridStyle = useGridStyle({
+    paddingRight,
+    paddingLeft,
+    paddingTop,
+    paddingBottom,
+    ref,
+    isHorizontal,
+    width,
+    height,
+    groupsRef,
+  })
 
   const valuesScale = scaleLinear({
     domain: [gridItems[0], gridItems[gridItems.length - 1]],
@@ -212,55 +230,24 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
     })
   }
 
-  useLayoutEffect(() => {
-    const firstGroup = groupsRef.current[0].current
-    // Если группа всего одна, то считаем её как первую и как последнюю
-    const lastGroup = groupsRef.current[1].current || groupsRef.current[0].current
-
-    if (ref && ref.current && firstGroup && lastGroup) {
-      const left =
-        firstGroup.getBoundingClientRect().left - ref.current.getBoundingClientRect().left
-      const top = firstGroup.getBoundingClientRect().top - ref.current.getBoundingClientRect().top
-      const newHeight =
-        lastGroup.getBoundingClientRect().bottom - firstGroup.getBoundingClientRect().top
-      const newWidth =
-        lastGroup.getBoundingClientRect().right - firstGroup.getBoundingClientRect().left
-
-      changeGridStyle({
-        left: left + paddingLeft,
-        top: top + paddingTop,
-        height: newHeight - paddingTop - paddingBottom,
-        width: newWidth - paddingLeft - paddingRight,
-      })
-    }
-  }, [
-    ref,
-    isHorizontal,
-    width,
-    height,
-    paddingLeft,
-    paddingRight,
-    paddingTop,
-    paddingBottom,
-    groupsRef,
-  ])
-
   const getRenderGroupsLabels = (position: Position) =>
     renderGroupsLabels({
       values: groupsDomain,
       position,
-      getGridAreaName: getLabelGridAreaName(position),
       isXAxisLabelsSlanted,
       showGroupsLabels,
+      getGridAreaName: getLabelGridAreaName(position),
+      formatGroupName,
     })
 
   const getRenderAxisValues = (position: Position) => (
     <div
+      ref={axisRef}
       className={cnCoreBarChart('AxisTicks', { position })}
       style={
         ['top', 'bottom'].includes(position)
           ? { marginLeft: `${gridStyle.left}px` }
-          : verticalStyles
+          : verticalStyles && { paddingTop }
       }
     >
       {renderAxisValues({
@@ -279,32 +266,92 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
   const reversedColumnLength =
     minReversedColumnLength &&
     getColumnLength(minReversedColumnLength, gridItems[0], 'reversedColumns')
+
+  const paddingThreshold = getPaddingThreshold(isHorizontal, threshold)
+
+  const unitRefHeight = unitRef?.current?.getBoundingClientRect()?.height
+  const refHeight = ref?.current?.getBoundingClientRect()?.height
+  const axisRefWidth = axisRef?.current?.getBoundingClientRect()?.width
+
+  const svgRightRef = svgRef?.current?.getBoundingClientRect()?.right
+  const scrollRightRef = scrollRef?.current?.getBoundingClientRect()?.right
+  const svgLeftRef = svgRef?.current?.getBoundingClientRect()?.left
+  const scrollLeftRef = scrollRef?.current?.getBoundingClientRect()?.left
+
+  const graphWithScrollHeight = refHeight && unitRefHeight && refHeight - unitRefHeight
+
+  React.useEffect(() => {
+    if (svgRightRef && scrollRightRef && svgRightRef > scrollRightRef) {
+      setShowRightShadow(true)
+    }
+    if (svgRightRef && scrollRightRef && Math.round(svgRightRef) === Math.round(scrollRightRef)) {
+      setShowRightShadow(false)
+    }
+    if (svgLeftRef && scrollLeftRef && Math.round(svgLeftRef) === Math.round(scrollLeftRef)) {
+      setShowLeftShadow(false)
+    }
+  }, [svgRightRef, scrollRightRef, svgLeftRef, scrollLeftRef])
+
+  const handleScroll = () => {
+    const { left: scrollLeft, right: scrollRight } = scrollRef.current!.getBoundingClientRect()
+    const { left: svgLeft, right: svgRight } = svgRef.current!.getBoundingClientRect()
+
+    if (axisRefWidth && svgLeft - axisRefWidth - 8 < scrollLeft) {
+      setShowLeftShadow(true)
+    } else {
+      setShowLeftShadow(false)
+    }
+
+    if (svgRight > scrollRight) {
+      setShowRightShadow(true)
+    } else {
+      setShowRightShadow(false)
+    }
+  }
+
   /**
    * Из за различий в построении осей для горизонтального и вертикального режима
    * пришлось задублировать рендер axisShowPositions
    * Для isHorizontal рендерится вне обертки с барчартом, чтобы при скролле ось оставалась на месте.
    * Для !isHorizontal рендерится внутри обертки, для того, чтобы лейблы строились по grid сетке.
    */
+
   return (
-    <div className={cnCoreBarChart('Scroll')}>
+    <div
+      className={cnCoreBarChart('Scroll')}
+      style={{
+        ['--shadow-width' as string]: `${SHADOW_WIDTH}px`,
+        ['--shadow-height' as string]: `${graphWithScrollHeight && graphWithScrollHeight + 16}px`,
+        ['--shadow-left-offset' as string]: `${scrollLeftRef &&
+          axisRefWidth &&
+          scrollLeftRef + axisRefWidth - 1}px`,
+        ['--shadow-top-offset' as string]: `${ref?.current?.getBoundingClientRect()?.top}px`,
+        ['--shadow-padding-top-offset' as string]: `${
+          unitRef?.current?.getBoundingClientRect()?.height
+        }px`,
+        ['--shadow-right-offset' as string]: `${scrollRef?.current?.getBoundingClientRect()
+          ?.right && scrollRef?.current?.getBoundingClientRect()?.right - 20}px`,
+        ['--unit-width' as string]: `${axisRef?.current?.getBoundingClientRect()?.width}px`,
+      }}
+      onScroll={handleScroll}
+      ref={scrollRef}
+    >
       <div className={cnCoreBarChart('Wrapper')}>
-        <Title style={{ paddingLeft: gridStyle.left }}>{title}</Title>
-        <div className={cnCoreBarChart('Main', { withVerticalScroll: withScroll && isHorizontal })}>
+        <div className={cnCoreBarChart('Main')}>
           {isHorizontal && axisShowPositions.top && renderHorizontal('top')}
           <div
             ref={ref}
-            className={cnCoreBarChart('Chart', { isHorizontal })}
+            className={cnCoreBarChart('Chart', { isHorizontal, paddingThreshold })}
             style={{
               ...getGridSettings({
                 isHorizontal,
                 countGroups: groups.length,
                 axisShowPositions,
               }),
-              ...getPaddingThreshold(isHorizontal, threshold),
             }}
           >
-            <svg className={cnCoreBarChart('Svg')} ref={svgRef} style={gridStyle}>
-              {showGrid && showLineAtZero && (
+            <svg className={cnCoreBarChart('Svg')} ref={svgRef} style={{ ...gridStyle }}>
+              {showGrid && showGuide && (
                 <Grid
                   scalerX={valuesScale}
                   scalerY={valuesScale}
@@ -312,22 +359,42 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
                   yTickValues={gridYTickValues}
                   width={gridStyle.width}
                   height={gridStyle.height}
+                  showGuide={showGuide}
                 />
               )}
-              {showLineAtZero && <ZeroLine valuesScale={valuesScale} isHorizontal={isHorizontal} />}
-              {threshold && (
-                <Threshold
+              {showGuide && (
+                <CoreBarChartZeroLine valuesScale={valuesScale} isHorizontal={isHorizontal} />
+              )}
+            </svg>
+            {threshold && (
+              <svg
+                className={cnCoreBarChart('Svg', { threshold: threshold?.value ? 'up' : '' })}
+                style={
+                  isHorizontal
+                    ? {
+                        width: '1px',
+                        height: gridStyle.height,
+                        left: gridStyle.left,
+                        top: gridStyle.top,
+                      }
+                    : {
+                        height: '1px',
+                        width: gridStyle.width,
+                        left: gridStyle.left,
+                        top: gridStyle.top,
+                      }
+                }
+              >
+                <CoreBarChartThreshold
                   valuesScale={valuesScale}
                   isHorizontal={isHorizontal}
                   value={threshold.value}
                 />
-              )}
-            </svg>
+              </svg>
+            )}
             {unit &&
               !isHorizontal &&
-              renderUnit(cnCoreBarChart('Unit', { position: 'topLeft' }), unit)}
-            {!isHorizontal && axisShowPositions.top && showGroupsLabels && renderHorizontal('top')}
-            {axisShowPositions.right && showGroupsLabels && renderVertical('right')}
+              renderUnit(cnCoreBarChart('Unit', { position: 'topLeft' }), unit, unitRef)}
             {groups.map((group, groupIdx) => {
               const isFirstGroup = groupIdx === 0
               const isLastGroup = groupIdx === groups.length - 1
@@ -368,8 +435,7 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
                     onChangeLabelSize: changeLabelSize,
                     getNumberGridTicks,
                     gridDomain,
-                    limitMinimumCategorySize,
-                    maxLabelSize,
+                    limitMinimumStepSize,
                   })}
                 </div>
               )
@@ -386,12 +452,14 @@ export const CoreBarChart = <T,>(props: Props<T>) => {
             renderHorizontal('bottom')}
           {unit && isHorizontal && renderUnit(cnCoreBarChart('Unit', { position: 'bottom' }), unit)}
           {tooltipData && (
-            <Tooltip
+            <CoreBarChartTooltip
               data={tooltipData}
               isHorizontal={isHorizontal}
               formatValue={formatValueForTooltip || formatValueForLabel}
             />
           )}
+          {showLeftShadow && <div className={cnCoreBarChart('Shadow', { left: true })} />}
+          {showRightShadow && <div className={cnCoreBarChart('Shadow', { right: true })} />}
         </div>
       </div>
     </div>

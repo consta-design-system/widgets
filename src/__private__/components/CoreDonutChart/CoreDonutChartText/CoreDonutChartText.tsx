@@ -34,7 +34,16 @@ type Props = HTMLAttributes<HTMLDivElement> & {
 }
 
 export const CoreDonutChartText = forwardRef<HTMLDivElement, Props>((props, ref) => {
-  const { value, label, radius, halfDonut, lineWidth, className, ...mainElementProps } = props
+  const {
+    value,
+    label,
+    radius,
+    halfDonut,
+    lineWidth,
+    className,
+    style,
+    ...mainElementProps
+  } = props
 
   const halfDirection = getDonutHalfDirection(halfDonut)
   const widthPadding = getContentPadding({
@@ -64,6 +73,7 @@ export const CoreDonutChartText = forwardRef<HTMLDivElement, Props>((props, ref)
     ratio: value ? TEXT_MAX_HEIGHT_RATIO : 1,
   })
   const contentStyle: React.CSSProperties = {
+    ...style,
     maxWidth,
     maxHeight,
     padding: getContainerPadding({ widthPadding, heightPadding, half: halfDonut }),

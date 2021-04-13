@@ -172,8 +172,27 @@ export const DonutChartLegendLeft = () => (
   </Example>
 )
 
-export const DonutChartExampleSums = () => (
+export const DonutChartWithArcLabels = () => (
   <Example height="200px">
-    <DonutChart data={donutData.data} formatValueForTooltip={v => `${v}%`} sums={[10, 20, 30]} />
+    <DonutChart
+      data={[
+        {
+          name: 'Северный бур',
+          color: 'var(--color-bg-alert)',
+          values: [1],
+        },
+        {
+          name: 'Южный бур',
+          color: 'var(--color-bg-caution)',
+          values: [4],
+        },
+        {
+          name: 'Западный бур',
+          color: 'var(--color-bg-normal)',
+          values: [7],
+        },
+      ]}
+      showArcLabels
+    />
   </Example>
 )
