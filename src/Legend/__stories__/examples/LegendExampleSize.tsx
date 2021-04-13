@@ -5,7 +5,7 @@ import { Example } from '@/__private__/storybook'
 import { Legend } from '../../Legend'
 
 export const LegendExampleSize = () => (
-  <Example>
+  <Example style={{ marginBottom: '20px' }}>
     <Legend
       size="xs"
       direction="column"
