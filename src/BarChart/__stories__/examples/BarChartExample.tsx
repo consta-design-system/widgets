@@ -11,7 +11,7 @@ import {
 } from '../../data.mock'
 
 export const BarChartExampleGeneral = () => (
-  <Example>
+  <Example height="400px">
     <BarChart
       formatValueForTooltip={v => `${v} км`}
       colors={withNegativeValueData.colors}
@@ -75,7 +75,7 @@ export const BarChartExampleThreshold = () => (
 )
 
 export const BarChartExampleGroup = () => (
-  <Example>
+  <Example height="300px">
     <BarChart
       formatValueForTooltip={v => `${v} км`}
       colors={groupExampleData.colors}
@@ -100,7 +100,7 @@ export const BarChartExampleGroupSlanted = () => (
 )
 
 export const BarChartExampleShowValues = () => (
-  <Example>
+  <Example height="300px">
     <BarChart
       formatValueForTooltip={v => `${v} км`}
       colors={groupExampleData.colors}
@@ -112,8 +112,21 @@ export const BarChartExampleShowValues = () => (
   </Example>
 )
 
+export const BarChartExampleOverflow = () => (
+  <Example height="300px">
+    <BarChart
+      formatValueForTooltip={v => `${v} км`}
+      colors={groupExampleDataOverflow.colors}
+      groups={groupExampleDataOverflow.groups}
+      isHorizontal={true}
+      unit="тыс. тонн"
+      showValues={true}
+    />
+  </Example>
+)
+
 export const BarChartExampleLableProcent = () => (
-  <Example>
+  <Example height="300px">
     <BarChart
       formatValueForLabel={v => `${v}%`}
       formatValueForTooltip={v => `${v}%`}
@@ -235,19 +248,6 @@ export const BarChartExampleMaxY = () => (
       isHorizontal={false}
       unit="тыс. тонн"
       max={1300}
-    />
-  </Example>
-)
-
-export const BarChartExampleOverflow = () => (
-  <Example>
-    <BarChart
-      formatValueForTooltip={v => `${v} км`}
-      colors={groupExampleDataOverflow.colors}
-      groups={groupExampleDataOverflow.groups}
-      isHorizontal={false}
-      unit="тыс. тонн"
-      max={500}
     />
   </Example>
 )

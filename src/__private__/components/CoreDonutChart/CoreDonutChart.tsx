@@ -128,6 +128,7 @@ export const CoreDonutChart: React.FC<Props> = ({
     sortValue,
   ])
   const isTextVisible = values.length === 1 && showText
+  const isArcLabelsVisible = values.length === 1 && showArcLabels
   const piesData = useMemo(() => values.map(item => getPieData(item, halfDonut)), [
     values,
     halfDonut,
@@ -137,6 +138,13 @@ export const CoreDonutChart: React.FC<Props> = ({
   const svgSize = getSvgSize({ diameter: mainDiameter, radius: mainRadius, svgOffset, halfDonut })
   const labelsPieData = useMemo(() => (showArcLabels ? piesData[0] : []), [piesData, showArcLabels])
 
+  /**
+   * Необходимо рассчитывать размер отступа каждый раз при изменениях виджета,
+   * в самом перерасчете применяются методы которые не позволят лишний раз
+   * менять состояние компонента, например округление значений расчетов до
+   * целых и проверка того что значения не равны предыдущим.
+   */
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!arcsRef.current || !labelsRef.current) {
       return
@@ -155,11 +163,7 @@ export const CoreDonutChart: React.FC<Props> = ({
     ) {
       setSvgOffset(nextSvgOffset)
     }
-    /**
-     * Перерасчеты нужны только при изменении данных или размерах графика
-     */
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [width, height, data])
+  })
 
   const handleMouseOver = showTooltip
     ? (d: ReadonlyArray<PieArcDatum<ArcDataItem>>) => {
@@ -242,7 +246,7 @@ export const CoreDonutChart: React.FC<Props> = ({
             />
           ))}
         </g>
-        {showArcLabels && (
+        {isArcLabelsVisible && (
           <CoreDonutChartLabels
             ref={labelsRef}
             data={labelsPieData}

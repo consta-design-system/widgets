@@ -1,5 +1,5 @@
 import { Threshold } from '@/__private__/components/CoreBarChart/CoreBarChart'
-import { GroupItem } from '@/__private__/components/CoreBarChart/Group'
+import { GroupItem } from '@/__private__/components/CoreBarChart/CoreBarChartGroup/CoreBarChartGroup'
 
 import {
   defaultGetAxisShowPositions,

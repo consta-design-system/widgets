@@ -1,3 +1,5 @@
+import { useLayoutEffect, useState } from 'react'
+
 import { isTruthy } from '@consta/widgets-utils/lib/type-guards'
 import { startCase, sum } from 'lodash'
 
@@ -5,8 +7,8 @@ import { Threshold } from '@/__private__/components/CoreBarChart/CoreBarChart'
 import { getEveryN } from '@/__private__/utils/array'
 import { NumberRange } from '@/__private__/utils/scale'
 
-import { ColumnItem, GroupItem } from './Group/Group'
-import { Position } from './Ticks/Ticks'
+import { ColumnItem, GroupItem } from './CoreBarChartGroup/CoreBarChartGroup'
+import { Position } from './CoreBarChartTicks/CoreBarChartTicks'
 
 export const barCharSizes = ['s', 'm', 'l', 'xl', '2xl', '3xl', 'auto'] as const
 export type Size = typeof barCharSizes[number]
@@ -322,4 +324,67 @@ export const getPaddingThreshold = (isHorizontal: boolean, threshold?: Threshold
   } else {
     return ''
   }
+}
+
+export const useGridStyle = ({
+  paddingRight,
+  paddingLeft,
+  paddingTop,
+  paddingBottom,
+  ref,
+  isHorizontal,
+  width,
+  height,
+  groupsRef,
+}: {
+  paddingRight: number
+  paddingLeft: number
+  paddingTop: number
+  paddingBottom: number
+  ref: React.RefObject<HTMLDivElement>
+  isHorizontal: boolean
+  width: number
+  height: number
+  groupsRef: React.MutableRefObject<Array<React.RefObject<HTMLDivElement>>>
+}) => {
+  const [gridStyle, changeGridStyle] = useState({ width: 0, height: 0, left: 0, top: 0 })
+
+  const firstGroup = groupsRef.current[0].current
+  // Если группа всего одна, то считаем её как первую и как последнюю
+  const lastGroup = groupsRef.current[1].current || firstGroup
+
+  let left = 0
+  let top = 0
+  let newHeight = 0
+  let newWidth = 0
+
+  if (ref && ref.current && firstGroup && lastGroup) {
+    left = firstGroup.getBoundingClientRect().left - ref.current.getBoundingClientRect().left
+    top = firstGroup.getBoundingClientRect().top - ref.current.getBoundingClientRect().top
+    newHeight = lastGroup.getBoundingClientRect().bottom - firstGroup.getBoundingClientRect().top
+    newWidth = lastGroup.getBoundingClientRect().right - firstGroup.getBoundingClientRect().left
+  }
+
+  useLayoutEffect(() => {
+    changeGridStyle({
+      left: left + paddingLeft,
+      top: top + paddingTop,
+      height: newHeight - paddingTop - paddingBottom,
+      width: newWidth - paddingLeft - paddingRight,
+    })
+  }, [
+    newWidth,
+    newHeight,
+    left,
+    top,
+    isHorizontal,
+    width,
+    height,
+    paddingLeft,
+    paddingRight,
+    paddingTop,
+    paddingBottom,
+  ])
+
+  return gridStyle
 }

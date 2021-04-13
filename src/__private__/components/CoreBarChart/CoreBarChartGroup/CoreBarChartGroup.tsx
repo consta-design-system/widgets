@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from 'react'
 
 import { useComponentSize } from '@consta/uikit/useComponentSize'
 
-import { LabelSize } from '@/__private__/components/CoreBarChart/CoreBarChart'
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 import { NumberRange } from '@/__private__/utils/scale'
 
-import { Column, SectionItem } from '../Column/Column'
-import { TooltipData } from '../Tooltip/Tooltip'
+import { LabelSize } from '../CoreBarChart'
+import { CoreBarChartColumn, SectionItem } from '../CoreBarChartColumn/CoreBarChartColumn'
+import { TooltipData } from '../CoreBarChartTooltip/CoreBarChartTooltip'
 
 import {
   getSections,
@@ -16,9 +16,9 @@ import {
   scalerCommonColumnsGroups,
   styleOrientation,
 } from './helpers'
-import './Group.css'
+import './CoreBarChartGroup.css'
 
-const cnGroup = cn('Group')
+const cnCoreBarChartGroup = cn('CoreBarChartGroup')
 
 export type ColumnItem = {
   total: number
@@ -58,7 +58,7 @@ type Props = {
   limitMinimumStepSize?: boolean
 }
 
-export const Group: React.FC<Props> = props => {
+export const CoreBarChartGroup: React.FC<Props> = props => {
   const {
     item: { name: group, columns, reversedColumns },
     isHorizontal,
@@ -108,7 +108,7 @@ export const Group: React.FC<Props> = props => {
     const lengthColumns = !sections[0] || sections[0] === undefined ? 0 : sections[0].length
 
     return (
-      <Column
+      <CoreBarChartColumn
         key={index}
         group={group}
         total={column.total}
@@ -132,16 +132,16 @@ export const Group: React.FC<Props> = props => {
   const sizeGroupsLimit = getSizeGroupsLimit(isHorizontal, limitMinimumStepSize)
 
   return (
-    <div className={cnGroup('Groups', { isHorizontal, sizeGroupsLimit })} ref={ref}>
-      <div className={cnGroup('Columns')}>
+    <div className={cnCoreBarChartGroup('Groups', { isHorizontal, sizeGroupsLimit })} ref={ref}>
+      <div className={cnCoreBarChartGroup('Columns')}>
         <div
-          className={cnGroup('Wrapper')}
+          className={cnCoreBarChartGroup('Wrapper')}
           style={styleOrientation(isHorizontal, scalerColumnsGroups, gridDomain, columnLength)}
         >
           {columns.map((column, index) => renderColumn(column, index))}
         </div>
         <div
-          className={cnGroup('Wrapper')}
+          className={cnCoreBarChartGroup('Wrapper')}
           style={styleOrientation(
             isHorizontal,
             scalerColumnsGroups,

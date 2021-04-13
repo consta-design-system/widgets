@@ -14,9 +14,9 @@ import {
   getXAxisLabelsSlanted,
   SLANTED_TEXT_MAX_LENGTH,
 } from './helpers'
-import './Ticks.css'
+import './CoreBarChartTicks.css'
 
-const cnTicks = cn('Ticks')
+const cnCoreBarChartTicks = cn('CoreBarChartTicks')
 
 export const positions = ['top', 'right', 'bottom', 'left'] as const
 export type Position = typeof positions[number]
@@ -44,7 +44,7 @@ type Props<T> = {
     }
 )
 
-export function Ticks<T>(props: Props<T>) {
+export function CoreBarChartTicks<T>(props: Props<T>) {
   const {
     isXAxisLabelsSlanted,
     values,
@@ -153,7 +153,7 @@ export function Ticks<T>(props: Props<T>) {
     return (
       <div
         key={idx}
-        className={cnTicks(typeTicks, {
+        className={cnCoreBarChartTicks(typeTicks, {
           position,
           xAxisLabelsSlanted,
         })}
@@ -174,7 +174,7 @@ export function Ticks<T>(props: Props<T>) {
             size={'xs'}
             align={textAlign}
             title={newTextValue}
-            className={cnTicks('Text', {
+            className={cnCoreBarChartTicks('Text', {
               isDisabled: isDisabled(value),
               isHorizontal,
             })}
@@ -193,7 +193,7 @@ export function Ticks<T>(props: Props<T>) {
   return props.isLabel ? (
     <>{children}</>
   ) : (
-    <div className={cnTicks('Group', { position })} style={style}>
+    <div className={cnCoreBarChartTicks('Group', { position })} style={style}>
       {children}
     </div>
   )

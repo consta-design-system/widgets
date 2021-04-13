@@ -6,21 +6,16 @@
   &-Title {
     overflow: hidden;
 
+    margin-bottom: var(--space-xs);
+
     white-space: nowrap;
     text-overflow: ellipsis;
-  }
-
-  &-Divider {
-    height: 1px;
-    margin: var(--space-xs) calc(-1 * var(--space-xs));
-
-    background-color: var(--color-bg-border);
   }
 
   &-Content {
     display: grid;
 
-    grid-row-gap: var(--space-s);
+    grid-row-gap: var(--space-xs);
     grid-column-gap: var(--space-s);
 
     width: 100%;
@@ -28,6 +23,8 @@
   }
 
   &-LegendItem {
+    align-items: unset;
+
     &_isSingleColumn {
       grid-column: 2 span;
     }
@@ -35,5 +32,27 @@
     &_withPadding {
       padding-left: calc(var(--dot-size) + var(--space-xs));
     }
+
+    &_withNoNames {
+      .cw--LegendItem {
+        &-Sign {
+          margin-right: var(--space-2xs);
+        }
+      }
+    }
+
+    .cw--LegendItem {
+      &-SignWrapper {
+        line-height: unset;
+      }
+
+      &-Sign {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &-ItemValue {
+    text-align: right;
   }
 }

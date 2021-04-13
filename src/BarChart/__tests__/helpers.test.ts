@@ -1,4 +1,4 @@
-import { GroupItem } from '@/__private__/components/CoreBarChart/Group'
+import { GroupItem } from '@/__private__/components/CoreBarChart/CoreBarChartGroup/CoreBarChartGroup'
 import { Group } from '@/BarChart'
 
 import { transformGroupsToCommonGroups } from '../helpers'

@@ -1,4 +1,4 @@
-import { ColumnProperty } from '@/__private__/components/CoreBarChart/Column/Column'
+import { ColumnProperty } from '@/__private__/components/CoreBarChart/CoreBarChartColumn/CoreBarChartColumn'
 
 export const getSize = (
   length: number,
