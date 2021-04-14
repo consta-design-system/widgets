@@ -3,9 +3,12 @@ const maxPercentageWidth = 100
 export const styleOrientation = (
   lengthColumns: number,
   maxNumberGroups: number,
-  isHorizontal: boolean
+  isHorizontal: boolean,
+  height: number
 ) => {
-  const padding = (maxPercentageWidth / maxNumberGroups) * 0.2
+  const padding = isHorizontal
+    ? Math.max(height * 0.2, 1)
+    : (maxPercentageWidth / maxNumberGroups) * 0.2
 
   if (!isHorizontal) {
     if (maxNumberGroups > 1) {

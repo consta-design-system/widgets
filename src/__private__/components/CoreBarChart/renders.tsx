@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { LabelSize } from '@/__private__/components/CoreBarChart/CoreBarChart'
+import { LabelSize, OnMouseEventColumn } from '@/__private__/components/CoreBarChart/CoreBarChart'
 import { FormatGroupName, FormatValue } from '@/__private__/types'
 import { NumberRange, Scaler } from '@/__private__/utils/scale'
 
@@ -49,7 +49,8 @@ export type RenderGroup<T> = (props: {
   columnLength: number
   reversedColumnLength?: number
   onMouseEnterColumn: (groupName: string, params: TooltipData) => void
-  onMouseLeaveColumn: (groupName: string) => void
+  onMouseLeaveColumn: OnMouseEventColumn
+  onMouseClickColumn?: OnMouseEventColumn
   formatValueForLabel: FormatValue
   onChangeLabelSize?: (size: LabelSize) => void
   getNumberGridTicks: (length: number) => void

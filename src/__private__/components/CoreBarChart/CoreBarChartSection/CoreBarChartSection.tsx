@@ -9,14 +9,7 @@ import { NumberRange } from '@/__private__/utils/scale'
 import { LabelSize } from '../CoreBarChart'
 import { ColumnProperty } from '../CoreBarChartColumn/CoreBarChartColumn'
 
-import {
-  getBackground,
-  getColor,
-  getDirection,
-  getRoundedBorder,
-  getSize,
-  getTriangle,
-} from './helpers'
+import { getBackground, getColor, getDirection, getRoundedBorder, getTriangle } from './helpers'
 import './CoreBarChartSection.css'
 
 const cnCoreBarChartSection = cn('CoreBarChartSection')
@@ -27,9 +20,11 @@ type Props = {
   isHorizontal: boolean
   isReversed: boolean
   isActive: boolean
+  overflowed?: boolean
   label?: string
   onMouseEnter?: React.MouseEventHandler
   onMouseLeave?: React.MouseEventHandler
+  onMouseClick?: React.MouseEventHandler
   onChangeLabelSize?: (size: LabelSize) => void
   columnProperty: ColumnProperty
   gridDomain: NumberRange
@@ -45,9 +40,11 @@ export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
       isHorizontal,
       isReversed,
       isActive,
+      overflowed,
       label,
       onMouseEnter,
       onMouseLeave,
+      onMouseClick,
       onChangeLabelSize,
       columnProperty,
       gridDomain,
@@ -83,6 +80,9 @@ export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
     const columnOverflow =
       isOverflow && numberColumnSections === 1 ? getDirection(isHorizontal, isReversed) : ''
     const formatLabel = label && formatForValue(label)
+    const gradientLength =
+      ((16 / (isHorizontal ? columnProperty.width : columnProperty.height)) * 100 * 100) / length
+    const isSectionOverflow = isOverflow && overflowed
 
     return (
       <div
@@ -94,27 +94,31 @@ export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
           columnOverflow,
         })}
         style={{
-          ...getSize(length, isHorizontal, isOverflow, numberColumnSections, indexSection),
+          width: isHorizontal ? `${Math.abs(length)}%` : undefined,
+          height: isHorizontal ? undefined : `${Math.abs(length)}%`,
+          ...getBackground(color, length, direction, gradientLength, isSectionOverflow),
           ...getRoundedBorder(columnProperty, direction, lastSection),
-          ...getBackground(color, length, isOverflow, lastSection, direction, numberColumnSections),
         }}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        onClick={onMouseClick}
       >
-        {isOverflow && (
-          <svg
-            className={cnCoreBarChartSection('Overflow', {
-              horizontal,
-              direction,
-            })}
-            style={getTriangle(isOverflow, direction, labelWidth, lastSection)}
-            width="8"
-            height="5"
-            viewBox="0 0 8 5"
-            fill="none"
-          >
-            <path d="M4 0.5L8 5H0L4 0.5Z" fill={color} />
-          </svg>
+        {isOverflow && lastSection && (
+          <>
+            <svg
+              className={cnCoreBarChartSection('Overflow', {
+                horizontal,
+                direction,
+              })}
+              style={getTriangle(isOverflow, direction, labelWidth, lastSection)}
+              width="8"
+              height="5"
+              viewBox="0 0 8 5"
+              fill="none"
+            >
+              <path d="M4 0.5L8 5H0L4 0.5Z" fill="var(--color-bg-soft)" />
+            </svg>
+          </>
         )}
         {label && lastSection && (
           <Text
@@ -123,7 +127,7 @@ export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
             view="primary"
             className={cnCoreBarChartSection('Label')}
             size="xs"
-            style={getColor(color, isOverflow)}
+            style={getColor(color, false)}
           >
             {formatLabel}
           </Text>

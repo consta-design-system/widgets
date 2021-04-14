@@ -51,6 +51,7 @@ type Props = {
   formatValueForLabel?: FormatValue
   onMouseEnterColumn: (groupName: string, params: TooltipData) => void
   onMouseLeaveColumn: (groupName: string) => void
+  onMouseClickColumn?: (groupName: string) => void
   onChangeLabelSize?: (size: LabelSize) => void
   style?: React.CSSProperties
   getNumberGridTicks: (length: number) => void
@@ -73,6 +74,7 @@ export const CoreBarChartGroup: React.FC<Props> = props => {
     formatValueForLabel,
     onMouseEnterColumn,
     onMouseLeaveColumn,
+    onMouseClickColumn,
     onChangeLabelSize,
     getNumberGridTicks,
     gridDomain,
@@ -116,12 +118,14 @@ export const CoreBarChartGroup: React.FC<Props> = props => {
         lengthColumns={lengthColumns}
         isHorizontal={isHorizontal}
         isReversed={isReversed}
+        clickable={!!onMouseClickColumn}
         showValues={showValues}
         activeGroup={activeGroup}
         activeSectionIndex={activeSectionIndex}
         formatValueForLabel={formatValueForLabel}
         onMouseEnterColumn={params => onMouseEnterColumn(group, params)}
         onMouseLeaveColumn={() => onMouseLeaveColumn(group)}
+        onMouseClickColumn={() => onMouseClickColumn?.(group)}
         onChangeLabelSize={onChangeLabelSize}
         maxNumberGroups={maxNumberGroups}
         gridDomain={gridDomain}

@@ -26,6 +26,7 @@ export type SectionItem = {
   value?: number
   length?: number
   name?: string
+  overflowed?: boolean
 }
 
 export type ColumnProperty = {
@@ -64,6 +65,7 @@ type Props = {
   sections: readonly SectionItem[] | undefined
   showValues: boolean
   isHorizontal: boolean
+  clickable: boolean
   lengthColumns?: number
   isReversed?: boolean
   activeGroup?: string
@@ -71,6 +73,7 @@ type Props = {
   formatValueForLabel?: FormatValue
   onMouseEnterColumn: OnMouseEnterColumn
   onMouseLeaveColumn: React.MouseEventHandler
+  onMouseClickColumn: React.MouseEventHandler
   onChangeLabelSize?: (size: LabelSize) => void
   maxNumberGroups: number
   gridDomain: NumberRange
@@ -83,12 +86,14 @@ export const CoreBarChartColumn: React.FC<Props> = ({
   lengthColumns,
   showValues,
   isHorizontal,
+  clickable,
   isReversed = false,
   activeGroup,
   activeSectionIndex,
   formatValueForLabel = String,
   onMouseEnterColumn,
   onMouseLeaveColumn,
+  onMouseClickColumn,
   onChangeLabelSize,
   maxNumberGroups,
   gridDomain,
@@ -113,6 +118,44 @@ export const CoreBarChartColumn: React.FC<Props> = ({
       x,
       y,
       items: isHorizontal ? selectedSections : [...selectedSections].reverse(),
+    })
+  }
+
+  const mapSections = (items: readonly SectionItem[] | undefined) => {
+    let sectionsLength: number = 0
+
+    return items?.map((item, index) => {
+      const secLength = Math.floor(item.length || 0)
+      if (index === 0) {
+        sectionsLength = secLength
+
+        return {
+          ...item,
+          overflowed: secLength === 100,
+        }
+      }
+
+      if (sectionsLength + secLength <= 100) {
+        sectionsLength += secLength
+
+        return item
+      } else {
+        const newSecLength = 100 - sectionsLength
+        if (newSecLength >= 0) {
+          sectionsLength = 100
+
+          return {
+            ...item,
+            length: newSecLength,
+            overflowed: true,
+          }
+        }
+
+        return {
+          ...item,
+          length: 0,
+        }
+      }
     })
   }
 
@@ -150,10 +193,12 @@ export const CoreBarChartColumn: React.FC<Props> = ({
         isHorizontal={isHorizontal}
         isReversed={isReversed}
         isActive={isActive}
+        overflowed={item.overflowed}
         label={getLabel()}
         onChangeLabelSize={onChangeLabelSize}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={onMouseLeaveColumn}
+        onMouseClick={onMouseClickColumn}
         columnProperty={columnProperty}
         gridDomain={gridDomain}
         numberColumnSections={numberColumnSections}
@@ -170,11 +215,12 @@ export const CoreBarChartColumn: React.FC<Props> = ({
       className={cnCoreBarChartColumn('Columns', {
         horizontal,
         direction,
+        clickable,
       })}
-      style={styleOrientation(lengthColumn, maxNumberGroups, isHorizontal)}
+      style={styleOrientation(lengthColumn, maxNumberGroups, isHorizontal, height)}
       ref={ref}
     >
-      {sections.map(renderSection)}
+      {(mapSections(sections) || []).map(renderSection)}
     </div>
   )
 }
