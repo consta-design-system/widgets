@@ -1,19 +1,19 @@
-/**
- * Конфиг от пакета "github-release-notes", который используется в github actions
- * и нужен для генерации списка изменений между релизами
- */
 module.exports = {
-  dataSource: 'prs',
+  dataSource: 'commits',
   prefix: '',
   includeMessages: 'commits',
+  ignoreCommitsWith: ['merge', 'Merge', 'release', 'changelog', 'not-changelog'],
+  ignoreTagsWith: [],
   changelogFilename: 'CHANGELOG.md',
-  onlyMilestones: false,
-  groupBy: false,
   template: {
-      issue: ({ text, url, name }) => (
-          `- ${name.replace('[RFT]', '').replace(/(([A-Z]+)-\d*)/, '[$1](https://jira.csssr.io/browse/$1)').trim()} [${text}](${url})`
-      ),
-      changelogTitle: '### Изменения\n\n',
-      release: '{{body}}'
-  }
+    commit: ({ message, url, author, name }) =>
+      `- [${message}](${url}) - ${author ? `[@${author}](https://github.com/${author})` : name}`,
+    issue: '- {{labels}} {{name}} [{{text}}]({{url}})',
+    label: '[**{{label}}**]',
+    noLabel: 'closed',
+    group: '\n#### {{heading}}\n',
+    changelogTitle: '# Changelog\n\n',
+    release: '## {{release}} ({{date}})\n{{body}}',
+    releaseSeparator: '\n---\n\n',
+  },
 }
