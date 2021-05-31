@@ -2,11 +2,11 @@ import React from 'react'
 
 import { useComponentSize } from '@consta/uikit/useComponentSize'
 import { isDefined, isNotNil } from '@consta/widgets-utils/lib/type-guards'
-import { isNumber } from 'lodash'
 
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 import { NumberRange } from '@/__private__/utils/scale'
+import { isNumber } from '@/__private__/utils/util'
 
 import { Size } from '../helpers'
 import { LabelSize } from '../CoreBarChart'

@@ -1,10 +1,10 @@
 import { useLayoutEffect, useState } from 'react'
 
 import { isTruthy } from '@consta/widgets-utils/lib/type-guards'
-import { startCase, sum } from 'lodash'
 
 import { Threshold } from '@/__private__/components/CoreBarChart/CoreBarChart'
 import { getEveryN } from '@/__private__/utils/array'
+import { sum } from '@/__private__/utils/array'
 import { NumberRange } from '@/__private__/utils/scale'
 
 import { ColumnItem, GroupItem } from './CoreBarChartGroup/CoreBarChartGroup'
@@ -239,7 +239,7 @@ export const getGridSettings = (
 }
 
 export const getLabelGridAreaName = (position: Position) => (index: number) => {
-  return `label${startCase(position)}${index}`
+  return `label${position[0].toUpperCase()}${position.substring(1)}${index}`
 }
 
 export const isShowReversed = ({

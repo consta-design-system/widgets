@@ -2,9 +2,9 @@ import React from 'react'
 
 import { isNotNil } from '@consta/widgets-utils/lib/type-guards'
 import * as d3 from 'd3'
-import * as _ from 'lodash'
 
 import { FormatValue } from '@/__private__/types'
+import { uniq } from '@/__private__/utils/array'
 import { cn } from '@/__private__/utils/bem'
 import { formatForArray } from '@/__private__/utils/formatForArray'
 import { formatForValue } from '@/__private__/utils/formatForValue'
@@ -61,7 +61,7 @@ type Props = {
 const defaultFormatLabel = (v: number) => String(v)
 
 const addGuideToTicks = (ticks: TickValues, guideValue: number | undefined): TickValues =>
-  isNotNil(guideValue) ? _.sortBy(_.uniq([...ticks, guideValue])) : ticks
+  isNotNil(guideValue) ? [...uniq([...ticks, guideValue])].sort((a, b) => a - b) : ticks
 
 const getGuideValue = ({
   showGuide,

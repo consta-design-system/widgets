@@ -2,13 +2,13 @@ import React from 'react'
 
 import { Text } from '@consta/uikit/Text'
 import { isNotNil } from '@consta/widgets-utils/lib/type-guards'
-import _ from 'lodash'
 
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
 import { getFormattedValue } from '@/__private__/utils/chart'
 import { numberFormatter } from '@/__private__/utils/formatters'
 import { formatForArray } from '@/__private__/utils/formatForArray'
+import { isNumber } from '@/__private__/utils/util'
 import { LegendItem } from '@/LegendItem/LegendItem'
 
 import './TooltipContentForMultipleValues.css'
@@ -69,7 +69,7 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
             <React.Fragment key={idx}>
               <LegendItem
                 label={name || ''}
-                icon={_.isNumber(value) ? 'dot' : undefined}
+                icon={isNumber(value) ? 'dot' : undefined}
                 color={color}
                 size="xs"
                 className={cnTooltipContent('LegendItem', {

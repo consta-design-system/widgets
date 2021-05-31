@@ -1,7 +1,7 @@
 const getCommonConfig = require('@consta/widgets-configs/config/webpack/common.webpack')
 const webpackMerge = require('webpack-merge')
-const omit = require('lodash/omit')
-const flowRight = require('lodash/flowRight')
+const omit = require('src/__private__/utils/util')
+const flowRight = require('src/__private__/utils/util')
 const glob = require('fast-glob')
 
 const { withMdxRules, disableCSSModules } = require('../webpack/helpers')

@@ -1,7 +1,6 @@
 import React from 'react'
 
 import * as d3 from 'd3'
-import * as _ from 'lodash'
 
 import { cn } from '@/__private__/utils/bem'
 import { getSolidSegments } from '@/__private__/utils/line'
@@ -29,24 +28,26 @@ type Segment = {
 export const divideBySegments = (points: readonly Item[]): readonly Segment[] => {
   const solidSegments = getSolidSegments<Item, NotEmptyItem>(points, itemIsNotEmpty)
 
-  return _.flatMap(solidSegments, (segment, idx) => {
-    // Между сплошными сегментами вставляем пунктирные для обозначения пропусков
-    if (idx > 0) {
-      const previousSegment = solidSegments[idx - 1]
-      const dashStart = previousSegment.points[previousSegment.points.length - 1]
-      const dashEnd = segment.points[0]
+  return solidSegments
+    .flatMap((segment, idx) => {
+      // Между сплошными сегментами вставляем пунктирные для обозначения пропусков
+      if (idx > 0) {
+        const previousSegment = solidSegments[idx - 1]
+        const dashStart = previousSegment.points[previousSegment.points.length - 1]
+        const dashEnd = segment.points[0]
 
-      return [
-        {
-          type: 'dashed',
-          points: [dashStart, dashEnd],
-        },
-        segment,
-      ] as const
-    }
+        return [
+          {
+            type: 'dashed',
+            points: [dashStart, dashEnd],
+          },
+          segment,
+        ] as const
+      }
 
-    return [segment]
-  }).filter(segment => segment.points.length > 1)
+      return [segment]
+    })
+    .filter(segment => segment.points.length > 1)
 }
 
 export const Line: React.FC<Props> = ({ points, scaleX, scaleY, dashed, className, ...rest }) => {

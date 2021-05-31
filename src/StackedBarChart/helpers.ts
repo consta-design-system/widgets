@@ -1,7 +1,7 @@
 import { isDefined, isNotNil } from '@consta/widgets-utils/lib/type-guards'
-import _ from 'lodash'
 
 import { GroupItem } from '@/__private__/components/CoreBarChart/CoreBarChartGroup/CoreBarChartGroup'
+import { sum } from '@/__private__/utils/array'
 import { Column, Group } from '@/StackedBarChart/StackedBarChart'
 
 const defaultColumnItem = {
@@ -16,7 +16,7 @@ const getTransformColumn = (filter: (value: number) => boolean) => (
     return defaultColumnItem
   }
 
-  const total = _.sum(column.map(item => item.value))
+  const total = sum(column.map(item => item.value as number))
   const sections = column
     .map(({ value, color }) => {
       if (!isNotNil(value) || !filter(value)) {
@@ -45,7 +45,7 @@ export const transformGroupsToCommonGroups = (groups: ReadonlyArray<Group | unde
   return groups.filter(isNotNil).map(group => {
     const columns = group.values.map(getColumns)
     const reversedColumns = group.values.map(getReversedColumns)
-    const total = _.sum(_.concat(columns, reversedColumns).flatMap(column => column.total))
+    const total = sum(columns.concat(reversedColumns).flatMap(column => column.total))
 
     return {
       name: group.groupName,

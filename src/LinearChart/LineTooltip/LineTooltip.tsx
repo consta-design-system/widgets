@@ -3,10 +3,10 @@ import React from 'react'
 import { Position } from '@consta/uikit/Popover'
 import { Tooltip } from '@consta/uikit/Tooltip'
 import { isDefined, isNotNil } from '@consta/widgets-utils/lib/type-guards'
-import * as _ from 'lodash'
 
 import { TooltipContentForMultipleValues } from '@/__private__/components/TooltipContentForMultipleValues/TooltipContentForMultipleValues'
 import { FormatValue } from '@/__private__/types'
+import { isObjectsEqual } from '@/__private__/utils/util'
 
 import {
   HoveredDotValue,
@@ -56,12 +56,12 @@ export const LineTooltip: React.FC<Props> = props => {
   const mainValueKey = 'x'
   const secondaryValueKey = 'y'
   const isItemHovered = (item: Item) =>
-    item[mainValueKey] === hoveredMainValue || _.isEqual(item, hoveredDotValue)
+    item[mainValueKey] === hoveredMainValue || isObjectsEqual(item, hoveredDotValue)
   const getSecondaryValue = (item?: Item) => (item ? item[secondaryValueKey] : null)
 
   const tooltipLines = isNotNil(hoveredMainValue)
     ? lines
-    : lines.filter(line => line.values.find(item => _.isEqual(item, hoveredDotValue)))
+    : lines.filter(line => line.values.find(item => isObjectsEqual(item, hoveredDotValue)))
 
   const tooltipItems: readonly TooltipItem[] = tooltipLines.map(line => {
     const item = line.values.find(isItemHovered)

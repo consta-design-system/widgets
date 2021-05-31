@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { isDefined, isNotNil } from '@consta/widgets-utils/lib/type-guards'
-import * as _ from 'lodash'
 
+import { flatten } from '@/__private__/utils/array'
 import { cn } from '@/__private__/utils/bem'
 
 import { HoveredDotValue, Line, NotEmptyItem, ScaleLinear } from '../LinearChart'
@@ -61,7 +61,7 @@ export const HoverDots: React.FC<Props> = ({
   onChangeHoveredDotValue,
   onClickDot,
 }) => {
-  const lineValues = _.flatten(lines.map(l => l.values))
+  const lineValues = flatten(lines.map(l => l.values))
 
   return (
     <g>

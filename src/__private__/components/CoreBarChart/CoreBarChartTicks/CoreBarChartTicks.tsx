@@ -1,11 +1,11 @@
 import React, { RefObject, useLayoutEffect, useState } from 'react'
 
 import { Text } from '@consta/uikit/Text'
-import { times } from 'lodash'
 
 import { cn } from '@/__private__/utils/bem'
 import { formatForArray } from '@/__private__/utils/formatForArray'
 import { Scaler } from '@/__private__/utils/scale'
+import { times } from '@/__private__/utils/util'
 
 import {
   cropText,
