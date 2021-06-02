@@ -1,7 +1,6 @@
 import React from 'react'
 
 import * as d3 from 'd3'
-import { reverse } from 'lodash'
 
 import { cn } from '@/__private__/utils/bem'
 
@@ -38,7 +37,7 @@ export const getFillPoints = (
   return [
     ...maxPoints.slice(1),
     lastMinPoint,
-    ...reverse(minPoints.slice(0, minPoints.length - 1)),
+    ...minPoints.slice(0, minPoints.length - 1).reverse(),
     firstMaxPoint,
   ]
 }

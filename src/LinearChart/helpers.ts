@@ -1,6 +1,7 @@
 import { isNotNil } from '@consta/widgets-utils/lib/type-guards'
 import * as d3 from 'd3'
-import * as _ from 'lodash'
+
+import { chunk, uniq } from '@/__private__/utils/array'
 
 import { Item, NotEmptyItem, NumberRange, TickValues } from './LinearChart'
 
@@ -82,11 +83,10 @@ export const getUniqValues = (
   domain: NumberRange,
   type: 'x' | 'y'
 ): readonly number[] => {
-  return _.sortBy(
-    _.uniq(items.map(v => v[type]))
-      .filter(isNotNil)
-      .filter(i => isInDomain(i, domain))
-  )
+  return uniq(items.map(v => v[type]))
+    .filter(isNotNil)
+    .filter(i => isInDomain(i, domain))
+    .sort((a, b) => a - b)
 }
 
 export const getMainTickValues = ({
@@ -114,12 +114,12 @@ export const getMainTickValues = ({
   }
 
   if (ticksCount === 2) {
-    return _.uniq([uniqValues[0], uniqValues[uniqValues.length - 1]])
+    return uniq([uniqValues[0], uniqValues[uniqValues.length - 1]])
   }
 
   return ticksCount === 0
     ? []
-    : _.chunk(
+    : chunk(
         d3.ticks(uniqValues[0], uniqValues[uniqValues.length - 1], ticksCount),
         Math.ceil(uniqValues.length / ticksCount)
       ).map(arr => arr[0])
@@ -141,7 +141,7 @@ export const getSecondaryTickValues = ({
   const uniqValues = getUniqValues(items, domain, 'y')
 
   if (ticksCount === 2) {
-    return _.uniq([uniqValues[0], uniqValues[uniqValues.length - 1]])
+    return uniq([uniqValues[0], uniqValues[uniqValues.length - 1]])
   }
 
   return ticksCount === 0 ? [] : d3.ticks(domain[0], domain[1], ticksCount)

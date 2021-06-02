@@ -1,9 +1,8 @@
 import React from 'react'
 
-import * as _ from 'lodash'
-
 import { FormatValue } from '@/__private__/types'
 import { cn } from '@/__private__/utils/bem'
+import { isObjectsEqual } from '@/__private__/utils/util'
 
 import { Area } from '../Area/Area'
 import { Line } from '../Line/Line'
@@ -53,7 +52,7 @@ const isActiveLineCircle = (position: Item, activeValue?: number) => {
 }
 
 const isActiveDotCircle = (position: Item, activeValue?: Item) => {
-  return _.isEqual(position, activeValue)
+  return isObjectsEqual(position, activeValue)
 }
 
 const defaultFormatValue = (v: number) => String(v)

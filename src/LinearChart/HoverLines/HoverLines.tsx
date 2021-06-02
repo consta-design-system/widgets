@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { isDefined, isNotNil } from '@consta/widgets-utils/lib/type-guards'
-import * as _ from 'lodash'
 
+import { flatten, uniqBy } from '@/__private__/utils/array'
 import { cn } from '@/__private__/utils/bem'
 
 import { HoveredMainValue, Line, ScaleLinear } from '../LinearChart'
@@ -62,7 +62,8 @@ export const HoverLines: React.FC<Props> = ({
   onChangeHoveredMainValue,
   onClickLine,
 }) => {
-  const lineValues = _.uniqBy(_.flatten(lines.map(l => l.values)), v => v.x)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const lineValues = uniqBy(flatten(lines.map(l => l.values)), (v: any) => v.x)
 
   return (
     <g>

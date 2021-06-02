@@ -3,7 +3,6 @@ import React, { forwardRef, SVGAttributes, useLayoutEffect, useRef, useState } f
 import { useForkRef } from '@consta/uikit/useForkRef'
 import { isNotNil } from '@consta/widgets-utils/lib/type-guards'
 import { PieArcDatum } from 'd3-shape'
-import _ from 'lodash'
 
 import { cn } from '@/__private__/utils/bem'
 import { useComponentSize } from '@/__private__/utils/useComponentSize'

@@ -1,6 +1,5 @@
-import times from 'lodash/times'
-
 import { DonutDataItem } from '@/__private__/components/CoreDonutChart/helpers'
+import { times } from '@/__private__/utils/util'
 
 const sectionWithOnlyZeroData = [...times(3, () => 0)] as const
 

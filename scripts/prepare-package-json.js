@@ -1,9 +1,9 @@
 const fs = require('fs')
-const _ = require('lodash')
+const { omit } = require('src/__private__/utils/util')
 
 const packageJson = JSON.parse(fs.readFileSync('package.json'))
 
-const libPackageJson = _.omit(packageJson, [
+const libPackageJson = omit(packageJson, [
   'scripts',
   'browserslist',
   'husky',

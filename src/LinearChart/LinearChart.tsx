@@ -3,10 +3,11 @@ import { useUID } from 'react-uid'
 
 import { isNotNil } from '@consta/widgets-utils/lib/type-guards'
 import * as d3 from 'd3'
-import * as _ from 'lodash'
 
 import { FormatValue } from '@/__private__/types'
+import { flatten, uniqBy } from '@/__private__/utils/array'
 import { cn } from '@/__private__/utils/bem'
+import { flow, isObjectsEqual } from '@/__private__/utils/util'
 import { Direction as LegendDirection, Legend } from '@/Legend/Legend'
 import { IconType as LegendIcon, Size as LegendSize } from '@/LegendItem/LegendItem'
 import {
@@ -178,7 +179,7 @@ export const LinearChart: React.FC<Props> = props => {
   const lineClipId = `line_clipPath_${uid}`
   const dotsClipId = `dots_clipPath_${uid}`
 
-  const getAllValues = (): readonly Item[] => _.flatten(lines.map((l: Line) => l.values))
+  const getAllValues = (): readonly Item[] => flatten(lines.map((l: Line) => l.values))
 
   const getXDomain = (items: readonly Item[]): NumberRange => {
     const {
@@ -188,16 +189,16 @@ export const LinearChart: React.FC<Props> = props => {
     } = props
     const { left, right } = domainPaddings
 
-    return _.flow(
+    return flow([
       () => d3.extent(items, v => v.x) as NumberRange,
-      domain =>
+      (domain: NumberRange) =>
         padDomain({
           domain,
           paddingStart: withPaddings ? left : 0,
           paddingEnd: withPaddings ? right : 0,
           zoomScale: 1,
-        })
-    )()
+        }),
+    ])()
   }
 
   const getYDomain = (items: readonly Item[]): NumberRange => {
@@ -208,16 +209,16 @@ export const LinearChart: React.FC<Props> = props => {
     } = props
     const { top, bottom } = domainPaddings
 
-    return _.flow(
+    return flow([
       () => d3.extent(items, v => v.y) as NumberRange,
-      domain =>
+      (domain: NumberRange) =>
         padDomain({
           domain,
           paddingStart: withPaddings ? bottom : 0,
           paddingEnd: withPaddings ? top : 0,
           zoomScale: 1,
-        })
-    )()
+        }),
+    ])()
   }
 
   const onFrameSizeChange = ({
@@ -234,8 +235,8 @@ export const LinearChart: React.FC<Props> = props => {
     const { paddingX, paddingY } = state
     const targetPaddings = { paddingX, paddingY }
 
-    if (!_.isEqual(newPaddings, targetPaddings)) {
-      const currentPaddings = _.pick(state, ['paddingX', 'paddingY'])
+    if (!isObjectsEqual(newPaddings, targetPaddings)) {
+      const currentPaddings = { paddingX, paddingY }
 
       if (!currentPaddings.paddingX || !currentPaddings.paddingY) {
         setState(prevState => ({
@@ -281,7 +282,7 @@ export const LinearChart: React.FC<Props> = props => {
       items: getAllValues(),
       domain: xDomain,
       ticksCount: limitMinimumStepSize
-        ? _.uniqBy(getAllValues(), 'x').length
+        ? uniqBy(getAllValues(), 'x').length
         : xGridTicks ?? Math.round(svgWidth / DEFAULT_STEP_SIZE),
     })
 
@@ -330,15 +331,16 @@ export const LinearChart: React.FC<Props> = props => {
     return [flipPointsOnAxes(max.values, true), flipPointsOnAxes(min.values, true)]
   }
 
-  const getAllThresholdValues = (): readonly Item[] => _.flatten(getThresholdLines())
+  const getAllThresholdValues = (): readonly Item[] => flatten(getThresholdLines())
 
   React.useEffect(() => {
     const refObj = ref.current!
     const updateSize = () => {
       const { width, height } = refObj.getBoundingClientRect()
       const newSize = { width, height }
+      const { width: stateWidth, height: stateHeight } = state
 
-      if (!_.isEqual(_.pick(state, ['width', 'height']), newSize)) {
+      if (!isObjectsEqual({ width: stateWidth, height: stateHeight }, newSize)) {
         setState(prevState => ({
           ...prevState,
           ...newSize,
@@ -560,7 +562,7 @@ export const LinearChart: React.FC<Props> = props => {
                 ? ({
                     withGradient: true,
                     areaBottom: Math.max(
-                      Math.min(..._.flatten(line.values.map(v => v.y).filter(isNotNil))),
+                      Math.min(...flatten(line.values.map(v => v.y).filter(isNotNil))),
                       0
                     ),
                     gradientDirectionY: 'toTop',

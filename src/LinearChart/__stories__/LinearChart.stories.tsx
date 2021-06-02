@@ -393,7 +393,7 @@ export const LinearChartWithGuideOX = createStory(
     return <LinearChart lines={lines} gridConfig={gridConfig} />
   },
   {
-    name: 'с выделением оси Ox',
+    name: 'с выделением оси Oy',
     decorators,
     parameters,
   }
@@ -432,7 +432,7 @@ export const LinearChartWithGuideOY = createStory(
     return <LinearChart lines={lines} gridConfig={gridConfig} />
   },
   {
-    name: 'с выделением оси Oy',
+    name: 'с выделением оси Ox',
     decorators,
     parameters,
   }

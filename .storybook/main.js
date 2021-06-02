@@ -1,8 +1,16 @@
 const getCommonConfig = require('@consta/widgets-configs/config/webpack/common.webpack')
 const webpackMerge = require('webpack-merge')
-const omit = require('lodash/omit')
-const flowRight = require('lodash/flowRight')
 const glob = require('fast-glob')
+
+const omit = (obj, props) => {
+  const newObj = { ...obj }
+  props.forEach(prop => delete newObj[prop])
+
+  return newObj
+}
+
+const flowRight = functions => (...args) =>
+  [...functions].reverse().reduce((prev, func) => [func(...prev)], args)[0]
 
 const { withMdxRules, disableCSSModules } = require('../webpack/helpers')
 
