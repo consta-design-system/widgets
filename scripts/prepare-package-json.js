@@ -1,5 +1,11 @@
 const fs = require('fs')
-const { omit } = require('src/__private__/utils/util')
+
+const omit = (obj, props) => {
+  const newObj = { ...obj }
+  props.forEach(prop => delete newObj[prop])
+
+  return newObj
+}
 
 const packageJson = JSON.parse(fs.readFileSync('package.json'))
 

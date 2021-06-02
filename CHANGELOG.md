@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.1.1 (02/06/2021)
+- [chore(deps): removed lodash dependency (#56)](https://github.com/gazprom-neft/consta-widgets-new/commit/7796ebd1678aa9fd206e22777736d2ae06972ea7) - [@karpovfv-nedra](https://github.com/karpovfv-nedra)
+
+---
+
 ## v4.1.0 (14/04/2021)
 - [fix(Stackedbarchart): updated Stackedbarchart (#50)](https://github.com/gazprom-neft/consta-widgets-new/commit/4d1b88529a9e49b2f9fc4b6c620d8ba5ce430b82) - [@karpovfv-nedra](https://github.com/karpovfv-nedra)
 - [chore(gh-actions): добавил экшн для отправки уведомлений в телеграм (#54)](https://github.com/gazprom-neft/consta-widgets-new/commit/d1906468227ab3f971e1a7def6b7700d78205ee6) - [@gizeasy](https://github.com/gizeasy)
