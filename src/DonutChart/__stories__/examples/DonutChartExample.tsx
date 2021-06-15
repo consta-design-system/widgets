@@ -16,6 +16,12 @@ export const DonutChartExample = () => (
   </Example>
 )
 
+export const DonutChartExampleSums = () => (
+  <Example height="200px">
+    <DonutChart data={donutData.data} formatValueForTooltip={v => `${v}%`} sums={[10, 20, 30]} />
+  </Example>
+)
+
 export const DonutChartZero = () => (
   <Example height="200px">
     <DonutChart
