@@ -1,14 +1,34 @@
-# GPN Components
+# [Дизайн-система Consta](https://consta.gazprom-neft.ru/) | Библиотека графиков
 
-Репозиторий компонентов и графиков
+> Эта версия библиотеки поддерживается, но больше не развивается
+[Посмотреть актуальную библиотеку графиков](https://github.com/gazprom-neft/consta-charts)
 
-NPM: https://www.npmjs.com/package/@consta/widgets
 
-## Использование
+Consta — дизайн-система для разработки интерфейсов, написана на [React](https://reactjs.org/), сделана и поддерживается в «Газпром нефти».
 
-### Установка
+В этом репозитории — библиотека графиков: линейные, столбчатые, круговые диаграммы и другие компоненты, с помощью которых удобно показывать статистику. Библиотека сделана на основе [D3.js](https://d3js.org/).
 
-Установка пакета:
+[NPM](https://www.npmjs.com/package/@consta/widgets) | [Документация и стенд](https://consta-widgets-git-master-consta.vercel.app/) | [Макеты в Figma](https://www.figma.com/community/file/955853026322123186)
+
+## Что входит в дизайн-систему (основные библиотеки)
+
+### Библиотека компонентов
+
+[Репозиторий](https://github.com/gazprom-neft/consta-uikit) | [NPM](https://www.npmjs.com/package/@consta/uikit) | [Документация и стенд](https://consta-uikit.vercel.app/?path=/story/common-about--page) | [Макеты](https://www.figma.com/community/file/853774806786762374)
+
+### Библиотека графиков
+
+[Репозиторий](https://github.com/gazprom-neft/consta-charts) | [NPM](https://www.npmjs.com/package/@consta/charts) | [Документация и стенд](https://consta-charts.vercel.app/) | [Макеты](https://www.figma.com/community/file/982611119114314434)
+
+<hr>
+
+Подробности — на [сайте дизайн-системы Consta](http://consta.gazprom-neft.ru/)
+
+Следите за новостями и релизами в [телеграм-канале дизайн-системы](https://t.me/consta_ui_releases)
+
+## Как использовать
+
+### Установите пакет
 
 ```sh
 # NPM
@@ -18,15 +38,16 @@ $ npm i @consta/widgets
 $ yarn add @consta/widgets
 ```
 
-### Зависимости
+### Подключите зависимости
 
-Для работы пакета необходимо установить библиотеку [`@consta/uikit`](https://www.npmjs.com/package/@consta/uikit) и [настроить тему](https://consta-uikit.vercel.app/?path=/docs/components-theme--playground).
+Чтобы начать работу, установите библиотеку [@consta/uikit](https://www.npmjs.com/package/@consta/uikit) и [настройте тему](https://consta-uikit.vercel.app/?path=/docs/components-theme--playground)
 
-### Использование компонентов
+### Можно использовать компоненты
 
-Пример импорта компонента:
+Пример импорта
 
-```js
+```tsx
+import { Theme, presetGpnDefault } from '@consta/uikit/Theme';
 import { BarChart } from '@consta/widgets/Barchart'
 ```
 
@@ -36,7 +57,7 @@ import { BarChart } from '@consta/widgets/Barchart'
 
 Рабочее окружение должно содержать NodeJS и Yarn, необходимые версии можно узнать в файле [package.json](./package.json) в блоке **engines**.
 
-Для установки зависимостей следует выполнить команду:
+Чтобы установить зависимости, выполните команду:
 
 ```sh
 $ yarn install
@@ -46,24 +67,30 @@ $ yarn install
 
 ```sh
 # Сборка и старт Storybook
-$ yarn storybook
+$ yarn start
 
 # Сборка для production
-$ yarn run build
+$ yarn build
 
 # Линтинг всех файлов
-$ yarn run lint
+$ yarn lint
 
 # Форматирование всех файлов prettier
-$ yarn run format
+$ yarn format
 
-# Запуск тестов
-$ yarn run unit
+# Запуск юнит-тестов
+$ yarn unit
 
-# Запуск тестов и линтинг файлов
+# Запуск юнит-тестов, тестирование TS, линтинг файлов
 $ yarn test
 ```
 
-## Документация
+## Документация и стенд
 
-См. [раздел «Документация»](https://consta-widgets.consta.vercel.app/?path=/docs/common-develop-contributors--page) в Storybook.
+На стенде можно менять параметры и смотреть, как меняются компоненты. Документация — во вкладке у каждого компонента.
+
+[Вперёд, к стенду](https://consta-widgets-git-master-consta.vercel.app/)
+
+## Лицензия
+
+Дизайн-систему можно использовать бесплатно, она распространяется ПАО «Газпром нефть» на условиях [открытой лицензии MIT](https://consta.gazprom-neft.ru/static/licence_mit.pdf).
