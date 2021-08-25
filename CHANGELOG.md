@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.1.2 (25/08/2021)
+- [docs(readme): edit readme, add license (#57)](https://github.com/gazprom-neft/consta-widgets-new/commit/325136cf55f2c4d2ee51ef94eb8bbaf9d1c613c1) - [@arhayka](https://github.com/arhayka)
+- [fix(DonutChart): fixed story](https://github.com/gazprom-neft/consta-widgets-new/commit/bb276dc8c76bddb6eac723a9b860dd655431c09e) - [@gizeasy](https://github.com/gizeasy)
+
+---
+
 ## v4.1.1 (02/06/2021)
 - [chore(deps): removed lodash dependency (#56)](https://github.com/gazprom-neft/consta-widgets-new/commit/7796ebd1678aa9fd206e22777736d2ae06972ea7) - [@karpovfv-nedra](https://github.com/karpovfv-nedra)
 
