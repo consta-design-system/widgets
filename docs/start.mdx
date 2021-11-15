@@ -1,0 +1,74 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Документация/Старт" id="common-start" parameters={{ order: 100 }} />
+
+# Библиотека графиков consta-widgets
+
+Графики и диаграммы из дизайн-системы Consta.
+
+> Эта версия библиотеки поддерживается, но больше не развивается [Посмотреть актуальную библиотеку графиков](http://consta-charts.vercel.app/)
+
+[GitHub](https://github.com/gazprom-neft/consta-widgets-new) |
+[NPM](https://www.npmjs.com/package/@consta/widgets) |
+[Figma](https://www.figma.com/community/file/955853026322123186)
+
+
+## Быстрый старт
+
+#### Установите пакет и зависимости
+
+`yarn add @consta/uikit @consta/widgets` или `npm install @consta/uikit @consta/widgets`
+
+#### Подключите тему
+
+Тему обязательно нужно подключать в корне приложения, так, чтобы все компоненты `@consta/widgets` были вложены в компонент `Theme`.
+
+```tsx
+import { Theme, presetGpnDefault } from '@consta/uikit/Theme'
+import { BarChart } from '@consta/widgets/Barchart'
+
+const App = () => (
+  <BarChart
+    colors={[
+      'var(--color-bg-normal)',
+      'var(--color-bg-success)',
+    ]}
+    groups={[
+      {
+        groupName: 'Апрель',
+        values: [5, 15],
+      },
+      {
+        groupName: 'Май',
+        values: [7, 9],
+      },
+    ]}
+    threshold={value: 10}
+    isHorizontal
+    showValues
+    showGrid
+    showGuide
+    showGroupsLabels
+    unit="тыс. м³"
+    formatValueForLabel={v => `${v} тыс. м³`}
+  />
+)
+```
+
+#### Всë!
+
+## Разработчикам
+
+[Контрибьюторам](https://consta-uikit.vercel.app/?path=/docs/common-develop-contributors--page)
+
+[Правила оформления коммитов](https://consta-uikit.vercel.app/?path=/docs/common-develop-commits-style--page)
+
+[Правила оформления issue](https://consta-uikit.vercel.app/?path=/docs/common-develop-issues--page)
+
+## Подробности о дизайн-системе Consta
+
+[Основная документация](https://consta-uikit.vercel.app/?path=/docs/common-about--page)
+
+[Сайт дизайн-системы](https://consta.gazprom-neft.ru/)
+
+[Телеграм-канал с обновлениями](https://t.me/consta_ui_releases)
