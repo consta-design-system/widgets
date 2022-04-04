@@ -2334,10 +2334,10 @@
   resolved "https://registry.yarnpkg.com/@commitlint/types/-/types-11.0.0.tgz#719cf05fcc1abb6533610a2e0f5dd1e61eac14fe"
   integrity sha512-VoNqai1vR5anRF5Tuh/+SWDFk7xi7oMwHrHrbm1BprYXjB2RJsWLhUrStMssDxEl5lW/z3EUdg8RvH/IUBccSQ==
 
-"@consta/widgets-configs@1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@consta/widgets-configs/-/widgets-configs-1.5.0.tgz#19e51ec9328d614825a8b53bfdc9cae5ff9b385c"
-  integrity sha512-t4ydsYScaC1nqLsuGbnM57+Grw3YOml8tp9vG24iBzXw4dVpqEfu5mb+nfcZ2WyKxxH6lLMdHLYqt/gQzeJHhA==
+"@consta/widgets-configs@1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@consta/widgets-configs/-/widgets-configs-1.5.1.tgz#e2075bfe42a4340566709e56863fcf51699c3536"
+  integrity sha512-OUdCln4YBn5a7+Aj7VgGcs6mSeFwjsN1RlJigWNKwPmjlhSw6F/P4pje7i6PZpFpXobd81xle/HR2HKncWRpnQ==
   dependencies:
     "@babel/core" "7.4.5"
     "@babel/plugin-proposal-class-properties" "7.4.4"
