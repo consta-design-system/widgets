@@ -9,7 +9,7 @@
     "build:docs": "cp README.md lib/README.md",
     "build": "rm -rf lib && yarn build:css && yarn build:js && yarn build:types && yarn build:package.json && yarn build:docs",
     "storybook": "NODE_ENV=development ROOT_PATH=./ NODE_PATH=./node_modules start-storybook -p 6006 --ci",
-    "storybook:build": "NODE_ENV=production ROOT_PATH=./ NODE_PATH=./node_modules build-storybook -o build/storybook",
+    "build:storybook": "NODE_ENV=production ROOT_PATH=./ NODE_PATH=./node_modules build-storybook -s public -o build",
     "lint": "npm-run-all --parallel lint:*",
     "format": "prettier --write '{src,types,scripts}/**/*.{json,{j,t}s{,x},css,}'",
     "lint-fix": "npm-run-all format lint-fix:*",
@@ -103,7 +103,7 @@
     "@babel/cli": "7.10.5",
     "@babel/plugin-transform-react-jsx": "7.3.0",
     "@babel/preset-typescript": "7.10.4",
-    "@consta/widgets-configs": "1.5.0",
+    "@consta/widgets-configs": "1.5.1",
     "@mdx-js/loader": "1.5.9",
     "@storybook/addon-actions": "5.3.18",
     "@storybook/addon-docs": "5.3.18",
@@ -145,9 +145,5 @@
     "storybook-addon-smart-knobs": "6.0.2",
     "storybook-addon-themes": "5.4.1",
     "webpack-merge": "4.2.2"
-  },
-  "engines": {
-    "node": "12.x",
-    "yarn": ">=1.19.1"
   }
 }
