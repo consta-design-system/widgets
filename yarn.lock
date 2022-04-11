@@ -2410,10 +2410,10 @@
     webpack-cli "3.3.9"
     webpack-merge "4.2.1"
 
-"@consta/widgets-utils@0.2.14":
-  version "0.2.14"
-  resolved "https://registry.yarnpkg.com/@consta/widgets-utils/-/widgets-utils-0.2.14.tgz#e06b2461b69cbe89ef49470b6a8754d23361dfb2"
-  integrity sha512-ZBoX148PIDN13hotbH4cgQmqJo2DrYQ6UM1t7iFzHirbQeN+CtRUm9CBfY8necBLjG2URA1NT3n5a9bN2FOILA==
+"@consta/widgets-utils@0.2.15":
+  version "0.2.15"
+  resolved "https://registry.yarnpkg.com/@consta/widgets-utils/-/widgets-utils-0.2.15.tgz#e742d0f7e00d38aef3cfffdc7a3e04a3cd3b77c1"
+  integrity sha512-twidkF30eQ5Nigb45DJ2eb4zQVcxBQrNjgLiWJzss2Wn/b4jEYQU3aOV0PtuQ4aATVkcikFi/qBbXEHeOLfI8w==
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
