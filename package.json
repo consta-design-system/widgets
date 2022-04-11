@@ -75,7 +75,7 @@
   "dependencies": {
     "@amcharts/amcharts4-geodata": "4.1.9",
     "@bem-react/classname": "1.5.8",
-    "@consta/widgets-utils": "0.2.14",
+    "@consta/widgets-utils": "0.2.15",
     "@evless/react-textfit": "1.1.1",
     "@types/d3": "5.7.2",
     "@types/resize-observer-browser": "0.1.2",
