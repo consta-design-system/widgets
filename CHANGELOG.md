@@ -1,5 +1,12 @@
 # Changelog
 
+## v4.1.3 (11/04/2022)
+- [chore(deps): up widgets-utils (#60)](https://github.com/consta-design-system/widgets/commit/34d28da9d8cf4536655c6648583920d1f8e0fa3f) - [@gizeasy](https://github.com/gizeasy)
+- [chore(deploy): add deploy automatization (#59)](https://github.com/consta-design-system/widgets/commit/9203e15529b6dd84c146f95ed8e935c36e1c72f1) - [@gizeasy](https://github.com/gizeasy)
+- [docs(common): add start page, remove pages for developers (#58)](https://github.com/consta-design-system/widgets/commit/e5ad153eaa59f3dbc9167c8197623bda81deed01) - [@arhayka](https://github.com/arhayka)
+
+---
+
 ## v4.1.2 (25/08/2021)
 - [docs(readme): edit readme, add license (#57)](https://github.com/gazprom-neft/consta-widgets-new/commit/325136cf55f2c4d2ee51ef94eb8bbaf9d1c613c1) - [@arhayka](https://github.com/arhayka)
 - [fix(DonutChart): fixed story](https://github.com/gazprom-neft/consta-widgets-new/commit/bb276dc8c76bddb6eac723a9b860dd655431c09e) - [@gizeasy](https://github.com/gizeasy)
