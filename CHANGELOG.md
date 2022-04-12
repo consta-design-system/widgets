@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.2.0 (12/04/2022)
+- [chore(deps): update deps](https://github.com/consta-design-system/widgets/commit/08ea1df29d6893c37361e5ec2ef33c55080d01e4) - [@gizeasy](https://github.com/gizeasy)
+
+---
+
 ## v4.1.3 (11/04/2022)
 - [chore(deps): up widgets-utils (#60)](https://github.com/consta-design-system/widgets/commit/34d28da9d8cf4536655c6648583920d1f8e0fa3f) - [@gizeasy](https://github.com/gizeasy)
 - [chore(deploy): add deploy automatization (#59)](https://github.com/consta-design-system/widgets/commit/9203e15529b6dd84c146f95ed8e935c36e1c72f1) - [@gizeasy](https://github.com/gizeasy)
