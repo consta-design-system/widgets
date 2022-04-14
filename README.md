@@ -1,28 +1,27 @@
 # [Дизайн-система Consta](https://consta.gazprom-neft.ru/) | Библиотека графиков
 
 > Эта версия библиотеки поддерживается, но больше не развивается
-[Посмотреть актуальную библиотеку графиков](https://github.com/gazprom-neft/consta-charts)
-
+> [Посмотреть актуальную библиотеку графиков](https://github.com/gazprom-neft/consta-charts)
 
 Consta — дизайн-система для разработки интерфейсов, написана на [React](https://reactjs.org/), сделана и поддерживается в «Газпром нефти».
 
 В этом репозитории — библиотека графиков: линейные, столбчатые, круговые диаграммы и другие компоненты, с помощью которых удобно показывать статистику. Библиотека сделана на основе [D3.js](https://d3js.org/).
 
-[NPM](https://www.npmjs.com/package/@consta/widgets) | [Документация и стенд](https://consta-widgets-git-master-consta.vercel.app/) | [Макеты в Figma](https://www.figma.com/community/file/955853026322123186)
+[NPM](https://www.npmjs.com/package/@consta/widgets) | [Документация и стенд](http://widgets.gizeasy.ru) | [Макеты в Figma](https://www.figma.com/community/file/955853026322123186)
 
 ## Что входит в дизайн-систему (основные библиотеки)
 
 ### Библиотека компонентов
 
-[Репозиторий](https://github.com/gazprom-neft/consta-uikit) | [NPM](https://www.npmjs.com/package/@consta/uikit) | [Документация и стенд](https://consta-uikit.vercel.app/?path=/story/common-about--page) | [Макеты](https://www.figma.com/community/file/853774806786762374)
+[Репозиторий](https://github.com/gazprom-neft/consta-uikit) | [NPM](https://www.npmjs.com/package/@consta/uikit) | [Документация и стенд](http://uikit.gizeasy.ru) | [Макеты](https://www.figma.com/community/file/853774806786762374)
 
 ### Библиотека графиков
 
-[Репозиторий](https://github.com/gazprom-neft/consta-charts) | [NPM](https://www.npmjs.com/package/@consta/charts) | [Документация и стенд](https://consta-charts.vercel.app/) | [Макеты](https://www.figma.com/community/file/982611119114314434)
+[Репозиторий](https://github.com/gazprom-neft/consta-charts) | [NPM](https://www.npmjs.com/package/@consta/charts) | [Документация и стенд](http://charts.gizeasy.ru) | [Макеты](https://www.figma.com/community/file/982611119114314434)
 
 <hr>
 
-Подробности — на [сайте дизайн-системы Consta](http://consta.gazprom-neft.ru/)
+Подробности — на [сайте дизайн-системы Consta](https://consta.gazprom-neft.ru/)
 
 Следите за новостями и релизами в [телеграм-канале дизайн-системы](https://t.me/consta_ui_releases)
 
@@ -40,14 +39,14 @@ $ yarn add @consta/widgets
 
 ### Подключите зависимости
 
-Чтобы начать работу, установите библиотеку [@consta/uikit](https://www.npmjs.com/package/@consta/uikit) и [настройте тему](https://consta-uikit.vercel.app/?path=/docs/components-theme--playground)
+Чтобы начать работу, установите библиотеку [@consta/uikit](https://www.npmjs.com/package/@consta/uikit) и [настройте тему](http://uikit.gizeasy.ru)
 
 ### Можно использовать компоненты
 
 Пример импорта
 
 ```tsx
-import { Theme, presetGpnDefault } from '@consta/uikit/Theme';
+import { Theme, presetGpnDefault } from '@consta/uikit/Theme'
 import { BarChart } from '@consta/widgets/Barchart'
 ```
 
@@ -89,7 +88,7 @@ $ yarn test
 
 На стенде можно менять параметры и смотреть, как меняются компоненты. Документация — во вкладке у каждого компонента.
 
-[Вперёд, к стенду](https://consta-widgets-git-master-consta.vercel.app/)
+[Вперёд, к стенду](http://uikit.gizeasy.ru/)
 
 ## Лицензия
 
