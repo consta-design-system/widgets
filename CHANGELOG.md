@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.2.1 (19/04/2022)
+- [docs(global): replace url (#62)](https://github.com/consta-design-system/widgets/commit/a65b9d39920aa53056ba31d356e34852c670da24) - [@arhayka](https://github.com/arhayka)
+- [docs(global): replace links (#61)](https://github.com/consta-design-system/widgets/commit/08a3bf5c9009a48da65d1ad86b815e9efa057af7) - [@gizeasy](https://github.com/gizeasy)
+
+---
+
 ## v4.2.0 (12/04/2022)
 - [chore(deps): update deps](https://github.com/consta-design-system/widgets/commit/08ea1df29d6893c37361e5ec2ef33c55080d01e4) - [@gizeasy](https://github.com/gizeasy)
 
