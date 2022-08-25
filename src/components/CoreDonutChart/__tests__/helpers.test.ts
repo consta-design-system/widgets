@@ -256,7 +256,7 @@ describe('isEmptyPieArcDatum', () => {
   it('возвращает true если передать пустой массив', () => {
     const received = isEmptyPieArcDatum([]);
 
-    expect(received).toBeTrue();
+    expect(received).toBe(true);
   });
 
   it('возвращает true если передать массив в котором у всех элементов в качестве значения дуги 0', () => {
@@ -279,7 +279,7 @@ describe('isEmptyPieArcDatum', () => {
       },
     ]);
 
-    expect(received).toBeTrue();
+    expect(received).toBe(true);
   });
 
   it('возвращает false если передать массив в котором хотя бы у одной дуги значение не равняется 0', () => {
@@ -302,7 +302,7 @@ describe('isEmptyPieArcDatum', () => {
       },
     ]);
 
-    expect(received).toBeFalse();
+    expect(received).toBe(false);
   });
 });
 

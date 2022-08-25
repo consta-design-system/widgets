@@ -4,37 +4,37 @@ describe('isNegativeNumber', () => {
   it('проверяет что число из строки положительное игнорируя все остальные символы', () => {
     const received = isNegativeRate(' +20% ');
 
-    expect(received).toBeFalse();
+    expect(received).toBe(false);
   });
 
   it('проверяет что число из строки положительное', () => {
     const received = isNegativeRate('20');
 
-    expect(received).toBeFalse();
+    expect(received).toBe(false);
   });
 
   it('проверяет что число из строки отрицательное игнорируя все остальные символы', () => {
     const received = isNegativeRate(' -20% ');
 
-    expect(received).toBeTrue();
+    expect(received).toBe(true);
   });
 
   it('проверяет что число из строки отрицательное', () => {
     const received = isNegativeRate('-20');
 
-    expect(received).toBeTrue();
+    expect(received).toBe(true);
   });
 
   it('игнорирует знак если он указан не перед числом', () => {
     const received = isNegativeRate('- 20');
 
-    expect(received).toBeFalse();
+    expect(received).toBe(false);
   });
 
   it('проверяет только первое число из строки', () => {
     const received = isNegativeRate('10 -20');
 
-    expect(received).toBeFalse();
+    expect(received).toBe(false);
   });
 });
 

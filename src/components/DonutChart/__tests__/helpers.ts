@@ -17,7 +17,7 @@ describe('filterComputedData', () => {
       value: 0,
     });
 
-    expect(received).toBeFalse();
+    expect(received).toBe(false);
   });
 
   it('не фильтрует обычные данные', () => {
@@ -27,7 +27,7 @@ describe('filterComputedData', () => {
       value: 0,
     });
 
-    expect(received).toBeTrue();
+    expect(received).toBe(true);
   });
 });
 

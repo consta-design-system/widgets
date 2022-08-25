@@ -41,16 +41,6 @@ module.exports = {
       },
     ],
     ['@babel/preset-typescript'],
-    ...(isProduction
-      ? [
-          [
-            'minify',
-            {
-              builtIns: false,
-            },
-          ],
-        ]
-      : []),
   ],
   plugins: [
     ['@babel/plugin-proposal-class-properties'],

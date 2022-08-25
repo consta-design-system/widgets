@@ -450,7 +450,7 @@ describe('isShowReversed', () => {
       groups: [],
     });
 
-    expect(result).toBeFalse();
+    expect(result).toBe(false);
   });
 
   it('определяет необходимость отображения перевернутых групп, если список колонок пустой', () => {
@@ -458,7 +458,7 @@ describe('isShowReversed', () => {
       groups: [{ name: 'Группа 1', columns: [], reversedColumns: [] }],
     });
 
-    expect(result).toBeFalse();
+    expect(result).toBe(false);
   });
 
   it('определяет необходимость отображения перевернутых групп, если список колонок пустой и порог положительный', () => {
@@ -467,7 +467,7 @@ describe('isShowReversed', () => {
       threshold: { value: 100 },
     });
 
-    expect(result).toBeFalse();
+    expect(result).toBe(false);
   });
 
   it('определяет необходимость отображения перевернутых групп', () => {
@@ -486,7 +486,7 @@ describe('isShowReversed', () => {
       ],
     });
 
-    expect(result).toBeTrue();
+    expect(result).toBe(true);
   });
 
   it('определяет необходимость отображения перевернутых групп, если список колонок пустой и порог отрицательный', () => {
@@ -495,7 +495,7 @@ describe('isShowReversed', () => {
       threshold: { value: -100 },
     });
 
-    expect(result).toBeTrue();
+    expect(result).toBe(true);
   });
 });
 
@@ -503,7 +503,7 @@ describe('isMultiColumn', () => {
   it('возвращает false, если список групп пустой', () => {
     const result = isMultiColumn([]);
 
-    expect(result).toBeFalse();
+    expect(result).toBe(false);
   });
 
   it('возвращает false, если список колонок пуст', () => {
@@ -515,7 +515,7 @@ describe('isMultiColumn', () => {
       },
     ]);
 
-    expect(result).toBeFalse();
+    expect(result).toBe(false);
   });
 
   it('возвращает false, если в списках не больше одной колонки', () => {
@@ -527,7 +527,7 @@ describe('isMultiColumn', () => {
       },
     ]);
 
-    expect(result).toBeFalse();
+    expect(result).toBe(false);
   });
 
   it('возвращает true, если длина списка обычных колонок больше одного', () => {
@@ -542,7 +542,7 @@ describe('isMultiColumn', () => {
       },
     ]);
 
-    expect(result).toBeTrue();
+    expect(result).toBe(true);
   });
 
   it('возвращает true, если длина списка перевернутых колонок больше одного', () => {
@@ -557,7 +557,7 @@ describe('isMultiColumn', () => {
       },
     ]);
 
-    expect(result).toBeTrue();
+    expect(result).toBe(true);
   });
 });
 
