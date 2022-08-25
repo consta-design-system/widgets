@@ -1,0 +1,11 @@
+.cw--HoverDots {
+  &-Item {
+    fill: transparent;
+    cursor: pointer;
+
+    &_isHoverable {
+      /* Задаётся через js */
+      stroke-width: var(--hover-width);
+    }
+  }
+}

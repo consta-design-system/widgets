@@ -1,96 +1,63 @@
-# [Дизайн-система Consta](https://consta.design/) | Библиотека графиков
-
-> Эта версия библиотеки поддерживается, но больше не развивается
-> [Посмотреть актуальную библиотеку графиков](https://github.com/consta-design-system/consta-charts)
+# [Дизайн-система Consta](http://consta.gazprom-neft.ru/) | Библиотека интерфейсных компонентов
 
 Consta — дизайн-система для разработки интерфейсов, написана на [React](https://reactjs.org/), сделана и поддерживается в «Газпром нефти».
 
-В этом репозитории — библиотека графиков: линейные, столбчатые, круговые диаграммы и другие компоненты, с помощью которых удобно показывать статистику. Библиотека сделана на основе [D3.js](https://d3js.org/).
+В дизайн-систему входит несколько библиотек. **Здесь — библиотека интерфейсных компонентов:** простые контролы, сложные блоки, темы и хуки. Все библиотеки представлены в виде компонентов и макетов в Figma.
 
-[NPM](https://www.npmjs.com/package/@consta/widgets) | [Документация и стенд](http://widgets.consta.design) | [Макеты в Figma](https://www.figma.com/community/file/955853026322123186)
-
-## Что входит в дизайн-систему (основные библиотеки)
+## Что входит в дизайн-систему
 
 ### Библиотека компонентов
 
-[Репозиторий](https://github.com/consta-design-system/consta-uikit) | [NPM](https://www.npmjs.com/package/@consta/uikit) | [Документация и стенд](http://uikit.consta.design) | [Макеты](https://www.figma.com/community/file/853774806786762374)
+[Репозиторий](https://github.com/consta-design-system/uikit) | [NPM](https://www.npmjs.com/package/@consta/uikit) | [Документация и стенд](http://uikit.gizeasy.ru/?path=/story/common-about--page) | [Макеты](https://www.figma.com/community/file/853774806786762374)
 
 ### Библиотека графиков
 
-[Репозиторий](https://github.com/consta-design-system/consta-charts) | [NPM](https://www.npmjs.com/package/@consta/charts) | [Документация и стенд](http://charts.consta.design) | [Макеты](https://www.figma.com/community/file/982611119114314434)
+[Репозиторий](https://github.com/consta-design-system/charts) | [NPM](https://www.npmjs.com/package/@consta/charts) | [Документация и стенд](http://charts.gizeasy.ru) | [Макеты](https://www.figma.com/community/file/982611119114314434)
+
+[>> Посмотреть все библиотеки](http://uikit.gizeasy.ru/?path=/docs/common-about-github--page)
 
 <hr>
 
-Подробности — на [сайте дизайн-системы Consta](https://consta.design/)
+Подробности — на [на сайте дизайн-системы Consta](http://consta.gazprom-neft.ru/)
 
 Следите за новостями и релизами в [телеграм-канале дизайн-системы](https://t.me/consta_ui_releases)
 
-## Как использовать
+# Как использовать
 
-### Установите пакет
+## Установите пакет
 
-```sh
-# NPM
-$ npm i @consta/widgets
-
-# Yarn
-$ yarn add @consta/widgets
+```
+yarn add @consta/uikit
 ```
 
-### Подключите зависимости
+## Начните работу с библиотекой
 
-Чтобы начать работу, установите библиотеку [@consta/uikit](https://www.npmjs.com/package/@consta/uikit) и [настройте тему](http://uikit.consta.design)
-
-### Можно использовать компоненты
-
-Пример импорта
+Чтобы начать работу с библиотекой интерфейсных компонентов, подключите тему:
 
 ```tsx
-import { Theme, presetGpnDefault } from '@consta/uikit/Theme'
-import { BarChart } from '@consta/widgets/Barchart'
+import React from 'react';
+import { Theme, presetGpnDefault } from '@consta/uikit/Theme';
+import { Button } from '@consta/uikit/Button';
+
+const App = () => (
+  <Theme preset={presetGpnDefault}>
+    <Button label="Кнопка" />
+  </Theme>
+);
 ```
 
-## Разработка
-
-### Подготовка окружения
-
-Рабочее окружение должно содержать NodeJS и Yarn, необходимые версии можно узнать в файле [package.json](./package.json) в блоке **engines**.
-
-Чтобы установить зависимости, выполните команду:
-
-```sh
-$ yarn install
-```
-
-### Основные команды
-
-```sh
-# Сборка и старт Storybook
-$ yarn storybook
-
-# Сборка для production
-$ yarn build
-
-# Линтинг всех файлов
-$ yarn lint
-
-# Форматирование всех файлов prettier
-$ yarn format
-
-# Запуск юнит-тестов
-$ yarn unit
-
-# Запуск юнит-тестов, тестирование TS, линтинг файлов
-$ yarn test
-```
+[Что такое темы и как с ними работать](http://uikit.gizeasy.ru/?path=/docs/thematization-what-are-themes--page)
 
 ## Документация и стенд
 
 На стенде можно менять параметры и смотреть, как меняются компоненты. Документация — во вкладке у каждого компонента.
 
-[Вперёд, к стенду](http://uikit.consta.design/)
+[Вперёд, к стенду](http://uikit.gizeasy.ru/)
+
+## Контрибьюторам
+
+Будем рады, если вы захотите принять участие в разработке дизайн-системы =) Но сначала прочитайте [инструкцию для контрибьюторов](http://uikit.gizeasy.ru/?path=/docs/common-develop-contributors--page).
 
 ## Лицензия
 
-Дизайн-систему можно использовать бесплатно, она распространяется на условиях [открытой лицензии MIT](https://consta.design/static/licence_mit.pdf).
-
+Дизайн-систему можно использовать бесплатно, она распространяется ПАО «Газпром нефть» на условиях открытой [лицензии MIT](https://consta.gazprom-neft.ru/static/licence_mit.pdf).

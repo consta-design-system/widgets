@@ -1,0 +1,43 @@
+@custom-selector :--tick-line :global(.tick) > line;
+
+.cw--Frame {
+  pointer-events: none;
+
+  &-Grid {
+    color: var(--color-bg-border);
+
+    & > .domain {
+      stroke: none;
+    }
+
+    & > .tick {
+      stroke-dasharray: 1, 3;
+    }
+  }
+
+  &-Labels {
+    color: var(--color-typo-secondary);
+    font-size: var(--size-text-xs);
+
+    & > .domain {
+      stroke: none;
+    }
+
+    & > .tick > line {
+      display: none;
+    }
+
+    &_isAxisY.Unit {
+      transform: translateY(calc(-1 * var(--space-m)));
+      fill: currentColor;
+    }
+  }
+
+  &-AxisLine {
+    stroke-dasharray: none;
+  }
+
+  &_isYLabelsHidden {
+    opacity: 0;
+  }
+}

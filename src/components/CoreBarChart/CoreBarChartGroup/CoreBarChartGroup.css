@@ -1,0 +1,69 @@
+.cw--CoreBarChartGroup {
+  &-Groups {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+
+    &:not(&_isHorizontal) {
+      flex-direction: column;
+      text-align: center;
+
+      .cw--CoreBarChartGroup-Columns {
+        flex-direction: column;
+      }
+
+      .cw--CoreBarChartGroup-Wrapper {
+        align-items: flex-end;
+
+        &_isReversed {
+          align-items: flex-start;
+        }
+      }
+    }
+
+    &_isHorizontal {
+      flex-direction: row-reverse;
+      align-items: center;
+
+      .cw--CoreBarChartGroup-Columns {
+        flex-direction: row-reverse;
+      }
+
+      .cw--CoreBarChartGroup-Wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+
+        &_isReversed {
+          align-items: flex-end;
+        }
+      }
+    }
+
+    &_sizeGroupsLimit {
+      &_vertical {
+        min-width: 30px;
+        min-height: 100%;
+      }
+
+      &_horizontal {
+        min-width: 100%;
+        min-height: 30px;
+      }
+    }
+  }
+
+  &-Columns {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &-Wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+}
