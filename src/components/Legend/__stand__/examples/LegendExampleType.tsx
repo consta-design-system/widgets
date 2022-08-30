@@ -1,9 +1,8 @@
 import { IconWarning } from '@consta/uikit/IconWarning';
 import React from 'react';
 
+import { Legend } from '##/components/Legend';
 import { Example } from '##/stand/components/Example';
-
-import { Legend } from '../../Legend';
 
 export const LegendExampleType = () => (
   <Example>

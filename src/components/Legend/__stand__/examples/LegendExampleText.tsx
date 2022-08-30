@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { Legend } from '##/components/Legend';
 import { Example } from '##/stand/components/Example';
-
-import { Legend } from '../../Legend';
 
 export const LegendExampleText = () => (
   <Example style={{ marginBottom: '20px' }}>

@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Example } from '##/stand/components/Example';
-
-import { DonutChart } from '../..';
 import {
   donutData,
   donutDataItemsWithZeroAndPositiveData,
   donutDataItemsWithZeroData,
   donutProgressData,
-} from '../../__mocks__/data.mock';
+} from '##/components/DonutChart/__mocks__/data.mock';
+import { Example } from '##/stand/components/Example';
+
+import { DonutChart } from '../..';
 
 export const DonutChartExample = () => (
   <Example height="200px">

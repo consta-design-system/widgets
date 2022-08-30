@@ -1,25 +1,7 @@
 import React from 'react';
 
+import { LinearChart } from '##/components/LinearChart';
 import { Example } from '##/stand/components/Example';
-
-// import { Stats } from '../..'
-import { LinearChart } from '../../LinearChart';
-
-// import {
-//   gridConfigFormat,
-//   gridConfigLabel,
-//   gridConfigPaddings,
-//   gridConfigSimple,
-//   linesBoundaries,
-//   linesFeatures,
-//   linesFormat,
-//   linesNull,
-//   linesSimple,
-//   linesThreshold,
-//   linesWithoutGradient,
-//   threshold,
-// } from '../data.mock'
-//
 
 const colors = {
   first: 'var(--color-bg-success)',
@@ -108,26 +90,6 @@ const gridConfig = {
     withPaddings: false,
   },
 };
-
-// const legend = {
-//   items: [
-//     {
-//       color: colors.first,
-//       text: 'Успех',
-//     },
-//     {
-//       color: colors.second,
-//       text: 'Болъ',
-//     },
-//   ],
-//   align: 'right',
-// }
-
-// export const LinearChartExampleLegend = () => (
-//   <Example width="300px" height="150px" >
-//     <LinearChart lines={lines} gridConfig={gridConfig} legend={legend} />
-//   </Example>
-// )
 
 export const LinearChartExampleunit = () => (
   <Example width="300px" height="150px">
