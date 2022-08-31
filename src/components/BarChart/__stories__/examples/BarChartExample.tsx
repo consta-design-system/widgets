@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BarChart } from '##/components/BarChart';
-import { Example } from '##/storybook';
+import { Example } from '##/stand/components/Example';
 
 import {
   groupExampleData,

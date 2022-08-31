@@ -1,10 +1,9 @@
 import { IconLightningBolt } from '@consta/uikit/IconLightningBolt';
 import React from 'react';
 
+import { Stats } from '##/components/Stats';
+import { exampleData } from '##/components/Stats/__mocks__/examples.mock';
 import { Example } from '##/stand/components/Example';
-
-import { Stats } from '../..';
-import { exampleData } from '../../__mocks__/examples.mock';
 
 export const StatsExampleContent = () => (
   <Example width="200px">
