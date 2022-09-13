@@ -6,5 +6,7 @@ export default createStand({
   group: 'components',
   description: 'Легенда.',
   version: '4.2.2',
+  sandbox:
+    'https://codesandbox.io/embed/legend-gi67ek?fontsize=14&hidenavigation=1&theme=dark',
   status: 'stable',
 });
