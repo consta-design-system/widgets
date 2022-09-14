@@ -6,7 +6,6 @@ export default createStand({
   group: 'components',
   description: 'Изменение значений.',
   version: '4.2.2',
-  sandbox:
-    'https://codesandbox.io/embed/stats-h9txys?fontsize=14&hidenavigation=1&theme=dark',
+  sandbox: 'stats-h9txys',
   status: 'stable',
 });

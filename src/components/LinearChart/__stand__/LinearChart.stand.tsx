@@ -6,7 +6,6 @@ export default createStand({
   group: 'components',
   description: 'Линейная диаграмма.',
   version: '4.2.2',
-  sandbox:
-    'https://codesandbox.io/embed/linearchart-pdfr21?fontsize=14&hidenavigation=1&theme=dark',
+  sandbox: 'linearchart-pdfr21',
   status: 'stable',
 });
