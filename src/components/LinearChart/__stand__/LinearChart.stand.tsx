@@ -6,5 +6,6 @@ export default createStand({
   group: 'components',
   description: 'Линейная диаграмма.',
   version: '4.2.2',
+  sandbox: 'linearchart-pdfr21',
   status: 'stable',
 });

@@ -6,5 +6,6 @@ export default createStand({
   group: 'components',
   description: 'Столбчатая диаграмма.',
   version: '4.2.2',
+  sandbox: 'barchart-d3vql5',
   status: 'stable',
 });

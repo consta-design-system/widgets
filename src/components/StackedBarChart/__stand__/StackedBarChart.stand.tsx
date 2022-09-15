@@ -6,5 +6,6 @@ export default createStand({
   group: 'components',
   description: 'Столбчатая диаграмма с накоплением.',
   version: '4.2.2',
+  sandbox: 'stackedbarchart-skcxss',
   status: 'stable',
 });

@@ -6,5 +6,6 @@ export default createStand({
   group: 'components',
   description: 'Изменение значений.',
   version: '4.2.2',
+  sandbox: 'stats-h9txys',
   status: 'stable',
 });

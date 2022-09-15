@@ -6,5 +6,6 @@ export default createStand({
   group: 'components',
   description: 'Круговая диаграмма.',
   version: '4.2.2',
+  sandbox: 'donutchart-nsiodz',
   status: 'stable',
 });

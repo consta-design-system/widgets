@@ -6,5 +6,6 @@ export default createStand({
   group: 'components',
   description: 'Легенда.',
   version: '4.2.2',
+  sandbox: 'legend-gi67ek',
   status: 'stable',
 });
