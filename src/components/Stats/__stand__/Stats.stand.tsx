@@ -1,13 +1,11 @@
 import { createStand } from '##/stand/standConfig';
 
-import image from './Stats.image.svg';
-
 export default createStand({
   title: 'Stats',
   id: 'Stats',
-  image,
   group: 'components',
-  description: 'Важные числа и их изменение.',
+  description: 'Изменение значений.',
   version: '4.2.2',
+  sandbox: 'stats-h9txys',
   status: 'stable',
 });
