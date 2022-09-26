@@ -12,9 +12,9 @@ type LegendItem = {
 };
 
 const Variants = () => {
-  const direction = useSelect('direction', directions, 'column');
+  const direction = useSelect('direction', directions, 'column') ?? 'column';
   const icon = useSelect('type', iconTypes, iconTypes[0]);
-  const size = useSelect('size', sizes, sizes[1]);
+  const size = useSelect('size', sizes, sizes[1]) ?? 'xs';
   const handleClick = ({ item }: { item: LegendItem }) =>
     alert(JSON.stringify(item));
 
