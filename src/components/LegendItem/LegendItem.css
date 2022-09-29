@@ -1,0 +1,73 @@
+.cw--LegendItem {
+  --dot-size: 12px;
+  display: inline-flex;
+  align-items: baseline;
+
+  &_size {
+    &_xs,
+    &_s {
+      .cw--LegendItem-Sign_icon {
+        &_dot {
+          margin-bottom: -1px;
+        }
+      }
+    }
+  }
+
+  &-SignWrapper {
+    line-height: 0;
+
+    &_custom {
+      align-self: center;
+    }
+  }
+
+  &-Sign,
+  .Icon {
+    display: inline-block;
+    margin-right: var(--space-xs);
+
+    &_icon {
+      &_dot {
+        width: var(--dot-size);
+        height: var(--dot-size);
+
+        /* Задаются через js */
+        background: var(--icon-color);
+        border-radius: 100%;
+        vertical-align: baseline;
+      }
+
+      &_line {
+        width: 20px;
+        height: 2px;
+
+        /* Задаётся через js */
+        background: var(--icon-color);
+        vertical-align: middle;
+      }
+
+      &_lineBold {
+        width: 20px;
+        height: 4px;
+
+        /* Задаётся через js */
+        background: var(--icon-color);
+        vertical-align: middle;
+      }
+
+      &_gap {
+        width: var(--dot-size);
+      }
+    }
+  }
+
+  &-Text {
+    &_isSeparating {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+}

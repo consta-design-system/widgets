@@ -1,0 +1,40 @@
+.cw--CoreBarChartColumn {
+  &-Columns {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    &_horizontal {
+      width: 100%;
+      height: 100%;
+
+      &_vertical {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &_direction {
+      &_horizontalReverse {
+        flex-direction: row-reverse;
+      }
+
+      &_horizontal {
+        flex-direction: row;
+      }
+
+      &_verticalReverse {
+        flex-direction: column;
+      }
+
+      &_vertical {
+        flex-direction: column-reverse;
+      }
+    }
+
+    &_clickable {
+      cursor: pointer;
+    }
+  }
+}

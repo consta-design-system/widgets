@@ -1,0 +1,13 @@
+.cw--CoreDonutChart {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &-Text {
+    position: absolute;
+  }
+
+  &-Graph {
+    position: absolute;
+  }
+}

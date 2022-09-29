@@ -1,13 +1,16 @@
-const fs = require('fs')
+const fs = require('fs');
 
-const omit = (obj, props) => {
-  const newObj = { ...obj }
-  props.forEach(prop => delete newObj[prop])
-
-  return newObj
+function omit(obj, fields) {
+  // eslint-disable-next-line prefer-object-spread
+  const shallowCopy = Object.assign({}, obj);
+  for (let i = 0; i < fields.length; i += 1) {
+    const key = fields[i];
+    delete shallowCopy[key];
+  }
+  return shallowCopy;
 }
 
-const packageJson = JSON.parse(fs.readFileSync('package.json'))
+const packageJson = JSON.parse(fs.readFileSync('package.json'));
 
 const libPackageJson = omit(packageJson, [
   'scripts',
@@ -16,6 +19,7 @@ const libPackageJson = omit(packageJson, [
   'lint-staged',
   'devDependencies',
   'engines',
-])
+  'config',
+]);
 
-fs.writeFileSync('lib/package.json', JSON.stringify(libPackageJson, null, 2))
+fs.writeFileSync('dist/package.json', JSON.stringify(libPackageJson, null, 2));
