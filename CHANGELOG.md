@@ -1,40 +1,53 @@
 # Changelog
 
+## v4.3.0 (29/09/2022)
+Самое важное:
+Выкладываем новый стенд и сборщик.
+
+Добавили песочницу: теперь в ней можно смотреть примеры компонентов.
+
+---
+
+- [chore(stand): new stand and new builder (#65)](https://github.com/consta-design-system/widgets/commit/22cf05e49fcf4f95c9fbc50db38db64544029dfd) - [@gizeasy](https://github.com/gizeasy)
+- [chore(stand): add automation publish stand](https://github.com/consta-design-system/widgets/commit/e0996c4c40861cf60357f9bc659a7032422f6dcb) - [@gizeasy](https://github.com/gizeasy)
+
+--------------------
+
 ## v4.2.2 (28/04/2022)
 - [docs(global): remove gpn (#63)](https://github.com/consta-design-system/widgets/commit/1c7a356ddd6ef61a97e47f81fceb37706673737f) - [@arhayka](https://github.com/arhayka)
 - [fix(numberFormatter): fixed regex (#64)](https://github.com/consta-design-system/widgets/commit/52c38c9b5649374e5cf3b4c5e732ef4c738979d4) - [@gizeasy](https://github.com/gizeasy)
 - [chore(deploy): update config](https://github.com/consta-design-system/widgets/commit/57e0fef9cf7fbca65c0fa5b381dddeaeb0145833) - [@gizeasy](https://github.com/gizeasy)
 
----
+--------------------
 
 ## v4.2.1 (19/04/2022)
 - [docs(global): replace url (#62)](https://github.com/consta-design-system/widgets/commit/a65b9d39920aa53056ba31d356e34852c670da24) - [@arhayka](https://github.com/arhayka)
 - [docs(global): replace links (#61)](https://github.com/consta-design-system/widgets/commit/08a3bf5c9009a48da65d1ad86b815e9efa057af7) - [@gizeasy](https://github.com/gizeasy)
 
----
+--------------------
 
 ## v4.2.0 (12/04/2022)
 - [chore(deps): update deps](https://github.com/consta-design-system/widgets/commit/08ea1df29d6893c37361e5ec2ef33c55080d01e4) - [@gizeasy](https://github.com/gizeasy)
 
----
+--------------------
 
 ## v4.1.3 (11/04/2022)
 - [chore(deps): up widgets-utils (#60)](https://github.com/consta-design-system/widgets/commit/34d28da9d8cf4536655c6648583920d1f8e0fa3f) - [@gizeasy](https://github.com/gizeasy)
 - [chore(deploy): add deploy automatization (#59)](https://github.com/consta-design-system/widgets/commit/9203e15529b6dd84c146f95ed8e935c36e1c72f1) - [@gizeasy](https://github.com/gizeasy)
 - [docs(common): add start page, remove pages for developers (#58)](https://github.com/consta-design-system/widgets/commit/e5ad153eaa59f3dbc9167c8197623bda81deed01) - [@arhayka](https://github.com/arhayka)
 
----
+--------------------
 
 ## v4.1.2 (25/08/2021)
 - [docs(readme): edit readme, add license (#57)](https://github.com/gazprom-neft/consta-widgets-new/commit/325136cf55f2c4d2ee51ef94eb8bbaf9d1c613c1) - [@arhayka](https://github.com/arhayka)
 - [fix(DonutChart): fixed story](https://github.com/gazprom-neft/consta-widgets-new/commit/bb276dc8c76bddb6eac723a9b860dd655431c09e) - [@gizeasy](https://github.com/gizeasy)
 
----
+--------------------
 
 ## v4.1.1 (02/06/2021)
 - [chore(deps): removed lodash dependency (#56)](https://github.com/gazprom-neft/consta-widgets-new/commit/7796ebd1678aa9fd206e22777736d2ae06972ea7) - [@karpovfv-nedra](https://github.com/karpovfv-nedra)
 
----
+--------------------
 
 ## v4.1.0 (14/04/2021)
 - [fix(Stackedbarchart): updated Stackedbarchart (#50)](https://github.com/gazprom-neft/consta-widgets-new/commit/4d1b88529a9e49b2f9fc4b6c620d8ba5ce430b82) - [@karpovfv-nedra](https://github.com/karpovfv-nedra)
