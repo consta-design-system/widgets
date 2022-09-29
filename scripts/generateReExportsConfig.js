@@ -12,7 +12,6 @@ module.exports = {
     'src/**/__mock__/**',
     'src/components/TooltipContentForMultipleValues/*',
     'src/components/Title/*',
-    'src/components/LegendItem/*',
     'src/components/Grid/*',
     'src/components/CoreBarChart/*',
     'src/components/CoreDonutChart/*',
