@@ -8,7 +8,11 @@ module.exports = {
   coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/types/'],
   testMatch: ['**/*.test.{ts,tsx}'],
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
+  transformIgnorePatterns: ['node_modules/(?!@consta)'],
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/*.stories.tsx'],
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['./jest.setup.ts'],
+  transform: {
+    'node_modules/(@consta)/.+\\.(j|t)sx?$': 'ts-jest',
+  },
 };
