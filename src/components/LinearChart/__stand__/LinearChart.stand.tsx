@@ -5,6 +5,7 @@ export default createStand({
   id: 'LinearChart',
   group: 'components',
   description: 'Линейная диаграмма.',
+  alias: ['график', 'диаграмма', 'линия', 'линии'],
   version: '4.2.2',
   sandbox: 'linearchart-pdfr21',
   status: 'stable',
