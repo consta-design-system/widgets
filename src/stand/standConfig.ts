@@ -1,19 +1,18 @@
-import { createConfig } from '@consta/stand';
+import { createConfig, ListCardBig } from '@consta/stand';
 
 import image from './ConstaImage.png';
-
-const groups = [
-  {
-    title: 'Компоненты',
-    id: 'components',
-    initialOpen: true,
-  },
-] as const;
 
 export const { createStand } = createConfig({
   title: 'Consta Widgets',
   id: 'widgets',
-  groups,
+  groups: [
+    {
+      title: 'Компоненты',
+      id: 'components',
+      initialOpen: true,
+      renderList: ListCardBig,
+    },
+  ],
   group: 'Библиотеки',
   image,
   description: 'Графики и диаграммы для дизайн-системы Consta',
