@@ -14,10 +14,10 @@ export const { createStand } = createConfig({
   title: 'Consta Widgets',
   id: 'widgets',
   groups,
-  group: 'Основные библиотеки',
+  group: 'Библиотеки',
   image,
-  description:
-    'Графики и диаграммы для дизайн-системы Consta. Эта версия поддерживается, но не развивается. Актуальная библиотека графиков —  @consta/charts.',
+  description: 'Графики и диаграммы для дизайн-системы Consta',
   repositoryUrl: 'https://github.com/consta-design-system/widgets',
   order: 30,
+  status: 'deprecated',
 });
