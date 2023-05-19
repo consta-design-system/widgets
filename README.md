@@ -22,7 +22,7 @@ $ yarn add @consta/widgets
 
 ### Подключите зависимости
 
-Чтобы начать работу, установите библиотеку [@consta/uikit](https://www.npmjs.com/package/@consta/uikit) и [настройте тему](https://portal.consta.design/libs/portal/theme-themeabout)
+Чтобы начать работу, установите библиотеку [@consta/uikit](https://www.npmjs.com/package/@consta/uikit) и [настройте тему](https://consta.design/libs/portal/theme-themeabout)
 
 ### Можно использовать компоненты
 
@@ -33,11 +33,17 @@ import { Theme, presetGpnDefault } from '@consta/uikit/Theme';
 import { BarChart } from '@consta/widgets/Barchart';
 ```
 
+## Документация и стенд
+
+На стенде можно менять параметры и смотреть, как меняются компоненты. Документация — во вкладке у каждого компонента.
+
+[Вперёд, к стенду](https://consta.design/libs/charts)
+
 ## Разработка
 
 ### Подготовка окружения
 
-Рабочее окружение должно содержать NodeJS и Yarn, необходимые версии можно узнать в файле [package.json](./package.json) в блоке **engines**.
+Рабочее окружение должно содержать NodeJS и Yarn.
 
 Чтобы установить зависимости, выполните команду:
 
@@ -48,30 +54,22 @@ $ yarn install
 ### Основные команды
 
 ```sh
-# Сборка и старт
+# Запуск локального сервера для разработки
 $ yarn start
 
-# Сборка для production
+# Сборка пакета
 $ yarn build
 
-# Линтинг всех файлов
-$ yarn lint
+# Сборка стенда
+$ yarn stand:build
 
-# Форматирование всех файлов prettier
-$ yarn format
-
-# Запуск юнит-тестов
-$ yarn unit
-
-# Запуск юнит-тестов, тестирование TS, линтинг файлов
+# Запуск тестов
 $ yarn test
 ```
 
-## Документация и стенд
+## Контрибьюторам
 
-На стенде можно менять параметры и смотреть, как меняются компоненты. Документация — во вкладке у каждого компонента.
-
-[Вперёд, к стенду](https://charts.consta.design/)
+Будем рады, если вы захотите принять участие в разработке дизайн-системы =) Но сначала прочитайте [инструкцию для контрибьюторов](https://consta.design/libs/portal/contributers-code).
 
 ## Лицензия
 
