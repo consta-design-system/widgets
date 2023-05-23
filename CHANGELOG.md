@@ -1,5 +1,21 @@
 # Changelog
 
+## v4.3.2 (23/05/2023)
+ Запускать локальный сервер разработки и сборку пакетов теперь можно и на ОС Windows. 
+
+---
+
+- [chore: configure build for windows (#74)](https://github.com/consta-design-system/widgets/commit/ef3b07d79a42be5ce6fcbaca80b32be39fa31f8c) - [@gizeasy](https://github.com/gizeasy)
+- [docs: edit stand config](https://github.com/consta-design-system/widgets/commit/ff2cb2c86bb3b2723976fae2013bba5efe899a03) - [@gizeasy](https://github.com/gizeasy)
+- [docs: edit stand group](https://github.com/consta-design-system/widgets/commit/e92f6afa3ade1369cd341403c67a8d40469dd52d) - [@gizeasy](https://github.com/gizeasy)
+- [docs(widgets): add aliases (#73)](https://github.com/consta-design-system/widgets/commit/014a97a412fc2311568184cf6b822434cb9d9ff5) - [@N1MBER](https://github.com/N1MBER)
+- [chore: update @consta/syand](https://github.com/consta-design-system/widgets/commit/0b7ede372a3bdcc5a5efa43ca35bf6759e9dae87) - [@gizeasy](https://github.com/gizeasy)
+- [docs(portal): readme, stand, version (#72)](https://github.com/consta-design-system/widgets/commit/bed1f07b37fa3f66492bccb8bb5627f6bea9c22c) - [@arhayka](https://github.com/arhayka)
+- [chore(deps): update @consta/stand (#71)](https://github.com/consta-design-system/widgets/commit/5375029a21a078a7b9bb584f113a6ad280865739) - [@gizeasy](https://github.com/gizeasy)
+- [chore(tsconfig): edit config](https://github.com/consta-design-system/widgets/commit/2212c1910f073e50a03671727e62d4a2bfa2dc54) - [@gizeasy](https://github.com/gizeasy)
+
+--------------------
+
 ## v4.3.0 (29/09/2022)
 Самое важное:
 Выкладываем новый стенд и сборщик.
