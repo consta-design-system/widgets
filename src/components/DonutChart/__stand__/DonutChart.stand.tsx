@@ -9,4 +9,6 @@ export default createStand({
   version: '4.2.2',
   sandbox: 'donutchart-nsiodz',
   status: 'stable',
+  figma:
+    'https://www.figma.com/file/sMFxkiJmRwf922V7ll6DmP/Consta-Widgets-(Community)?type=design&node-id=1-2&t=a7J2tFwlUhRzLjJn-0',
 });

@@ -9,4 +9,6 @@ export default createStand({
   alias: ['график', 'диаграмма', 'столбец', 'столбцы'],
   sandbox: 'barchart-d3vql5',
   status: 'stable',
+  figma:
+    'https://www.figma.com/file/sMFxkiJmRwf922V7ll6DmP/Consta-Widgets-(Community)?type=design&node-id=1040-0&t=a7J2tFwlUhRzLjJn-0',
 });
