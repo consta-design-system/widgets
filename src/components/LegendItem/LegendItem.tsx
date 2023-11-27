@@ -86,6 +86,7 @@ export const LegendItem: LegendItem = React.forwardRef((props, ref) => {
         as="span"
         size={size}
         view="primary"
+        lineHeight="m"
         display="inlineBlock"
         className={cnLegendItem('Text', { isSeparating: shouldCropText })}
       >

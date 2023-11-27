@@ -147,6 +147,7 @@ export const CoreBarChartSection = React.forwardRef<HTMLDivElement, Props>(
             className={cnCoreBarChartSection('Label')}
             size="xs"
             style={getColor(color, false)}
+            lineHeight="m"
           >
             {formatLabel}
           </Text>

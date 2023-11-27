@@ -45,6 +45,7 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
           weight="bold"
           view="primary"
           className={cnTooltipContent('Title')}
+          lineHeight="m"
         >
           {title}
         </Text>
@@ -83,6 +84,7 @@ export const TooltipContentForMultipleValues: React.FC<Props> = ({
                   size="xs"
                   weight={withNoNames ? 'regular' : 'bold'}
                   view="primary"
+                  lineHeight="m"
                 >
                   {numberFormatter(newFormattedValue)}
                 </Text>
