@@ -1,5 +1,5 @@
+import { IconLightningBolt } from '@consta/icons/IconLightningBolt';
 import { useBoolean, useNumber, useSelect, useText } from '@consta/stand';
-import { IconLightningBolt } from '@consta/uikit/IconLightningBolt';
 import React from 'react';
 
 import { numberFormatter } from '##/utils/formatters';

@@ -1,6 +1,6 @@
 import './LegendItem.css';
 
-import { IconProps } from '@consta/uikit/Icon';
+import { IconProps } from '@consta/icons/Icon';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
 

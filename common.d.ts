@@ -39,7 +39,7 @@ declare module '*.image.svg' {
 }
 
 declare module '*.icon.svg' {
-  import { IconProps } from '@consta/uikit/Icon';
+  import { IconProps } from '@consta/icons/Icon';
 
   export const ReactComponent: React.FC<IconProps>;
 

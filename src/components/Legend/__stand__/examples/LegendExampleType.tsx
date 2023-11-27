@@ -1,4 +1,4 @@
-import { IconWarning } from '@consta/uikit/IconWarning';
+import { IconWarning } from '@consta/icons/IconWarning';
 import React from 'react';
 
 import { Legend } from '##/components/Legend';
