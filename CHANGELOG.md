@@ -1,5 +1,20 @@
 # Changelog
 
+## v5.0.0 (19/12/2023)
+Самое важное:
+- Сторонние зависимости перенесены в `peerDependencies`. Установить их вы сможете самостоятельно, полный список доступен [здесь](https://github.com/consta-design-system/widgets/blob/master/package.json) 
+- Добавлена поддержка `@consta/uikit` `v5.0.0`
+
+---
+
+
+- [chore: update uikit version (#79)](https://github.com/consta-design-system/widgets/commit/6df813c3339b6cab9c316f93b0a768e1bedcdc24) - [@gizeasy](https://github.com/gizeasy)
+- [chore(utils): added status classNames (#78)](https://github.com/consta-design-system/widgets/commit/0d0da603114dfc932d6c597a847214d1470d9e39) - [@N1MBER](https://github.com/N1MBER)
+- [chore: edit deploy config and codeowners (#76)](https://github.com/consta-design-system/widgets/commit/e08a8b015e4407cfca79d68c500f490e9f01aa75) - [@gizeasy](https://github.com/gizeasy)
+- [docs(standConfig): add figmaUrl (#75)](https://github.com/consta-design-system/widgets/commit/2c2a3b2b4b9935128256c8cc6fc1ab2984ed8ce3) - [@gizeasy](https://github.com/gizeasy)
+
+--------------------
+
 ## v4.3.2 (23/05/2023)
  Запускать локальный сервер разработки и сборку пакетов теперь можно и на ОС Windows. 
 
