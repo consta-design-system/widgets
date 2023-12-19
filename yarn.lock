@@ -1780,11 +1780,6 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bem-react/classname@1.5.8":
-  version "1.5.8"
-  resolved "https://registry.yarnpkg.com/@bem-react/classname/-/classname-1.5.8.tgz#cbb5fb6b3d5e662ef7cad7f57941cb3aa044be4f"
-  integrity sha512-F+s5TVxOrznvnx7hYMq43RQ5ZNKk1fSMZX9PRObVco2bGYwNGEKTtvHTeY5wGVjkB7OJlq+/8QPDV2CJnbzaxg==
-
 "@bem-react/classname@^1.5.12":
   version "1.5.12"
   resolved "https://registry.yarnpkg.com/@bem-react/classname/-/classname-1.5.12.tgz#cd7e8fe68abd5d0ab79d8dc27fb40b12c8fb7715"
@@ -1989,7 +1984,7 @@
     webpack-manifest-plugin "^5.0.0"
     workbox-webpack-plugin "^6.4.1"
 
-"@consta/uikit@^4.14.2", "@consta/uikit@^4.15.0":
+"@consta/uikit@^4.14.2":
   version "4.15.0"
   resolved "https://registry.yarnpkg.com/@consta/uikit/-/uikit-4.15.0.tgz#a40becc818b00ee396947b6d61b6a029b1ce4427"
   integrity sha512-uAmcUnWCgOewg8Zu6/f+hp4OU2b2Fxg9upH/2h31GRnDiSmwOc60v/X+QbfW6toY4cNad3t6UAGFG6XLendg1w==
@@ -7791,6 +7786,13 @@ execall@^2.0.0:
   dependencies:
     clone-regexp "^2.1.0"
 
+executioner@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/executioner/-/executioner-2.0.1.tgz#add328e03bc45dd598f358fbb529fc0be0ec6fcd"
+  integrity sha512-idZAlKsxEZASjaIqP4PQ1txyS1bOcDwWCHy/8p5oMmLGV0XNCQPD6WWAOwJCUVsWItWzAN2BEash5N78PliaIw==
+  dependencies:
+    mixly "^1.0.0"
+
 exit@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/exit/-/exit-0.1.2.tgz#0632638f8d877cc82107d30a0fff1a17cba1cd0c"
@@ -8419,6 +8421,11 @@ fsevents@^2.3.2, fsevents@~2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
   integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
+
+fulcon@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/fulcon/-/fulcon-1.0.2.tgz#8a4dfda4c73fcd9cc62a79d5045c392b45547320"
+  integrity sha512-vYwUBqbdo9XK0NmN7cFmURmy2T1YHpEsTCbxGO3aErxx6a0Z/HkWXcqcPkk7yOuJ74mSAHGWGBSBBd6v3GKebA==
 
 function-bind@^1.1.1:
   version "1.1.1"
@@ -9376,6 +9383,13 @@ inquirer@^3.3.0:
     string-width "^2.1.0"
     strip-ansi "^4.0.0"
     through "^2.3.6"
+
+"install-peers-cli@https://github.com/evless/install-peers-cli#fix-yarn-policies":
+  version "2.2.0"
+  resolved "https://github.com/evless/install-peers-cli#5bc81ba05a4fe914d66e109f23f3a9b8d698aea1"
+  dependencies:
+    commander "^2.20.0"
+    executioner "^2.0.1"
 
 install@^0.10.1:
   version "0.10.4"
@@ -12049,6 +12063,13 @@ mixin-deep@^1.2.0:
   dependencies:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
+
+mixly@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mixly/-/mixly-1.0.0.tgz#9b5a2e1f63e6dfba0d30e6797ffae62ab1dc24ef"
+  integrity sha512-ks+xIMVeIDwuYK4LnOMXTfmiEI8oo3tFNFirpHd60C4r2H0wMwKN5/qHCrFBKFK+BYx2Gp7qs+evUJw7QO9D2w==
+  dependencies:
+    fulcon "^1.0.1"
 
 mkdirp-classic@^0.5.2, mkdirp-classic@^0.5.3:
   version "0.5.3"

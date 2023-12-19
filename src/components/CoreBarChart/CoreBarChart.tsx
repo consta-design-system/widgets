@@ -90,7 +90,14 @@ const renderUnit = (
   unit: string,
   unitRef?: RefObject<HTMLDivElement>,
 ) => (
-  <Text as="div" size="xs" view="secondary" className={className} ref={unitRef}>
+  <Text
+    as="div"
+    size="xs"
+    view="secondary"
+    lineHeight="m"
+    className={className}
+    ref={unitRef}
+  >
     {unit}
   </Text>
 );

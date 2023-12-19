@@ -349,11 +349,11 @@ export const Frame: React.FC<Props> = (props) => {
         <>
           <g
             ref={yLabelsRef}
-            className={cnFrame(null, { isYLabelsHidden: hideYLabels })}
+            className={cnFrame({ isYLabelsHidden: hideYLabels })}
           />
           <g
             ref={yUnitRef}
-            className={cnFrame(null, { isYLabelsHidden: hideYLabels })}
+            className={cnFrame({ isYLabelsHidden: hideYLabels })}
           >
             {yDimensionUnit && (
               <text className={cnFrame('Labels', { isAxisY: true }, ['Unit'])}>

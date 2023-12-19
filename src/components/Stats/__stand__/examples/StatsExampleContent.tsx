@@ -1,4 +1,4 @@
-import { IconLightningBolt } from '@consta/uikit/IconLightningBolt';
+import { IconLightningBolt } from '@consta/icons/IconLightningBolt';
 import React from 'react';
 
 import { Stats } from '##/components/Stats';

@@ -1,6 +1,6 @@
 import './LegendItem.css';
 
-import { IconProps } from '@consta/uikit/Icon';
+import { IconProps } from '@consta/icons/Icon';
 import { Text } from '@consta/uikit/Text';
 import React from 'react';
 
@@ -86,6 +86,7 @@ export const LegendItem: LegendItem = React.forwardRef((props, ref) => {
         as="span"
         size={size}
         view="primary"
+        lineHeight="m"
         display="inlineBlock"
         className={cnLegendItem('Text', { isSeparating: shouldCropText })}
       >

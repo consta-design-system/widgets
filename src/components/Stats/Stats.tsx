@@ -97,6 +97,7 @@ export const Stats = forwardRef<HTMLDivElement, Props>((props, ref) => {
           as="div"
           lineHeight="2xs"
           weight="bold"
+          view="primary"
         >
           {isNotNil(value) ? formatValue(value) : placeholder}
         </Text>

@@ -24,6 +24,7 @@ export const StatsTitle: FC<Props> = ({ size, icon, title, className }) => {
       as="div"
       size={titleSizes[size]}
       view="primary"
+      lineHeight="m"
     >
       {icon && (
         <div className={cnStatsTitle('Cell')}>

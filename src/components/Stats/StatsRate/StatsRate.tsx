@@ -22,7 +22,12 @@ export const StatsRate: FC<Props> = ({ rate, icon, className }) => {
     icon === 'down' || (icon === 'auto' && isNegativeRate(rate));
 
   return (
-    <Text className={cnStatsRate(null, [className])} as="div" lineHeight="2xs">
+    <Text
+      className={cnStatsRate(null, [className])}
+      as="div"
+      size="m"
+      lineHeight="2xs"
+    >
       {icon && <div className={cnStatsRate('Icon', { isNegative })} />}
       {computedRate}
     </Text>
