@@ -1,6 +1,6 @@
 {
   "name": "@consta/widgets",
-  "version": "4.3.2",
+  "version": "5.0.0",
   "scripts": {
     "postinstall": "yarn install-peers && husky install",
     "tsc-dry-run": "tsc --noEmit",
@@ -48,11 +48,9 @@
     "Chrome >= 75"
   ],
   "peerDependencies": {
-    "@consta/uikit": "5.0.0-beta.2"
-  },
-  "dependencies": {
     "@amcharts/amcharts4-geodata": "4.1.9",
-    "@consta/widgets-utils": "^0.2.15",
+    "@consta/icons": "^1.0.0",
+    "@consta/uikit": "^5.0.0",
     "@evless/react-textfit": "1.1.1",
     "@types/d3": "5.7.2",
     "@types/resize-observer-browser": "0.1.2",
@@ -61,6 +59,9 @@
     "react-dnd": "9.3.2",
     "react-dnd-html5-backend": "9.3.2",
     "react-uid": "2.2.0"
+  },
+  "dependencies": {
+    "@consta/widgets-utils": "^0.2.15"
   },
   "config": {
     "commitizen": {
@@ -100,9 +101,12 @@
     "@babel/preset-env": "^7.18.9",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
+    "@bem-react/classname": "^1.6.0",
+    "@bem-react/classnames": "^1.3.10",
     "@bem/sdk.naming.cell.match": "^0.1.3",
     "@bem/sdk.naming.presets": "^0.2.3",
-    "@consta/stand": "^0.0.102",
+    "@consta/stand": "^0.0.134",
+    "@consta/uikit": "^5.0.0",
     "@mdx-js/loader": "^2.1.5",
     "@oclif/command": "^1.8.16",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
@@ -127,6 +131,7 @@
     "camelcase": "^6.2.1",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "commitizen": "^4.2.5",
+    "compute-scroll-into-view": "^1.0.17",
     "cross-env": "^7.0.3",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.4.1",
@@ -171,9 +176,13 @@
     "react-app-polyfill": "^3.0.0",
     "react-dev-utils": "^12.0.0",
     "react-dom": "^18.0.0",
+    "react-dropzone": "11.3.4",
+    "react-imask": "^7.2.1",
     "react-refresh": "^0.11.0",
     "react-router5": "^8.0.1",
     "react-test-renderer": "^18.0.0",
+    "react-textarea-autosize": "^8.5.3",
+    "react-transition-group": "^4.4.5",
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
     "router5": "^8.0.1",
@@ -191,7 +200,7 @@
     "terser-webpack-plugin": "^5.2.5",
     "ts-jest": "^28.0.7",
     "ts-loader": "^9.2.8",
-    "ttypescript": "^1.5.13",
+    "ttypescript": "^1.5.15",
     "typescript": "^4.6.3",
     "typescript-eslint-parser": "^22.0.0",
     "typescript-transform-paths": "^3.3.1",
