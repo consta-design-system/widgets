@@ -7,7 +7,7 @@ const formatDash = (value: string) => {
 
 const formatSpace = (value: string) => {
   if (value.indexOf('.') > 0 || value.indexOf(',') > 0) {
-    const newValue = value.split('.' || ',');
+    const newValue = value.split('.');
     return `${newValue[0].replace(
       /(\d)(?=(\d{3})+(\D|$))/g,
       '$1 ',
