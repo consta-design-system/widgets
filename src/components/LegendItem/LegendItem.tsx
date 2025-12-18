@@ -34,7 +34,7 @@ type CommonProps = {
 
 type LegendItem = (
   props: PropsWithHTMLAttributesAndRef<CommonProps, HTMLDivElement>,
-) => React.ReactElement | null;
+) => React.ReactNode | null;
 
 export const LegendItem: LegendItem = React.forwardRef((props, ref) => {
   const {

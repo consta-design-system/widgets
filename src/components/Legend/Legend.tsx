@@ -36,7 +36,7 @@ type Props<ITEM> = PropsWithHTMLAttributesAndRef<
   HTMLDivElement
 >;
 
-type Legend = <ITEM>(props: Props<ITEM>) => React.ReactElement | null;
+type Legend = <ITEM>(props: Props<ITEM>) => React.ReactNode | null;
 
 export const Legend: Legend = React.forwardRef((props, ref) => {
   const {

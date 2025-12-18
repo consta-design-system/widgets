@@ -1,5 +1,4 @@
 import { TextPropSize } from '@consta/uikit/Text';
-import { ReactElement } from 'react';
 
 import { IconSize } from '##/utils/consta';
 
@@ -15,7 +14,7 @@ export type Status = typeof statuses[number];
 export const iconsArrowRate = ['up', 'down', 'auto'] as const;
 export type IconArrowRate = typeof iconsArrowRate[number];
 
-export type IconTitle = (props: { size: IconSize }) => ReactElement | null;
+export type IconTitle = (props: { size: IconSize }) => React.ReactNode | null;
 
 export type FormatRate = (value: string) => string;
 

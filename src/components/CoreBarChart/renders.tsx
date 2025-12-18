@@ -24,7 +24,7 @@ export type RenderGroupsLabels = (props: {
   showGroupsLabels?: boolean;
   getGridAreaName: (index: number) => string;
   formatGroupName?: FormatGroupName;
-}) => React.ReactElement | null;
+}) => React.ReactNode | null;
 
 export const defaultRenderGroupsLabels: RenderGroupsLabels = ({ ...rest }) => {
   return <CoreBarChartTicks {...rest} isLabel />;
@@ -36,7 +36,7 @@ export type RenderAxisValues = (props: {
   position: Position;
   formatValueForLabel?: FormatValue;
   showGroupsLabels?: boolean;
-}) => React.ReactElement | null;
+}) => React.ReactNode | null;
 
 export const defaultRenderAxisValues: RenderAxisValues = ({ ...rest }) => {
   return <CoreBarChartTicks {...rest} />;
@@ -65,7 +65,7 @@ export type RenderGroup<T> = (props: {
   getNumberGridTicks: (length: number) => void;
   gridDomain: NumberRange;
   limitMinimumStepSize?: boolean;
-}) => React.ReactElement | null;
+}) => React.ReactNode | null;
 
 export const defaultRenderGroup: RenderGroup<GroupItem> = (props) => (
   <CoreBarChartGroup {...props} />
